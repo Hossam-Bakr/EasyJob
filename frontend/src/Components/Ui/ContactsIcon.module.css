@@ -1,0 +1,36 @@
+
+/* style one */
+.icons_div_one{
+    font-size: 25px;
+}
+.icons_div_one,.icons_div_two{
+    margin: 20px 0;
+}
+
+.social_icon_type_one,.social_icon_type_two{
+    cursor: pointer;
+    transition: color .5s;
+}
+.social_icon_type_one:hover{
+    color: var(--main_color);
+}
+
+/* style two*/
+
+.social_icon_type_two{
+   padding: 10px;
+   border: 1px solid #1f1f1f2f;
+   border-radius: 5px;
+   margin-inline: 10px !important;
+   transition: all .5s;
+}
+.fa_face{
+    padding-inline:13px;
+}
+.icons_div_two{
+    justify-content: center;
+}
+.social_icon_type_two:hover{
+    background-color: var(--main_color);
+    color: black;
+}

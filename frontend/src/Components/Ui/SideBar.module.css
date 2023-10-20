@@ -1,0 +1,40 @@
+.side_bar{
+    background-color:rgb(224, 224, 224);
+    padding: 1.25rem 0.625rem;
+    padding-bottom: 0;
+    color: black !important;
+    border-radius: 40px 0 0 40px;
+}
+.logo{
+    width: 11.25rem;
+}
+.header{
+    border-bottom: 0.0625rem solid var(--dark_white);
+}
+.title{
+    margin-top: 1.5625rem;
+    margin-bottom: 3.125rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+.contact{
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+.ordered_list{
+    list-style:square;
+    padding: 0.625rem 1.25rem;
+}
+.ordered_list li{
+    color: black;
+    margin: 0.625rem 0;
+    cursor: pointer;
+    transition: color .5s;
+}
+.ordered_list li:hover{
+    color: var(--main_color);
+}
+
+.slide_footer{
+    font-size: 0.9375rem;
+}

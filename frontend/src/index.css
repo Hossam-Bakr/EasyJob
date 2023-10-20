@@ -1,13 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
+
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: var(--main_font);
 }
 
 body{
   scroll-behavior: smooth;
+  background-color: var(--main_bg_color);
 }
 
 :root{
-  --main_color:#823DCC;
+  --main_color:#7428c5;
+  --font_color:black;
+  --main_bg_color:rgb(236, 236, 236);
+  --dark_white:rgb(129, 129, 129);
+  --main_font:'Quicksand', sans-serif;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: var(--main_color);
+  border-radius: 0.625rem;
+}   
+::-webkit-scrollbar-track{
+  background-color: var(--main_bg_color);
+}
+::-webkit-scrollbar{
+  background-color: var(--main_bg_color);
+  width: 0.625rem;
+}
+
+a{
+  text-decoration: none !important;
+}
+button{
+  outline: none;
+  border: none;
+}
+.special_main_color{
+  color: var(--main_color);
 }

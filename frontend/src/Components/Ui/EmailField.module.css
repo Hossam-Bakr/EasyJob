@@ -1,0 +1,31 @@
+.subscribe_container{
+    background-color: transparent !important;
+    border: 0.0625rem solid var(--main_color) !important;
+    padding: 0 !important;
+    position: relative;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+.subscribe_container input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-right: 0.0625rem solid var(--main_color);
+    width:80%;
+    padding: 0.9375rem 0.625rem;
+    height: 100%;
+    color: black;
+}
+.subscribe_container input::placeholder{
+    color: var(--main_color);
+}
+.send_icon{
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translate(-6%,-50%);
+    color: var(--main_color);
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+}

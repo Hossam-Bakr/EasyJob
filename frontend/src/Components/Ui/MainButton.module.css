@@ -1,0 +1,49 @@
+.MainButton,.MainButton_white{
+    padding: 10px 15px;
+    border-radius: 50px;
+    color: rgb(238, 238, 238);
+    background-color: var(--main_color);
+    min-width: 100px;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.726);
+    overflow: hidden;
+    transition: transform .3s;
+    position: relative;
+}
+
+/* button with white bg */
+
+.MainButton_white{
+    background-color: white;
+    color: black;
+}
+.MainButton_layer{
+    /* background-color: rgba(0, 0, 0, 0.8); */
+    background-color: #3f077a71;
+    width: 20px;
+    height:150%;
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translate(-50%,-50%);
+    rotate: 15deg;
+    opacity: 0;
+    transition: all .3s;
+}
+
+.MainButton:hover .MainButton_layer,.MainButton_white:hover .MainButton_layer{
+    animation-name: buttonMovement;
+    animation-duration: .3s;
+    animation-direction: alternate;
+}
+
+.MainButton:hover,.MainButton_white:hover{
+    transform: scale(1.1);
+}
+
+@keyframes buttonMovement {
+    0%{opacity: 0;left: 0;}
+    99%{opacity: 1;left: 100%;}
+    100%{opacity: 0;}
+}
