@@ -1,0 +1,124 @@
+.nav_list li a{
+    color: var(--font_color);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    transition: all .3s;
+    position: relative;
+}
+.nav_list li a::after{
+    content: '';
+    width: 0.0625rem;
+    height:0;
+    background-color: var(--main_color);
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-40%,-50%);
+    rotate: 25deg;
+    transition: all .3s;
+}
+.nav_list li a:hover::after{
+    height: 2.5rem;
+}
+.nav_list li a:hover{
+    color: var(--main_color);
+}
+
+.nav_list li a.active{
+    position: relative;
+    color: var(--main_color);
+}
+
+.nav_list li a.active::before{
+    content: '';
+    width: 0.0625rem;
+    height: 2.5rem;
+    background-color: var(--main_color);
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-40%,-50%);
+    rotate: 25deg;
+    transition: all .5s;
+}
+
+.brand{
+    width:7.5rem;
+    height: 100%;
+}
+
+.burger_list{
+    width: 3.125rem;
+    height: 1.875rem;
+    cursor: pointer;
+}
+
+.half_line{
+    width: 50%;
+    height: 0.1875rem;
+    background-color: var(--font_color);
+    transition: width .3s;
+}
+.full_line{
+    width: 100%;
+    height: 0.1875rem;
+    background-color:var(--font_color);
+}
+
+.burger_list:hover .half_line{
+    width: 100%;
+}
+
+.list{
+    font-size: 2.5rem;
+    color: var(--main_color);
+    margin-left:1.875rem;
+    display: none;
+}
+.sign_btn{
+    margin-inline: 0.625rem;
+}
+
+
+@media screen and (max-width:1150px) {
+    
+    .list{
+        display: block;
+    }
+
+    .special_hidden{
+        display: none !important;
+    }
+}
+
+
+@media screen and (max-width:600px) {
+
+    .burger_list{
+        display: none !important;
+    }
+}
+
+@media screen and (max-width:536px) {
+    .sign_btn{
+        display: none ;
+    }
+    .brand{
+        width: 9.375rem;
+    }
+}
+
+@media screen and (max-width:275px) {
+    .brand{
+        width: 4.375rem;
+    }
+    .list{
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (max-width:179px) {
+    .brand{
+        width: 2.5rem;
+    }
+}
