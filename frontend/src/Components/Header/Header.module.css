@@ -1,0 +1,166 @@
+.header{
+    min-height: 100vh;
+    padding-top: 3.125rem;
+}
+
+.header_caption{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color:  var(--font_color);
+    padding-bottom: 3.125rem;
+}
+.header_caption h1{
+    font-size: 5rem;
+    font-weight: 700;
+}
+.header_caption h4{
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 1.25rem;
+}
+
+.header_banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    height: 100%;
+}
+.big_circle_shape{
+    width:37.5rem;
+    height: 37.5rem;
+    border-radius: 50%;
+    background-color: #7428c5c7;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: -1;
+}
+.small_circle_shape{
+    width: 31.25rem;
+    height: 31.25rem;
+    border-radius: 50%;
+    background-color: rgba(236, 234, 234, 0.377);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: -1;
+}
+
+.floating_box_one,.floating_box_two{
+    background-color:rgba(255, 255, 255, 0.589);
+    backdrop-filter: blur(0.625rem);
+    padding: 0.625rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--font_color);
+    box-shadow: 0 0 0.125rem var(--font_color);
+    width: 10rem;
+    height: 4.375rem;
+    border-radius: 0.9375rem;
+    position: absolute;
+    left: 2%;
+    top: 50%;
+    animation: upDownMove 5s  ease-in-out infinite;
+    animation-direction: alternate;
+}
+.floating_box_one div span{
+    color: var(--dark_white);
+    font-size: 0.875rem;
+}
+.floating_box_one div h6,.floating_box_two div h6{
+    font-size: 1rem;
+    font-weight: 700;
+}
+.dice_icon,.pdf_icon{
+    font-size: 1.375rem;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    background-color: var(--main_color);
+    color: var(--theme_color);
+}
+
+.floating_box_two{
+    left:70%;
+    top: 15%;
+    width: 10.625rem;
+}
+.plus_icon{
+    position: absolute;
+    right: 15%;
+    top: 30%;
+    color: #EFA51E;
+    font-size: 3.125rem;
+    font-weight: 700;
+    animation: upDownMove 3s  ease-in-out infinite;
+    animation-direction: alternate;
+}
+.github_icon{
+    position: absolute;
+    left: 15%;
+    bottom: 25%;
+    color:  var(--font_color);
+    font-size:2.1875rem;
+    animation: upDownMove 4s  ease-in-out infinite;
+    animation-direction: alternate;
+}
+.dribbble_icon{
+    background-color: #ee99ee;
+    padding:0.3125rem;
+    color:#AA3F8B;
+    font-size: 2.8125rem;
+    border-radius: 50%;
+    position: absolute;
+    right: 6%;
+    bottom: 25%;
+    border: 0.125rem solid white;
+    animation: upDownMove 3s  ease-in-out infinite;
+    animation-direction: alternate; 
+}
+.dropbox_icon{
+    background-color: #3A66FE;
+    padding:0.3125rem;
+    color:var(--theme_color);
+    font-size: 2.1875rem;
+    border-radius: 0.625rem;
+    position: absolute;
+    left: 5%;
+    top: 22%;
+    animation: upDownMove 3s  ease-in-out infinite;
+    animation-direction: alternate; 
+}
+.little_circle{
+    width: 2.8125rem;
+    height: 2.8125rem;
+    background-color:#EFA51E;
+    border-radius: 50%;
+    position: relative;
+    position: absolute;
+    left: 18%;
+    top: 7%;
+    animation: upDownMove 3s  ease-in-out infinite;
+    animation-direction: alternate;
+}
+.little_circle_child,.little_circle_child_two{
+    width:1.875rem;
+    height:1.875rem;
+    background-color:var(--theme_color);
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+@keyframes upDownMove {
+    0%{transform: translateY(0);}
+    50%{transform: translateY(1.25rem)}
+    100%{transform: translateY(0);}
+}
