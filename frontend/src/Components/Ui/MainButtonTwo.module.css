@@ -1,0 +1,10 @@
+.start_btn{
+    padding: 0.9375rem 1.25rem;
+    border-radius: 0.625rem;
+    color: var(--theme_color);
+    background-color: var(--main_color);
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-top: 1.875rem;
+    border: 0.0625rem solid var(--main_color);
+}

@@ -1,13 +1,14 @@
 import React from "react";
 import styles from "./SideBar.module.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import logo from "../../images/logo.png";
 import ContactsIcon from "./ContactsIcon";
-import EmailField from "./EmailField";
+import profile from "../../images/customer-img.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket, faBookmark, faFileContract, faGears, faMoon } from "@fortawesome/free-solid-svg-icons";
 
-const SideBar = ({onClose,show}) => {
+const SideBar = ({ onClose, show }) => {
   const handleClose = () => {
-   onClose();
+    onClose();
   };
 
   return (
@@ -19,32 +20,25 @@ const SideBar = ({onClose,show}) => {
     >
       <Offcanvas.Header className={styles.header} closeButton>
         <Offcanvas.Title>
-          <img src={logo} className={styles.logo} alt="mykid logo" />
+          <div className="d-flex align-items-center">
+            <img src={profile} className={styles.profile} alt="profile img" />
+            <h5 className={styles.profile_name}>Bassam Hafez</h5>
+          </div>
         </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <h2 className={styles.title}>
-          BEST SELLER OF MONTH IDEAS FOR <span className="special_main_color">EASY JOB</span>
-        </h2>
-        <h6 className={styles.contact}>CONTACT US</h6>
-        <ol className={styles.ordered_list}>
-          <li>+9 333 222 5557</li>
-          <li>info@webmail.com</li>
-          <li>New Central Park W7 Street,New York</li>
-        </ol>
-        <h6 className={`special_main_color mt-5 ${styles.contact}`}>
-          SUBSCRIBE
-        </h6>
-        <EmailField/>
-        <p className={styles.subscribe_text}>
-          Subscribe dolor sitamet, consectetur adiping eli. Duis esollici tudin
-          augue.
-        </p>
-        <hr />
-        <ContactsIcon type='one'/>
+        <ul className={styles.contact_list}>
+          <li className={styles.contact_list_item}>Saved <FontAwesomeIcon className={styles.list_icons} icon={faBookmark}/></li>
+          <li className={styles.contact_list_item}>Applications <FontAwesomeIcon className={styles.list_icons} icon={faFileContract} /></li>
+          <li className={styles.contact_list_item}>Dark Mood <FontAwesomeIcon className={styles.list_icons} icon={faMoon}/></li>
+          <li className={styles.contact_list_item}>Setting <FontAwesomeIcon  className={styles.list_icons} icon={faGears} /></li>
+          <li className={styles.contact_list_item}>Log Out <FontAwesomeIcon className={styles.list_icons} icon={faArrowRightFromBracket} /></li>
+        </ul>
+        <ContactsIcon type="two" />
 
         <p className={`${styles.slide_footer} mt-5 text-center`}>
-          COPYRIGHT © 2023 - BY <span className="special_main_color">Easy job</span>
+          COPYRIGHT © 2023 - BY{" "}
+          <span className="special_main_color">Easy Job</span>
         </p>
       </Offcanvas.Body>
     </Offcanvas>

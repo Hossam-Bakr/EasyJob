@@ -1,40 +1,73 @@
 .side_bar{
     background-color:rgb(224, 224, 224);
-    padding: 1.25rem 0.625rem;
+    padding: 1.25rem 0;
     padding-bottom: 0;
-    color: black !important;
-    border-radius: 40px 0 0 40px;
+    color:  var(--font_color) !important;
+    border-radius: 2.5rem 0 0 2.5rem;
 }
-.logo{
-    width: 11.25rem;
+.profile{
+    width: 4.0625rem;
+    height: 4.0625rem;
+    border-radius: 50%;
+    border: 0.125rem solid var(--main_color);
+}
+.profile_name{
+    margin-left: 0.625rem;
+    font-size: 1.5625rem;
+    font-weight: 43.75rem;
 }
 .header{
-    border-bottom: 0.0625rem solid var(--dark_white);
+    border-bottom: 0.0625rem solid #2b2b2b2f;
 }
-.title{
-    margin-top: 1.5625rem;
-    margin-bottom: 3.125rem;
-    font-size: 1.875rem;
-    font-weight: 700;
+
+.subscribe_container{
+    background-color: transparent !important;
+    border: 0.0625rem solid var(--main_color) !important;
+    padding: 0 !important;
+    position: relative;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
 }
-.contact{
-    font-size: 1.125rem;
-    font-weight: 600;
+.subscribe_container input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width:80%;
+    padding:10px;
+    height: 100%;
+    color:  var(--font_color);
 }
-.ordered_list{
-    list-style:square;
-    padding: 0.625rem 1.25rem;
-}
-.ordered_list li{
-    color: black;
-    margin: 0.625rem 0;
-    cursor: pointer;
-    transition: color .5s;
-}
-.ordered_list li:hover{
+.subscribe_container input::placeholder{
     color: var(--main_color);
 }
 
 .slide_footer{
     font-size: 0.9375rem;
+}
+.contact_list{
+    text-align: start;
+    padding-inline: 0;
+}
+.contact_list_item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   border-bottom: #2525252f 0.0625rem solid;
+   padding: 0.9375rem 0;
+   cursor: pointer;
+   transition: transform .3s;
+}
+.contact_list_item {
+    color:  var(--font_color);
+    font-weight: 700;
+    transition: all .3s;
+}   
+.contact_list_item:hover{
+    transform: translateX(0.625rem);
+    color: var(--main_color);
+}
+.list_icons{
+    font-size: 1.5625rem;
+    color: var(--main_color);
+    margin-right: 0.9375rem;
 }

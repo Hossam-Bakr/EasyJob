@@ -1,10 +1,10 @@
 
 /* style one */
 .icons_div_one{
-    font-size: 25px;
+    font-size: 1.5625rem;
 }
 .icons_div_one,.icons_div_two{
-    margin: 20px 0;
+    margin: 1.25rem 0;
 }
 
 .social_icon_type_one,.social_icon_type_two{
@@ -18,19 +18,19 @@
 /* style two*/
 
 .social_icon_type_two{
-   padding: 10px;
-   border: 1px solid #1f1f1f2f;
-   border-radius: 5px;
-   margin-inline: 10px !important;
+   padding: 0.625rem;
+   border: 0.0625rem solid #1f1f1f2f;
+   border-radius: 0.3125rem;
+   margin-inline: 0.625rem !important;
    transition: all .5s;
 }
 .fa_face{
-    padding-inline:13px;
+    padding-inline:0.8125rem;
 }
 .icons_div_two{
     justify-content: center;
 }
 .social_icon_type_two:hover{
     background-color: var(--main_color);
-    color: black;
+    color:  var(--theme_color);
 }
