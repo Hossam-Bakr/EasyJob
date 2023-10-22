@@ -92,14 +92,6 @@
     }
 }
 
-
-@media screen and (max-width:600px) {
-
-    .burger_list{
-        display: none !important;
-    }
-}
-
 @media screen and (max-width:536px) {
     .sign_btn{
         display: none ;
@@ -109,12 +101,31 @@
     }
 }
 
+@media screen and (max-width:355px) {
+    .brand{
+        width: 6.25rem;
+    }
+    .main_nav{
+        justify-content: center;
+     }
+}
+
+
 @media screen and (max-width:275px) {
     .brand{
         width: 4.375rem;
     }
+
+}
+@media screen and (max-width:231px) {
     .list{
-        font-size: 1.25rem;
+        font-size: 1.375rem;
+    }
+    .burger_list{
+        width: 1.75rem;
+    }
+    .brand{
+        margin-left: 20%;
     }
 }
 

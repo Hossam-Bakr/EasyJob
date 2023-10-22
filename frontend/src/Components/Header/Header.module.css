@@ -148,7 +148,7 @@
     animation: upDownMove 3s  ease-in-out infinite;
     animation-direction: alternate;
 }
-.little_circle_child,.little_circle_child_two{
+.little_circle_child{
     width:1.875rem;
     height:1.875rem;
     background-color:var(--theme_color);
@@ -163,4 +163,87 @@
     0%{transform: translateY(0);}
     50%{transform: translateY(1.25rem)}
     100%{transform: translateY(0);}
+}
+
+@media screen and  (max-width:1115px) {
+    .header_caption h1{
+        font-size: 4.375rem;
+    }
+}
+@media screen and  (max-width:992px) {
+    .header_caption h1{
+        margin-top: 50px;
+    }
+}
+@media screen and  (max-width:522px) {
+    .banner_container{
+        width: 80%;
+        margin: auto;
+    }
+    .header_banner{
+        width: 70%;
+        margin: auto;
+    }
+    .big_circle_shape{
+        width:25rem;
+        height: 25rem;
+
+    }
+    .small_circle_shape{
+        width: 18.75rem;
+        height: 18.75rem;
+    }
+}
+@media screen and  (max-width:444px) {
+    .floating_box_two{
+        width: 8.125rem;
+    }
+    .little_circle, .little_circle_child{
+        display: none;
+    }
+    .plus_icon{
+        left: 18%;
+        top: 7%; 
+    }
+}
+@media screen and  (max-width:380px) {
+    .big_circle_shape{
+        width:21.875rem;
+        height: 21.875rem;
+
+    }
+    .small_circle0_shape{
+        width: 15.625rem;
+        height: 15.625rem;
+    }
+    .github_icon{
+        bottom: 15%;
+    }
+}
+@media screen and  (max-width:348px) {
+    .floating_box_two{
+       left:60%;
+       top: 30%;
+    }
+ 
+}
+@media screen and  (max-width:300px) {
+    .big_circle_shape{
+        width:17.5rem;
+        height: 17.5rem;
+
+    }
+    .small_circle_shape{
+        width:12.5rem;
+        height:12.5rem;
+    }
+}
+@media screen and  (max-width:272px) {
+    .header_caption h1{
+       font-size: 3.125rem;
+    }
+    .header_caption h4{
+       font-size:1rem;
+       color: #f5ebff;
+    }
 }
