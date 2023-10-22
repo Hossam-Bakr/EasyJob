@@ -54,9 +54,9 @@ const MainNavbar = () => {
         className={`${styles.main_nav} fixed-top d-flex align-items-center  p-3 pt-4`}
       >
         <ul className={`${styles.nav_list} d-flex align-items-center`}>
-          <li className={`${styles.brand} me-5`}>
+          <div className={`${styles.brand} me-5`}>
             <img src={logo} alt="logo" className="w-100" />
-          </li>
+          </div>
           <li className={`${styles.special_hidden} mx-4`}>
             <NavLink
               className={({ isActive }) =>

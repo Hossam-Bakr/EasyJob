@@ -3,9 +3,7 @@
 .icons_div_one{
     font-size: 1.5625rem;
 }
-.icons_div_one,.icons_div_two{
-    margin: 1.25rem 0;
-}
+
 
 .social_icon_type_one,.social_icon_type_two{
     cursor: pointer;
