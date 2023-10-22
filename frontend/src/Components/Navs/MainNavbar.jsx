@@ -116,9 +116,9 @@ const MainNavbar = () => {
             <span className={`${styles.half_line} ms-auto`}></span>
           </div>
 
-          <button onClick={openResponsiveMenu} className={styles.list}>
+          <div onClick={openResponsiveMenu} className={styles.list}>
             <FontAwesomeIcon className={styles.bars_icon} icon={faBars} />
-          </button>
+          </div>
 
         </div>
       </motion.nav>

@@ -79,7 +79,13 @@
 .sign_btn{
     margin-inline: 0.625rem;
 }
-
+.list{
+    cursor:pointer;
+    transition: transform .5s;
+}
+.list:hover{
+    transform: scale(1.1);
+}
 
 @media screen and (max-width:1150px) {
     
