@@ -1,0 +1,34 @@
+.footer{
+    background-color: #1e0238;
+    color: white;
+    padding-top: 3rem;
+    padding-bottom: 3.5rem;
+}
+.footer_head{
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+.footer_headTitle{
+    color: white;
+}
+.links_Box{
+    display: flex;
+    justify-content: flex-start;
+}
+.footer_link{
+    color: white;
+    margin-bottom: 5px;
+}
+.links_Box .footer_link{
+    color: white;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.footer_link:hover{
+    text-decoration: underline !important;
+}
+
+.footer_icons{
+    padding-bottom: 1rem;
+}

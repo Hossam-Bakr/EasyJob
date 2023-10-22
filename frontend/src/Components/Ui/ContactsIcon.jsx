@@ -7,7 +7,7 @@ const ContactsIcon = ({type}) => {
   const container_class = type==='one'?styles.icons_div_one:styles.icons_div_two;
   return (
     <div className={`${container_class} d-flex`}>
-        <FontAwesomeIcon className={`${classes} ${type==='two'&&styles.fa_face} mx-3`} icon={faFacebookF} />
+        <FontAwesomeIcon className={`${classes} ${type==='two'&&styles.fa_face} me-3`} icon={faFacebookF} />
         <FontAwesomeIcon className={`${classes} mx-3`} icon={faTwitter} />
         <FontAwesomeIcon className={`${classes} mx-3`} icon={faLinkedin} />
         <FontAwesomeIcon className={`${classes} mx-3`} icon={faYoutube} />
