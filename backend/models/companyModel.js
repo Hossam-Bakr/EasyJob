@@ -34,6 +34,17 @@ const companySchema = new mongoose.Schema(
       required: [true, "Please enter your industry"],
       trim: true,
     },
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
     avatar: String,
     jobs: [
       {
