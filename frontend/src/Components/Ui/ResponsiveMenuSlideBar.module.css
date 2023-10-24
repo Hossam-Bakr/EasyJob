@@ -14,7 +14,7 @@
 
 .subscribe_container{
     background-color: transparent !important;
-    border: 0.0625rem solid var(--main_color) !important;
+    border: 0.0625rem solid var(--dark_white) !important;
     padding: 0 !important;
     position: relative;
     margin-top: 1.25rem;
@@ -29,9 +29,7 @@
     height: 100%;
     color:  var(--font_color);
 }
-.subscribe_container input::placeholder{
-    color: var(--main_color);
-}
+
 .search_icon{
     position: absolute;
     right: 6%;
@@ -65,4 +63,10 @@
 }
 .contact_list_item:hover a{
    color: var(--main_color);
+}
+
+@media screen and (max-width:538px) {
+    .side_bar_signing_btns{
+        display: flex !important;
+    }
 }

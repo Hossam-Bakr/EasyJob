@@ -78,7 +78,13 @@
 .sign_btn{
     margin-inline: 0.625rem;
 }
-
+.list{
+    cursor:pointer;
+    transition: transform .5s;
+}
+.list:hover{
+    transform: scale(1.1);
+}
 
 @media screen and (max-width:1150px) {
     
@@ -87,14 +93,6 @@
     }
 
     .special_hidden{
-        display: none !important;
-    }
-}
-
-
-@media screen and (max-width:600px) {
-
-    .burger_list{
         display: none !important;
     }
 }
@@ -108,12 +106,31 @@
     }
 }
 
+@media screen and (max-width:355px) {
+    .brand{
+        width: 6.25rem;
+    }
+    .main_nav{
+        justify-content: center;
+     }
+}
+
+
 @media screen and (max-width:275px) {
     .brand{
         width: 4.375rem;
     }
+
+}
+@media screen and (max-width:231px) {
     .list{
-        font-size: 1.25rem;
+        font-size: 1.375rem;
+    }
+    .burger_list{
+        width: 1.75rem;
+    }
+    .brand{
+        margin-left: 20%;
     }
 }
 

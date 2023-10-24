@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./ResponsiveMenuSlideBar.module.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import logo from "../../images/logo.png";
+import MainButton from "./MainButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
+import logo from "../../images/logo.png";
 
 const ResponsiveMenuSlideBar = ({ onClose, show }) => {
   const handleClose = () => {
@@ -45,8 +46,19 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               <Link onClick={handleClose} to={"categories"}>CATEGORIES</Link>
             </li>
           </ul>
-          <ContactsIcon type='two' />
+          <div className={`${styles.side_bar_signing_btns} my-5 d-none align-items-center justify-content-evenly`}>
+          <Link to={'login'} className="mx-2">
+              <MainButton text='Employee'/>
+            </Link>
 
+            <Link to={'company-login'} className="mx-2">
+              <MainButton type='white' text='Company'/>
+            </Link>
+          </div>
+      
+
+          <ContactsIcon type='two' />
+          
           <p className={`${styles.slide_footer} mt-5 text-center`}>
             COPYRIGHT © 2023 - BY <span className="special_main_color">Easy Job</span>
           </p>

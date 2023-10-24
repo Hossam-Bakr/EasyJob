@@ -1,5 +1,5 @@
-import React from 'react'
-import Header from '../../Components/Header/Header'
+import React from 'react';
+import Header from '../../Components/Header/Header';
 
 const Home = () => {
   return (
@@ -9,4 +9,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

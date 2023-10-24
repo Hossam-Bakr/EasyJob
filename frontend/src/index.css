@@ -44,6 +44,9 @@ button{
 .special_main_color{
   color: var(--main_color);
 }
+ul li{
+  list-style: none;
+}
 
 
 @media screen and (max-width:768px) {

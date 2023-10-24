@@ -47,11 +47,11 @@ const MainNavbar = () => {
         animate={
           !isScrollZero
             ? !isScrollDown
-              ? { y: 0, backgroundColor: "#FFFFFF", opacity: 1 }
+              ? { y: 0, backgroundColor: "#f5ebff", opacity: 1 }
               : { y: -100, opacity: 0 }
             : { y: 0, opacity: 1 }
         }
-        className='d-flex align-items-center p-3 pt-4'
+        className=`d-flex align-items-center p-3 pt-4`
       >
         <ul className={`${styles.nav_list} d-flex align-items-center`}>
           <div className={`${styles.brand} me-5`}>
@@ -116,9 +116,9 @@ const MainNavbar = () => {
             <span className={`${styles.half_line} ms-auto`}></span>
           </div>
 
-          <button onClick={openResponsiveMenu} className={styles.list}>
-            <FontAwesomeIcon icon={faBars} />
-          </button>
+          <div onClick={openResponsiveMenu} className={styles.list}>
+            <FontAwesomeIcon className={styles.bars_icon} icon={faBars} />
+          </div>
 
         </div>
       </motion.nav>

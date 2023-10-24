@@ -20,8 +20,9 @@ import MainButtonTwo from "../Ui/MainButtonTwo";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <Row className="g-0">
-        <Col md={6}>
+
+      <Row className="mt-5">
+        <Col lg={5} xl={6}>
           <div className={styles.header_caption}>
             <h1>
               Get your <span className="special_main_color">dream</span> job
@@ -33,7 +34,7 @@ const Header = () => {
               <MainButtonTwo text='Get Started'/>
           </div>
         </Col>
-        <Col md={6} className="d-flex justify-content-center position-relative">
+        <Col lg={7}  xl={6} className={`${styles.banner_container} d-flex justify-content-center position-relative`}>
           <div className={styles.big_circle_shape}>
             <div className={styles.small_circle_shape}></div>
           </div>
