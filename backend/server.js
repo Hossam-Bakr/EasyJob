@@ -4,12 +4,13 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
 dotenv.config({ path: "config.env" });
+const dbConnection = require("./config/database");
 
 // Routes
 const mountRoutes = require("./routes");
 
 // Connect with db
-// dbConnection();
+dbConnection();
 
 // express app
 const app = express();
