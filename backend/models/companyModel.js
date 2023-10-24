@@ -46,6 +46,14 @@ const companySchema = new mongoose.Schema(
         required: true,
       },
     },
+    founded: {
+      type: Date,
+      // required: [true, "Please enter your founded date"],
+    },
+    size: {
+      type: String,
+      enum: ["1-10", "11-50", "51-200", "201-500", "500+"],
+    },
     avatar: String,
     jobs: [
       {
