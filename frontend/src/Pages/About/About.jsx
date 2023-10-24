@@ -1,9 +1,13 @@
 import React from 'react'
 
+import SubNavbar from '../../Components/Navs/SubNavbar';
+import AboutHeader from '../../Components/About-Header/About-Header';
+
 const About = () => {
   return (
     <div>
-      about
+      <SubNavbar firstTab={"HOME"} secondTab={"ABOUT US"} thirdTab={"CONTACT US"} fourthTab={"SEARCH FOR JOBS"} />
+      <AboutHeader />
     </div>
   )
 }

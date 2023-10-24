@@ -1,0 +1,131 @@
+.about_Header {
+    min-height: 130vh;
+    text-align: center;
+    padding-bottom: 3.125rem;
+}
+
+.mainHeader h1 {
+    font-size: 4.8rem;
+    font-style: oblique;
+    margin-bottom: 1rem;
+}
+
+.sectionTwo {
+    width: 90%;
+    margin: auto;
+    padding-top: 4.5rem;
+}
+
+.bacground_shape {
+    width: 30rem;
+    height: 15rem;
+    background-color: var(--main_color);
+    position: absolute;
+    top: 72%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20rem 20rem 0 0;
+    z-index: -1;
+}
+
+.header_banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    height: 100%;
+}
+
+.header_captionBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_caption {
+    padding-left: 56px;
+}
+
+.header_caption h1 {
+    color: var(--main_color);
+    font-size: 3rem;
+    text-align: start;
+    font-weight: 700;
+}
+
+.header_caption p {
+    text-align: start;
+}
+
+.box_one {
+    left: 3%;
+    top: 70%;
+    width: 15rem;
+    backdrop-filter: blur(0.625rem);
+}
+.box_two {
+    right: 3%;
+    top: 35%;
+    width: 13rem;
+}
+.locationIcon{
+    position: absolute;
+    top: 25%;
+    left: 20%;
+    font-size: 3.125rem;
+    color: var(--main_color);
+}
+
+.box_one,
+.box_two {
+    background-color: rgba(255, 255, 255, 0.589);
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    border: none;
+    box-shadow: 0 0 0.5rem darkgray;
+    border-radius: 1rem;
+    position: absolute;
+}
+
+.box_one div span {
+    color: var(--dark_white);
+    font-size: 0.875rem;
+}
+
+.box_one h5,
+.box_two h5 {
+    color: var(--main_color);
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+
+@media screen and (max-width:990px) {
+    .col-one {
+        width: 90% !important;
+        background-color: aquamarine;
+    }
+
+    .header_captionBox {
+        margin-top: 48px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .box_one,
+    .box_two {
+        width: 7.5rem;
+    }
+    .box_one div span {
+        font-size: 0.425rem;
+    }
+    
+    .box_one h5,
+    .box_two h5 {
+        color: var(--main_color);
+        font-size: 1.25rem;
+        font-weight: 900;
+    }
+    
+}

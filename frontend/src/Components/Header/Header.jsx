@@ -1,4 +1,5 @@
 import React from "react";
+
 import styles from "./Header.module.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -19,6 +20,7 @@ import MainButtonTwo from "../Ui/MainButtonTwo";
 const Header = () => {
   return (
     <header className={styles.header}>
+
       <Row className="mt-5">
         <Col lg={5} xl={6}>
           <div className={styles.header_caption}>

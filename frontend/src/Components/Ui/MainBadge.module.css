@@ -1,0 +1,9 @@
+.badgeStyle{
+    background-color: rgb(230, 203, 253) !important;
+    padding: 0.625rem 0.9375rem !important;
+    border-radius: 3.125rem !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    margin-top: 3.125rem ;
+    margin-bottom: 3.125rem ;
+}

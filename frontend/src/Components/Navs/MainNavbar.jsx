@@ -51,7 +51,7 @@ const MainNavbar = () => {
               : { y: -100, opacity: 0 }
             : { y: 0, opacity: 1 }
         }
-        className={`${styles.main_nav} fixed-top d-flex align-items-center  p-3 pt-4`}
+        className=`d-flex align-items-center p-3 pt-4`
       >
         <ul className={`${styles.nav_list} d-flex align-items-center`}>
           <div className={`${styles.brand} me-5`}>

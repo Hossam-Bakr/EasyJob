@@ -1,8 +1,7 @@
 .header{
     min-height: 100vh;
-    padding-top: 3.125rem;
+    /* padding-top: 3.125rem; */
 }
-
 .header_caption{
     height: 100%;
     display: flex;
