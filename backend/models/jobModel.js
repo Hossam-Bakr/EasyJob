@@ -18,7 +18,7 @@ const jobSchema = new mongoose.Schema(
       required: [true, "Please enter your requirements"],
       trim: true,
     },
-    skills: [
+    requiredSkills: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Skill",
