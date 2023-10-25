@@ -49,6 +49,20 @@ const userSchema = new mongoose.Schema(
         ref: "Job",
       },
     ],
+    // embedded applications without details
+    applications: [
+      {
+        job: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Job",
+        },
+        status: {
+          type: String,
+          enum: ["Pending", "Accepted", "Rejected"],
+          default: "Pending",
+        },
+      },
+    ],
   },
   {
     timestamps: true,

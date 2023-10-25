@@ -55,12 +55,12 @@ const companySchema = new mongoose.Schema(
       enum: ["1-10", "11-50", "51-200", "201-500", "500+"],
     },
     avatar: String,
-    jobs: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Job",
-      },
-    ],
+    // jobs: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Job",
+    //   },
+    // ],
   },
   {
     timestamps: true,

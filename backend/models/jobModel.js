@@ -18,7 +18,7 @@ const jobSchema = new mongoose.Schema(
       required: [true, "Please enter your requirements"],
       trim: true,
     },
-    skills: [
+    requiredSkills: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Skill",
@@ -72,16 +72,22 @@ const jobSchema = new mongoose.Schema(
         required: true,
       },
     },
+    applications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Application",
+      },
+    ],
     company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
     },
-    applicants: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    // applicants: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
     deadline: {
       type: Date,
       required: [true, "Please enter job deadline"],
