@@ -72,16 +72,22 @@ const jobSchema = new mongoose.Schema(
         required: true,
       },
     },
+    applications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Application",
+      },
+    ],
     company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
     },
-    applicants: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    // applicants: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
     deadline: {
       type: Date,
       required: [true, "Please enter job deadline"],
