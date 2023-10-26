@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// Application Details
+
 const applicationSchema = new mongoose.Schema(
   {
     job: {

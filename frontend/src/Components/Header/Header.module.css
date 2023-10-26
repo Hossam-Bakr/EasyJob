@@ -1,7 +1,6 @@
 .header{
     min-height: 100vh;
-    padding-top: 3.125rem;
-    overflow: hidden;
+    /* padding-top: 3.125rem; */
     position: relative;
 }
 .header::after{
@@ -28,7 +27,6 @@
     clip-path: polygon(100% 0,0 100%,100% 100%);
     z-index: 2;
 }
-
 .header_caption{
     height: 100%;
     display: flex;
