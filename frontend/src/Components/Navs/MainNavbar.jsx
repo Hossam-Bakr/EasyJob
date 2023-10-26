@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../images/logo.png";
+import logo from "../../images/logoNav.png";
 import { Link, NavLink } from "react-router-dom";
 import MainButton from "../Ui/MainButton";
 import styles from './MainNavbar.module.css';
@@ -47,7 +47,7 @@ const MainNavbar = () => {
         animate={
           !isScrollZero
             ? !isScrollDown
-              ? { y: 0, backgroundColor: "#f5ebff", opacity: 1 }
+              ? { y: 0, backgroundColor: "#fff", opacity: 1 }
               : { y: -100, opacity: 0 }
             : { y: 0, opacity: 1 }
         }

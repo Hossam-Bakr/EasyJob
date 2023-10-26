@@ -6,7 +6,7 @@
     min-width: 6.25rem;
     font-size: 1.125rem;
     font-weight: 600;
-    box-shadow: 0 0.0625rem 0.4375rem rgba(0, 0, 0, 0.726);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     transition: transform .3s;
     position: relative;

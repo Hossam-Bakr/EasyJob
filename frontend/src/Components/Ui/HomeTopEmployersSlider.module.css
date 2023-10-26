@@ -1,0 +1,10 @@
+.company{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.25rem 0;
+}
+.company img{
+    width: 5rem;
+    height: 5rem;
+}

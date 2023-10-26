@@ -24,7 +24,7 @@ const Header = () => {
           <div className={styles.header_caption}>
             <h1>
               Get your <span className="special_main_color">dream</span> job
-              with Jöb.
+              Easily.
             </h1>
             <h4>
               Find jobs, create trackable resumes and enrich your applications.

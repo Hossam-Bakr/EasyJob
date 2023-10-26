@@ -1,0 +1,10 @@
+.title{
+    font-size: 25px;
+    font-family: var(--jakarta);
+    font-weight: 800;
+    text-align: center;
+}
+.cartDown_icon{
+    color: var(--main_color);
+    font-size: 25px;
+}

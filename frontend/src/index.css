@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 *{
   padding: 0;
   margin: 0;
@@ -8,18 +8,20 @@
 }
 
 body{
-  scroll-behavior: smooth;
-  background-color: var(--main_bg_color);
+  scroll-behavior: smooth !important;
+  background-color: var(--main_bg_color) !important;
   overflow-x: hidden;
 }
 
 :root{
   --main_color:#7428c5;
+  --golden:#EFA51E;
   --font_color:black;
-  --main_bg_color:rgb(236, 236, 236);
+  --main_bg_color:rgb(250, 250, 250);
   --dark_white:rgb(129, 129, 129);
   --theme_color:white;
   --main_font:'Quicksand', sans-serif;
+  --jakarta:'Plus Jakarta Sans', sans-serif;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -31,7 +33,7 @@ body{
 }
 ::-webkit-scrollbar{
   background-color: var(--main_bg_color);
-  width: 0.625rem;
+  width:0.3125rem;
 }
 
 a{
@@ -47,6 +49,10 @@ button{
 ul li{
   list-style: none;
 }
+
+
+
+
 
 
 @media screen and (max-width:768px) {
