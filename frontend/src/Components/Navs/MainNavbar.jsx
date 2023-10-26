@@ -47,7 +47,7 @@ const MainNavbar = () => {
         animate={
           !isScrollZero
             ? !isScrollDown
-              ? { y: 0, backgroundColor: "#fff", opacity: 1 }
+              ? { y: 0, backgroundColor: "#EEEEEE", opacity: 1 }
               : { y: -100, opacity: 0 }
             : { y: 0, opacity: 1 }
         }
