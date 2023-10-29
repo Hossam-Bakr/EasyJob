@@ -1,0 +1,29 @@
+.header{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border: none;
+    background-color: var(--main_bg_color) !important;
+}
+.accordion_item button{
+    padding: 0px 0px;
+    font-size: 1.8rem;
+}
+.accordion_item{
+    border:none !important;
+    border-bottom: #e2e1e1 solid 2px !important;
+}
+
+.accordion_item button:focus{
+    background-color: var(--main_bg_color);
+    box-shadow: none !important;
+}
+.accordion_item button:not(.collapsed){
+    background-color: var(--main_bg_color);
+    box-shadow: none !important;
+}
+.accordion_body{
+   padding-top: 0px !important;
+   padding-bottom: 1.5rem !important;
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+}

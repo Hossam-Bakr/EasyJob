@@ -1,0 +1,70 @@
+.numbersSpeeks {
+    background-image: url("../../images/about-bg.jpg");
+    background-size: 100% 100%;
+    min-height: 70vh;
+}
+
+.container {
+    padding-top: 3.125rem;
+    padding-bottom: 3.125rem;
+}
+
+.header {
+    padding-top: 3.125rem;
+    padding-bottom: 3.125rem;
+}
+
+.header .title h1{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 2.5rem;
+}
+
+.header .subTitle p, .elements .element p{
+    text-align: center;
+    font-size: 1.2rem;
+    color: #73757A;
+}
+
+.elements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 90%;
+    background-color: white;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-radius: 25px;
+}
+
+.element{
+    width: 25%;
+    text-align: center;
+}
+.elements .borderRight{
+    border-right: #e2e1e1 solid 1px;
+
+}
+.elements .element h2 {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 3.3rem;
+}
+
+.description{
+    min-height: 60vh;
+    padding-top: 3.125rem;
+    padding-bottom: 3.125rem;
+}
+.descContainer{
+    width: 75%;
+    margin: auto;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+}
+.accordionTitle{
+    font-size: 3.8rem;
+    font-style: italic;
+}
+

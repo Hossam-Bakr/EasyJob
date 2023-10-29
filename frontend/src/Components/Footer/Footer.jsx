@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import { Link } from 'react-router-dom';
 import ContactsIcon from '../Ui/ContactsIcon';
+import footerLogo from "../../images/logoFooter-removebg-preview.png";
 
 const Footer = () => {
   return (
@@ -12,8 +13,9 @@ const Footer = () => {
       <div className="container">
         <Row>
           <Col md={4}>
-            <div className={styles.footer_head}>
-              <h3><Link to={"/"} className={styles.footer_headTitle}>EasyJob</Link></h3>
+            <div className={styles.footer_logo}>
+              {/* <h3><Link to={"/"} className={styles.footer_headTitle}>EasyJob</Link></h3> */}
+              <img src={footerLogo} alt='footerLogo' width="100%" />
             </div>
             <div>
               <p>Employers and Recruiters, go to our <Link to={"/"} className={styles.footer_link}>RECRUITMENT SERVICES.</Link></p>
