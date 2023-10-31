@@ -22,6 +22,8 @@ if (process.env.NODE_ENV === "development") {
 // Cookie parser
 app.use(cookieParser());
 
+app.use(express.json());
+
 // Mount Routes
 mountRoutes(app);
 

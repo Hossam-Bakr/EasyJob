@@ -1,12 +1,9 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Company = require("../models/companyModel");
-
-const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
-};
+const bcrypt = require("bcryptjs");
+const generateJWT = require("../utils/generateJWT");
+const httpStatusText = require("../utils/httpStatusText");
 
 exports.userSignup = async (req, res) => {
   try {
@@ -16,7 +13,7 @@ exports.userSignup = async (req, res) => {
 
     if (companyWithSameEmail) {
       return res.status(409).json({
-        status: "fail",
+        status: httpStatusText.FAIL,
         message: "Email already exists",
       });
     }
@@ -30,10 +27,10 @@ exports.userSignup = async (req, res) => {
       skills: req.body.skills,
     });
 
-    const token = signToken(newUser._id);
+    const token = generateJWT(newUser._id);
 
     res.status(201).json({
-      status: "success",
+      status: httpStatusText.SUCCESS,
       token,
       data: {
         user: newUser,
@@ -41,7 +38,7 @@ exports.userSignup = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      status: "fail",
+      status: httpStatusText.FAIL,
       message: err.message,
     });
   }
@@ -53,7 +50,7 @@ exports.companySignup = async (req, res) => {
 
     if (userWithSameEmail) {
       return res.status(409).json({
-        status: "fail",
+        status: httpStatusText.FAIL,
         message: "Email already exists",
       });
     }
@@ -70,10 +67,10 @@ exports.companySignup = async (req, res) => {
       size: req.body.size,
     });
 
-    const token = signToken(newCompany._id);
+    const token = generateJWT(newCompany._id);
 
     res.status(201).json({
-      status: "success",
+      status: httpStatusText.SUCCESS,
       token,
       data: {
         company: newCompany,
@@ -90,10 +87,9 @@ exports.companySignup = async (req, res) => {
 exports.Login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     if (!email || !password)
       return res.status(400).json({
-        status: "fail",
+        status: httpStatusText.FAIL,
         message: "Please provide email and password",
       });
 
@@ -102,26 +98,28 @@ exports.Login = async (req, res) => {
 
     if (!user && !company)
       return res.status(404).json({
-        status: "fail",
+        status: httpStatusText.FAIL,
         message: "User not found",
       });
 
     if (user) {
-      const isPasswordCorrect = await user.correctPassword(
-        password,
-        user.password
-      );
+      // const isPasswordCorrect = await user.correctPassword(
+      //   password,
+      //   user.password
+      // );
+
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
       if (!isPasswordCorrect)
         return res.status(401).json({
-          status: "fail",
+          status: httpStatusText.FAIL,
           message: "Incorrect email or password",
         });
 
-      const token = signToken(user._id);
+      const token = generateJWT(user._id);
 
       res.status(200).json({
-        status: "success",
+        status: httpStatusText.SUCCESS,
         token,
         data: {
           user,
@@ -135,14 +133,14 @@ exports.Login = async (req, res) => {
 
       if (!isPasswordCorrect)
         return res.status(401).json({
-          status: "fail",
+          status: httpStatusText.FAIL,
           message: "Incorrect email or password",
         });
 
-      const token = signToken(company._id);
+      const token = generateJWT(company._id);
 
       res.status(200).json({
-        status: "success",
+        status: httpStatusText.SUCCESS,
         token,
         data: {
           company,
@@ -151,7 +149,7 @@ exports.Login = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({
-      status: "fail",
+      status: httpStatusText.FAIL,
       message: err.message,
     });
   }
