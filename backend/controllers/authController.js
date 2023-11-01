@@ -1,7 +1,5 @@
-const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Company = require("../models/companyModel");
-const bcrypt = require("bcryptjs");
 const generateJWT = require("../utils/generateJWT");
 const httpStatusText = require("../utils/httpStatusText");
 
@@ -103,12 +101,10 @@ exports.Login = async (req, res) => {
       });
 
     if (user) {
-      // const isPasswordCorrect = await user.correctPassword(
-      //   password,
-      //   user.password
-      // );
-
-      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+      const isPasswordCorrect = await user.correctPassword(
+        password,
+        user.password
+      );
 
       if (!isPasswordCorrect)
         return res.status(401).json({
