@@ -14,7 +14,7 @@ const MainButtonTwo = ({ text, type,onClick }) => {
         </button>
       ) : (
         <motion.button
-          whileHover={{ scale: 1.05, backgroundColor: "#310761" }}
+          whileHover={{ scale: 1.05, backgroundColor: "#1E0238" }}
           className={styles.start_btn}
           onClick={onClick}
         >
