@@ -20,7 +20,7 @@ body{
   --main_bg_color:white;
   --dark_white:rgb(129, 129, 129);
   --theme_color:white;
-  --off_white:rgb(238, 238, 238);
+  --off_white:rgb(246, 242, 255);
   --main_font:'Quicksand', sans-serif;
   --jakarta:'Plus Jakarta Sans', sans-serif;
 }
@@ -50,14 +50,28 @@ button{
 ul li{
   list-style: none;
 }
-
-
-
-
+.swiper-pagination-bullet-active{
+  background-color: var(--main_color) !important;
+}
+.swiper-button-next,.swiper-button-prev{
+  color: var(--main_color) !important;
+  font-weight: 900;
+}
+.starts_color{
+  color: #EFA51E;
+}
+.modal-content{
+  background-color: transparent !important;
+}
 
 
 @media screen and (max-width:768px) {
   body,html{
     font-size: 14px;
+  }
+}
+@media screen and (max-width:450px) {
+  .swiper-button-next,.swiper-button-prev{
+   display: none !important;
   }
 }

@@ -1,0 +1,114 @@
+.Swiper_container{
+    border-radius: 1.25rem;
+    width: 100%;
+   }
+  .slide {
+    width: 100%;
+    height: 100%;
+    padding: 3.125rem;
+    color:var(--theme_color); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .slide_content{
+    width: 60%;
+    margin: auto;
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 2.5rem;
+    
+  }
+  .person{
+    border-radius: 50%;
+    width: 4.375rem;
+    height: 4.375rem;
+  }
+  .person_name{
+    font-weight: 700;
+    font-size: 1.25rem;
+    color:var(--main_color);
+    margin-top: 0.3125rem;
+  }
+  .person_comment{
+        padding:3.125rem 0;
+    }
+    .person_comment p{
+        color: var(--off_white);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        line-clamp: 3;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        text-align: center;
+    }
+    .person_comment p:hover{
+        -webkit-line-clamp: unset;
+         line-clamp: unset;
+    }
+  .person_date{
+        color: var(--dark_white);
+        font-size: 0.75rem;
+    }
+    .reacts{
+        display: flex;
+    }
+
+    .like_icon{
+        color: #4867AA; 
+    }
+
+    .comment_icon{
+        color: var(--dark_white);
+    }
+    .love_icon{
+        color:red;
+    }
+
+    .love_icon,.comment_icon,.like_icon{
+        font-size: 1.5625rem;
+       transition: all .3s;
+       margin-inline: 10px;
+       cursor: pointer;
+    }
+    .love_icon:hover,.comment_icon:hover,.like_icon:hover{
+        transform: scale(1.3);
+    }
+  
+
+    @media screen and (max-width:768px) {
+      .slide_content{
+        width: 90%;
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      .slide {
+        padding:0;
+      }
+      .slide_content{
+        width: 100%;
+       margin-bottom: 0;
+      }
+      .slide_header{
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media screen and (max-width:300px) {
+      .slide_header{
+        flex-direction: column;
+        align-items: center;
+      }
+      .five_starts{
+        margin:auto !important;
+      }
+      .slide_header_caption{
+        text-align: center;
+        margin: 0 !important;
+        padding: 5px 0;
+      }
+    }

@@ -3,7 +3,19 @@
     border-radius: 0.625rem;
     color: var(--theme_color);
     background-color: var(--main_color);
-    font-weight: 700;
     font-size: 1.25rem;
     margin-top: 1.875rem;
+}
+.arrow_btn{
+    min-width: 6.875rem;
+    padding: 0.625rem 0.9375rem;
+    background-color: var(--main_color);
+    color: var(--theme_color);
+    border-radius: 2.5rem;
+    font-weight: 700;
+    transition: all .3s;
+}
+.arrow_btn:hover{
+    background-color:#1E0238;
+    transform: translateX(0.3125rem);
 }

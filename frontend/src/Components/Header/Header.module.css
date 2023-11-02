@@ -63,6 +63,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: -1;
 }
 .small_circle_shape{
@@ -70,11 +73,6 @@
     height: 31.25rem;
     border-radius: 50%;
     background-color: rgba(236, 234, 234, 0.377);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: -1;
 }
 
 .floating_box_one,.floating_box_two{
@@ -165,10 +163,12 @@
     height: 2.8125rem;
     background-color:var(--golden);
     border-radius: 50%;
-    position: relative;
     position: absolute;
     left: 18%;
     top: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     animation: upDownMove 3s  ease-in-out infinite;
     animation-direction: alternate;
 }
@@ -177,10 +177,6 @@
     height:1.875rem;
     background-color:var(--theme_color);
     border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
 }
 
 @keyframes upDownMove {
@@ -244,14 +240,13 @@
     .github_icon{
         bottom: 15%;
     }
-}
-@media screen and  (max-width:348px) {
     .floating_box_two{
-       left:60%;
-       top: 30%;
-    }
- 
+        left:63%;
+        top: 30%;
+     }
+
 }
+
 @media screen and  (max-width:300px) {
     .big_circle_shape{
         width:17.5rem;
@@ -262,6 +257,10 @@
         width:12.5rem;
         height:12.5rem;
     }
+    .floating_box_two{
+        left:60%;
+        top: 30%;
+     }
 }
 @media screen and  (max-width:272px) {
     .header_caption h1{
@@ -271,4 +270,5 @@
        font-size:1rem;
        color: #f5ebff;
     }
+
 }

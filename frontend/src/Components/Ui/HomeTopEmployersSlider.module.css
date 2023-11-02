@@ -5,6 +5,11 @@
     margin: 1.25rem 0;
 }
 .company img{
-    width: 5rem;
-    height: 5rem;
+
+    opacity: .7;
+    cursor: pointer;
+    transition: all .3s;
+}
+.company img:hover{
+    opacity: 1;
 }

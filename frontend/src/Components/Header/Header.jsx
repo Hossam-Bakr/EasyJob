@@ -20,8 +20,7 @@ import MainButtonTwo from "../Ui/MainButtonTwo";
 const Header = () => {
   return (
     <header className={styles.header}>
-
-      <Row className="mt-5">
+      <Row>
         <Col lg={5} xl={6}>
           <div className={styles.header_caption}>
             <h1>
