@@ -9,7 +9,6 @@
     width: 4.0625rem;
     height: 4.0625rem;
     border-radius: 50%;
-    border: 0.125rem solid var(--main_color);
 }
 .profile_name{
     margin-left: 0.625rem;

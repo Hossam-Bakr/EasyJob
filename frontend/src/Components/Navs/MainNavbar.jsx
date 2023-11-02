@@ -47,13 +47,14 @@ const MainNavbar = () => {
         animate={
           !isScrollZero
             ? !isScrollDown
-              ? { y: 0, backgroundColor: "#EEEEEE", opacity: 1 }
-              : { y: -100, opacity: 0 }
+              ? { y: 0, backgroundColor: "rgb(255, 255, 255)", opacity: 1,boxShadow:"0px 1px 2px rgba(0, 0, 0, 0.3)",borderBottom: "1px solid rgb(246, 242, 255)" }
+              : { y: -400, opacity: 0 }
             : { y: 0, opacity: 1 }
         }
-        className="d-flex align-items-center p-3 pt-4"
+        sticky='top'
+        className={`${styles.main_nav} sticky-top static-top d-flex align-items-center px-3 py-1`}
       >
-        <ul className={`${styles.nav_list} d-flex align-items-center`}>
+        <ul className={`${styles.nav_list} d-flex align-items-center mt-3`}>
           <div className={`${styles.brand} me-5`}>
             <img src={logo} alt="logo" className="w-100" />
           </div>
@@ -100,7 +101,7 @@ const MainNavbar = () => {
           </li>
         </ul>
 
-        <div className="d-flex align-items-center ms-auto mb-3 me-5">
+        <div className="d-flex align-items-center ms-auto me-5">
           <Link to={'login'} className={styles.sign_btn}>
             <MainButton text='Login'/>
           </Link>

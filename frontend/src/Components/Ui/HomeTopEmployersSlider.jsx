@@ -4,11 +4,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import styles from "./HomeTopEmployersSlider.module.css";
-import apple from "../../images/apple logo.png";
-import netflix from "../../images/netflix logo.png";
-import dell from "../../images/dell logo.png";
-import slack from "../../images/slack logo.png";
-import chatgpt from "../../images/chatgpt logo.png";
+import c1 from "../../images/c1.png";
+import c2 from "../../images/c2.png";
+import c3 from "../../images/c3.png";
+import c4 from "../../images/c4.png";
+import c5 from "../../images/c5.png";
 import c6 from "../../images/c6.png";
 import c7 from "../../images/c7.png";
 import c8 from "../../images/c8.png";
@@ -18,10 +18,10 @@ const HomeTopEmployersSlider = () => {
   return (
   
    <Swiper
-      slidesPerView={1}
+      slidesPerView={4}
       spaceBetween={10}
       autoplay={{
-        delay: 2500,
+        delay: 1000,
         disableOnInteraction: false,
       }}
       navigation={true}
@@ -29,6 +29,8 @@ const HomeTopEmployersSlider = () => {
         clickable: true,
         type:'custom'
       }}
+      loop={true}
+      speed={3000}
       breakpoints={{
         "@0.00": {
           slidesPerView: 1,
@@ -51,19 +53,19 @@ const HomeTopEmployersSlider = () => {
       className={`${styles.swiper_content} mySwiper`}
     >
     <SwiperSlide className={styles.company}>
-        <img src={apple} alt="logo company" />
+        <img src={c1} alt="logo company" />
       </SwiperSlide>
       <SwiperSlide className={styles.company}>
-        <img src={dell} alt="logo company" />
+        <img src={c2} alt="logo company" />
       </SwiperSlide>
       <SwiperSlide className={styles.company}>
-        <img src={netflix} alt="logo company" />
+        <img src={c3} alt="logo company" />
       </SwiperSlide>
       <SwiperSlide className={styles.company}>
-        <img src={slack} alt="logo company" />
+        <img src={c4} alt="logo company" />
       </SwiperSlide>
       <SwiperSlide className={styles.company}>
-        <img src={chatgpt} alt="logo company" />
+        <img src={c5} alt="logo company" />
       </SwiperSlide>
       <SwiperSlide className={styles.company}>
         <img src={c6} alt="logo company" />

@@ -1,12 +1,12 @@
 .MainButton,.MainButton_white{
     padding: 0.625rem 0.9375rem;
-    border-radius: 3.125rem;
+    border-radius: 1.5625rem;
     color: rgb(238, 238, 238);
     background-color: var(--main_color);
     min-width: 6.25rem;
     font-size: 1.125rem;
     font-weight: 600;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.5);
     overflow: hidden;
     transition: transform .3s;
     position: relative;

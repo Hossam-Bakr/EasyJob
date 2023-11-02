@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./SideBar.module.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import ContactsIcon from "./ContactsIcon";
-import profile from "../../images/customer-img.jpg";
+import profile from "../../images/people4.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faBookmark, faFileContract, faGears, faMoon } from "@fortawesome/free-solid-svg-icons";
 
