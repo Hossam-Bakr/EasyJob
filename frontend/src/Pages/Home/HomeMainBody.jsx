@@ -694,8 +694,6 @@ const HomeMainBody = () => {
       {/* featured cities section------------------------------------------------------------------- */}
       <section
         className={styles.featured_cities}
-        data-aos="fade-in"
-        data-aos-duration="500"
       >
         <SectionMainTitle title="Featured Cities" />
         <HomeCitiesSliders />

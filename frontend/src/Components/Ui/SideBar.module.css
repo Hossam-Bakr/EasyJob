@@ -6,15 +6,23 @@
     border-radius: 2.5rem 0 0 2.5rem;
 }
 .profile{
-    width: 4.0625rem;
-    height: 4.0625rem;
+    width: 4.6875rem;
+    height: 4.6875rem;
     border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all .3s;
+}
+.profile:hover{
+    border: 3px solid var(--main_color);
 }
 .profile_name{
     margin-left: 0.625rem;
     font-size: 1.5625rem;
-    font-weight: 43.75rem;
+    font-weight: 900;
+    font-family: var(--jakarta);
 }
+
 .header{
     border-bottom: 0.0625rem solid #2b2b2b2f;
 }

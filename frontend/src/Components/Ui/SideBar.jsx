@@ -4,7 +4,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import ContactsIcon from "./ContactsIcon";
 import profile from "../../images/people4.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faBookmark, faFileContract, faGears, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faBookmark, faFileContract, faGears, faMoon, faSackDollar } from "@fortawesome/free-solid-svg-icons";
 
 const SideBar = ({ onClose, show }) => {
   const handleClose = () => {
@@ -21,8 +21,8 @@ const SideBar = ({ onClose, show }) => {
       <Offcanvas.Header className={styles.header} closeButton>
         <Offcanvas.Title>
           <div className="d-flex align-items-center">
-            <img src={profile} className={styles.profile} alt="profile img" />
-            <h5 className={styles.profile_name}>Bassam Hafez</h5>
+            <img title="view profile" src={profile} className={styles.profile} alt="profile img" />
+            <h5 className={styles.profile_name}>Ramy Reda</h5>
           </div>
         </Offcanvas.Title>
       </Offcanvas.Header>
@@ -31,6 +31,7 @@ const SideBar = ({ onClose, show }) => {
           <li className={styles.contact_list_item}>Saved <FontAwesomeIcon className={styles.list_icons} icon={faBookmark}/></li>
           <li className={styles.contact_list_item}>Applications <FontAwesomeIcon className={styles.list_icons} icon={faFileContract} /></li>
           <li className={styles.contact_list_item}>Dark Mood <FontAwesomeIcon className={styles.list_icons} icon={faMoon}/></li>
+          <li className={styles.contact_list_item}>Premium <FontAwesomeIcon className={styles.list_icons} icon={faSackDollar}/></li>
           <li className={styles.contact_list_item}>Setting <FontAwesomeIcon  className={styles.list_icons} icon={faGears} /></li>
           <li className={styles.contact_list_item}>Log Out <FontAwesomeIcon className={styles.list_icons} icon={faArrowRightFromBracket} /></li>
         </ul>
