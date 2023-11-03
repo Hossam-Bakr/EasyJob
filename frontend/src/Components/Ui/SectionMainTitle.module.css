@@ -2,6 +2,7 @@
     font-size: 25px;
     font-family: var(--jakarta);
     font-weight: 800;
+    color: var(--font_color);
     text-align: center;
 }
 .cartDown_icon{

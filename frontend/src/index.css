@@ -24,6 +24,7 @@ body{
   --main_font:'Quicksand', sans-serif;
   --jakarta:'Plus Jakarta Sans', sans-serif;
 }
+/* rgb(246, 242, 255),#0F1118,rgb(240, 239, 239),#0F1118,rgb(246, 242, 255) */
 
 ::-webkit-scrollbar-thumb{
   background-color: var(--main_color);
