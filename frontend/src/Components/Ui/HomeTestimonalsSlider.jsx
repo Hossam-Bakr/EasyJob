@@ -46,7 +46,7 @@ const HomeTestimonalsSlider = () => {
         modules={[Navigation, Autoplay]}
         className={`${styles.Swiper_container} mySwiper`}
         data-aos="zoom-in-up"
-        data-aos-duration="500"
+        data-aos-duration="1000"
       >
         <SwiperSlide className={styles.slide}>
           <div className={styles.slide_content}>

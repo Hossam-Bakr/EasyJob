@@ -54,21 +54,21 @@ const HomeMainBody = () => {
           alt="arrow right"
           className={styles.steps_arrow_one}
           data-aos="zoom-in"
-          data-aos-duration="500"
+          data-aos-duration="1000"
         />
         <img
           src={a2}
           alt="arrow right"
           className={styles.steps_arrow_two}
           data-aos="zoom-in"
-          data-aos-duration="500"
+          data-aos-duration="1000"
         />
         <img
           src={a2}
           alt="arrow right "
           className={styles.steps_arrow_responsive_two}
           data-aos="zoom-in"
-          data-aos-duration="500"
+          data-aos-duration="1000"
         />
         <SectionMainTitle title="Find Your Perfect Job With Few Steps" />
         <Container fluid>
@@ -78,7 +78,7 @@ const HomeMainBody = () => {
               lg={4}
               className="d-flex justify-content-center"
               data-aos="fade-right"
-              data-aos-duration="500"
+              data-aos-duration="1000"
             >
               <div className={styles.step_item}>
                 <span className={styles.step_num}>01</span>
@@ -112,7 +112,7 @@ const HomeMainBody = () => {
               lg={4}
               className="d-flex justify-content-center"
               data-aos="fade-in"
-              data-aos-duration="500"
+              data-aos-duration="1000"
             >
               <div className={styles.step_item}>
                 <span className={styles.step_num}>02</span>
@@ -146,7 +146,7 @@ const HomeMainBody = () => {
               lg={4}
               className="d-flex justify-content-center"
               data-aos="fade-left"
-              data-aos-duration="500"
+              data-aos-duration="1000"
             >
               <div className={styles.step_item}>
                 <span className={styles.step_num}>03</span>
@@ -193,13 +193,13 @@ const HomeMainBody = () => {
               lg={6}
               className="d-flex justify-content-center align-items-center"
               data-aos="zoom-in-up"
-              data-aos-duration="800"
+              data-aos-duration="1000"
             >
               <div className={styles.resume_caption_img}>
                 <img src={find_job} alt="man with laptop" />
               </div>
             </Col>
-            <Col lg={6} data-aos="zoom-in-up" data-aos-duration="800">
+            <Col lg={6} data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.reume_caption_content}>
                 <h2>Millions of Jobs.Find the one that suits you.</h2>
                 <p>
@@ -243,7 +243,7 @@ const HomeMainBody = () => {
         <SectionMainTitle title="Featured Job Offers" />
         <Container fluid="lg" className="pb-5">
           <Row>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="500">
+            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.job}>
                 <div className="d-flex justify-content-between mb-3">
                   <img
@@ -254,10 +254,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
+                      title='save'
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
+                      title='view'
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -283,7 +285,7 @@ const HomeMainBody = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="500">
+            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.job}>
                 <div className="d-flex justify-content-between mb-3">
                   <img
@@ -294,10 +296,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
+                      title='save'
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
+                      title='view'
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -323,7 +327,7 @@ const HomeMainBody = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="500">
+            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.job}>
                 <div className="d-flex justify-content-between mb-3">
                   <img
@@ -334,10 +338,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
+                      title='save'
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
+                      title='view'
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -363,7 +369,7 @@ const HomeMainBody = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="500">
+            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.job}>
                 <div className="d-flex justify-content-between mb-3">
                   <img
@@ -374,10 +380,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
+                      title='save'
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
+                      title='view'
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -403,7 +411,7 @@ const HomeMainBody = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="500">
+            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.job}>
                 <div className="d-flex justify-content-between mb-3">
                   <img
@@ -414,10 +422,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
+                      title='save'
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
+                      title='view'
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -443,7 +453,7 @@ const HomeMainBody = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="500">
+            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.job}>
                 <div className="d-flex justify-content-between mb-3">
                   <img
@@ -454,10 +464,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
+                      title='save'
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
+                      title='view'
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -486,8 +498,6 @@ const HomeMainBody = () => {
           </Row>
           <div
             className="text-center"
-            data-aos="zoom-in-up"
-            data-aos-duration="500"
           >
             <MainButtonTwo text="View All Listing" />
           </div>
@@ -499,7 +509,7 @@ const HomeMainBody = () => {
         <div
           className="text-center px-5"
           data-aos="zoom-in-up"
-          data-aos-duration="500"
+          data-aos-duration="1000"
         >
           <h2>Discover Career Opportunities</h2>
           <p>
@@ -511,7 +521,7 @@ const HomeMainBody = () => {
         <div
           className="text-center"
           data-aos="zoom-in-up"
-          data-aos-duration="500"
+          data-aos-duration="1000"
         >
           <MainButtonTwo text="All Job Offers " />
         </div>
@@ -526,7 +536,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -546,7 +556,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -566,7 +576,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -586,7 +596,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -606,7 +616,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -617,7 +627,7 @@ const HomeMainBody = () => {
               </div>
               <div className={styles.category_caption}>
                 <h4>Marketing</h4>
-                <span>+3500 oppurtunity</span>
+                <span>+31000 oppurtunity</span>
               </div>
             </div>
           </Col>
@@ -626,7 +636,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -646,7 +656,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -657,7 +667,7 @@ const HomeMainBody = () => {
               </div>
               <div className={styles.category_caption}>
                 <h4>Software Engineer</h4>
-                <span>+500 oppurtunity</span>
+                <span>+1000 oppurtunity</span>
               </div>
             </div>
           </Col>
@@ -666,7 +676,7 @@ const HomeMainBody = () => {
             md={4}
             className="d-flex justify-content-center"
             data-aos="zoom-in-up"
-            data-aos-duration="500"
+            data-aos-duration="1000"
           >
             <div className={styles.category}>
               <div className={styles.category_icon_div}>
@@ -685,7 +695,7 @@ const HomeMainBody = () => {
         <div
           className="text-center"
           data-aos="zoom-in-up"
-          data-aos-duration="500"
+          data-aos-duration="1000"
         >
           <MainButtonTwo text="All Categories " />
         </div>

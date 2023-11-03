@@ -11,7 +11,7 @@ const SectionMainTitle = ({title}) => {
   },[])
 
   return (
-  <div className="d-flex justify-content-center align-items-center flex-column mb-5" data-aos="zoom-in">
+  <div className="d-flex justify-content-center align-items-center flex-column mb-5" data-aos="fade-in" data-aos-duration="1000">
     <h3 className={styles.title}>
         {title}
     </h3>
