@@ -25,39 +25,42 @@ const About = () => {
           </div>
 
           <div className={styles.elements}>
-            <div className={`${styles.element} ${styles.borderRight}`}>
+            <Row >
+            <Col lg={3} md={6} sm={12} className={`${styles.element} ${styles.box_one_border}`}>
               <div className={styles.title}>
                 <h2>2.5M+</h2>
               </div>
-              <div className={styles.subTitle}>
+              <div className={`${styles.subTitle} ${styles.mediumScreen}`}>
                 <p>Jobs Available</p>
               </div>
-            </div>
-            <div className={`${styles.element} ${styles.borderRight}`}>
+            </Col>
+            <Col lg={3} md={6} sm={12} className={`${styles.element} ${styles.box_two_border}`}>
               <div className={styles.title}>
                 <h2>189k+</h2>
               </div>
-              <div className={styles.subTitle}>
+              <div className={`${styles.subTitle} ${styles.mediumScreen}`}>
                 <p>New Jobs This Week!</p>
               </div>
-            </div>
-            <div className={`${styles.element} ${styles.borderRight}`}>
+            </Col>
+            <Col lg={3} md={6} sm={12} className={`${styles.element} ${styles.box_three_border}`}>
               <div className={styles.title}>
                 <h2>289k+</h2>
               </div>
-              <div className={styles.subTitle}>
+              <div className={`${styles.subTitle} ${styles.special_border}`}>
                 <p>Companies Hiring</p>
               </div>
-            </div>
-            <div className={styles.element}>
+            </Col>
+            <Col lg={3} md={6} sm={12} className={`${styles.element} ${styles.box_four_border}`}>
               <div className={styles.title}>
                 <h2>5M+</h2>
               </div>
               <div className={styles.subTitle}>
                 <p>Candidates</p>
               </div>
-            </div>
+            </Col>
+          </Row>
           </div>
+          
         </div>
       </section>
 
