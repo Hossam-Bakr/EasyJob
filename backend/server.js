@@ -29,6 +29,10 @@ app.use(express.json());
 // Mount Routes
 mountRoutes(app);
 
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
 app.use(globalErrorHandler);
 
 const PORT = process.env.PORT || 3000;
