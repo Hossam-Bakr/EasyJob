@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 dotenv.config({ path: "config.env" });
 const dbConnection = require("./config/database");
 
+const globalErrorHandler = require("./controllers/errorController");
+
 // Routes
 const mountRoutes = require("./routes");
 
@@ -26,6 +28,8 @@ app.use(express.json());
 
 // Mount Routes
 mountRoutes(app);
+
+app.use(globalErrorHandler);
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
