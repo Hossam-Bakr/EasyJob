@@ -5,6 +5,8 @@
     background-color: var(--main_color);
     font-size: 1.25rem;
     margin-top: 1.875rem;
+    overflow: hidden;
+    transition: all .3s;
 }
 .arrow_btn{
     min-width: 6.875rem;
@@ -15,7 +17,30 @@
     font-weight: 700;
     transition: all .3s;
 }
-.arrow_btn:hover{
-    background-color:#1E0238;
+.start_btn:hover,.arrow_btn:hover{
+    background-color:rgb(2, 73, 167) ;
     transform: translateX(0.3125rem);
+}
+.MainButton_layer{
+    background-color: white;
+    width: 1.25rem;
+    height:150%;
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translate(-50%,-50%);
+    rotate: 15deg;
+    opacity: 0;
+    transition: all .3s;
+}
+.start_btn:hover .MainButton_layer{
+    animation-name: buttonMovement;
+    animation-duration: .3s;
+    animation-direction: alternate;
+}
+
+@keyframes buttonMovement {
+    0%{opacity: 0;left: 0;}
+    99%{opacity: 1;left: 100%;}
+    100%{opacity: 0;}
 }

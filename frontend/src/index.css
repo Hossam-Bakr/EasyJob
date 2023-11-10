@@ -14,17 +14,17 @@ body{
 }
 
 :root{
-  --main_color:#7428c5;
+  --main_color:rgb(0, 110, 255);
   --golden:#EFA51E;
   --font_color:black;
   --main_bg_color:white;
   --dark_white:rgb(129, 129, 129);
   --theme_color:white;
   --off_white:rgb(246, 242, 255);
+  --circle_color:rgba(0, 110, 255, 0.863);
   --main_font:'Quicksand', sans-serif;
   --jakarta:'Plus Jakarta Sans', sans-serif;
 }
-/* rgb(246, 242, 255),#0F1118,rgb(240, 239, 239),#0F1118,rgb(246, 242, 255) */
 
 ::-webkit-scrollbar-thumb{
   background-color: var(--main_color);
@@ -50,6 +50,9 @@ button{
 }
 ul li{
   list-style: none;
+}
+.swiper-pagination-bullet{
+  background-color: var(--dark_white) !important;
 }
 .swiper-pagination-bullet-active{
   background-color: var(--main_color) !important;
