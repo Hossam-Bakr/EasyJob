@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./HomeMainBody.module.css";
+import { useSelector } from "react-redux";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
@@ -30,12 +31,15 @@ import L3 from "../../images/3.png";
 import L4 from "../../images/4.png";
 import L5 from "../../images/5.png";
 import L6 from "../../images/6.png";
-import a1 from "../../images/a1.png";
-import a2 from "../../images/a2.png";
 import find_job from "../../images/resumecap.jpg";
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
 
 const HomeMainBody = () => {
+  const isLightMood = useSelector((state) => state.mood.lightMood);
+  const resumeCaptionClasses = isLightMood
+    ? styles.resume_caption
+    : styles.resume_caption_dark;
+
   useEffect(() => {
     AOS.init();
   }, []);
@@ -49,27 +53,6 @@ const HomeMainBody = () => {
 
       {/* steps section------------------------------------------------------------------- */}
       <section className={styles.steps}>
-        <img
-          src={a1}
-          alt="arrow right"
-          className={styles.steps_arrow_one}
-          data-aos="zoom-in"
-          data-aos-duration="1000"
-        />
-        <img
-          src={a2}
-          alt="arrow right"
-          className={styles.steps_arrow_two}
-          data-aos="zoom-in"
-          data-aos-duration="1000"
-        />
-        <img
-          src={a2}
-          alt="arrow right "
-          className={styles.steps_arrow_responsive_two}
-          data-aos="zoom-in"
-          data-aos-duration="1000"
-        />
         <SectionMainTitle title="Find Your Perfect Job With Few Steps" />
         <Container fluid>
           <Row className="justify-content-center">
@@ -180,14 +163,10 @@ const HomeMainBody = () => {
       </section>
 
       {/* resume caption section------------------------------------------------------------------- */}
-      <section className={styles.resume_caption}>
+      <section className={resumeCaptionClasses}>
         <div className={styles.resume_caption_container}>
-          <div className={styles.resume_caption_circle}>
-            <div className={styles.resume_caption_small_circle}></div>
-          </div>
-          <div className={styles.resume_caption_circle_two}>
-            <div className={styles.resume_caption_small_circle_two}></div>
-          </div>
+          <div className={styles.resume_caption_circle}></div>
+          <div className={styles.resume_caption_circle_two}></div>
           <Row>
             <Col
               lg={6}
@@ -200,7 +179,7 @@ const HomeMainBody = () => {
               </div>
             </Col>
             <Col lg={6} data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.reume_caption_content}>
+              <div className={styles.resume_caption_content}>
                 <h2>Millions of Jobs.Find the one that suits you.</h2>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -254,12 +233,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
-                      title='save'
+                      title="save"
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
-                      title='view'
+                      title="view"
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -296,12 +275,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
-                      title='save'
+                      title="save"
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
-                      title='view'
+                      title="view"
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -338,12 +317,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
-                      title='save'
+                      title="save"
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
-                      title='view'
+                      title="view"
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -380,12 +359,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
-                      title='save'
+                      title="save"
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
-                      title='view'
+                      title="view"
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -422,12 +401,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
-                      title='save'
+                      title="save"
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
-                      title='view'
+                      title="view"
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -464,12 +443,12 @@ const HomeMainBody = () => {
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
-                      title='save'
+                      title="save"
                       className={`${styles.bookmark_icon} mx-2`}
                     />
                     <FontAwesomeIcon
                       icon={faEye}
-                      title='view'
+                      title="view"
                       className={`${styles.eye_icon} mx-2`}
                     />
                   </div>
@@ -496,9 +475,7 @@ const HomeMainBody = () => {
               </div>
             </Col>
           </Row>
-          <div
-            className="text-center"
-          >
+          <div className="text-center">
             <MainButtonTwo text="View All Listing" />
           </div>
         </Container>
@@ -702,11 +679,33 @@ const HomeMainBody = () => {
       </section>
 
       {/* featured cities section------------------------------------------------------------------- */}
-      <section
-        className={styles.featured_cities}
-      >
+      <section className={styles.featured_cities}>
         <SectionMainTitle title="Featured Cities" />
         <HomeCitiesSliders />
+      </section>
+
+      {/* seperation_bg  section------------------------------------------------------------------- */}
+      <section className={styles.seperation_bg}>
+        <div className={styles.seperation_bg_layer}></div>
+        <div className={styles.seperation_bg_caption}>
+          <h2 data-aos="fade-in" data-aos-duration="1000">
+            {" "}
+            Work From Anywhere
+          </h2>
+          <p data-aos="fade-in" data-aos-duration="1000">
+            Find your ideal work from home opportunity and enjoy the freedom,
+            flexibility, and productivity of remote work. Embrace the future of
+            work and unlock your true potential from the comfort of your own
+            home.
+          </p>
+          <div
+            className="text-center"
+            data-aos="fade-in"
+            data-aos-duration="1000"
+          >
+            <MainButtonTwo type="arrow" text="Discover Remote Jobs" />
+          </div>
+        </div>
       </section>
 
       {/* Testimonials section------------------------------------------------------------------- */}
