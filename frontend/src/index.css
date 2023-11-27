@@ -45,6 +45,10 @@ button{
   outline: none;
   border: none;
 }
+input{
+  outline: none;
+}
+
 .special_main_color{
   color: var(--main_color);
 }
