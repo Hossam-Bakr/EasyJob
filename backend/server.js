@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const ApiError = require("./utils/ApiError");
 
@@ -24,6 +25,9 @@ dbConnection();
 
 // express app
 const app = express();
+
+app.use(cors());
+app.options("*", cors());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
