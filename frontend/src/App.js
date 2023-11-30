@@ -7,7 +7,6 @@ import Register from "./Pages/Register/Register";
 import Explore from "./Pages/Explore/Explore";
 import Categories from './Pages/Categories/Categories';
 import About from "./Pages/About/About";
-import CompanyLogin from "./Pages/CompanyLogin/CompanyLogin";
 import CompanyRegister from "./Pages/CompanyRegister/CompanyRegister";
 
 import "./App.css";
@@ -23,7 +22,6 @@ const router = createBrowserRouter([
       { path: "categories", element: <Categories /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "company-login", element: <CompanyLogin /> },
       { path: "company-register", element: <CompanyRegister />},
     ],
   },

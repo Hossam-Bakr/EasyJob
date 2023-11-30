@@ -1,0 +1,30 @@
+.sign_with_google{
+    background-color: white;
+    box-shadow:  0 0 0.125rem rgba(0, 0, 0, 0.76);
+    padding: 0.625rem 2.5rem;
+    border-radius: 0.9375rem;
+    margin-top: 0.9375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: 600;
+}
+.sign_with_google img{
+    margin-right: 0.625rem;
+    width: 1.5625rem;
+}
+
+@media screen and (max-width:650px) {
+    .sign_with_google{
+        width: 100%;
+        padding-inline: 0.625rem;
+    }
+
+}
+
+@media screen and (max-width:420px){
+    .sign_with_google{
+        padding-inline: 1.875rem;
+    }
+    }

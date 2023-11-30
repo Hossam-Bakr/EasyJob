@@ -15,6 +15,7 @@ body{
 
 :root{
   --main_color:rgb(0, 110, 255);
+  --darker_main_color:rgb(5, 59, 129);
   --golden:#EFA51E;
   --font_color:black;
   --main_bg_color:white;
@@ -47,6 +48,14 @@ button{
 }
 input{
   outline: none;
+  padding: 10px;
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 15px;
+}
+label{
+  margin-left: 5px;
+  color:var(--font_color);
+  font-weight: 600;
 }
 
 .special_main_color{
@@ -71,6 +80,29 @@ ul li{
 .modal-content{
   background-color: transparent !important;
 }
+.or_span{
+  position: relative;
+  text-align: center;
+}
+.or_span::after{
+  content: "";
+  width: 12.5rem;
+  height: 0.0625rem;
+  background-color: rgb(202, 202, 202);
+  position: absolute;
+  top: 50%;
+  left:1.25rem;
+}
+.or_span::before{
+  content: "";
+  width: 12.5rem;
+  height: 0.0625rem;
+  background-color: rgb(202, 202, 202);
+  position: absolute;
+  top: 50%;
+  right:1.25rem;
+}
+
 
 
 @media screen and (max-width:768px) {
