@@ -7,14 +7,6 @@ const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
 
 exports.userSignup = catchAsync(async (req, res, next) => {
-  const companyWithSameEmail = await Company.findOne({
-    email: req.body.email,
-  });
-
-  if (companyWithSameEmail) {
-    return next(new ApiError("Email already exists", 409));
-  }
-
   const newUser = await User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -36,12 +28,6 @@ exports.userSignup = catchAsync(async (req, res, next) => {
 });
 
 exports.companySignup = catchAsync(async (req, res, next) => {
-  const userWithSameEmail = await User.findOne({ email: req.body.email });
-
-  if (userWithSameEmail) {
-    return next(new ApiError("Email already exists", 409));
-  }
-
   const newCompany = await Company.create({
     name: req.body.name,
     email: req.body.email,
