@@ -110,7 +110,7 @@ const MainNavbar = () => {
           <Link to={'login'} className={styles.sign_btn}>
             <MainButton text='Login'/>
           </Link>
-          <Link to={'company-login'} className={styles.sign_btn}>
+          <Link to={'company-register'} className={styles.sign_btn}>
             <MainButton type='white' text='Company'/>
           </Link>
           <div

@@ -1,0 +1,56 @@
+.register_form{
+    padding:0.9375rem 1.25rem;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+.register_form label{
+    text-align: start;
+    margin-bottom: 0.1875rem;
+}
+.register_btn{
+    width: 80%;
+    background-color: var(--darker_main_color);
+    color: white;
+    padding: 0.625rem 0.9375rem;
+    border-radius: 0.9375rem;
+    margin: 0.625rem 0;
+    transition: background-color .3s;
+}
+.register_btn:hover{
+    background-color:rgb(1, 80, 182);
+}
+.sign_company_p{
+    display: none;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+@media screen and (max-width:1130px) {
+    .register_form div{
+       margin-inline:0 !important;
+    }
+    .name_faild{
+        flex-wrap: wrap;
+    }
+    .lname, .fname{
+        width: 100% !important;
+    }
+    .fname{
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .sign_company_p{
+        display: block;
+        margin-top: 0.625rem;
+    }
+}
+@media screen and (max-width:268px) {
+    .register_btn{
+        margin-top: 1.5625rem;
+    }
+    .register_form{
+        padding: 0.125rem;
+    }
+}
