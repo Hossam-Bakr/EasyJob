@@ -66,7 +66,7 @@
 
 
 
-@media screen and (max-width:1108px) {
+@media screen and (max-width:1065px) {
     .user_login_content{
         width: 100%;
     }
@@ -91,4 +91,9 @@
 {
     width: 100%;
 }
+}
+@media screen and (max-width:215px){
+.user_login_container{
+    padding-inline: 0;
+}    
 }

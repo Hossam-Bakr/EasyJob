@@ -51,6 +51,12 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
             <li className={styles.contact_list_item}>
               <Link onClick={handleClose} to={"categories"}>CATEGORIES</Link>
             </li>
+            <li className={styles.contact_list_item}>
+              <Link onClick={handleClose} to={"login"}>LOGIN</Link>
+            </li>
+            <li className={styles.contact_list_item}>
+              <Link onClick={handleClose} to={"company-register"}>COMPANY</Link>
+            </li>
           </ul>
           <div className={`${styles.side_bar_signing_btns} my-5 d-none align-items-center justify-content-evenly`}>
           <Link to={'login'} className="mx-2">

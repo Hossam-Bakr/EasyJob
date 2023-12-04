@@ -11,6 +11,7 @@
     flex-direction: column;
     width: 100%;
     margin: 0.9375rem 0;
+    position: relative;
 }
 .user_input_faild label{
     margin-bottom: 0.3125rem;
@@ -22,7 +23,7 @@
     color: white;
     padding: 0.625rem 0.9375rem;
     border-radius: 0.9375rem;
-    margin: 0.625rem 0;
+    margin: 0.9375rem 0 0.625rem 0;
     transition: background-color .3s;
 }
 .login_btn:hover{
@@ -37,15 +38,16 @@
     color: var(--dark_white);
 }
 .form_options span{
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 0.875rem;
+    font-weight: 700;
 }
 .form_options span a{
     color: var(--darker_main_color);
 }
 .remember_div label{
-    font-size: 15px;
-    margin-left: 5px;
+    font-size: 0.875rem;
+    margin-left: 0.3125rem;
+    font-weight: 700;
 }
 
 
@@ -55,6 +57,9 @@
     .form_options{
         flex-direction: column;
         align-items: start;
+    }
+    .login_btn{
+        margin-top:1.875rem;
     }
 }
 @media screen and (max-width:650px) {
@@ -72,4 +77,18 @@
     .sign_with_google{
         padding-inline: 1.875rem;
     }
+    .form_options{
+        flex-direction:row;
+        align-items: center;
+    }
+    }
+
+@media screen and (max-width:295px){
+    .form_options{
+        flex-direction:column;
+        align-items: start;
+    }
+    }
+@media screen and (max-width:215px){
+    
     }

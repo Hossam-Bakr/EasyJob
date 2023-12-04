@@ -5,6 +5,8 @@ import RegisterForm from './RegisterForm';
 import vector from '../../images/register_vector.png';
 
 const Register = () => {
+
+
   return (
     <div className={styles.register_container}>
       <div className={styles.register_content}>
@@ -14,7 +16,7 @@ const Register = () => {
         </div>
         <div className={styles.register_caption}>
           <img src={vector} alt="register vector" />
-          <p>create a new account for your company <Link>Sign Up</Link></p>
+          <p>create a new account for your company <Link to={'/company-register'}>Sign Up</Link></p>
         </div>
       </div>
     </div>

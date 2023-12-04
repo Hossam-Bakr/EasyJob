@@ -203,16 +203,21 @@
         width: 70%;
         margin: auto;
     }
+    .floating_box_two{
+        width: 9.375rem;
+    }
     .big_circle_shape{
-        width:25rem;
-        height: 25rem;
+        width:31.25rem;
+        height: 31.25rem;
 
     }
     .small_circle_shape{
-        width: 18.75rem;
-        height: 18.75rem;
+        width: 25rem;
+        height: 25rem;
     }
+    
 }
+
 @media screen and  (max-width:444px) {
     .floating_box_two{
         width: 8.125rem;
@@ -223,6 +228,15 @@
     .plus_icon{
         left: 18%;
         top: 7%; 
+    }
+    .big_circle_shape{
+        width:25rem;
+        height: 25rem;
+
+    }
+    .small_circle_shape{
+        width: 18.75rem;
+        height: 18.75rem;
     }
 }
 @media screen and  (max-width:380px) {
@@ -239,10 +253,10 @@
         bottom: 15%;
     }
     .floating_box_two{
-        left:63%;
+        left:55%;
         top: 30%;
      }
-
+     
 }
 
 @media screen and  (max-width:300px) {
@@ -256,7 +270,7 @@
         height:12.5rem;
     }
     .floating_box_two{
-        left:60%;
+        left:50%;
         top: 30%;
      }
 }
@@ -266,7 +280,6 @@
     }
     .header_caption h4{
        font-size:1rem;
-       color: #f5ebff;
     }
 
 }

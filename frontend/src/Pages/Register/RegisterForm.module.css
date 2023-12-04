@@ -25,26 +25,32 @@
     font-size: 0.875rem;
     font-weight: 700;
 }
-@media screen and (max-width:972px) {
+@media screen and (max-width:1130px) {
     .register_form div{
-        margin:0 !important;
-
+       margin-inline:0 !important;
     }
     .name_faild{
         flex-wrap: wrap;
     }
-    .lname,.fname{
-        margin-inline: 0 !important;
+    .lname, .fname{
         width: 100% !important;
+    }
+    .fname{
+        margin-bottom: 30px;
     }
 }
 
 @media screen and (max-width:500px) {
-    .register_form div{
-        margin:0.3125rem 0 !important;
-    }
     .sign_company_p{
         display: block;
         margin-top: 0.625rem;
+    }
+}
+@media screen and (max-width:268px) {
+    .register_btn{
+        margin-top: 1.5625rem;
+    }
+    .register_form{
+        padding: 0.125rem;
     }
 }

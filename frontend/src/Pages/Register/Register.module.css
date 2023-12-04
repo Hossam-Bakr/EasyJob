@@ -66,3 +66,8 @@
         padding-bottom: 0;
     }
 }
+@media screen and (max-width:268px) {
+    .register_container{
+        padding-inline:0;
+    }
+}
