@@ -58,6 +58,7 @@ const jobSchema = new mongoose.Schema(
         "Temporary",
         "Freelance project",
         "Work from home",
+        "Other",
       ],
       default: "Other",
     },
