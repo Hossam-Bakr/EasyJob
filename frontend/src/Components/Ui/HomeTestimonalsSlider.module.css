@@ -16,8 +16,9 @@
     margin: auto;
     border-radius: 1.25rem;
     padding: 1.25rem;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(6, 59, 112,.6);
     margin-bottom: 2.5rem;
+
     
   }
   .person{
@@ -35,7 +36,7 @@
         padding:3.125rem 0;
     }
     .person_comment p{
-        color: var(--off_white);
+        color: rgb(238, 238, 238);
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

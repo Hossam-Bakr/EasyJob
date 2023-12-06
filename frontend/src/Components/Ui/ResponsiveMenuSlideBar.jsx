@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ResponsiveMenuSlideBar.module.css";
+import {useSelector } from "react-redux";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import MainButton from "./MainButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +10,11 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logoNav.png";
 
 const ResponsiveMenuSlideBar = ({ onClose, show }) => {
+
+  const isLightMood=useSelector((state)=>state.mood.lightMood)
+  const sideBarClasses=isLightMood?styles.side_bar:styles.side_bar_dark;
+
+
   const handleClose = () => {
     onClose();
   };
@@ -18,7 +24,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
       show={show}
       onHide={handleClose}
       placement="end"
-      className={styles.side_bar}
+      className={sideBarClasses}
     >
       <Offcanvas.Header className={styles.header} closeButton>
         <Offcanvas.Title>
@@ -44,6 +50,12 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
             </li>
             <li className={styles.contact_list_item}>
               <Link onClick={handleClose} to={"categories"}>CATEGORIES</Link>
+            </li>
+            <li className={styles.contact_list_item}>
+              <Link onClick={handleClose} to={"login"}>LOGIN</Link>
+            </li>
+            <li className={styles.contact_list_item}>
+              <Link onClick={handleClose} to={"company-register"}>COMPANY</Link>
             </li>
           </ul>
           <div className={`${styles.side_bar_signing_btns} my-5 d-none align-items-center justify-content-evenly`}>

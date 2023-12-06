@@ -1,0 +1,99 @@
+.user_login_container{
+    background:linear-gradient(-135deg,#F4F9FF 50%,var(--darker_main_color) 50%) ;
+    width: 100vw;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.25rem;
+}
+.user_login_content{
+    display: flex;
+    width: 75%;
+    min-height: 80vh;
+    border-radius: 0.9375rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.24);
+    overflow: hidden;
+}
+.user_login_caption{
+    min-height: 100%;
+    width: 50%;
+    background-color: #F4F9FF;
+    border-radius:0.9375rem 0 0 0.9375rem;
+    padding: 1.5625rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.caption_vector{
+    width: 21.875rem;
+}
+.caption_vector img{
+    width: 100%;
+}
+.login_logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login_logo img{
+    width: 9.375rem;
+}
+.user_login_caption h3{
+    font-size: 1.5625rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0.625rem 0;
+}
+.user_login_form{
+    min-height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--theme_color);
+    border-radius: 0 0.9375rem 0.9375rem 0;
+    padding: 1.5625rem;
+    overflow: hidden;
+}
+.user_login_form h3{
+    font-size: 2.1875rem;
+    color: var(--darker_main_color);
+    font-weight: 900;
+    font-family: var(--jakarta);
+}
+
+
+
+@media screen and (max-width:1065px) {
+    .user_login_content{
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width:650px) {
+    .user_login_container{
+        padding: 0.625rem;
+    }
+    .user_login_form{
+        padding: 0.625rem;
+    }
+}
+
+@media screen and (max-width:420px){
+.user_login_caption
+{
+    display: none;
+}
+.user_login_form
+{
+    width: 100%;
+}
+}
+@media screen and (max-width:215px){
+.user_login_container{
+    padding-inline: 0;
+}    
+}

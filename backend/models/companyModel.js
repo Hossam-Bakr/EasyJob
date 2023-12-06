@@ -56,6 +56,11 @@ const companySchema = new mongoose.Schema(
       enum: ["1-10", "11-50", "51-200", "201-500", "500+"],
     },
     avatar: String,
+    role: {
+      type: String,
+      enum: ["company"],
+      default: "company",
+    },
     // jobs: [
     //   {
     //     type: mongoose.Schema.Types.ObjectId,

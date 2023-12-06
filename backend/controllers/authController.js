@@ -2,230 +2,175 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Company = require("../models/companyModel");
 const generateJWT = require("../utils/generateJWT");
+const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
 
-exports.userSignup = async (req, res) => {
-  try {
-    const companyWithSameEmail = await Company.findOne({
-      email: req.body.email,
-    });
+exports.userSignup = catchAsync(async (req, res, next) => {
+  const newUser = await User.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    phone: req.body.phone,
+    skills: req.body.skills,
+  });
 
-    if (companyWithSameEmail) {
-      return res.status(409).json({
-        status: httpStatusText.FAIL,
-        message: "Email already exists",
-      });
-    }
+  const token = generateJWT(newUser._id);
 
-    const newUser = await User.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-      phone: req.body.phone,
-      skills: req.body.skills,
-    });
+  res.status(201).json({
+    status: httpStatusText.SUCCESS,
+    token,
+    data: {
+      user: newUser,
+    },
+  });
+});
 
-    const token = generateJWT(newUser._id);
+exports.companySignup = catchAsync(async (req, res, next) => {
+  const newCompany = await Company.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    description: req.body.description,
+    phone: req.body.phone,
+    industry: req.body.industry,
+    location: req.body.location,
+    founded: req.body.founded,
+    size: req.body.size,
+  });
 
-    res.status(201).json({
+  const token = generateJWT(newCompany._id);
+
+  res.status(201).json({
+    status: httpStatusText.SUCCESS,
+    token,
+    data: {
+      company: newCompany,
+    },
+  });
+});
+
+exports.Login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return next(new ApiError("Please provide email and password", 400));
+
+  const user = await User.findOne({ email }).select("+password");
+  const company = await Company.findOne({ email }).select("+password");
+
+  if (!user && !company) return next(new ApiError("User not found", 404));
+
+  if (user) {
+    const isPasswordCorrect = await user.correctPassword(
+      password,
+      user.password
+    );
+
+    if (!isPasswordCorrect)
+      return next(new ApiError("Incorrect email or password", 401));
+
+    const token = generateJWT(user._id);
+
+    res.status(200).json({
       status: httpStatusText.SUCCESS,
       token,
       data: {
-        user: newUser,
+        user,
       },
     });
-  } catch (err) {
-    res.status(500).json({
-      status: httpStatusText.FAIL,
-      message: err.message,
-    });
-  }
-};
+  } else if (company) {
+    const isPasswordCorrect = await company.correctPassword(
+      password,
+      company.password
+    );
 
-exports.companySignup = async (req, res) => {
-  try {
-    const userWithSameEmail = await User.findOne({ email: req.body.email });
+    if (!isPasswordCorrect) return next(new ApiError("User not found", 404));
 
-    if (userWithSameEmail) {
-      return res.status(409).json({
-        status: httpStatusText.FAIL,
-        message: "Email already exists",
-      });
-    }
+    const token = generateJWT(company._id);
 
-    const newCompany = await Company.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      description: req.body.description,
-      phone: req.body.phone,
-      industry: req.body.industry,
-      location: req.body.location,
-      founded: req.body.founded,
-      size: req.body.size,
-    });
-
-    const token = generateJWT(newCompany._id);
-
-    res.status(201).json({
+    res.status(200).json({
       status: httpStatusText.SUCCESS,
       token,
       data: {
-        company: newCompany,
+        company,
       },
     });
-  } catch (err) {
-    res.status(500).json({
-      status: "fail",
-      message: err.message,
-    });
   }
-};
+});
 
-exports.Login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password)
-      return res.status(400).json({
-        status: httpStatusText.FAIL,
-        message: "Please provide email and password",
-      });
+exports.protect = catchAsync(async (req, res, next) => {
+  // Getting token and check of it's there
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
 
-    const user = await User.findOne({ email }).select("+password");
-    const company = await Company.findOne({ email }).select("+password");
+  if (!token)
+    return next(
+      new ApiError("You are not logged in! Please log in to get access.", 401)
+    );
 
-    if (!user && !company)
-      return res.status(404).json({
-        status: httpStatusText.FAIL,
-        message: "User not found",
-      });
+  // Verification token
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (user) {
-      const isPasswordCorrect = await user.correctPassword(
-        password,
-        user.password
+  // Check if user(company) still exists
+  const user = await User.findById(decoded.id);
+  const company = await Company.findById(decoded.id);
+
+  if (!user && !company)
+    return next(new ApiError("This account does no longer exist.", 404));
+
+  // Check if user(company) change his password after token created
+  if (user) {
+    if (user.changedPasswordAfter(decoded.iat)) {
+      return next(
+        new ApiError(
+          "User recently changed password! Please log in again.",
+          401
+        )
       );
-
-      if (!isPasswordCorrect)
-        return res.status(401).json({
-          status: httpStatusText.FAIL,
-          message: "Incorrect email or password",
-        });
-
-      const token = generateJWT(user._id);
-
-      res.status(200).json({
-        status: httpStatusText.SUCCESS,
-        token,
-        data: {
-          user,
-        },
-      });
-    } else if (company) {
-      const isPasswordCorrect = await company.correctPassword(
-        password,
-        company.password
+    }
+  } else if (company) {
+    if (company.changedPasswordAfter(decoded.iat)) {
+      return next(
+        new ApiError(
+          "Company recently changed password! Please log in again.",
+          401
+        )
       );
-
-      if (!isPasswordCorrect)
-        return res.status(401).json({
-          status: httpStatusText.FAIL,
-          message: "Incorrect email or password",
-        });
-
-      const token = generateJWT(company._id);
-
-      res.status(200).json({
-        status: httpStatusText.SUCCESS,
-        token,
-        data: {
-          company,
-        },
-      });
     }
-  } catch (err) {
-    res.status(500).json({
-      status: httpStatusText.FAIL,
-      message: err.message,
-    });
   }
-};
 
-exports.protect = async (req, res, next) => {
-  try {
-    // Getting token and check of it's there
-    let token;
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
-      token = req.headers.authorization.split(" ")[1];
-    } else if (req.cookies.jwt) {
-      token = req.cookies.jwt;
-    }
-
-    if (!token)
-      return res.status(401).json({
-        status: httpStatusText.FAIL,
-        message: "You are not logged in! Please log in to get access.",
-      });
-
-    // Verification token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // Check if user(company) still exists
-    const user = await User.findById(decoded.id);
-    const company = await Company.findById(decoded.id);
-
-    if (!user && !company)
-      return res.status(401).json({
-        status: httpStatusText.FAIL,
-        message: "This account does no longer exist.",
-      });
-
-    // Check if user(company) change his password after token created
-    if (user) {
-      if (user.changedPasswordAfter(decoded.iat))
-        return res.status(401).json({
-          status: httpStatusText.FAIL,
-          message: "User recently changed password! Please log in again.",
-        });
-    } else if (company) {
-      if (company.changedPasswordAfter(decoded.iat))
-        return res.status(401).json({
-          status: httpStatusText.FAIL,
-          message: "Company recently changed password! Please log in again.",
-        });
-    }
-
-    // GRANT ACCESS TO PROTECTED ROUTE
-    if (user) {
-      req.user = user;
-    } else if (company) {
-      req.company = company;
-    }
-
-    next();
-  } catch (err) {
-    console.log(err);
-
-    res.status(500).json({
-      status: httpStatusText.ERROR,
-      message: err.message,
-    });
+  // GRANT ACCESS TO PROTECTED ROUTE
+  if (user) {
+    req.user = user;
+  } else if (company) {
+    req.company = company;
   }
-};
+
+  next();
+});
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    if (roles.includes("company") && req.company) return next();
-
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({
-        status: httpStatusText.FAIL,
-        message: "You do not have permission to perform this action",
-      });
+    if (req.user) {
+      if (!roles.includes(req.user.role)) {
+        return next(
+          new ApiError("You do not have permission to perform this action", 403)
+        );
+      }
+    } else if (req.company) {
+      if (!roles.includes(req.company.role)) {
+        return next(
+          new ApiError("You do not have permission to perform this action", 403)
+        );
+      }
     }
 
     next();

@@ -1,6 +1,5 @@
 .header{
     min-height: 100vh;
-    /* padding-top: 3.125rem; */
     position: relative;
 }
 .header::after{
@@ -58,7 +57,7 @@
     width:37.5rem;
     height: 37.5rem;
     border-radius: 50%;
-    background-color: #7428c5c7;
+    background-color: var(--circle_color);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -82,7 +81,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--font_color);
+    color: black;
     box-shadow: 0 0 0.125rem var(--font_color);
     width: 10rem;
     height: 4.375rem;
@@ -94,7 +93,6 @@
     animation-direction: alternate;
 }
 .floating_box_one div span{
-    color: var(--dark_white);
     font-size: 0.875rem;
 }
 .floating_box_one div h6,.floating_box_two div h6{
@@ -159,6 +157,9 @@
     animation-direction: alternate; 
 }
 .little_circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 2.8125rem;
     height: 2.8125rem;
     background-color:var(--golden);
@@ -166,16 +167,13 @@
     position: absolute;
     left: 18%;
     top: 7%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     animation: upDownMove 3s  ease-in-out infinite;
     animation-direction: alternate;
 }
 .little_circle_child{
     width:1.875rem;
     height:1.875rem;
-    background-color:var(--theme_color);
+    background-color:var(--main_bg_color);
     border-radius: 50%;
 }
 
@@ -205,16 +203,21 @@
         width: 70%;
         margin: auto;
     }
+    .floating_box_two{
+        width: 9.375rem;
+    }
     .big_circle_shape{
-        width:25rem;
-        height: 25rem;
+        width:31.25rem;
+        height: 31.25rem;
 
     }
     .small_circle_shape{
-        width: 18.75rem;
-        height: 18.75rem;
+        width: 25rem;
+        height: 25rem;
     }
+    
 }
+
 @media screen and  (max-width:444px) {
     .floating_box_two{
         width: 8.125rem;
@@ -225,6 +228,15 @@
     .plus_icon{
         left: 18%;
         top: 7%; 
+    }
+    .big_circle_shape{
+        width:25rem;
+        height: 25rem;
+
+    }
+    .small_circle_shape{
+        width: 18.75rem;
+        height: 18.75rem;
     }
 }
 @media screen and  (max-width:380px) {
@@ -241,10 +253,10 @@
         bottom: 15%;
     }
     .floating_box_two{
-        left:63%;
+        left:55%;
         top: 30%;
      }
-
+     
 }
 
 @media screen and  (max-width:300px) {
@@ -258,7 +270,7 @@
         height:12.5rem;
     }
     .floating_box_two{
-        left:60%;
+        left:50%;
         top: 30%;
      }
 }
@@ -268,7 +280,6 @@
     }
     .header_caption h4{
        font-size:1rem;
-       color: #f5ebff;
     }
 
 }
