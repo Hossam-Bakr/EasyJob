@@ -75,6 +75,52 @@
     font-style: italic;
 }
 
+/* how it works section  */
+.howItWorks{
+    min-height: 80vh
+}
+.secondHeader{
+    padding-bottom: 3.125rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.secondHeader .secondTitle h1{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 3.3rem;
+    margin-left: 25px;
+    margin-right: 25px;
+    font-weight: bolder;
+}
+
+.line{
+    width: 25%;
+    height: 2px;
+    background-color: #d1d1d3;
+}
+.secondContainer{
+    margin-top: 2rem;
+}
+.steps{
+    width: 80%;
+    margin: auto;
+    position: relative;
+    text-align: center;
+}
+.step_item{
+    width: 100%;
+    min-height: 15.625rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+}
+.circleCheck_icon{
+    font-size: 4rem;    
+    color: #8322C1;
+    margin-bottom: 2rem;
+}
 
 @media screen and (max-width:991px) {
     .elements .element h2 {

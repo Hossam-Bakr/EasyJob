@@ -1,6 +1,7 @@
 .footer{
-    background-color: #1e0238;
-    color: white;
+    /* background-color: #1e0238; */
+    background-color: #F5F5F3;
+    color: rgb(0, 0, 0);
     padding-top: 3rem;
     padding-bottom: 3.5rem;
 }
@@ -15,18 +16,18 @@
     padding-bottom: 1rem;
 }
 .footer_headTitle{
-    color: white;
+    color: rgb(0, 0, 0);
 }
 .links_Box{
     display: flex;
     justify-content: flex-start;
 }
 .footer_link{
-    color: white;
+    color: rgb(0, 0, 0);
     margin-bottom: 5px;
 }
 .links_Box .footer_link{
-    color: white;
+    color: rgb(0, 0, 0);
     display: block;
     margin-bottom: 5px;
 }
