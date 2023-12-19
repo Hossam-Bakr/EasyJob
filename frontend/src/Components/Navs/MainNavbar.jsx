@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 import logo from "../../images/mainLogo.png";
 import darkLogo from "../../images/mainLogoDark.png";
 import { Link, NavLink } from "react-router-dom";
 import MainButton from "../Ui/MainButton";
-import styles from './MainNavbar.module.css';
+import styles from "./MainNavbar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
@@ -12,24 +12,25 @@ import SideBar from "../Ui/SideBar";
 import ResponsiveMenuSlideBar from "../Ui/ResponsiveMenuSlideBar";
 
 const MainNavbar = () => {
-
   const [show, setShow] = useState(false);
-  const [openResMenu,setOpenResMenu ] = useState(false);
+  const [openResMenu, setOpenResMenu] = useState(false);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const [isScrollDown, setIsScrollDown] = useState(false);
   const [isScrollZero, setIsScrollZero] = useState(true);
 
-  const isLightMood=useSelector((state)=>state.mood.lightMood);
+  const isLightMood = useSelector((state) => state.mood.lightMood);
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
 
-  const navColor=isLightMood?"rgb(255, 255, 255)":"#0E1117";
-  const navBorder=isLightMood?"1px solid rgb(246, 242, 255)":"1px solid rgb(8,8,8)";
-  const navLogo= isLightMood?logo:darkLogo;
+  const navColor = isLightMood ? "rgb(255, 255, 255)" : "#0E1117";
+  const navBorder = isLightMood
+    ? "1px solid rgb(246, 242, 255)"
+    : "1px solid rgb(8,8,8)";
+  const navLogo = isLightMood ? logo : darkLogo;
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
 
-  const hideResponsiveMenu=()=>setOpenResMenu(false);
-  const openResponsiveMenu=()=>setOpenResMenu(true);
-
+  const hideResponsiveMenu = () => setOpenResMenu(false);
+  const openResponsiveMenu = () => setOpenResMenu(true);
 
   useEffect(() => {
     const isScrolled = () => {
@@ -47,16 +48,21 @@ const MainNavbar = () => {
     return () => window.removeEventListener("scroll", isScrolled);
   }, [prevScrollY]);
 
-
   return (
     <>
       <motion.nav
         animate={
           !isScrollZero
             ? !isScrollDown
-              ? { y: 0, backgroundColor: navColor, opacity: 1,boxShadow:"0px 1px 2px rgba(0, 0, 0, 0.3)",borderBottom: navBorder }
+              ? {
+                  y: 0,
+                  backgroundColor: navColor,
+                  opacity: 1,
+                  boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.3)",
+                  borderBottom: navBorder,
+                }
               : { y: -400, opacity: 0 }
-            : { y: 0, opacity: 1,borderBottom:'0px solid rgba(255,255,255,0'}
+            : { y: 0, opacity: 1, borderBottom: "0px solid rgba(255,255,255,0" }
         }
         className={`${styles.main_nav} sticky-top static-top d-flex align-items-center px-3 py-1`}
       >
@@ -108,12 +114,18 @@ const MainNavbar = () => {
         </ul>
 
         <div className="d-flex align-items-center ms-auto me-5">
-          <Link to={'login'} className={styles.sign_btn}>
-            <MainButton text='Login'/>
-          </Link>
-          <Link to={'company-register'} className={styles.sign_btn}>
-            <MainButton type='white' text='Company'/>
-          </Link>
+          {isLogin ? (
+            ""
+          ) : (
+            <>
+              <Link to={"login"} className={styles.sign_btn}>
+                <MainButton text="Login" />
+              </Link>
+              <Link to={"company-register"} className={styles.sign_btn}>
+                <MainButton type="white" text="Company" />
+              </Link>
+            </>
+          )}
           <div
             onClick={onShow}
             className={`${styles.burger_list} d-flex justify-content-between flex-column mx-3`}
@@ -126,11 +138,10 @@ const MainNavbar = () => {
           <div onClick={openResponsiveMenu} className={styles.list}>
             <FontAwesomeIcon className={styles.bars_icon} icon={faBars} />
           </div>
-
         </div>
       </motion.nav>
       <SideBar onClose={onClose} show={show} />
-      <ResponsiveMenuSlideBar  onClose={hideResponsiveMenu} show={openResMenu}/>
+      <ResponsiveMenuSlideBar onClose={hideResponsiveMenu} show={openResMenu} />
     </>
   );
 };

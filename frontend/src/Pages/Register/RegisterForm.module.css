@@ -25,6 +25,9 @@
     font-size: 0.875rem;
     font-weight: 700;
 }
+.lname, .fname{
+    width: 50%;
+}
 @media screen and (max-width:1130px) {
     .register_form div{
        margin-inline:0 !important;

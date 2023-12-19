@@ -9,6 +9,8 @@ import SignWithGoogle from "../../Components/Ui/SignWithGoogle";
 import signFormsHandler from "../../util/Http";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faYinYang} from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from "react-redux";
+import { userActions } from "../../Store/userInfo-slice";
 
 const LoginForm = () => {
 
@@ -16,13 +18,21 @@ const LoginForm = () => {
   const [isPasswordError,setIsPasswordError]=useState(false);
 
   const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   const {mutate,isPending} = useMutation({
     mutationFn:signFormsHandler,
     onSuccess:(response)=>{
+      console.log(response.data.data.user)
+      console.log(response.data.token)
       if(response.data.status==='success'){
         setIsEmailError(false);
         setIsPasswordError(false);
+        dispatch(userActions.setUserInfo({
+          data:response.data.data.user,
+          token:response.data.token
+        }))
+        dispatch(userActions.setIsLoginState(true))
         navigate('/')
       }
       else{
@@ -30,7 +40,6 @@ const LoginForm = () => {
       }
     },
     onError:(error)=>{
-      console.log(error)
       if(error.status===404){
         setIsEmailError(true);
         setIsPasswordError(false)
@@ -51,7 +60,6 @@ const LoginForm = () => {
   };
   const onSubmit=(values)=>{
     mutate({type:"login",formData:values});
-    console.log(JSON.stringify(values))
   };
   const validationSchema=object({
     email:string().email("Email not valid").required("Email is required"),
