@@ -18,6 +18,8 @@ exports.userSignup = catchAsync(async (req, res, next) => {
 
   const token = generateJWT(newUser._id);
 
+  newUser.password = undefined;
+
   res.status(201).json({
     status: httpStatusText.SUCCESS,
     token,
@@ -41,6 +43,8 @@ exports.companySignup = catchAsync(async (req, res, next) => {
   });
 
   const token = generateJWT(newCompany._id);
+
+  newCompany.password = undefined;
 
   res.status(201).json({
     status: httpStatusText.SUCCESS,
@@ -72,6 +76,8 @@ exports.Login = catchAsync(async (req, res, next) => {
 
     const token = generateJWT(user._id);
 
+    user.password = undefined;
+
     res.status(200).json({
       status: httpStatusText.SUCCESS,
       token,
@@ -88,6 +94,8 @@ exports.Login = catchAsync(async (req, res, next) => {
     if (!isPasswordCorrect) return next(new ApiError("User not found", 404));
 
     const token = generateJWT(company._id);
+
+    company.password = undefined;
 
     res.status(200).json({
       status: httpStatusText.SUCCESS,
