@@ -7,12 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
-import logo from "../../images/logoNav.png";
+import logo from "../../images/mainLogo.png";
+import darkLogo from "../../images/mainLogoDark.png";
 
 const ResponsiveMenuSlideBar = ({ onClose, show }) => {
 
   const isLightMood=useSelector((state)=>state.mood.lightMood)
   const sideBarClasses=isLightMood?styles.side_bar:styles.side_bar_dark;
+  const navLogo= isLightMood?logo:darkLogo;
 
 
   const handleClose = () => {
@@ -28,7 +30,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
     >
       <Offcanvas.Header className={styles.header} closeButton>
         <Offcanvas.Title>
-          <img src={logo} className={styles.logo} alt="mykid logo" />
+          <img src={navLogo} className={styles.logo} alt="mykid logo" />
         </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>

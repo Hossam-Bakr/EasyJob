@@ -31,7 +31,8 @@ import L3 from "../../images/3.png";
 import L4 from "../../images/4.png";
 import L5 from "../../images/5.png";
 import L6 from "../../images/6.png";
-import find_job from "../../images/resumecap.jpg";
+// import find_job from "../../images/resumecap.jpg";
+import find_job from "../../images/cvMan2.jpg";
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
 
 const HomeMainBody = () => {
