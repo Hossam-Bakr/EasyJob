@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {useSelector} from 'react-redux';
-import logo from "../../images/logoNav.png";
+import logo from "../../images/mainLogo.png";
+import darkLogo from "../../images/mainLogoDark.png";
 import { Link, NavLink } from "react-router-dom";
 import MainButton from "../Ui/MainButton";
 import styles from './MainNavbar.module.css';
@@ -22,7 +23,7 @@ const MainNavbar = () => {
 
   const navColor=isLightMood?"rgb(255, 255, 255)":"#0E1117";
   const navBorder=isLightMood?"1px solid rgb(246, 242, 255)":"1px solid rgb(8,8,8)";
-
+  const navLogo= isLightMood?logo:darkLogo;
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
 
@@ -61,7 +62,7 @@ const MainNavbar = () => {
       >
         <ul className={`${styles.nav_list} d-flex align-items-center mt-3`}>
           <div className={`${styles.brand} me-5`}>
-            <img src={logo} alt="logo" className="w-100" />
+            <img src={navLogo} alt="logo" className="w-100" />
           </div>
           <li className={`${styles.special_hidden} mx-4`}>
             <NavLink

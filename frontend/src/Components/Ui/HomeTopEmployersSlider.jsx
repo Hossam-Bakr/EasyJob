@@ -16,8 +16,7 @@ import c9 from "../../images/c9.png";
 
 const HomeTopEmployersSlider = () => {
   return (
-  
-   <Swiper
+    <Swiper
       slidesPerView={4}
       spaceBetween={10}
       autoplay={{

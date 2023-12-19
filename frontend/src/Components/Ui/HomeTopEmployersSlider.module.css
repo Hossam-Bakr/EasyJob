@@ -5,8 +5,8 @@
     margin: 1.25rem 0;
 }
 .company img{
-
     opacity: .7;
+    width: 8.75rem;
     cursor: pointer;
     transition: all .3s;
 }

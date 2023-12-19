@@ -4,13 +4,6 @@
     padding:1.25rem;
     background-color:var(--off_white);
 }
-.top_employers h3{
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: 800;
-    color:var(--dark_white);
-    font-family: var(--jakarta);
-}
 
 /* ------------------------------------------------- steps section----------------------- */
 
@@ -157,7 +150,7 @@
     position: absolute;
     bottom:5%;
     left:45%;
-    background-color: #d3515a67;
+    background-color: #85bb5f70;
     width: 7.5rem;
     height: 7.5rem;
     border-radius: 50%;
@@ -165,7 +158,7 @@
 }
 
 .resume_caption .resume_caption_circle{
-    background-color: #c6aae47c;
+    background-color: rgba(201, 161, 136, 0.651)
 }
 .resume_caption_dark .resume_caption_circle{
     background-color: rgba(50, 109, 187, 0.192)
