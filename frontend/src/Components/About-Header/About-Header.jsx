@@ -47,8 +47,7 @@ const AboutHeader = () => {
                         <div className={styles.header_captionBox}>
                             <div className={styles.header_caption}>
                                 <h1>About Us</h1>
-                                <p>Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary .</p>
-                                <p>Repeatedly dreamed alas opossum but dramatically despite expeditiously that jeepers loosely yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled cassowary oh above a much opposite far much hypnotically more therefore wasp less that hey apart well like while superbly orca and far hence one.</p>
+                                <p>At EasyJob, our mission is clear, to connect talented individuals with their dream jobs. We understand that finding the right job can be a transformative experience, shaping not just careers but lives. Whether you're a seasoned professional looking for your next challenge or a recent graduate eager to kickstart your career, we're here to guide you every step of the way.</p>
                             </div>
                         </div>
                     </Col>

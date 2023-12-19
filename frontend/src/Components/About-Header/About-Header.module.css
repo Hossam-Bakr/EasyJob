@@ -55,7 +55,10 @@
 }
 
 .header_caption p {
+    margin-top: 5rem;
+    line-height: 2rem;
     text-align: start;
+    font-size: 1.125rem;
 }
 
 .box_one {
