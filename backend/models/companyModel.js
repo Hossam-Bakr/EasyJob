@@ -23,12 +23,10 @@ const companySchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, "Please enter your description"],
       trim: true,
     },
     phone: {
       type: String,
-      required: [true, "Please enter your phone number"],
       trim: true,
     },
     industry: {
@@ -40,7 +38,7 @@ const companySchema = new mongoose.Schema(
       type: {
         type: String,
         enum: ["Point"],
-        required: true,
+        default: "Point",
       },
       coordinates: {
         type: [Number],
