@@ -4,11 +4,26 @@ class APIFeatures {
     this.queryString = queryString;
   }
 
-  // TODO: Add search functionality
+  search(modelName) {
+    if (this.queryString.keyword) {
+      let query = {};
+
+      if (modelName === "Job") {
+        query.$or = [
+          { title: { $regex: this.queryString.keyword, $options: "i" } },
+          { description: { $regex: this.queryString.keyword, $options: "i" } },
+        ];
+      }
+
+      this.query = this.query.find(query);
+    }
+
+    return this;
+  }
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ["page", "sort", "limit", "fields"];
+    const excludedFields = ["page", "sort", "limit", "fields", "keyword"];
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
