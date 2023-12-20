@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faYinYang} from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from "react-redux";
 import { userActions } from "../../Store/userInfo-slice";
+import saveUserInfoIntoLocalStorag, { saveIsLoginState } from "../../Store/userInfo-actions";
 
 const LoginForm = () => {
 
@@ -28,12 +29,11 @@ const LoginForm = () => {
       if(response.data.status==='success'){
         setIsEmailError(false);
         setIsPasswordError(false);
-        dispatch(userActions.setUserInfo({
-          data:response.data.data.user,
-          token:response.data.token
-        }))
-        dispatch(userActions.setIsLoginState(true))
-        navigate('/')
+        dispatch(userActions.setUserInfo(response.data.data.user));
+        dispatch(userActions.setIsLogin(true))
+        dispatch(saveUserInfoIntoLocalStorag(response.data.data.user)); 
+        dispatch(saveIsLoginState(true))
+        navigate('/jobs')
       }
       else{
         alert('sorry something went wrong please try again later!');

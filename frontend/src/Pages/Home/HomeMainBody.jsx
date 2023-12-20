@@ -36,8 +36,8 @@ import find_job from "../../images/cvMan2.jpg";
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
 
 const HomeMainBody = () => {
-  const isLightMood = useSelector((state) => state.mood.lightMood);
-  const resumeCaptionClasses = isLightMood
+  const darkMode = useSelector((state) => state.mode.darkMode);
+  const resumeCaptionClasses = !darkMode
     ? styles.resume_caption
     : styles.resume_caption_dark;
 

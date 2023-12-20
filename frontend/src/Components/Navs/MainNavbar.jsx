@@ -18,14 +18,14 @@ const MainNavbar = () => {
   const [isScrollDown, setIsScrollDown] = useState(false);
   const [isScrollZero, setIsScrollZero] = useState(true);
 
-  const isLightMood = useSelector((state) => state.mood.lightMood);
+  const darkMode = useSelector((state) => state.mode.darkMode);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
 
-  const navColor = isLightMood ? "rgb(255, 255, 255)" : "#0E1117";
-  const navBorder = isLightMood
+  const navColor = !darkMode ? "rgb(255, 255, 255)" : "#0E1117";
+  const navBorder = !darkMode
     ? "1px solid rgb(246, 242, 255)"
     : "1px solid rgb(8,8,8)";
-  const navLogo = isLightMood ? logo : darkLogo;
+  const navLogo = !darkMode ? logo : darkLogo;
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
 
@@ -71,15 +71,27 @@ const MainNavbar = () => {
             <img src={navLogo} alt="logo" className="w-100" />
           </div>
           <li className={`${styles.special_hidden} mx-4`}>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.active : undefined
-              }
-              to={"/"}
-              end
-            >
-              HOME
-            </NavLink>
+            {isLogin ? (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+                to={"jobs"}
+                end
+              >
+                JOBS
+              </NavLink>
+            ) : (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+                to={"/"}
+                end
+              >
+                HOME
+              </NavLink>
+            )}
           </li>
           <li className={`${styles.special_hidden} mx-4`}>
             <NavLink
@@ -126,6 +138,7 @@ const MainNavbar = () => {
               </Link>
             </>
           )}
+
           <div
             onClick={onShow}
             className={`${styles.burger_list} d-flex justify-content-between flex-column mx-3`}

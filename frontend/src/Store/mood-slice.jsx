@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const moodSlice= createSlice({
-    name:'mood',
-    initialState:{
-        lightMood:true
-    },
+
+const initialState={
+    darkMode: localStorage.getItem('darkMode') !== null ? JSON.parse(localStorage.getItem('darkMode')) : false,
+}
+const modeSlice= createSlice({
+    name:'mode',
+    initialState,
     reducers:{
-        changeMood(state){
-         state.lightMood=!state.lightMood
+        toggleMood(state){
+         state.darkMode=!state.darkMode;
+         localStorage.setItem('darkMode',JSON.stringify(state.darkMode));
         }
     }
 })
 
-export const moodActions=moodSlice.actions;
-
-export default moodSlice;
+export const modeAction=modeSlice.actions;
+export default modeSlice;

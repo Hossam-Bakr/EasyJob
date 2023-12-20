@@ -12,9 +12,9 @@ import darkLogo from "../../images/mainLogoDark.png";
 
 const ResponsiveMenuSlideBar = ({ onClose, show }) => {
 
-  const isLightMood=useSelector((state)=>state.mood.lightMood)
-  const sideBarClasses=isLightMood?styles.side_bar:styles.side_bar_dark;
-  const navLogo= isLightMood?logo:darkLogo;
+  const darkMode=useSelector((state)=>state.mode.darkMode)
+  const sideBarClasses=darkMode?styles.side_bar:styles.side_bar_dark;
+  const navLogo= darkMode?logo:darkLogo;
 
 
   const handleClose = () => {

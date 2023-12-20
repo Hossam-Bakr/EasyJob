@@ -3,16 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 const userInfoSlice=createSlice({
     name:'userInfo',
     initialState:{
-        data:{},
-        token:"",
+        data:null,
         isLogin:false
     },
     reducers:{
         setUserInfo(state,action){
-            state.data=action.payload.data;
-            state.token=action.payload.token;
+            state.data=action.payload;
         },
-        setIsLoginState(state,action){
+        setIsLogin(state,action){
             state.isLogin=action.payload
         }
     }

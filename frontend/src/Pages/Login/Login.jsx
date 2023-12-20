@@ -8,8 +8,8 @@ import {useSelector } from 'react-redux';
 
 const Login = () => {
 
-  const isLightMood=useSelector((state)=>state.mood.lightMood);
-  const navLogo= isLightMood?logo:darkLogo;
+  const darkMode=useSelector((state)=>state.mode.darkMode);
+  const navLogo= darkMode?logo:darkLogo;
 
   return (
     <div className={styles.user_login_container}>

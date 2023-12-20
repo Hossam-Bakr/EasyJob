@@ -4,6 +4,7 @@
     color: var(--theme_color);
     background-color: var(--main_color);
     font-size: 1.25rem;
+    font-weight: 700;
     margin-top: 1.875rem;
     overflow: hidden;
     transition: all .3s;

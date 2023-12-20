@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import Home from "./Pages/Home/Home";
 import Root from "./Pages/Root";
 import Login from "./Pages/Login/Login";
@@ -11,8 +11,9 @@ import About from "./Pages/About/About";
 import CompanyRegister from "./Pages/CompanyRegister/CompanyRegister";
 import "./App.css";
 import { useEffect } from "react";
-import saveUserInfoIntoLocalStorag, { getUserInfoFromLocalStorage } from "./Store/userInfo-actions";
-let isFirstTime = true;
+import { getUserInfoFromLocalStorage, getisLoginState } from "./Store/userInfo-actions";
+import setThemeMood from "./Store/mood-actions";
+import Posts from "./Pages/Posts/Posts";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { index: true, element: <Home /> },
+      {path:"jobs",element:<Posts/>},
       { path: "about", element: <About /> },
       { path: "explore", element: <Explore /> },
       { path: "categories", element: <Categories /> },
@@ -34,27 +36,20 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch=useDispatch();
-  const userInfo=useSelector((state)=>state.userInfo)
+  const darkMode=useSelector((state)=>state.mode.darkMode);
 
-
-  //send & recieve data from localStorage
+  // recieve user data from localStorage
   useEffect(()=>{
-    if (isFirstTime) {
-      isFirstTime = false;
-      return;
-    }
-    dispatch(saveUserInfoIntoLocalStorag(userInfo))
-    
-  },[dispatch,userInfo]);
-
-  useEffect(()=>{
-    if (JSON.parse(localStorage.getItem("userInfo"))){
+    if (JSON.parse(localStorage.getItem("userData"))){
       dispatch(getUserInfoFromLocalStorage());
     } 
+    dispatch(getisLoginState())
   },[dispatch]);
 
-
-
+ // set current theme mood
+  useEffect(() => {
+    dispatch(setThemeMood(darkMode));
+  }, [dispatch,darkMode]);
 
     const queryClient= new QueryClient();
     return <QueryClientProvider client={queryClient}><RouterProvider router={router} /></QueryClientProvider>;
