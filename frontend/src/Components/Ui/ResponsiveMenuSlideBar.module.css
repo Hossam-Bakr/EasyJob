@@ -1,5 +1,4 @@
 .side_bar,.side_bar_dark{
-    background-color:rgb(224, 224, 224);
     padding: 1.25rem 0;
     padding-bottom: 0;
     color:  var(--font_color) !important;
@@ -54,9 +53,16 @@
    border-bottom: #2525252f 0.0625rem solid;
    padding: 0.9375rem 0;
    cursor: pointer;
+   display: flex;
+   justify-content: space-between;
    transition: transform .3s;
 }
-.contact_list_item a{
+.list_icons{
+    font-size: 1.5625rem;
+    margin-right: 0.9375rem;
+    color:var(--dark_white)
+}
+.contact_list a{
     color:  var(--font_color);
     font-weight: 700;
     transition: color .3s;
@@ -64,8 +70,11 @@
 .contact_list_item:hover{
     transform: translateX(0.625rem);
 }
-.contact_list_item:hover a{
+.contact_list a:hover .contact_list_item{
    color: var(--main_color);
+}
+.contact_list_item:hover .list_icons{
+    color:var(--main_color) ;
 }
 
 @media screen and (max-width:538px) {

@@ -85,13 +85,13 @@
     right:-5rem;
     background-color:  var(--darker_main_color);
     border-radius: 50%;
-    width: 12.5rem;
-    height: 12.5rem;
+    width: 11.25rem;
+    height: 11.25rem;
 }
 .small_bubble_one{
     position: absolute;
-    top: 6.25rem;
-    right:9.375rem;
+    top: 5.625rem;
+    right:6.25rem;
     background-color:  var(--darker_main_color);
     border-radius: 50%;
     width: 0.625rem;
@@ -99,12 +99,30 @@
 }
 .small_bubble_two{
     position: absolute;
-    top: 4.875rem;
-    right:6.5625rem;
+    top: 4.375rem;
+    right:4.6875rem;
     background-color:  var(--darker_main_color);
     border-radius: 50%;
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 1.6875rem;
+    height: 1.6875rem;
+}
+@media screen and (max-width:1120px) {
+    .bubble{
+        width: 9.375rem;
+        height: 9.375rem;
+    }
+    .small_bubble_two{
+        width: 0.9375rem;
+        height: 0.9375rem;
+        top:3.125rem;
+        right:3.75rem;
+    }
+    .small_bubble_one{
+        width: 0.5rem;
+        height: 0.5rem;
+        top:3.75rem;
+        right:5rem ;
+    }
 }
 @media screen and (max-width:840px) {
     .company_register_caption{
@@ -113,4 +131,9 @@
     .company_register_form{
         width: 100%;
     }
+}
+@media screen and (max-width:250px) {
+ .small_bubble_one,.small_bubble_two,.bubble{
+    display: none;
+ }
 }

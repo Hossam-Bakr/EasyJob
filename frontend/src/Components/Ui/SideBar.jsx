@@ -3,9 +3,8 @@ import { useDispatch,useSelector } from "react-redux";
 import styles from "./SideBar.module.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import ContactsIcon from "./ContactsIcon";
-import profile from "../../images/people4.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faBookmark, faFileContract, faGears, faMoon, faSackDollar, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faBookmark, faCircleUser, faFileContract, faGears, faMoon, faSackDollar, faSun, faUser } from "@fortawesome/free-solid-svg-icons";
 import { modeAction } from "../../Store/mood-slice";
 import { userActions } from "../../Store/userInfo-slice";
 import { saveIsLoginState } from "../../Store/userInfo-actions";
@@ -20,7 +19,7 @@ const SideBar = ({ onClose, show }) => {
   const dispatch=useDispatch();
   const modeContent=!darkMode?'Dark Mood':'Light Mood';
   const sideBarClasses=!darkMode?styles.side_bar:styles.side_bar_dark;
-  const profileName=isLogin?userData.firstName+" "+ userData.lastName:'Guest';
+  const profileName=isLogin?userData.firstName+" "+ userData.lastName:'User Guest';
 
   const toggleModeHandler=()=>{
       dispatch(modeAction.toggleMood());
@@ -50,8 +49,8 @@ const SideBar = ({ onClose, show }) => {
     >
       <Offcanvas.Header className={styles.header} closeButton>
         <Offcanvas.Title>
-          <div className="d-flex align-items-center">
-            <img title="view profile" src={profile} className={styles.profile} alt="profile img" />
+          <div className={`${styles.profile_content} d-flex align-items-center`} title="view profile">
+            <FontAwesomeIcon icon={faCircleUser} className={styles.profile_icon}/>
             <h5 className={styles.profile_name}>{profileName}</h5>
           </div>
         </Offcanvas.Title>

@@ -1,29 +1,42 @@
 .side_bar,.side_bar_dark{
-    background-color:rgb(224, 224, 224);
     padding: 1.25rem 0;
     padding-bottom: 0;
-    color:  var(--font_color) !important;
+    color:var(--font_color) !important;
     border-radius: 2.5rem 0 0 2.5rem;
 }
 .side_bar_dark{
     background-color: black !important;
 }
-.profile{
+.profile_icon{
+    font-size: 45px;
+    color: var(--dark_white);
+    transition: all .3s;
+}
+.profile_pic{
     width: 4.6875rem;
     height: 4.6875rem;
     border-radius: 50%;
     border: 3px solid transparent;
-    cursor: pointer;
     transition: all .3s;
 }
 .profile:hover{
     border: 3px solid var(--main_color);
 }
 .profile_name{
-    margin-left: 0.625rem;
-    font-size: 1.5625rem;
-    font-weight: 900;
-    font-family: var(--jakarta);
+    margin-left: 0.9375rem;
+    font-size: 1.4375rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    transition: color .3s;
+}
+.profile_content{
+    cursor: pointer;
+}
+.profile_content:hover .profile_icon{
+    color: var(--main_color);
+}
+.profile_content:hover .profile_pic{
+    border: 3px solid var(--main_color);
 }
 
 .header{
