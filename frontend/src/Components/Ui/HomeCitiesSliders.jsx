@@ -14,7 +14,6 @@ import giza from "../../images/Giza.jpg";
 import london from "../../images/london.jpg";
 import paris from "../../images/paris.jpg";
 import dubai from "../../images/dubai.jpg";
-import india from "../../images/India.jpg";
 import germany from "../../images/Germany.jpg";
 import canada from "../../images/Canada.jpg";
 import MainButtonTwo from "./MainButtonTwo";
@@ -132,16 +131,6 @@ const HomeCitiesSliders = () => {
             <div className={styles.slider_caption}>
               <h2>Germany</h2>
               <span>open jobs 3</span>
-              <MainButtonTwo type="arrow" text="Discover" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className={styles.slider_item}>
-          <div className={styles.slider_container_img}>
-            <img src={india} alt="india" />
-            <div className={styles.slider_caption}>
-              <h2>India</h2>
-              <span>open jobs 5</span>
               <MainButtonTwo type="arrow" text="Discover" />
             </div>
           </div>

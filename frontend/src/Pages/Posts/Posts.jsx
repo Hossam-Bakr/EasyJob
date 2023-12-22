@@ -13,7 +13,7 @@ const Posts = () => {
   return (
     <Container fluid>
       <Row>
-        <Col sm={4}>
+        <Col sm={3}>
           <aside className={styles.job_filters}>
             <div className='d-flex align-items-center'>
              <FontAwesomeIcon className={styles.filter_icon} icon={faFilter}/>
@@ -86,7 +86,7 @@ const Posts = () => {
             </Accordion>
           </aside>
         </Col>
-        <Col sm={8}>
+        <Col sm={9}>
           <section className={styles.job_posts}>
             <Container>
               <Row>

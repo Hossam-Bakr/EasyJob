@@ -49,6 +49,7 @@
     padding: 0 !important;
     position: relative;
     border-radius: 10px;
+    min-width: 300px;
 }
 .subscribe_container input{
     background-color: transparent;
@@ -68,4 +69,5 @@
     color: var(--main_color);
     font-size: 1.25rem;
     font-weight: 700;
+    cursor: pointer;
 }
