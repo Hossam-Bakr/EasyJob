@@ -1,0 +1,56 @@
+
+.job{
+    border: 0.0625rem solid rgba(100, 100, 100, 0.151);
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    margin-bottom: 3.125rem;
+    transition: border .3s;
+}
+.job:hover{
+    border: 0.0625rem solid var(--main_color);
+}
+.company_logo{
+    width: 3.75rem;
+}
+.bookmark_icon,.eye_icon{
+    font-size: 1rem;
+    border-radius: 50%;
+    border: 0.0625rem solid rgba(100, 100, 100, 0.151);
+    padding: 0.625rem;
+    color: var(--main_color);
+    cursor: pointer;
+    transition: all .3s;
+}
+.bookmark_icon:hover,.eye_icon:hover{
+    background-color: var(--main_color);
+    color: white;
+}
+.bookmark_icon{
+    padding: 0.625rem 0.75rem;
+}
+.job span{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+    font-family: var(--jakarta);
+}
+.job h4{
+    color:var(--font_color);
+    font-size:1.125rem;
+    font-weight: 600;
+    font-family: var(--jakarta);
+    margin: 0.625rem 0;
+
+}
+.job p{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+    font-weight: 600;
+    margin-bottom: 1.875rem;
+}
+.location_icon{
+    margin-right:0.125rem;
+    color: var(--main_color);
+}
+.info span{
+    font-size: 0.8125rem;
+}
