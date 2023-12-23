@@ -1,8 +1,8 @@
 .register_form{
     background-color: var(--theme_color);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.432);
-    border-radius: 15px;
-    padding: 50px 20px;
+    box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.432);
+    border-radius: 0.9375rem;
+    padding: 3.125rem 1.25rem;
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -11,12 +11,13 @@
 }
 .register_form div{
     width: 100%;
+    position: relative;
 }
 .register_form div input{
     width: 100%;
 }
 .register_span{
-        font-size: 0.875rem;
+        font-size: 14px;
         font-weight: 700;
 }
 .register_spana{
@@ -26,11 +27,22 @@
     width: 80%;
     background-color: var(--darker_main_color);
     color: white;
-    padding: 0.625rem 0.9375rem;
-    border-radius: 0.9375rem;
-    margin: 0.625rem 0;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin: 10px 0;
     transition: background-color .3s;
 }
 .register_btn:hover{
     background-color:rgb(1, 80, 182);
+}
+
+@media screen and (max-width:1200px) {
+    .register_form{
+        width: 88%;
+    }
+}
+@media screen and (max-width:270px) {
+    .register_form{
+        width: 100%;
+    }
 }

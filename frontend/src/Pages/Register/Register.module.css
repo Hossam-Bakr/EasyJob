@@ -1,11 +1,11 @@
 .register_container{
     width: 100vw;
-    min-height: 88vh;
+    min-height: 92vh;
     padding: 1.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background:linear-gradient(135deg,#F4F9FF 50%,var(--darker_main_color) 50%) ;
+    background:linear-gradient(135deg,var(--sky) 50%,var(--darker_main_color) 50%) ;
 }
 .register_content{
     display: flex;
@@ -19,7 +19,7 @@
 .register_caption{
     width: 50%;
     min-height: 100%;
-    background-color: #F4F9FF ;
+    background-color: var(--sky) ;
     background-size: cover;
     display: flex;
     flex-direction: column;

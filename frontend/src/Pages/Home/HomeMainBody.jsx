@@ -8,16 +8,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBookmark,
   faBullhorn,
   faChartSimple,
   faCircleCheck,
   faCode,
   faDisplay,
-  faEye,
   faHeadphonesSimple,
   faHelmetSafety,
-  faLocationDot,
   faPaintBrush,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -25,19 +22,13 @@ import HomeTopEmployersSlider from "../../Components/Ui/HomeTopEmployersSlider";
 import SectionMainTitle from "../../Components/Ui/SectionMainTitle";
 import MainButtonTwo from "./../../Components/Ui/MainButtonTwo";
 import HomeCitiesSliders from "../../Components/Ui/HomeCitiesSliders";
-import L1 from "../../images/1.png";
-import L2 from "../../images/2.png";
-import L3 from "../../images/3.png";
-import L4 from "../../images/4.png";
-import L5 from "../../images/5.png";
-import L6 from "../../images/6.png";
-// import find_job from "../../images/resumecap.jpg";
 import find_job from "../../images/cvMan2.jpg";
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
+import JobPost from "../../Components/Ui/JobPost";
 
 const HomeMainBody = () => {
-  const isLightMood = useSelector((state) => state.mood.lightMood);
-  const resumeCaptionClasses = isLightMood
+  const darkMode = useSelector((state) => state.mode.darkMode);
+  const resumeCaptionClasses = !darkMode
     ? styles.resume_caption
     : styles.resume_caption_dark;
 
@@ -222,259 +213,26 @@ const HomeMainBody = () => {
       <section className={styles.fearured_job}>
         <SectionMainTitle title="Featured Job Offers" />
         <Container fluid="lg" className="pb-5">
-          <Row>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.job}>
-                <div className="d-flex justify-content-between mb-3">
-                  <img
-                    src={L1}
-                    alt="compan logo"
-                    className={styles.company_logo}
-                  />
-                  <div className="d-flex justify-content-center align-items-center">
-                    <FontAwesomeIcon
-                      icon={faBookmark}
-                      title="save"
-                      className={`${styles.bookmark_icon} mx-2`}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      title="view"
-                      className={`${styles.eye_icon} mx-2`}
-                    />
-                  </div>
-                </div>
-                <span>Yata</span>
-                <h4>Nuclear Power Engineer</h4>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.
-                </p>
-                <div
-                  className={`${styles.info} d-flex justify-content-evenly align-items-center`}
-                >
-                  <span>Remote</span>
-                  <span>Full Time</span>
-                  <span>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className={styles.location_icon}
-                    />{" "}
-                    Cairo
-                  </span>
-                </div>
-              </div>
-            </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.job}>
-                <div className="d-flex justify-content-between mb-3">
-                  <img
-                    src={L2}
-                    alt="company logo"
-                    className={styles.company_logo}
-                  />
-                  <div className="d-flex justify-content-center align-items-center">
-                    <FontAwesomeIcon
-                      icon={faBookmark}
-                      title="save"
-                      className={`${styles.bookmark_icon} mx-2`}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      title="view"
-                      className={`${styles.eye_icon} mx-2`}
-                    />
-                  </div>
-                </div>
-                <span>Blognation</span>
-                <h4>Technical Writer</h4>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.
-                </p>
-                <div
-                  className={`${styles.info} d-flex justify-content-evenly align-items-center`}
-                >
-                  <span>Remote</span>
-                  <span>Full Time</span>
-                  <span>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className={styles.location_icon}
-                    />{" "}
-                    Giza
-                  </span>
-                </div>
-              </div>
-            </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.job}>
-                <div className="d-flex justify-content-between mb-3">
-                  <img
-                    src={L3}
-                    alt="company logo"
-                    className={styles.company_logo}
-                  />
-                  <div className="d-flex justify-content-center align-items-center">
-                    <FontAwesomeIcon
-                      icon={faBookmark}
-                      title="save"
-                      className={`${styles.bookmark_icon} mx-2`}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      title="view"
-                      className={`${styles.eye_icon} mx-2`}
-                    />
-                  </div>
-                </div>
-                <span>Mynte</span>
-                <h4>Frontend React Developer</h4>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.
-                </p>
-                <div
-                  className={`${styles.info} d-flex justify-content-evenly align-items-center`}
-                >
-                  <span>Remote</span>
-                  <span>Full Time</span>
-                  <span>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className={styles.location_icon}
-                    />{" "}
-                    Cairo
-                  </span>
-                </div>
-              </div>
-            </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.job}>
-                <div className="d-flex justify-content-between mb-3">
-                  <img
-                    src={L4}
-                    alt="company logo"
-                    className={styles.company_logo}
-                  />
-                  <div className="d-flex justify-content-center align-items-center">
-                    <FontAwesomeIcon
-                      icon={faBookmark}
-                      title="save"
-                      className={`${styles.bookmark_icon} mx-2`}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      title="view"
-                      className={`${styles.eye_icon} mx-2`}
-                    />
-                  </div>
-                </div>
-                <span>Voonder</span>
-                <h4>Financial Advisor</h4>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.
-                </p>
-                <div
-                  className={`${styles.info} d-flex justify-content-evenly align-items-center`}
-                >
-                  <span>Remote</span>
-                  <span>Full Time</span>
-                  <span>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className={styles.location_icon}
-                    />{" "}
-                    Tanta
-                  </span>
-                </div>
-              </div>
-            </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.job}>
-                <div className="d-flex justify-content-between mb-3">
-                  <img
-                    src={L5}
-                    alt="company logo"
-                    className={styles.company_logo}
-                  />
-                  <div className="d-flex justify-content-center align-items-center">
-                    <FontAwesomeIcon
-                      icon={faBookmark}
-                      title="save"
-                      className={`${styles.bookmark_icon} mx-2`}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      title="view"
-                      className={`${styles.eye_icon} mx-2`}
-                    />
-                  </div>
-                </div>
-                <span>Abata</span>
-                <h4>Node Js| php developer</h4>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.
-                </p>
-                <div
-                  className={`${styles.info} d-flex justify-content-evenly align-items-center`}
-                >
-                  <span>Remote</span>
-                  <span>Full Time</span>
-                  <span>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className={styles.location_icon}
-                    />{" "}
-                    Alex
-                  </span>
-                </div>
-              </div>
-            </Col>
-            <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.job}>
-                <div className="d-flex justify-content-between mb-3">
-                  <img
-                    src={L6}
-                    alt="company logo"
-                    className={styles.company_logo}
-                  />
-                  <div className="d-flex justify-content-center align-items-center">
-                    <FontAwesomeIcon
-                      icon={faBookmark}
-                      title="save"
-                      className={`${styles.bookmark_icon} mx-2`}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEye}
-                      title="view"
-                      className={`${styles.eye_icon} mx-2`}
-                    />
-                  </div>
-                </div>
-                <span>Linktype</span>
-                <h4>GIS Technical Architect</h4>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.
-                </p>
-                <div
-                  className={`${styles.info} d-flex justify-content-evenly align-items-center`}
-                >
-                  <span>Remote</span>
-                  <span>Full Time</span>
-                  <span>
-                    <FontAwesomeIcon
-                      icon={faLocationDot}
-                      className={styles.location_icon}
-                    />{" "}
-                    Cairo
-                  </span>
-                </div>
-              </div>
-            </Col>
+          <Row>  
+
+            <JobPost name='Yata' jobTitle='Nuclear Power Engineer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta.' logo='L1' city='Cairo'/>
+         
+            <JobPost name='Blognation' jobTitle='Technical Writer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta.' logo='L2' city='Giza'/>
+         
+            <JobPost name='Mynte' jobTitle='Frontend React Developer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta.' logo='L3' city='Alex'/>
+     
+          <JobPost name='Voonder' jobTitle='Financial Advisor' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta.' logo='L4' city='Cairo'/>
+          
+          <JobPost name='Abata' jobTitle='Node Js| php developer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta.' logo='L5' city='Tanta'/>
+          <JobPost name='Abata' jobTitle='Node Js| php developer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta.' logo='L5' city='Tanta'/>
+          <JobPost name='Linktype' jobTitle='GIS Technical Architect' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta.' logo='L6' city='Cairo'/>
           </Row>
           <div className="text-center">
             <MainButtonTwo text="View All Listing" />

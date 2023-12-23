@@ -14,7 +14,6 @@ import { faYinYang } from '@fortawesome/free-solid-svg-icons';
 const RegisterForm = () => {
 
   const [isEmailError, setIsEmailError] = useState(false);
-
   const navigate = useNavigate();
 
   const { mutate, isPending } = useMutation({
@@ -29,7 +28,6 @@ const RegisterForm = () => {
       }
     },
     onError(error) {
-      console.log(error)
       if (error.status === 500) {
         if (error.data.message === 'connection <monitor> to 15.185.166.107:27017 timed out') {
           setIsEmailError(false);
@@ -76,7 +74,7 @@ const RegisterForm = () => {
             <Field type="text" id='firstName' name='firstName' placeholder="First Name" />
             <ErrorMessage name='firstName' component={InputErrorMessage} />
           </div>
-          <div className={`${styles.lname} d-flex flex-column ms-2 position-relative`}>
+          <div className={`${styles.lname} d-flex flex-column ms-2 position-relative `}>
             <Field type="text" id='lastName' name='lastName' placeholder="last Name" />
             <ErrorMessage name='lastName' component={InputErrorMessage} />
           </div>

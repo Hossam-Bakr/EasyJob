@@ -5,7 +5,7 @@
     background-color: var(--main_color);
     min-width: 6.25rem;
     font-size: 1.125rem;
-    font-weight: 600;
+    font-weight: 700;
     box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.5);
     overflow: hidden;
     transition: transform .3s;
