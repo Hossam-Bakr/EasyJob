@@ -56,12 +56,28 @@ class APIFeatures {
     return this;
   }
 
-  paginate() {
+  paginate(documentsCount) {
     const page = this.queryString.page * 1 || 1;
     const limit = this.queryString.limit * 1 || 100;
     const skip = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    // Pagination result
+    const pagination = {};
+    pagination.currentPage = page;
+    pagination.limit = limit;
+    pagination.numberOfPages = Math.ceil(documentsCount / limit);
+
+    // next page
+    if (endIndex < documentsCount) {
+      pagination.next = page + 1;
+    }
+    if (skip > 0) {
+      pagination.prev = page - 1;
+    }
 
     this.query = this.query.skip(skip).limit(limit);
+    this.paginationResult = pagination;
 
     return this;
   }
