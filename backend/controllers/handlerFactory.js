@@ -69,20 +69,21 @@ exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
 
+    const documentsCount = await Model.countDocuments();
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .search(Model.modelName)
       .sort()
       .limitFields()
-      .paginate();
+      .paginate(documentsCount);
 
-    const doc = await features.query;
+    const { paginationResult, query } = features;
+    const doc = await query;
 
     res.status(200).json({
       status: "success",
       results: doc.length,
-      data: {
-        data: doc,
-      },
+      paginationResult,
+      data: doc,
     });
   });
