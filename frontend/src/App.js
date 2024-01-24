@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { getUserInfoFromLocalStorage, getisLoginState } from "./Store/userInfo-actions";
 import setThemeMood from "./Store/mood-actions";
 import Posts from "./Pages/Posts/Posts";
+import CompanyHome from "./Pages/Home/CompanyHome";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { index: true, element: <Home /> },
+      { path: "company-home", element: <CompanyHome /> },
       {path:"jobs",element:<Posts/>},
       { path: "about", element: <About /> },
       { path: "explore", element: <Explore /> },

@@ -1,5 +1,5 @@
 .user_login_container{
-    background:linear-gradient(-135deg,var(--sky) 50%,var(--darker_main_color) 50%) ;
+    background:linear-gradient(-135deg,var(--vanilla) 50%,var(--darker_main_color) 50%) ;
     width: 100vw;
     min-height: 92vh;
     display: flex;
@@ -18,7 +18,7 @@
 .user_login_caption{
     min-height: 100%;
     width: 50%;
-    background-color: var(--sky);
+    background-color: var(--vanilla);
     border-radius:0.9375rem 0 0 0.9375rem;
     padding: 1.5625rem;
     display: flex;

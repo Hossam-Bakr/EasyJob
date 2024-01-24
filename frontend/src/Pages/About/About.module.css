@@ -118,7 +118,7 @@
 }
 .circleCheck_icon{
     font-size: 4rem;    
-    color: #8322C1;
+    color:var(--main_color);
     margin-bottom: 2rem;
 }
 

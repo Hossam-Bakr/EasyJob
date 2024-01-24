@@ -67,7 +67,7 @@
     align-items: center;
     width: 55vw;
     min-height: 93vh;
-    background-color: var(--sky);
+    background-color: var(--vanilla);
     overflow: hidden;
     position: relative;
 }

@@ -8,83 +8,23 @@
 /* ------------------------------------------------- steps section----------------------- */
 
 .steps{
-    padding:3.125rem 0;
-    margin-bottom: 3.125rem;
-    margin-top: 3.125rem;
+    padding: 50px;
     position: relative;
 }
-
-.step_item{
-    width: 100%;
-    min-height: 15.625rem;
-    padding: 0.625rem 0.9375rem;
-    border-radius: 10px;
-    background-color: var(--theme_color);
-    box-shadow: 0 0 3px var(--main_color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    position: relative;
-}
-.step_item_img{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.step_item h5{
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-top: 1.875rem;
-    margin-bottom: 1.875rem;
-    color: var(--font_color);
-}
-
-.step_num{
-    position: absolute;
-    top: 20%;
-    left:84%;
-    transform: translate(-50%,-50%);
-    font-size: 5rem;
-    font-weight: 900;
-    font-family: var(--jakarta);
-    color:rgb(207, 207, 207);
-    
-}
-.step_item ul{
-    margin-top: 0.625rem;
-    margin-bottom: 2.5rem;
-    padding: 0;
-}
-.step_item ul li{
-    list-style:none;
-    font-weight: 800;
-    color: var(--dark_white);
-}
-
-.step_btn_div{
-    text-align:end;
- }
-
-.circleCheck_icon{
-    margin-right:0.3125rem;
-    color: rgb(89, 163, 89);
-}
-.step_caption h5{
-    display: none;
- }
 
 /* ------------------------------------------------- resume caption section----------------------- */
 .resume_caption{
     margin-bottom: 3.125rem;
-    background-image: url(../../images/bg2.jpg);
-    background-size: cover;
+    background-color: var(--vanilla);
     min-height: 100vh;
 }
 .resume_caption_dark{
     min-height: 100vh;
     margin-bottom:3.125rem; ;
 }
-
+.circleCheck_icon{
+    margin-right: 10px;
+}
 .resume_caption_container{
     position: relative;
     z-index: 1;
@@ -150,7 +90,7 @@
     position: absolute;
     bottom:5%;
     left:45%;
-    background-color: #85bb5f70;
+    background-color: #f7d85c93;
     width: 7.5rem;
     height: 7.5rem;
     border-radius: 50%;
@@ -158,7 +98,7 @@
 }
 
 .resume_caption .resume_caption_circle{
-    background-color: rgba(201, 161, 136, 0.651)
+    background-color: #ad000076
 }
 .resume_caption_dark .resume_caption_circle{
     background-color: rgba(50, 109, 187, 0.192)
@@ -232,7 +172,7 @@
 
 
 
-/* ------------------------------------------------- capton section----------------------- */
+/* ------------------------------------------------- caption section----------------------- */
 .caption{
     background-image: url(../../images/bg1.webp);
     background-size: cover;
@@ -293,10 +233,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--off_white);
-    padding: 1.5625rem 0.9375rem;
+    background-color: var(--vanilla);
+    padding: 25px 15px;
     border-radius: 1.25rem;
-    width: 30%;
+    width: 25%;
     transition:  background-color .3s;
 }
 .category_icon{
@@ -326,7 +266,7 @@
 /* ------------------------------------------------- featured_cities section----------------------- */
 .featured_cities{
     min-height: 100vh;
-    background-color: var(--off_white);
+    background-color: var(--vanilla);
     padding: 3.125rem;
 }
 
@@ -381,74 +321,26 @@
 
 /* ------------------------------------------------- Testimonials section----------------------- */
 .Testimonials{
-    background-image:radial-gradient(circle,#19172d,#11121c,#0e1116);
     padding:1.25rem 0.625rem;
     color: white;
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
     position: relative;
     z-index: 1;
-    overflow: hidden;
 }
-.testimonials_first_circle_shape{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: transparent;
-    border-radius: 50%;
-    border: 0.0625rem solid rgba(255, 255, 255, 0.068);
-    width:62.5rem;
-    height: 62.5rem;
-    z-index: -1;
-}
-.testimonials_second_circle_shape{
-    background-color: transparent;
-    border-radius: 50%;
-    border: 0.0625rem solid rgba(255, 255, 255, 0.068);
-    width: 50rem;
-    height:50rem;
-    z-index: -1;
-}
-.testimonials_third_circle_shape{
-    background-color: transparent;
-    border-radius: 50%;
-    border: 0.0625rem solid rgba(255, 255, 255, 0.068);
-    width: 37.5rem;
-    height:37.5rem;
-    z-index: -1;
-}
-.testimonials_fourth_circle_shape{
-    background-color: transparent;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.068);
-    width: 25rem;
-    height: 25rem;
-    z-index: -1;
-}
-
 
 /* ------------------------------------------------- media query section----------------------- */
-@media screen and (max-width:1067px) {
-    .step_item{
-        margin: auto;
-        margin-bottom: 1.875rem;
-     }
-} 
 
-@media screen and (min-width:992px) and (max-width:1033px) {
-    .step_num{
-        font-size: 3.75rem;
-     }
-} 
 
 @media screen and (max-width:768px) {
    .caption{
     width: 95vw;
     padding-inline:0.625rem;
    }
-    .step_item{
-      width: 80%;
-     }
 } 
 @media screen and (max-width:422px) {
     .resume_caption_content{
@@ -465,7 +357,7 @@
         width: 80%;
       }
     .resume_caption_img img{
-     object-fit: cover;
+         object-fit: cover;
       }
 } 
 @media screen and (max-width:385px) {
@@ -474,9 +366,6 @@
         padding:0.625rem 1.25rem;
         height: auto;
        }
-    .step_item{
-      width: 98%;
-     }
      .resume_caption_content{
         min-width: 18.75rem;
     }
@@ -491,9 +380,6 @@
     .caption p{
         font-size: 0.875rem;
        }
-    .step_num{
-      display: none;
-     }
      .resume_caption_content{
         min-width: 15.625rem;
     }

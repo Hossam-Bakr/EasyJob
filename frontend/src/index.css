@@ -16,13 +16,14 @@ body{
 :root{
   --main_color:rgb(0, 110, 255);
   --darker_main_color:rgb(5, 59, 129);
-  --golden:#EFA51E;
+  --golden:#E25910;
   --font_color:black;
   --main_bg_color:white;
   --dark_white:rgb(129, 129, 129);
   --theme_color:white;
   --off_white:rgb(246, 242, 255);
   --sky:#F4F9FF;
+  --vanilla:rgb(236, 246, 252);
   --circle_color:rgba(0, 110, 255, 0.863);
   --main_font:'Quicksand', sans-serif;
   --jakarta:'Plus Jakarta Sans', sans-serif;

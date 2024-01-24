@@ -1,15 +1,14 @@
 .footer{
-    /* background-color: #1e0238; */
-    background-color: #F5F5F3;
+    background-color: var(--vanilla);
     color: rgb(0, 0, 0);
     padding-top: 3rem;
     padding-bottom: 3.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.093);
 }
 .footer_logo{
     padding-top: 2rem;
     padding-bottom: 1rem;
-    width: 100px;
-    
+    width: 12.5rem;
 }
 .footer_head{
     padding-top: 2rem;
@@ -24,12 +23,12 @@
 }
 .footer_link{
     color: rgb(0, 0, 0);
-    margin-bottom: 5px;
+    margin-bottom: 0.3125rem;
 }
 .links_Box .footer_link{
     color: rgb(0, 0, 0);
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.3125rem;
 }
 
 .footer_link:hover{

@@ -20,6 +20,7 @@ const MainNavbar = () => {
 
   const darkMode = useSelector((state) => state.mode.darkMode);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const isCompanyHome = useSelector((state) => state.companyNav.isCompanyHome);
 
   const navColor = !darkMode ? "rgb(255, 255, 255)" : "#0E1117";
   const navBorder = !darkMode
@@ -82,6 +83,7 @@ const MainNavbar = () => {
                 JOBS
               </NavLink>
             ) : (
+              
               <NavLink
                 className={({ isActive }) =>
                   isActive ? styles.active : undefined
@@ -133,9 +135,15 @@ const MainNavbar = () => {
               <Link to={"login"} className={styles.sign_btn}>
                 <MainButton text="Login" />
               </Link>
-              <Link to={"company-register"} className={styles.sign_btn}>
-                <MainButton type="white" text="Company" />
-              </Link>
+              {isCompanyHome ? (
+                <Link to={"/"} className={styles.sign_btn}>
+                  <MainButton type="white" text="Employee" />
+                </Link>
+              ) : (
+                <Link to={"company-home"} className={styles.sign_btn}>
+                  <MainButton type="white" text="Company" />
+                </Link>
+              )}
             </>
           )}
 

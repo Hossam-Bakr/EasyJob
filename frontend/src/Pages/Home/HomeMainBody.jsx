@@ -10,21 +10,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBullhorn,
   faChartSimple,
-  faCircleCheck,
   faCode,
   faDisplay,
   faHeadphonesSimple,
   faHelmetSafety,
   faPaintBrush,
+  faSquareArrowUpRight,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import HomeTopEmployersSlider from "../../Components/Ui/HomeTopEmployersSlider";
 import SectionMainTitle from "../../Components/Ui/SectionMainTitle";
 import MainButtonTwo from "./../../Components/Ui/MainButtonTwo";
 import HomeCitiesSliders from "../../Components/Ui/HomeCitiesSliders";
-import find_job from "../../images/cvMan2.jpg";
+import sec2_img from "../../images/sec2.jpg";
+
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
 import JobPost from "../../Components/Ui/JobPost";
+import VerticalSlider from "../../Components/Ui/VerticalSlider";
 
 const HomeMainBody = () => {
   const darkMode = useSelector((state) => state.mode.darkMode);
@@ -46,112 +48,7 @@ const HomeMainBody = () => {
       {/* steps section------------------------------------------------------------------- */}
       <section className={styles.steps}>
         <SectionMainTitle title="Find Your Perfect Job With Few Steps" />
-        <Container fluid>
-          <Row className="justify-content-center">
-            <Col
-              md={6}
-              lg={4}
-              className="d-flex justify-content-center"
-              data-aos="fade-right"
-              data-aos-duration="1000"
-            >
-              <div className={styles.step_item}>
-                <span className={styles.step_num}>01</span>
-                <h5>Complete Your Profile</h5>
-                <div className={styles.step_caption}>
-                  <h5>Complete Your Profile</h5>
-                  <ul>
-                    <li>
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        className={styles.circleCheck_icon}
-                      />
-                      create an account
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        className={styles.circleCheck_icon}
-                      />
-                      fill your profile to find best job.
-                    </li>
-                  </ul>
-                  <div className={`${styles.step_btn_div} px-2 mt-4`}>
-                    <MainButtonTwo type="arrow" text="sign up" />
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col
-              md={6}
-              lg={4}
-              className="d-flex justify-content-center"
-              data-aos="fade-in"
-              data-aos-duration="1000"
-            >
-              <div className={styles.step_item}>
-                <span className={styles.step_num}>02</span>
-                <h5>Find Your Job</h5>
-                <div className={styles.step_caption}>
-                  <h5>Complete Your Profile</h5>
-                  <ul>
-                    <li>
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        className={styles.circleCheck_icon}
-                      />
-                      search your job
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        className={styles.circleCheck_icon}
-                      />
-                      apply for job
-                    </li>
-                  </ul>
-                  <div className={`${styles.step_btn_div} px-2 mt-4`}>
-                    <MainButtonTwo type="arrow" text="discover jobs" />
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col
-              md={6}
-              lg={4}
-              className="d-flex justify-content-center"
-              data-aos="fade-left"
-              data-aos-duration="1000"
-            >
-              <div className={styles.step_item}>
-                <span className={styles.step_num}>03</span>
-                <h5> Upload Your CV</h5>
-                <div className={styles.step_caption}>
-                  <h5>Complete Your Profile</h5>
-                  <ul>
-                    <li>
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        className={styles.circleCheck_icon}
-                      />
-                      prepare your cv in pdf form
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        className={styles.circleCheck_icon}
-                      />
-                      easily apload your cv
-                    </li>
-                  </ul>
-                  <div className={`${styles.step_btn_div} px-2 mt-4`}>
-                    <MainButtonTwo type="arrow" text="upload cv" />
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        <VerticalSlider/>
       </section>
 
       {/* resume caption section------------------------------------------------------------------- */}
@@ -167,7 +64,7 @@ const HomeMainBody = () => {
               data-aos-duration="1000"
             >
               <div className={styles.resume_caption_img}>
-                <img src={find_job} alt="man with laptop" />
+                <img src={sec2_img} alt="employees" className="w-100" />
               </div>
             </Col>
             <Col lg={6} data-aos="zoom-in-up" data-aos-duration="1000">
@@ -180,21 +77,21 @@ const HomeMainBody = () => {
                 <ul className="px-0 my-3">
                   <li>
                     <FontAwesomeIcon
-                      icon={faCircleCheck}
+                      icon={faSquareArrowUpRight}
                       className={styles.circleCheck_icon}
                     />
                     Search all the open positions on the web
                   </li>
                   <li>
                     <FontAwesomeIcon
-                      icon={faCircleCheck}
+                      icon={faSquareArrowUpRight}
                       className={styles.circleCheck_icon}
                     />
                     Get your own personalized salary estimate.
                   </li>
                   <li>
                     <FontAwesomeIcon
-                      icon={faCircleCheck}
+                      icon={faSquareArrowUpRight}
                       className={styles.circleCheck_icon}
                     />
                     Read reviews on over 600,000 companies worldwide.
@@ -213,26 +110,67 @@ const HomeMainBody = () => {
       <section className={styles.fearured_job}>
         <SectionMainTitle title="Featured Job Offers" />
         <Container fluid="lg" className="pb-5">
-          <Row>  
+          <Row>
+            <JobPost
+              name="Yata"
+              jobTitle="Nuclear Power Engineer"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L1"
+              city="Cairo"
+            />
 
-            <JobPost name='Yata' jobTitle='Nuclear Power Engineer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.' logo='L1' city='Cairo'/>
-         
-            <JobPost name='Blognation' jobTitle='Technical Writer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.' logo='L2' city='Giza'/>
-         
-            <JobPost name='Mynte' jobTitle='Frontend React Developer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.' logo='L3' city='Alex'/>
-     
-          <JobPost name='Voonder' jobTitle='Financial Advisor' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.' logo='L4' city='Cairo'/>
-          
-          <JobPost name='Abata' jobTitle='Node Js| php developer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.' logo='L5' city='Tanta'/>
-          <JobPost name='Abata' jobTitle='Node Js| php developer' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.' logo='L5' city='Tanta'/>
-          <JobPost name='Linktype' jobTitle='GIS Technical Architect' desc=' Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta.' logo='L6' city='Cairo'/>
+            <JobPost
+              name="Blognation"
+              jobTitle="Technical Writer"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L2"
+              city="Giza"
+            />
+
+            <JobPost
+              name="Mynte"
+              jobTitle="Frontend React Developer"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L3"
+              city="Alex"
+            />
+
+            <JobPost
+              name="Voonder"
+              jobTitle="Financial Advisor"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L4"
+              city="Cairo"
+            />
+
+            <JobPost
+              name="Abata"
+              jobTitle="Node Js| php developer"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L5"
+              city="Tanta"
+            />
+            <JobPost
+              name="Abata"
+              jobTitle="Node Js| php developer"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L5"
+              city="Tanta"
+            />
+            <JobPost
+              name="Linktype"
+              jobTitle="GIS Technical Architect"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L6"
+              city="Cairo"
+            />
           </Row>
           <div className="text-center">
             <MainButtonTwo text="View All Listing" />
@@ -469,19 +407,6 @@ const HomeMainBody = () => {
 
       {/* Testimonials section------------------------------------------------------------------- */}
       <section className={styles.Testimonials}>
-        <div
-          className={`${styles.testimonials_first_circle_shape} d-flex justify-content-center align-items-center`}
-        >
-          <div
-            className={`${styles.testimonials_second_circle_shape} d-flex justify-content-center align-items-center`}
-          >
-            <div
-              className={`${styles.testimonials_third_circle_shape} d-flex justify-content-center align-items-center`}
-            >
-              <div className={styles.testimonials_fourth_circle_shape}></div>
-            </div>
-          </div>
-        </div>
         <SectionMainTitle title="Testimonials" />
         <HomeTestimonalsSlider />
       </section>

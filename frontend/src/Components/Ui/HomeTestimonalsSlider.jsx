@@ -24,6 +24,9 @@ import {
 import AOS from "aos";
 import "aos/dist/aos.css";
 import TestimonalsModal from "./TestimonalsModal";
+import like_emotion from "../../images/emotion_like.png";
+import love_emotion from "../../images/emotion_love.png";
+import dislike_emotion from "../../images/emotion_dislike.png";
 
 const HomeTestimonalsSlider = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -34,6 +37,15 @@ const HomeTestimonalsSlider = () => {
 
   return (
     <>
+          <div className={styles.like_emotion}>
+          <img src={like_emotion} alt="like_emotion" className="w-100" />
+        </div>
+        <div className={styles.love_emotion}>
+          <img src={love_emotion} alt="love_emotion" className="w-100" />
+        </div>
+        <div className={styles.dislike_emotion}>
+          <img src={dislike_emotion} alt="dislike_emotion" className="w-100" />
+        </div>
       <Swiper
         autoplay={{
           delay: 3000,

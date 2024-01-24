@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import { Link } from 'react-router-dom';
 import ContactsIcon from '../Ui/ContactsIcon';
-import footerLogo from "../../images/logoFooter-removebg-preview.png";
+import footerLogo from "../../images/mainLogo.png";
 
 const Footer = () => {
   return (

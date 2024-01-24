@@ -16,10 +16,9 @@
     margin: auto;
     border-radius: 1.25rem;
     padding: 1.25rem;
-    background-color: rgba(6, 59, 112,.6);
-    margin-bottom: 2.5rem;
-
-    
+    background-color: var(--vanilla);
+    color: var(--font_color);
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.207);
   }
   .person{
     border-radius: 50%;
@@ -36,7 +35,6 @@
         padding:3.125rem 0;
     }
     .person_comment p{
-        color: rgb(238, 238, 238);
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -44,6 +42,7 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         text-align: center;
+        font-weight: 600;
     }
     .person_comment p:hover{
         -webkit-line-clamp: unset;
@@ -77,8 +76,41 @@
     .love_icon:hover,.comment_icon:hover,.like_icon:hover{
         transform: scale(1.3);
     }
-  
+    
+    .like_emotion{
+      position: absolute;
+      left: 11%;
+      top: 15%;
+      width: 200px;
+      rotate: -20deg;
+  }
+    .dislike_emotion{
+      position: absolute;
+      left: 8%;
+      top: 20%;
+      width: 200px;
+      rotate: -40deg;
+  }
+  .love_emotion{
+    position: absolute;
+    right: 10%;
+    bottom: 15%;
+    width: 200px;
+    rotate: 30deg;
 
+  }  
+  .like_emotion,.love_emotion,.dislike_emotion{
+    animation-name:emotions_move ;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+  }
+  @keyframes emotions_move {
+    0%{transform: translateY(0)}
+    50%{transform: translateY(20px);}
+    100%{transform: translateY(0);}
+  }
     @media screen and (max-width:768px) {
       .slide_content{
         width: 90%;

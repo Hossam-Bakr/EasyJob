@@ -9,7 +9,7 @@ import {useSelector } from 'react-redux';
 const Login = () => {
 
   const darkMode=useSelector((state)=>state.mode.darkMode);
-  const navLogo= darkMode?logo:darkLogo;
+  const navLogo= !darkMode?logo:darkLogo;
 
   return (
     <div className={styles.user_login_container}>

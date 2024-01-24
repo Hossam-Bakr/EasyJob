@@ -6,7 +6,7 @@
 }
 .company img{
     opacity: .7;
-    width: 8.75rem;
+    width: 110px;
     cursor: pointer;
     transition: all .3s;
 }

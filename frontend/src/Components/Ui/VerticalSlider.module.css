@@ -1,0 +1,43 @@
+.swiper_container{
+    width: 80%;
+    height: 37.5rem;
+    cursor: pointer;
+}
+.step_item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+.step_img{
+    width: 25rem;
+}
+.step_item svg{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 30%;
+}
+.step_item h5{
+    font-size: 1.5625rem;
+    margin-top: 1.25rem;
+    font-weight: 700;
+    color: var(--font_color);
+    position: relative;
+}
+
+@media screen and (max-width:1100px) {
+    .step_item svg{
+        position: absolute;
+        top: 20%;
+        left:0;
+        width:6.25rem;
+    }
+}
+@media screen and (max-width:600px) {
+    .step_item svg{
+display: none;
+    }
+}

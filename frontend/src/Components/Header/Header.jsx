@@ -14,7 +14,7 @@ import {
   faDribbble,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import banner from "../../images/banner-pic.png";
+import banner from "../../images/banner.png";
 import MainButtonTwo from "../Ui/MainButtonTwo";
 
 const Header = () => {
