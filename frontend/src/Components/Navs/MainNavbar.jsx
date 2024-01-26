@@ -18,21 +18,18 @@ const MainNavbar = () => {
   const [isScrollDown, setIsScrollDown] = useState(false);
   const [isScrollZero, setIsScrollZero] = useState(true);
 
-  const darkMode = useSelector((state) => state.mode.darkMode);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const isCompanyHome = useSelector((state) => state.companyNav.isCompanyHome);
 
-  const navColor = !darkMode ? "rgb(255, 255, 255)" : "#0E1117";
-  const navBorder = !darkMode
-    ? "1px solid rgb(246, 242, 255)"
-    : "1px solid rgb(8,8,8)";
-  const navLogo = !darkMode ? logo : darkLogo;
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
 
   const hideResponsiveMenu = () => setOpenResMenu(false);
   const openResponsiveMenu = () => setOpenResMenu(true);
-
+  const nav_type=isCompanyHome?'fixed-top':'sticky-top';
+  const nav_logo=isCompanyHome?darkLogo:logo;
+  const nav_color=isCompanyHome?styles.nav_white:styles.nav_black;
+  
   useEffect(() => {
     const isScrolled = () => {
       const currentScrollY = window.scrollY;
@@ -57,19 +54,19 @@ const MainNavbar = () => {
             ? !isScrollDown
               ? {
                   y: 0,
-                  backgroundColor: navColor,
+                  backgroundColor: "rgb(255, 255, 255)",
                   opacity: 1,
                   boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.3)",
-                  borderBottom: navBorder,
+                  borderBottom: "1px solid rgb(246, 242, 255)",
                 }
               : { y: -400, opacity: 0 }
             : { y: 0, opacity: 1, borderBottom: "0px solid rgba(255,255,255,0" }
         }
-        className={`${styles.main_nav} sticky-top static-top d-flex align-items-center px-3 py-1`}
+        className={`${styles.main_nav} ${nav_type} static-top d-flex align-items-center px-3 py-1`}
       >
-        <ul className={`${styles.nav_list} d-flex align-items-center mt-3`}>
+        <ul className={`${styles.nav_list} ${nav_color} d-flex align-items-center mt-3`}>
           <div className={`${styles.brand} me-5`}>
-            <img src={navLogo} alt="logo" className="w-100" />
+            <img src={nav_logo} alt="logo" className="w-100" />
           </div>
           <li className={`${styles.special_hidden} mx-4`}>
             {isLogin ? (

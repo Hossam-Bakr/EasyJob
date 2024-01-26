@@ -1,0 +1,21 @@
+.modal_container{
+    background-color: rgba(255,255,255,.1);
+    backdrop-filter: blur(0.1875rem);
+}
+.modal_body{
+    background-color:var(--vanilla) !important;
+    border-radius:0.625rem 0.625rem 0 0;
+}
+.modal_footer{
+    background-color:var(--vanilla) !important;
+    border-radius:0 0 0.625rem 0.625rem;
+}
+.close_btn{
+    border-radius: 1.5625rem !important;
+    min-width: 6.25rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.5);
+    padding: 0.625rem 0.9375rem !important;
+    margin-right: auto !important;
+}

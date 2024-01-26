@@ -16,8 +16,15 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import banner from "../../images/banner.png";
 import MainButtonTwo from "../Ui/MainButtonTwo";
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate=useNavigate();
+
+  const navigateToSignUpPage=()=>{
+    navigate("user-register");
+  }
+  
   return (
     <header className={styles.header}>
       <Row>
@@ -30,7 +37,7 @@ const Header = () => {
             <h4>
               Find jobs, create trackable resumes and enrich your applications.
             </h4>
-              <MainButtonTwo text='Get Started'/>
+              <MainButtonTwo onClick={navigateToSignUpPage} text='Get Started'/>
           </div>
         </Col>
         <Col lg={7}  xl={6} className={`${styles.banner_container} d-flex justify-content-center position-relative`}>

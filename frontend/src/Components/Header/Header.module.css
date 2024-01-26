@@ -117,7 +117,7 @@
     position: absolute;
     right: 15%;
     top: 30%;
-    color: var(--golden);
+    color: #E96D28;
     font-size: 3.125rem;
     font-weight: 700;
     animation: upDownMove 3s  ease-in-out infinite;
@@ -163,11 +163,11 @@
     align-items: center;
     width: 2.8125rem;
     height: 2.8125rem;
-    background-color:var(--golden);
+    background-color:#E96D28;
     border-radius: 50%;
     position: absolute;
     left: 18%;
-    top: 7%;
+    top: 3%;
     animation: upDownMove 3s  ease-in-out infinite;
     animation-direction: alternate;
 }

@@ -6,6 +6,9 @@
     transition: all .3s;
     position: relative;
 }
+.nav_white li a{
+    color: white;
+}
 .nav_list li a::after{
     content: '';
     width: 0.0625rem;
@@ -85,6 +88,8 @@
 .list:hover{
     transform: scale(1.1);
 }
+
+
 
 @media screen and (max-width:1150px) {
     

@@ -1,19 +1,28 @@
 import React, { useEffect } from "react";
 import Header from "../../Components/Header/Header";
 import HomeMainBody from "./HomeMainBody";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { companyActions } from "../../Store/companyNav-slice";
+import Posts from "../Posts/Posts";
 
 const Home = () => {
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(companyActions.changeNavState(false))
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
+
+  useEffect(() => {
+    dispatch(companyActions.changeNavState(false));
   });
-  
+
   return (
     <>
-      <Header />
-      <HomeMainBody/>
+      {isLogin ? (
+        <Posts />
+      ) : (
+        <>
+          <Header />
+          <HomeMainBody />
+        </>
+      )}
     </>
   );
 };
