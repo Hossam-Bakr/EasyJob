@@ -4,6 +4,11 @@ import { companyActions } from '../../Store/companyNav-slice';
 import styles from './CompanyHome.module.css';
 import MainButton from './../../Components/Ui/MainButton';
 import { useNavigate } from 'react-router-dom';
+import  Row  from 'react-bootstrap/Row';
+import  Col  from 'react-bootstrap/Col';
+import  Container  from 'react-bootstrap/Container';
+import cvs from "../../images/cvs.jpg";
+import CountUp from './../../Components/Ui/CountUp';
 
 const CompanyHome = () => {
 const dispatch=useDispatch();
@@ -11,6 +16,9 @@ const navigate=useNavigate();
 
 const navigateToCompanySignUpPage=()=>{
   navigate("/company-register")
+}
+const navigateToPackages=()=>{
+  navigate("/packages")
 }
 
     useEffect(()=>{
@@ -21,10 +29,11 @@ const navigateToCompanySignUpPage=()=>{
         }
     },[dispatch])
 
+    const center='d-flex justify-content-center align-items-center';
+
   return (
     <>
       <header className={styles.company_header}>
-      
         <div className={styles.company_header_layer}>
           <div className={styles.capture}>
             <h2>Find the best employees for your company</h2>
@@ -32,7 +41,37 @@ const navigateToCompanySignUpPage=()=>{
             <MainButton onClick={navigateToCompanySignUpPage} text="Get Started"/>
           </div>
         </div>
-      </header>     
+        <a href='#firstSec'>
+          <div className={styles.scroll_down}>
+          <div className={styles.small_circle}></div>
+        </div>
+        </a>
+      </header>
+
+      <section className={`${styles.first_sec} ${center}`} id='firstSec'>
+        <Container fluid>
+          <Row>
+            <Col md={7} className={center}>
+              <div className={styles.first_sec_caption}>
+                <h3>
+                  Discover a World of Talent - Your Ultimate Hiring Solution
+                </h3>
+                <p>Discover a world of talent and streamline your hiring process with <span className='special_main_color'>Easy Job</span>, the ultimate solution for connecting companies with top candidates. Unlock unlimited possibilities for your organization and find the perfect fit for your team today.</p>
+                <MainButton onClick={navigateToPackages} text='View Packages'/>
+              </div>
+            </Col>
+            <Col md={5} className={center}>
+              <div className={styles.hiring_img}>
+                <img src={cvs} alt="hiring employees" className='w-100' />
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section> 
+
+      <section className={`${styles.sec_sec} ${center}`}>
+        <CountUp/>  
+      </section>    
     </>
   )
 }

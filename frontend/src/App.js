@@ -17,6 +17,7 @@ import Saved from "./Pages/Saved/Saved";
 import Applications from "./Pages/Applications/Applications";
 import setThemeMood from "./Store/mood-actions";
 import "./App.css";
+import CompanyPricing from "./Pages/Pricing/CompanyPricing";
 
 
 const router = createBrowserRouter([
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: "categories", element: <Categories /> },
       { path: "saved", element: <Saved /> },
       { path: "applications", element: <Applications /> },
+      { path: "packages", element: <CompanyPricing /> },
       { path: "login", element: <Login /> },
       { path: "user-register", element: <Register /> },
       { path: "company-register", element: <CompanyRegister />},

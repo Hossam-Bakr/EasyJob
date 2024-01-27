@@ -18,7 +18,7 @@ import { modeAction } from "../../Store/mood-slice";
 import { userActions } from "../../Store/userInfo-slice";
 import { saveIsLoginState } from "../../Store/userInfo-actions";
 import setThemeMood from "../../Store/mood-actions";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import LoginAlertModal from "./LoginAlertModal";
 
 const SideBar = ({ onClose, show }) => {
@@ -27,8 +27,9 @@ const SideBar = ({ onClose, show }) => {
   const darkMode = useSelector((state) => state.mode.darkMode);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const userData = useSelector((state) => state.userInfo.data);
-
   const dispatch = useDispatch();
+  const navigate=useNavigate();
+
   const modeContent = !darkMode ? "Dark Mood" : "Light Mood";
   const sideBarClasses = !darkMode ? styles.side_bar : styles.side_bar_dark;
   const profileName = isLogin
@@ -51,6 +52,8 @@ const SideBar = ({ onClose, show }) => {
     localStorage.removeItem("userData");
     dispatch(userActions.setIsLogin(false));
     dispatch(saveIsLoginState(false));
+    handleClose();
+    navigate("/")
   };
 
   return (
@@ -78,14 +81,15 @@ const SideBar = ({ onClose, show }) => {
         <Offcanvas.Body>
           <ul className={styles.contact_list}>
             {isLogin ? (
-              <li className={styles.contact_list_item}>
-                <Link to={"saved"}>Saved</Link>
-
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faBookmark}
-                />
-              </li>
+              <Link to={"saved"}>
+                <li className={styles.contact_list_item} onClick={handleClose}>
+                  Saved
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faBookmark}
+                  />
+                </li>
+              </Link>
             ) : (
               <li
                 onClick={() => setModalShow(true)}
@@ -99,13 +103,15 @@ const SideBar = ({ onClose, show }) => {
               </li>
             )}
             {isLogin ? (
-              <li className={styles.contact_list_item}>
-                <Link to={"applications"}>Applications</Link>
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faFileContract}
-                />
-              </li>
+              <Link to={"applications"}>
+                <li className={styles.contact_list_item} onClick={handleClose}>
+                  Applications
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faFileContract}
+                  />
+                </li>
+              </Link>
             ) : (
               <li
                 onClick={() => setModalShow(true)}
@@ -142,7 +148,7 @@ const SideBar = ({ onClose, show }) => {
             </li>
             {isLogin && (
               <li className={styles.contact_list_item} onClick={signOutHandler}>
-                Log Out{" "}
+                Log Out
                 <FontAwesomeIcon
                   className={styles.list_icons}
                   icon={faArrowRightFromBracket}
@@ -159,7 +165,11 @@ const SideBar = ({ onClose, show }) => {
           </p>
         </Offcanvas.Body>
       </Offcanvas>
-      <LoginAlertModal show={modalShow} hideCanvas={handleClose} onHide={() => setModalShow(false)} />
+      <LoginAlertModal
+        show={modalShow}
+        hideCanvas={handleClose}
+        onHide={() => setModalShow(false)}
+      />
     </>
   );
 };

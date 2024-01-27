@@ -27,6 +27,7 @@ import sec2_img from "../../images/sec2.jpg";
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
 import JobPost from "../../Components/Ui/JobPost";
 import VerticalSlider from "../../Components/Ui/VerticalSlider";
+import CountUp from './../../Components/Ui/CountUp';
 
 const HomeMainBody = () => {
   const darkMode = useSelector((state) => state.mode.darkMode);
@@ -201,6 +202,10 @@ const HomeMainBody = () => {
         </div>
       </section>
 
+      {/* CountUp section------------------------------------------------------------------- */}
+      <section className={styles.countUp_section}>
+        <CountUp/>
+      </section>
       {/* categories section------------------------------------------------------------------- */}
       <section className={styles.categories}>
         <SectionMainTitle title="Search by Category" />
@@ -374,7 +379,7 @@ const HomeMainBody = () => {
           <MainButtonTwo text="All Categories " />
         </div>
       </section>
-
+   
       {/* featured cities section------------------------------------------------------------------- */}
       <section className={styles.featured_cities}>
         <SectionMainTitle title="Featured Cities" />

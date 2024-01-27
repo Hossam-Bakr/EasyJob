@@ -86,11 +86,11 @@
     font-weight: 700;
     transition: all .3s;
 }   
+
 .contact_list_item:hover{
-    /* transform: translateX(0.625rem); */
     color: var(--main_color);
     border-bottom-color: var(--main_color);
- transform: scale(1.03);
+    transform: scale(1.03);
 }
 .list_icons{
     font-size: 1.5625rem;

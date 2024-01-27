@@ -1,3 +1,4 @@
+/*------------------------- header-------------------------------------- */
 .company_header{
     min-height: 100vh;
     background-image: url(../../images/company_header.jpg);
@@ -25,4 +26,70 @@
 }
 .company_header_p{
     color: var(--off_white);
+}
+.scroll_down{
+    position: absolute;
+    width: 30px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid var(--dark_white);
+    background-color: transparent;
+    bottom: 2%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: border .3s;
+}
+.small_circle{
+    background-color: var(--dark_white);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    animation:upDownMove 2s linear ;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes upDownMove {
+    0%{transform: translateY(0);}
+    50%{transform: translateY(10px);}
+    100%{transform: translateY(-10px);}
+}
+.scroll_down:hover{
+    border: 1px solid white;
+}
+/*------------------------- first section-------------------------------------- */
+.first_sec{
+    min-height: 100vh;
+    margin-top: 50px;
+    padding: 40px 10px;
+}
+.sec_sec{
+    background-color: var(--vanilla);
+    margin: 50px 0;
+    padding: 20px 10px;
+}
+.first_sec_caption{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+
+}
+.first_sec_caption h3{
+    font-size: 45px;
+    font-weight: 700;
+}
+.first_sec_caption p{
+    font-weight: 600;
+    margin: 30px 0;
+}
+.hiring_img{
+    width:400px;
+    border-radius: 10px;
+}
+.hiring_img img{
+    border-radius: 10px;
 }
