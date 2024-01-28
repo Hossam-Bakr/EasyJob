@@ -234,8 +234,8 @@
     justify-content: center;
     align-items: center;
     background-color: var(--vanilla);
-    padding: 25px 15px;
-    border-radius: 1.25rem;
+    padding: 1.5625rem 0.9375rem;
+    border-radius: 20px;
     width: 25%;
     transition:  background-color .3s;
 }
@@ -294,10 +294,10 @@
 }
 .seperation_bg_caption{
     background-color: rgba(0, 0, 0,.4);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(0.1875rem);
     height: 100%;
     width: 40%;
-    padding-inline: 20px;
+    padding-inline: 1.25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -306,24 +306,24 @@
 }
 .seperation_bg_caption h2{
     color: var(--main_color);
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 .seperation_bg_caption p{
     color: rgb(190, 190, 190);
-    font-size: 18px;
+    font-size: 1.125rem;
     font-family: var(--jakarta);
     text-align: start;
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
 
 }
 /* ------------------------------------------------- countUP section----------------------- */
 
 .countUp_section{
     background-color: var(--vanilla);
-    margin: 50px 0;
-    padding: 30px 0;
+    margin: 3.125rem 0;
+    padding: 1.875rem 0;
 }
 /* ------------------------------------------------- Testimonials section----------------------- */
 .Testimonials{

@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import styles from './JobPost.module.css';
 import Col from 'react-bootstrap/esm/Col';
 import AOS from "aos";
@@ -16,8 +16,11 @@ import {
   import L4 from "../../images/4.png";
   import L5 from "../../images/5.png";
   import L6 from "../../images/6.png";
+import { useSelector } from 'react-redux';
 
 const JobPost = ({logo,name,jobTitle,desc,city,full,part,remote,freelance}) => {
+  const [modalShow, setModalShow] = useState(false);
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
 
     useEffect(() => {
         AOS.init();

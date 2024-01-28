@@ -21,7 +21,7 @@
     text-align: center;
 }
 .capture h2{
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 700;
 }
 .company_header_p{
@@ -29,10 +29,10 @@
 }
 .scroll_down{
     position: absolute;
-    width: 30px;
-    height: 50px;
-    border-radius: 50px;
-    border: 1px solid var(--dark_white);
+    width: 1.875rem;
+    height: 3.125rem;
+    border-radius: 3.125rem;
+    border: 0.0625rem solid var(--dark_white);
     background-color: transparent;
     bottom: 2%;
     left: 50%;
@@ -45,8 +45,8 @@
 }
 .small_circle{
     background-color: var(--dark_white);
-    width: 5px;
-    height: 5px;
+    width: 0.3125rem;
+    height: 0.3125rem;
     border-radius: 50%;
     animation:upDownMove 2s linear ;
     animation-iteration-count: infinite;
@@ -54,22 +54,22 @@
 }
 @keyframes upDownMove {
     0%{transform: translateY(0);}
-    50%{transform: translateY(10px);}
-    100%{transform: translateY(-10px);}
+    50%{transform: translateY(0.625rem);}
+    100%{transform: translateY(-0.625rem);}
 }
 .scroll_down:hover{
-    border: 1px solid white;
+    border: 0.0625rem solid white;
 }
 /*------------------------- first section-------------------------------------- */
 .first_sec{
     min-height: 100vh;
-    margin-top: 50px;
-    padding: 40px 10px;
+    margin-top: 3.125rem;
+    padding: 2.5rem 0.625rem;
 }
 .sec_sec{
     background-color: var(--vanilla);
-    margin: 50px 0;
-    padding: 20px 10px;
+    margin: 3.125rem 0;
+    padding: 1.25rem 0.625rem;
 }
 .first_sec_caption{
    display: flex;
@@ -79,17 +79,17 @@
 
 }
 .first_sec_caption h3{
-    font-size: 45px;
+    font-size: 2.8125rem;
     font-weight: 700;
 }
 .first_sec_caption p{
     font-weight: 600;
-    margin: 30px 0;
+    margin: 1.875rem 0;
 }
 .hiring_img{
-    width:400px;
-    border-radius: 10px;
+    width:25rem;
+    border-radius: 0.625rem;
 }
 .hiring_img img{
-    border-radius: 10px;
+    border-radius: 0.625rem;
 }

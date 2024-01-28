@@ -89,7 +89,7 @@ const CompanyHome = () => {
         </Container>
       </section>
 
-      <section className={`${styles.sec_sec} ${center}`}>
+      <section className={`${styles.sec_sec}`}>
         <CountUpSection />
       </section>
 
