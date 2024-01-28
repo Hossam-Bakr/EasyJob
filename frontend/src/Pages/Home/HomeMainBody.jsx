@@ -27,7 +27,7 @@ import sec2_img from "../../images/sec2.jpg";
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
 import JobPost from "../../Components/Ui/JobPost";
 import VerticalSlider from "../../Components/Ui/VerticalSlider";
-import CountUp from './../../Components/Ui/CountUp';
+import CountUpSection from './../../Components/Ui/CountUpSection';
 
 const HomeMainBody = () => {
   const darkMode = useSelector((state) => state.mode.darkMode);
@@ -202,9 +202,9 @@ const HomeMainBody = () => {
         </div>
       </section>
 
-      {/* CountUp section------------------------------------------------------------------- */}
+      {/* CountUpSection section------------------------------------------------------------------- */}
       <section className={styles.countUp_section}>
-        <CountUp/>
+        <CountUpSection/>
       </section>
       {/* categories section------------------------------------------------------------------- */}
       <section className={styles.categories}>

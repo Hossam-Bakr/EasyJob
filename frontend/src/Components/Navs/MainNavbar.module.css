@@ -89,7 +89,9 @@
     transform: scale(1.1);
 }
 
-
+ .burger_list_white .half_line, .burger_list_white .full_line{
+    background-color: white !important;
+}
 
 @media screen and (max-width:1150px) {
     

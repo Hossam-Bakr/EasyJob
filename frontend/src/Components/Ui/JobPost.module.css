@@ -5,6 +5,7 @@
     padding: 1.25rem;
     margin-bottom: 3.125rem;
     transition: border .3s;
+    cursor: pointer;
 }
 .job:hover{
     border: 0.0625rem solid var(--main_color);

@@ -29,6 +29,7 @@ const MainNavbar = () => {
   const nav_type = isCompanyHome ? "fixed-top" : "sticky-top";
   const nav_logo = isScrollZero&&isCompanyHome ? darkLogo : logo;
   const nav_color = isScrollZero&&isCompanyHome&&styles.nav_white
+  const burger_list_color = isScrollZero&&isCompanyHome&&styles.burger_list_white
 
   useEffect(() => {
     const isScrolled = () => {
@@ -165,7 +166,7 @@ const MainNavbar = () => {
 
           <div
             onClick={onShow}
-            className={`${styles.burger_list} d-flex justify-content-between flex-column mx-3`}
+            className={`${styles.burger_list} ${burger_list_color} d-flex justify-content-between flex-column mx-3`}
           >
             <span className={styles.half_line}></span>
             <span className={styles.full_line}></span>

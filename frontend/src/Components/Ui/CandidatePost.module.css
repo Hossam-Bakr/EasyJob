@@ -1,0 +1,140 @@
+
+.candidate{
+    border: 0.0625rem solid rgba(100, 100, 100, 0.151);
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    margin-bottom: 3.125rem;
+    transition: border .3s;
+    cursor: pointer;
+    position: relative;
+}
+.header_icons{
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cv_icon{
+    border: 0.0625rem solid rgba(100, 100, 100, 0.151);
+    border-radius: 50%;
+    width: 1.875rem;
+    height: 1.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--main_color);
+    transition: background-color .3s;
+}
+.eye_icon{
+    border-radius: 50%;
+    font-size: 1rem;
+    transition: color .3s;
+    cursor: pointer;
+}
+.cv_icon span{
+    text-align: center;
+    font-size: 0.625rem;
+    font-weight: 900;
+    font-family: var(--jakarta);
+    transition: color .3s;
+}
+.cv_icon:hover{
+    background-color: var(--main_color);
+}
+.cv_icon:hover span,.cv_icon:hover .eye_icon{
+   color: white;
+}
+
+.candidate:hover{
+    border: 0.0625rem solid var(--main_color);
+}
+.employee_pic{
+    width: 5.625rem;
+    height:5.625rem ;
+    border-radius: 50%;
+    position: relative;
+}
+.active{
+    position: absolute;
+    bottom: 0.3125rem;
+    right: 0.3125rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background-color: #00c070;
+}
+.employee_pic img{
+    width:100%;
+    border-radius: 50%;
+}
+.name{
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.title{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+}
+.level{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+    font-weight: 600;
+}
+.candidate p{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+    font-weight: 600;
+    margin-top: 1.875rem;
+}
+
+.location{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+}
+
+.location_icon{
+    margin-right:0.125rem;
+    color: var(--main_color);
+}
+
+.info span{
+    font-size: 0.8125rem;
+    background-color: var(--vanilla);
+    padding: 0.3125rem 0.5rem;
+    border-radius: 0.3125rem;
+    margin-right: 10px;
+}
+.degree{
+    font-size: 0.875rem;
+}
+
+.department{
+    font-size: 0.625rem; 
+    color: var(--dark_white);
+    margin-left: 1.25rem;
+}
+.candidate_footer{
+   border-top: 0.0625rem solid rgb(227, 227, 227);
+   padding-top: 0.625rem;
+}
+
+@media screen and (max-width:900px) {
+    .info{
+        flex-wrap: wrap;
+    }
+    .info span{
+        margin-bottom: 0.3125rem;
+    }
+}
+@media screen and (max-width:310px) {
+    .header_icons{display: none;}
+    .header_info{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}

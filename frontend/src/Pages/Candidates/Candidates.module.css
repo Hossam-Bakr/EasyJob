@@ -1,33 +1,28 @@
 .job_filters{
     background-color: var(--vanilla);
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 0.625rem;
+    padding: 0.625rem;
     min-height: 220vh;
 }
-.filter_icon{
-    font-size: 20px;
-    margin-right: 10px;
-    color: var(--main_color);
-    padding-bottom: 5px;
-}
+
 .filter_list{
     padding-inline: 0;
     font-weight: 600;
 }
 .checkbox_type{
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 .more{
     color: var(--dark_white);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
 }
 .filter_list li{
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
 .filter_list li label, .more{
     cursor: pointer;
-    padding: 3px 0;
+    padding: 0.1875rem 0;
     transition: color .3s;
 }
 
@@ -40,29 +35,30 @@
 }
 .num_span_dev{
     background-color: var(--vanilla);
-    min-width: 30px;
+    min-width: 1.875rem;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 1.25rem;
 }
 .num_span{
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
 }
-/* ____________________________job posts side_____________________________________ */
+/* _______________________________________________________________________ */
+
 .job_posts{
     padding: 5px 0;
  }
  .job_posts h2,.job_filters div h2{
      font-weight: 700;
-     padding: 10px;
+     padding: 0.625rem;
  }
 .subscribe_container{
     background-color: transparent !important;
     border: 0.0625rem solid var(--dark_white) !important;
     padding: 0 !important;
     position: relative;
-    border-radius: 10px;
-    min-width: 300px;
+    border-radius: 0.625rem;
+    min-width: 18.75rem;
 }
 .subscribe_container input{
     background-color: transparent;
@@ -86,8 +82,8 @@
 }
 .page_num{
     background-color: var(--vanilla);
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -106,7 +102,7 @@
     font-weight: 700;
     border-radius: 50%;
     background-color: var(--vanilla);
-    padding: 10px 15px;
+    padding: 0.625rem 0.9375rem;
     cursor: pointer;
     color: var(--main_color);
     transition: transform .5s;
@@ -123,4 +119,18 @@
 }
 .arrow_right:hover{
     transform: translateX(10px);
+}
+
+
+@media screen and (max-width:575px) {
+    .aside_container{
+        display: none;
+    }
+}
+
+@media screen and (max-width:313px) {
+   .subscribe_container{
+    min-width:100%;
+    margin: auto;
+   }
 }

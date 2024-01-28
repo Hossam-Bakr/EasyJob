@@ -11,13 +11,15 @@ import Explore from "./Pages/Explore/Explore";
 import Categories from './Pages/Categories/Categories';
 import About from "./Pages/About/About";
 import CompanyRegister from "./Pages/CompanyRegister/CompanyRegister";
+import CompanyPricing from "./Pages/Pricing/CompanyPricing";
 import Posts from "./Pages/Posts/Posts";
 import CompanyHome from "./Pages/Home/CompanyHome";
 import Saved from "./Pages/Saved/Saved";
 import Applications from "./Pages/Applications/Applications";
 import setThemeMood from "./Store/mood-actions";
 import "./App.css";
-import CompanyPricing from "./Pages/Pricing/CompanyPricing";
+import Candidates from "./Pages/Candidates/Candidates";
+
 
 
 const router = createBrowserRouter([
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "company-home", element: <CompanyHome /> },
       {path:"jobs",element:<Posts/>},
+      {path:"candidates",element:<Candidates/>},
       { path: "about", element: <About /> },
       { path: "explore", element: <Explore /> },
       { path: "categories", element: <Categories /> },

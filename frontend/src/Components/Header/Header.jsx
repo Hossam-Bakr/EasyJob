@@ -16,20 +16,24 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import banner from "../../images/banner.png";
 import MainButtonTwo from "../Ui/MainButtonTwo";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const navigateToSignUpPage=()=>{
+  const navigateToSignUpPage = () => {
     navigate("user-register");
-  }
-  
+  };
+
   return (
     <header className={styles.header}>
       <Row>
         <Col lg={5} xl={6}>
-          <div className={styles.header_caption}>
+          <div
+            className={styles.header_caption}
+            data-aos="fade-in"
+            data-aos-duration="1000"
+          >
             <h1>
               Get your <span className="special_main_color">dream</span> job
               Easily.
@@ -37,14 +41,18 @@ const Header = () => {
             <h4>
               Find jobs, create trackable resumes and enrich your applications.
             </h4>
-              <MainButtonTwo onClick={navigateToSignUpPage} text='Get Started'/>
+            <MainButtonTwo onClick={navigateToSignUpPage} text="Get Started" />
           </div>
         </Col>
-        <Col lg={7}  xl={6} className={`${styles.banner_container} d-flex justify-content-center position-relative`}>
+        <Col
+          lg={7}
+          xl={6}
+          className={`${styles.banner_container} d-flex justify-content-center position-relative`}
+        >
           <div className={styles.big_circle_shape}>
             <div className={styles.small_circle_shape}></div>
           </div>
-          <div className={styles.header_banner}>
+          <div className={styles.header_banner} >
             <img src={banner} alt="banner pic" className="w-100 h-100" />
           </div>
           <div className={styles.floating_box_one}>

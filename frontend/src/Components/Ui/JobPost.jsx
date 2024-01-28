@@ -17,7 +17,7 @@ import {
   import L5 from "../../images/5.png";
   import L6 from "../../images/6.png";
 
-const JobPost = ({logo,name,JobTitle,desc,city}) => {
+const JobPost = ({logo,name,jobTitle,desc,city,full,part,remote,freelance}) => {
 
     useEffect(() => {
         AOS.init();
@@ -53,11 +53,15 @@ const JobPost = ({logo,name,JobTitle,desc,city}) => {
     <Col sm={6} lg={4} data-aos="zoom-in-up" data-aos-duration="1000">
            <div className={styles.job}>
                 <div className="d-flex justify-content-between mb-3">
-                  <img
-                    src={companyLogo}
-                    alt="compan logo"
-                    className={styles.company_logo}
-                  />
+                  <div className='d-flex'>
+                    <img
+                      src={companyLogo}
+                      alt="company logo"
+                      className={styles.company_logo}
+                    />
+                    <span className='ms-3 mt-3'>{name}</span>
+                  </div>
+                
                   <div className="d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon
                       icon={faBookmark}
@@ -71,16 +75,18 @@ const JobPost = ({logo,name,JobTitle,desc,city}) => {
                     />
                   </div>
                 </div>
-                <span>{name}</span>
-                <h4>{JobTitle}</h4>
+                
+                <h4>{jobTitle}</h4>
                 <p>
                  {desc}
                 </p>
                 <div
                   className={`${styles.info} d-flex justify-content-evenly align-items-center`}
                 >
-                  <span>Remote</span>
-                  <span>Full Time</span>
+                  {remote&&<span>Remote</span>}
+                  {full&&<span>Full Time</span>}
+                  {part&&<span>Part Time</span>}
+                  {freelance&&<span>Freelance</span>}
                   <span>
                     <FontAwesomeIcon
                       icon={faLocationDot}
