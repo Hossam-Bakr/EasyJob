@@ -7,8 +7,7 @@ import MainAccordion from '../../Components/Ui/MainAccordion';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCircleCheck, faCircleUser, faFileInvoice, faPen } from '@fortawesome/free-solid-svg-icons';
-import MainButtonTwo from '../../Components/Ui/MainButtonTwo';
+import {faCircleUser, faFileInvoice, faPen } from '@fortawesome/free-solid-svg-icons';
 import Container from 'react-bootstrap/esm/Container';
 
 const About = () => {

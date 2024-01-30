@@ -8,6 +8,7 @@
 .profile_icon{
     font-size: 45px;
     color: var( --light);
+    margin-right: 0.5rem;
     transition: all .3s;
 }
 .profile_pic{

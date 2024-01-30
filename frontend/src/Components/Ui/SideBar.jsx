@@ -13,6 +13,8 @@ import {
   faGears,
   faPencil,
   faSackDollar,
+  faUserTie,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { userActions } from "../../Store/userInfo-slice";
 import { saveIsLoginState } from "../../Store/userInfo-actions";
@@ -45,7 +47,10 @@ const SideBar = ({ onClose, show }) => {
     handleClose();
     navigate("/");
   };
-
+  const showAlert =()=>{
+    handleClose();
+    setModalShow(true)
+  }
   return (
     <>
       <Offcanvas
@@ -83,14 +88,15 @@ const SideBar = ({ onClose, show }) => {
                   icon={faCircleUser}
                   className={styles.profile_icon}
                 />
-                <h5 className={styles.profile_name}>User Guest</h5>
+                <h5 className={`${styles.profile_name} mt-2`}>User Guest</h5>
               </div>
             )}
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul className={styles.contact_list}>
-            {isLogin ? (
+            {!isCompanyHome?<>
+              {isLogin ? (
               <>
                 <li className={styles.contact_list_item}>
                   Ediet Profile
@@ -108,10 +114,20 @@ const SideBar = ({ onClose, show }) => {
                   />
                 </li>
               </Link>
+              <Link to={"applications"}>
+              <li className={styles.contact_list_item} onClick={handleClose}>
+                Applications
+                <FontAwesomeIcon
+                  className={styles.list_icons}
+                  icon={faFileContract}
+                />
+              </li>
+            </Link>
               </>
             ) : (
+              <>
               <li
-                onClick={() => setModalShow(true)}
+                onClick={showAlert}
                 className={styles.contact_list_item}
               >
                 Saved Jobs
@@ -120,33 +136,42 @@ const SideBar = ({ onClose, show }) => {
                   icon={faBookmark}
                 />
               </li>
+              <li
+              onClick={showAlert}
+              className={styles.contact_list_item}
+            >
+              Applications
+              <FontAwesomeIcon
+                className={styles.list_icons}
+                icon={faFileContract}
+              />
+            </li>
+            </>
             )}
-            {isLogin ? (
-              <Link to={"applications"}>
-                <li className={styles.contact_list_item} onClick={handleClose}>
-                  Applications
+            
+            </>:<>
+            <li className={styles.contact_list_item} onClick={handleClose}>
+                  Dashboard{" "}
                   <FontAwesomeIcon
                     className={styles.list_icons}
-                    icon={faFileContract}
+                    icon={faSackDollar}
                   />
                 </li>
-              </Link>
-            ) : (
-              <li
-                onClick={() => setModalShow(true)}
-                className={styles.contact_list_item}
-              >
-                Applications
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faFileContract}
-                />
-              </li>
-            )}
+                <li className={styles.contact_list_item} onClick={handleClose}>
+                  Employees Management{" "}
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faUsers}
+                  />
+                </li>
+            
+            </>}
+           
+       
             {isCompanyHome ? (
               <Link to={"packages"}>
                 <li className={styles.contact_list_item} onClick={handleClose}>
-                  Packages{" "}
+                  Show Packages{" "}
                   <FontAwesomeIcon
                     className={styles.list_icons}
                     icon={faSackDollar}
@@ -166,10 +191,10 @@ const SideBar = ({ onClose, show }) => {
             {isCompanyHome ? (
               <Link to={"/"}>
                 <li className={styles.contact_list_item} onClick={handleClose}>
-                  Employee{" "}
+                  Join As Employee{" "}
                   <FontAwesomeIcon
                     className={styles.list_icons}
-                    icon={faBuilding}
+                    icon={faUserTie}
                   />
                 </li>
               </Link>
@@ -181,7 +206,7 @@ const SideBar = ({ onClose, show }) => {
                       className={styles.contact_list_item}
                       onClick={handleClose}
                     >
-                      Company{" "}
+                     Join As Company{" "}
                       <FontAwesomeIcon
                         className={styles.list_icons}
                         icon={faBuilding}
@@ -217,7 +242,6 @@ const SideBar = ({ onClose, show }) => {
       </Offcanvas>
       <LoginAlertModal
         show={modalShow}
-        hidecanvas={handleClose}
         onHide={() => setModalShow(false)}
       />
     </>
