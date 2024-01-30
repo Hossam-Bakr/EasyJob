@@ -56,13 +56,13 @@
      font-weight: 700;
      padding: 10px;
  }
-.subscribe_container{
+ .subscribe_container{
     background-color: transparent !important;
     border: 0.0625rem solid var(--dark_white) !important;
     padding: 0 !important;
     position: relative;
-    border-radius: 10px;
-    min-width: 300px;
+    border-radius: 0.625rem;
+    min-width: 18.75rem;
 }
 .subscribe_container input{
     background-color: transparent;
@@ -124,3 +124,16 @@
 .arrow_right:hover{
     transform: translateX(10px);
 }
+
+
+@media screen and (max-width:575px) {
+    .aside_container{
+        display: none;
+    }
+}
+@media screen and (max-width:313px) {
+    .subscribe_container{
+     min-width:100%;
+     margin: auto;
+    }
+ }

@@ -6,12 +6,22 @@
     margin-bottom: 3.125rem;
     transition: border .3s;
     cursor: pointer;
+    position: relative;
 }
 .job:hover{
     border: 0.0625rem solid var(--main_color);
 }
 .company_logo{
     width: 3.75rem;
+}
+.job_icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.625rem 0.5rem 0.3125rem 0.3125rem;
 }
 .bookmark_icon,.eye_icon{
     font-size: 1rem;
@@ -55,3 +65,10 @@
 .info span{
     font-size: 0.8125rem;
 }
+
+@media screen and (max-width:260px) {
+    .job_icons{
+       display:none;
+       background-color: red;
+    }
+ }

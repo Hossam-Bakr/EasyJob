@@ -6,15 +6,17 @@
     margin-bottom: 3.125rem;
     transition: border .3s;
     cursor: pointer;
+    overflow: hidden;
     position: relative;
 }
 .header_icons{
     position: absolute;
-    top: 3%;
-    right: 3%;
+    top: 0;
+    right:0;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px 10px 5px 5px;
 }
 .cv_icon{
     border: 0.0625rem solid rgba(100, 100, 100, 0.151);
@@ -51,11 +53,14 @@
 .candidate:hover{
     border: 0.0625rem solid var(--main_color);
 }
-.employee_pic{
+.employee_pic,.employee_pic_blur{
     width: 5.625rem;
     height:5.625rem ;
     border-radius: 50%;
     position: relative;
+}
+.employee_pic_blur{
+   filter: blur(4px);
 }
 .active{
     position: absolute;
@@ -66,7 +71,7 @@
     border-radius: 50%;
     background-color: #00c070;
 }
-.employee_pic img{
+.employee_pic img,.employee_pic_blur img{
     width:100%;
     border-radius: 50%;
 }
@@ -90,7 +95,9 @@
     font-weight: 600;
     margin-top: 1.875rem;
 }
-
+.education_sec{
+    min-height: 57px;
+}
 .location{
     font-size: 0.875rem;
     color: var(--dark_white);
@@ -98,6 +105,7 @@
 
 .location_icon{
     margin-right:0.125rem;
+    margin-top: 0.1875rem;
     color: var(--main_color);
 }
 

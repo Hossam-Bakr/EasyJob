@@ -11,12 +11,14 @@ import "aos/dist/aos.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import cvs from "../../images/cvs.jpg";
-import hiring from "../../images/hiring.jpg";
+import cvs from "../../images/discoverEmployees.jpg";
+import hiring from "../../images/accepted.jpg";
+import HomeTopEmployersSlider from "../../Components/Ui/HomeTopEmployersSlider";
 
 const CompanyHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
 
   const navigateToCompanySignUpPage = () => {
     navigate("/company-register");
@@ -27,10 +29,15 @@ const CompanyHome = () => {
 
   useEffect(() => {
     AOS.init();
-    dispatch(companyActions.changeNavState(true));
-
+    dispatch(companyActions.changeNavState({
+      changeCompany:true,
+      changeNav:true
+    }));
     return () => {
-      dispatch(companyActions.changeNavState(false));
+      dispatch(companyActions.changeNavState({
+        changeCompany:false,
+        changeNav:false
+      }));
     };
   }, [dispatch]);
 
@@ -67,9 +74,9 @@ const CompanyHome = () => {
           <Row>
             <Col md={7} className={center}>
               <div className={styles.first_sec_caption}>
-                <h3>
+                <h2>
                   Discover a World of Talent - Your Ultimate Hiring Solution
-                </h3>
+                </h2>
                 <p>
                   Discover a world of talent and streamline your hiring process
                   with <span className="special_main_color">Easy Job</span>, the
@@ -103,7 +110,7 @@ const CompanyHome = () => {
             </Col>
             <Col md={7} className={center}>
               <div className={styles.first_sec_caption}>
-                <h3>Discover a Wealth of Qualified Candidates</h3>
+                <h2>Discover a Wealth of Qualified Candidates</h2>
                 <p>
                   We take pride in curating a diverse and extensive candidate
                   database, meticulously matching their skills, qualifications,
@@ -121,6 +128,11 @@ const CompanyHome = () => {
             </Col>
           </Row>
         </Container>
+      </section>
+
+      <section className={styles.fourth_sec}>
+        <h2 className="text-center mb-5">Trusted By</h2>
+        <HomeTopEmployersSlider type='two_rows'/>
       </section>
     </>
   );

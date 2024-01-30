@@ -125,16 +125,22 @@
 
 @media screen and (max-width:275px) {
     .brand{
+        width: 5rem;
+    }
+
+}
+@media screen and (max-width:259px) {
+    .brand{
         width: 4.375rem;
     }
 
 }
-@media screen and (max-width:231px) {
+@media screen and (max-width:243px) {
     .list{
         font-size: 1.375rem;
     }
     .burger_list{
-        width: 1.75rem;
+        width: 2.1875rem;
     }
     .brand{
         margin-left: 20%;
@@ -143,6 +149,6 @@
 
 @media screen and (max-width:179px) {
     .brand{
-        width: 2.5rem;
+        width: 4.375rem;
     }
 }

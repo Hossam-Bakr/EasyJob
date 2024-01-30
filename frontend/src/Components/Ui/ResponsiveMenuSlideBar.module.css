@@ -1,11 +1,8 @@
-.side_bar,.side_bar_dark{
+.side_bar{
     padding: 1.25rem 0;
     padding-bottom: 0;
     color:  var(--font_color) !important;
     border-radius: 2.5rem 0 0 2.5rem;
-}
-.side_bar_dark{
-    background-color: black;
 }
 .logo{
     width: 11.25rem;

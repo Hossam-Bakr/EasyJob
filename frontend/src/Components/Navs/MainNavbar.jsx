@@ -20,6 +20,9 @@ const MainNavbar = () => {
 
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const isCompanyHome = useSelector((state) => state.companyNav.isCompanyHome);
+  const changeContent = useSelector(
+    (state) => state.companyNav.changeNavContent
+  );
 
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
@@ -27,9 +30,10 @@ const MainNavbar = () => {
   const hideResponsiveMenu = () => setOpenResMenu(false);
   const openResponsiveMenu = () => setOpenResMenu(true);
   const nav_type = isCompanyHome ? "fixed-top" : "sticky-top";
-  const nav_logo = isScrollZero&&isCompanyHome ? darkLogo : logo;
-  const nav_color = isScrollZero&&isCompanyHome&&styles.nav_white
-  const burger_list_color = isScrollZero&&isCompanyHome&&styles.burger_list_white
+  const nav_logo = isScrollZero && isCompanyHome ? darkLogo : logo;
+  const nav_color = isScrollZero && isCompanyHome && styles.nav_white;
+  const burger_list_color =
+    isScrollZero && isCompanyHome && styles.burger_list_white;
 
   useEffect(() => {
     const isScrolled = () => {
@@ -72,7 +76,7 @@ const MainNavbar = () => {
             <img src={nav_logo} alt="logo" className="w-100" />
           </div>
           <li className={`${styles.special_hidden} mx-4`}>
-            {isCompanyHome ? (
+            {changeContent ? (
               <NavLink
                 className={({ isActive }) =>
                   isActive ? styles.active : undefined
@@ -90,7 +94,7 @@ const MainNavbar = () => {
                 to={"jobs"}
                 end
               >
-                JOBS
+                EXPLORE
               </NavLink>
             ) : (
               <NavLink
@@ -104,7 +108,32 @@ const MainNavbar = () => {
               </NavLink>
             )}
           </li>
-          <li className={`${styles.special_hidden} mx-4`}>
+          {isLogin && (
+            <li className={`${styles.special_hidden} mx-4`}>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+                to={"companies"}
+              >
+                COMPANIES
+              </NavLink>
+            </li>
+          )}
+          {changeContent && (
+            <li className={`${styles.special_hidden} mx-4`}>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+                to={"candidates"}
+              >
+                CANDIDATES
+              </NavLink>
+            </li>
+          )}
+
+          {!isLogin&&<li className={`${styles.special_hidden} mx-4`}>
             <NavLink
               className={({ isActive }) =>
                 isActive ? styles.active : undefined
@@ -113,25 +142,37 @@ const MainNavbar = () => {
             >
               ABOUT
             </NavLink>
-          </li>
-          <li className={`${styles.special_hidden} mx-4`}>
-            {isCompanyHome? <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.active : undefined
-              }
-              to={"packages"}
-            >
-              PACKAGES
-            </NavLink>: <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.active : undefined
-              }
-              to={"explore"}
-            >
-              EXPLORE
-            </NavLink>}
-           
-          </li>
+          </li>}
+
+          {changeContent ? (
+            <li className={`${styles.special_hidden} mx-4`}>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+                to={"packages"}
+              >
+                PACKAGES
+              </NavLink>
+            </li>
+          ) : (
+            <>
+              {!isLogin ? (
+                <li className={`${styles.special_hidden} mx-4`}>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? styles.active : undefined
+                    }
+                    to={"jobs"}
+                  >
+                    EXPLORE
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
+            </>
+          )}
           <li className={`${styles.special_hidden} mx-4`}>
             <NavLink
               className={({ isActive }) =>
@@ -152,7 +193,7 @@ const MainNavbar = () => {
               <Link to={"login"} className={styles.sign_btn}>
                 <MainButton text="Login" />
               </Link>
-              {isCompanyHome ? (
+              {changeContent ? (
                 <Link to={"/"} className={styles.sign_btn}>
                   <MainButton type="white" text="Employee" />
                 </Link>

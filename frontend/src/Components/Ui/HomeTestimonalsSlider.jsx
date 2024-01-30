@@ -9,11 +9,11 @@ import { Navigation, Autoplay } from "swiper/modules";
 
 import styles from "./HomeTestimonalsSlider.module.css";
 
-import person1 from "../../images/people1.jpeg";
-import person2 from "../../images/people2.jpeg";
-import person3 from "../../images/people3.jpeg";
-import person4 from "../../images/people4.jpeg";
-import person5 from "../../images/people5.jpeg";
+import person1 from "../../images/p1.jpeg";
+import person2 from "../../images/p2.jpeg";
+import person3 from "../../images/p3.jpeg";
+import person4 from "../../images/p4.jpg";
+import person5 from "../../images/p5.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComment,

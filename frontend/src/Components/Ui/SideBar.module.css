@@ -1,15 +1,13 @@
-.side_bar,.side_bar_dark{
+.side_bar{
     padding: 1.25rem 0;
     padding-bottom: 0;
     color:var(--font_color) !important;
     border-radius: 2.5rem 0 0 2.5rem;
 }
-.side_bar_dark{
-    background-color: black !important;
-}
+
 .profile_icon{
     font-size: 45px;
-    color: var(--dark_white);
+    color: var( --light);
     transition: all .3s;
 }
 .profile_pic{
@@ -23,11 +21,13 @@
     border: 3px solid var(--main_color);
 }
 .profile_name{
-    margin-left: 0.9375rem;
     font-size: 1.4375rem;
     font-weight: 700;
-    margin-top: 0.5rem;
     transition: color .3s;
+}
+.user_email{
+    font-size: 0.75rem;
+    color: var(--dark_white);
 }
 .profile_content{
     cursor: pointer;
@@ -95,7 +95,7 @@
 .list_icons{
     font-size: 1.5625rem;
     margin-right: 0.9375rem;
-    color:var(--dark_white)
+    color:var( --light)
 }
 .contact_list_item:hover .list_icons{
     color:var(--main_color) ;

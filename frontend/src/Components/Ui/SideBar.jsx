@@ -7,45 +7,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
   faBookmark,
+  faBuilding,
   faCircleUser,
   faFileContract,
   faGears,
-  faMoon,
+  faPencil,
   faSackDollar,
-  faSun,
 } from "@fortawesome/free-solid-svg-icons";
-import { modeAction } from "../../Store/mood-slice";
 import { userActions } from "../../Store/userInfo-slice";
 import { saveIsLoginState } from "../../Store/userInfo-actions";
-import setThemeMood from "../../Store/mood-actions";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginAlertModal from "./LoginAlertModal";
+import profile_pic from "../../images/p1.jpeg";
 
 const SideBar = ({ onClose, show }) => {
   const [modalShow, setModalShow] = useState(false);
 
-  const darkMode = useSelector((state) => state.mode.darkMode);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const isCompanyHome = useSelector((state) => state.companyNav.isCompanyHome);
   const userData = useSelector((state) => state.userInfo.data);
   const dispatch = useDispatch();
-  const navigate=useNavigate();
-
-  const modeContent = !darkMode ? "Dark Mood" : "Light Mood";
-  const sideBarClasses = !darkMode ? styles.side_bar : styles.side_bar_dark;
-  const profileName = isLogin
-    ? userData.firstName + " " + userData.lastName
-    : "User Guest";
-
-  const toggleModeHandler = () => {
-    dispatch(modeAction.toggleMood());
-    setThemeMode();
-  };
-  const setThemeMode = () => {
-    dispatch(setThemeMood(darkMode));
-  };
-
+  const navigate = useNavigate();
+  
   const handleClose = () => {
     onClose();
+  };
+
+  const navigateToProfilePage = () => {
+    handleClose();
+    navigate("user-profile");
   };
 
   const signOutHandler = () => {
@@ -53,7 +43,7 @@ const SideBar = ({ onClose, show }) => {
     dispatch(userActions.setIsLogin(false));
     dispatch(saveIsLoginState(false));
     handleClose();
-    navigate("/")
+    navigate("/");
   };
 
   return (
@@ -62,40 +52,69 @@ const SideBar = ({ onClose, show }) => {
         show={show}
         onHide={handleClose}
         placement="end"
-        className={sideBarClasses}
+        className={styles.side_bar}
       >
         <Offcanvas.Header className={styles.header} closeButton>
           <Offcanvas.Title>
-            <div
-              className={`${styles.profile_content} d-flex align-items-center`}
-              title="view profile"
-            >
-              <FontAwesomeIcon
-                icon={faCircleUser}
-                className={styles.profile_icon}
-              />
-              <h5 className={styles.profile_name}>{profileName}</h5>
-            </div>
+            {isLogin ? (
+              <div
+                onClick={navigateToProfilePage}
+                className={`${styles.profile_content} d-flex align-items-center`}
+                title="view profile"
+              >
+                <img
+                  src={profile_pic}
+                  className={styles.profile_pic}
+                  alt="profile_pic"
+                />
+                  <div className="ms-3 d-flex justify-content-center flex-column">
+                    <span className={styles.profile_name}>{userData.firstName + " " + userData.lastName}</span>
+                    <span className={styles.user_email}>{userData.email}</span>
+                  </div>
+               
+              </div>
+            ) : (
+              <div
+                onClick={() => setModalShow(true)}
+                className={`${styles.profile_content} d-flex align-items-center`}
+                title="Sign in to view your profile"
+              >
+                <FontAwesomeIcon
+                  icon={faCircleUser}
+                  className={styles.profile_icon}
+                />
+                <h5 className={styles.profile_name}>User Guest</h5>
+              </div>
+            )}
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul className={styles.contact_list}>
             {isLogin ? (
+              <>
+                <li className={styles.contact_list_item}>
+                  Ediet Profile
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faPencil}
+                  />
+                </li>
               <Link to={"saved"}>
                 <li className={styles.contact_list_item} onClick={handleClose}>
-                  Saved
+                    Saved Jobs
                   <FontAwesomeIcon
                     className={styles.list_icons}
                     icon={faBookmark}
                   />
                 </li>
               </Link>
+              </>
             ) : (
               <li
                 onClick={() => setModalShow(true)}
                 className={styles.contact_list_item}
               >
-                Saved
+                Saved Jobs
                 <FontAwesomeIcon
                   className={styles.list_icons}
                   icon={faBookmark}
@@ -124,28 +143,59 @@ const SideBar = ({ onClose, show }) => {
                 />
               </li>
             )}
-            <li
-              onClick={toggleModeHandler}
-              className={styles.contact_list_item}
-            >
-              {modeContent}{" "}
-              {darkMode ? (
-                <FontAwesomeIcon className={styles.list_icons} icon={faMoon} />
-              ) : (
-                <FontAwesomeIcon className={styles.list_icons} icon={faSun} />
-              )}
-            </li>
-            <li className={styles.contact_list_item}>
-              Premium{" "}
-              <FontAwesomeIcon
-                className={styles.list_icons}
-                icon={faSackDollar}
-              />
-            </li>
-            <li className={styles.contact_list_item}>
-              Setting{" "}
-              <FontAwesomeIcon className={styles.list_icons} icon={faGears} />
-            </li>
+            {isCompanyHome ? (
+              <Link to={"packages"}>
+                <li className={styles.contact_list_item} onClick={handleClose}>
+                  Packages{" "}
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faSackDollar}
+                  />
+                </li>
+              </Link>
+            ) : (
+              <li className={styles.contact_list_item}>
+                Go Premium{" "}
+                <FontAwesomeIcon
+                  className={styles.list_icons}
+                  icon={faSackDollar}
+                />
+              </li>
+            )}
+
+            {isCompanyHome ? (
+              <Link to={"/"}>
+                <li className={styles.contact_list_item} onClick={handleClose}>
+                  Employee{" "}
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faBuilding}
+                  />
+                </li>
+              </Link>
+            ) : (
+              <>
+                {!isLogin ? (
+                  <Link to={"company-home"}>
+                    <li
+                      className={styles.contact_list_item}
+                      onClick={handleClose}
+                    >
+                      Company{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faBuilding}
+                      />
+                    </li>
+                  </Link>
+                ):<li className={styles.contact_list_item}>
+                Account Setting{" "}
+                <FontAwesomeIcon className={styles.list_icons} icon={faGears} />
+              </li>}
+              </>
+            )}
+
+         
             {isLogin && (
               <li className={styles.contact_list_item} onClick={signOutHandler}>
                 Log Out
@@ -167,7 +217,7 @@ const SideBar = ({ onClose, show }) => {
       </Offcanvas>
       <LoginAlertModal
         show={modalShow}
-        hideCanvas={handleClose}
+        hidecanvas={handleClose}
         onHide={() => setModalShow(false)}
       />
     </>

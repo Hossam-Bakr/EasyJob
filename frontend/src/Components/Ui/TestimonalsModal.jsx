@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TestimonalsModal.module.css";
 import Modal from "react-bootstrap/Modal";
-import profile from '../../images/people1.jpeg';
+import profile from '../../images/p1.jpeg';
 import MainButtonTwo from "./MainButtonTwo";
 
 const TestimonalsModal = (props) => {

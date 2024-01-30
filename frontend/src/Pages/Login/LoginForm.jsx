@@ -24,8 +24,8 @@ const LoginForm = () => {
   const {mutate,isPending} = useMutation({
     mutationFn:signFormsHandler,
     onSuccess:(response)=>{
-      console.log(response.data.data.user)
-      console.log(response.data.token)
+      // console.log(response.data.data.user)
+      // console.log(response.data.token)
       if(response.data.status==='success'){
         setIsEmailError(false);
         setIsPasswordError(false);

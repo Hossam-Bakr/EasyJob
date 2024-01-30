@@ -18,7 +18,7 @@ const Posts = () => {
   return (
     <Container fluid className="mb-5">
       <Row>
-        <Col sm={3}>
+        <Col sm={5} md={3} className={styles.aside_container}>
           <aside className={styles.job_filters}>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon className={styles.filter_icon} icon={faFilter} />
@@ -33,7 +33,7 @@ const Posts = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="date_all"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="date_all">All</label>
                     </div>
@@ -91,7 +91,7 @@ const Posts = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="country_Egypt"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="country_Egypt">Egypt</label>
                     </div>
@@ -159,7 +159,7 @@ const Posts = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="city_all"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="city_all">All</label>
                     </div>
@@ -255,7 +255,7 @@ const Posts = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="area_ All"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="area_ All"> All</label>
                     </div>
@@ -323,7 +323,7 @@ const Posts = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="industry_All"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="industry_All">All</label>
                     </div>
@@ -391,7 +391,7 @@ const Posts = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="experience_All"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="experience_All">All</label>
                     </div>
@@ -439,7 +439,7 @@ const Posts = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="date_all"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="date_all">All</label>
                     </div>
@@ -482,13 +482,13 @@ const Posts = () => {
             </Accordion>
           </aside>
         </Col>
-        <Col sm={9}>
+        <Col sm={7} md={9}>
           <section className={styles.job_posts}>
             <Container>
               <Row>
-                <div className="d-flex justify-content-between align-items-center my-3">
+                <div className="d-flex justify-content-center align-items-center my-3 flex-wrap">
                   <h2>Recommended Jobs</h2>
-                  <div className={`${styles.subscribe_container}`}>
+                  <div className={`${styles.subscribe_container} ms-auto`}>
                     <input type="text" placeholder="Search here.." />
                     <FontAwesomeIcon
                       className={styles.search_icon}

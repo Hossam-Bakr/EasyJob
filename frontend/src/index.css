@@ -23,7 +23,9 @@ body{
   --theme_color:white;
   --off_white:rgb(246, 242, 255);
   --sky:#F4F9FF;
+  --light:rgb(93, 156, 179);
   --vanilla:rgb(236, 246, 252);
+  
   --circle_color:rgba(0, 110, 255, 0.863);
   --main_font:'Quicksand', sans-serif;
   --jakarta:'Plus Jakarta Sans', sans-serif;

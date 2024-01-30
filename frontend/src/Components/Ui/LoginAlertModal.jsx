@@ -10,7 +10,7 @@ const LoginAlertModal = (props) => {
   const navigate=useNavigate();
   const navigateToSignUpPage=()=>{
     props.onHide();
-    props.hideCanvas();
+    props.hidecanvas();
     navigate('user-register');
  }
   const navigateToLoginPage=()=>{

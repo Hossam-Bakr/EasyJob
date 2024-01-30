@@ -4,17 +4,22 @@ import { useSelector } from "react-redux";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import MainButton from "./MainButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faFire, faHome, faLayerGroup, faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleInfo,
+  faCoins,
+  faFire,
+  faHome,
+  faLayerGroup,
+  faSearch,
+  faUserTie,
+} from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
 import logo from "../../images/mainLogo.png";
-import darkLogo from "../../images/mainLogoDark.png";
 
 const ResponsiveMenuSlideBar = ({ onClose, show }) => {
-  const darkMode = useSelector((state) => state.mode.darkMode);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
-  const sideBarClasses = !darkMode ? styles.side_bar : styles.side_bar_dark;
-  const navLogo = !darkMode ? logo : darkLogo;
+  const isCompanyHome = useSelector((state) => state.companyNav.isCompanyHome);
 
   const handleClose = () => {
     onClose();
@@ -25,11 +30,11 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
       show={show}
       onHide={handleClose}
       placement="end"
-      className={sideBarClasses}
+      className={styles.side_bar}
     >
       <Offcanvas.Header className={styles.header} closeButton>
         <Offcanvas.Title>
-          <img src={navLogo} className={styles.logo} alt="mykid logo" />
+          <img src={logo} className={styles.logo} alt="mykid logo" />
         </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
@@ -43,19 +48,80 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               <li className={styles.contact_list_item}>JOBS</li>
             </Link>
           ) : (
-            <Link onClick={handleClose} to={"/"} end="true">
-              <li className={styles.contact_list_item}>HOME <FontAwesomeIcon className={styles.list_icons} icon={faHome}/></li>
+            <>
+              {isCompanyHome ? (
+                <Link onClick={handleClose} to={"company-home"} end="true">
+                  <li className={styles.contact_list_item}>
+                    Home{" "}
+                    <FontAwesomeIcon
+                      className={styles.list_icons}
+                      icon={faHome}
+                    />
+                  </li>
+                </Link>
+              ) : (
+                <Link onClick={handleClose} to={"/"} end="true">
+                  <li className={styles.contact_list_item}>
+                    Home{" "}
+                    <FontAwesomeIcon
+                      className={styles.list_icons}
+                      icon={faHome}
+                    />
+                  </li>
+                </Link>
+              )}
+            </>
+          )}
+          {isCompanyHome && (
+            <Link onClick={handleClose} to={"candidates"}>
+              <li className={styles.contact_list_item}>
+                Candidates{" "}
+                <FontAwesomeIcon
+                  className={styles.list_icons}
+                  icon={faUserTie}
+                />
+              </li>
             </Link>
           )}
           <Link onClick={handleClose} to={"about"}>
-            <li className={styles.contact_list_item}>ABOUT <FontAwesomeIcon className={styles.list_icons} icon={faCircleInfo}/></li>
+            <li className={styles.contact_list_item}>
+              About{" "}
+              <FontAwesomeIcon
+                className={styles.list_icons}
+                icon={faCircleInfo}
+              />
+            </li>
           </Link>
-          <Link onClick={handleClose} to={"explore"}>
-            <li className={styles.contact_list_item}>EXPLORE <FontAwesomeIcon className={styles.list_icons} icon={faFire} /></li>
-          </Link>
-          <Link onClick={handleClose} to={"categories"}>
-            <li className={styles.contact_list_item}>CATEGORIES <FontAwesomeIcon className={styles.list_icons} icon={faLayerGroup} /></li>
-          </Link>
+          {isCompanyHome ? (
+            <Link onClick={handleClose} to={"packages"}>
+              <li className={styles.contact_list_item}>
+                Packages{" "}
+                <FontAwesomeIcon className={styles.list_icons} icon={faCoins} />
+              </li>
+            </Link>
+          ) : (
+            <>
+              {" "}
+              <Link onClick={handleClose} to={"explore"}>
+                <li className={styles.contact_list_item}>
+                  Explore{" "}
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faFire}
+                  />
+                </li>
+              </Link>
+              <Link onClick={handleClose} to={"categories"}>
+                <li className={styles.contact_list_item}>
+                  Categories{" "}
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faLayerGroup}
+                  />
+                </li>
+              </Link>
+            </>
+          )}
         </ul>
         {isLogin ? (
           ""
@@ -64,12 +130,17 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
             className={`${styles.side_bar_signing_btns} my-5 d-flex align-items-center justify-content-evenly`}
           >
             <Link to={"login"} onClick={handleClose} className="mx-2">
-              <MainButton text="Employee" />
+              <MainButton text="Login" />
             </Link>
-
-            <Link to={"company-login"} onClick={handleClose} className="mx-2">
-              <MainButton type="white" text="Company" />
-            </Link>
+            {isCompanyHome ? (
+              <Link to={"/"} onClick={handleClose} className="mx-2">
+                <MainButton type="white" text="Employee" />
+              </Link>
+            ) : (
+              <Link to={"company-home"} onClick={handleClose} className="mx-2">
+                <MainButton type="white" text="Company" />
+              </Link>
+            )}
           </div>
         )}
 

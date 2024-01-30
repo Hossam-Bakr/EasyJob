@@ -1,0 +1,160 @@
+.header_container{
+    width: 100%;
+    min-height: 50vh;
+    border-radius: 2.5rem;
+    margin-bottom: 3.125rem;
+    margin-top: 0.75rem;
+    position: relative;
+}
+.header_container img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 2.5rem;
+    object-fit: cover;
+}
+.ediet_cover_btn{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:  var(--off_white);
+    position: absolute;
+    top: 7%;
+    right: 3%;
+    font-size: 1.25rem;
+    background-color: var(--main_color);
+    border: 0.0625rem solid transparent;
+    cursor: pointer;
+    transition: all .3s;
+}
+.ediet_cover_btn:hover,.ediet_profile_pic_btn:hover{
+    color: var(--main_color);
+    background-color: var(--off_white);
+    border: 0.0625rem solid rgb(215, 214, 214);
+}
+.profile_pic{
+    width: 8.125rem;
+    height: 8.125rem;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    transform: translateY(50%);
+}
+.cartoona{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.profile_pic img{
+    width: 100%;
+    border-radius: 50%;
+}
+.ediet_profile_pic_btn{
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--off_white);
+    position: absolute;
+    bottom:0;
+    right: 0;
+    font-size: 0.9375rem;
+    background-color: var(--main_color);
+    border: 0.0625rem solid transparent;
+    cursor: pointer;
+    transform: translate(-20%,-20%);
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+.cartoona:hover .ediet_profile_pic_btn{
+    opacity: 1;
+}
+
+.sub_header{
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 0.0625rem solid rgb(203, 203, 203);
+    position: relative;
+}
+.ediet_section_btn{
+    color: var(--main_color);
+    background-color: var(--off_white);
+    border: 0.0625rem solid rgb(215, 214, 214);
+    transition: all .5s;
+}
+.ediet_section_btn:hover{
+    color: var(--off_white);
+    background-color: var(--main_color);
+    transform: translateY(-0.3125rem);
+}
+
+.sub_header div h3{
+    font-size: 2.1875rem;
+    font-weight: 700;
+    margin: 0;
+}
+.sub_header div span{
+    font-size: 1rem;
+    color: var(--dark_white);
+    font-weight: 700;
+}
+.contact_icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3125rem 0.625rem 1.25rem 0.3125rem;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.contact_icon{
+    font-size: 1.5625rem;
+    margin-inline: 0.625rem;
+    color: var(--dark_white);
+    cursor: pointer;
+    transition: all .5s;
+}
+.contact_icon:hover{
+    color: var(--font_color);
+    transform: translateY(-0.625rem);
+}
+
+@media screen and (max-width:957px) {
+    .contact_info{
+        margin: 0 !important;
+    }
+}
+@media screen and (max-width:450px) {
+   .contact_icons{
+    position:unset;
+    justify-content: start;
+    padding-left: 0;
+    padding-top: 10px;
+   }
+}
+@media screen and (max-width:400px) {
+   .ediet_section_btn{
+    top: -20px;
+    right: 0;
+   }
+   .contact_info h3{
+     font-size: 1.875rem !important;
+}
+.contact_info span{
+    font-size: 0.75rem;
+}
+.contact_info{
+    padding: 0 !important;
+}
+}

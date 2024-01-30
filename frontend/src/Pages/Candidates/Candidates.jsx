@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Candidates.module.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -12,8 +12,26 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import CandidatePost from "../../Components/Ui/CandidatePost";
+import { useDispatch } from "react-redux";
+import { companyActions } from "../../Store/companyNav-slice";
 
 const Candidates = () => {
+
+  const dispatch=useDispatch();
+
+  useEffect(() => {
+    dispatch(companyActions.changeNavState({
+      changeCompany:false,
+      changeNav:true
+    }));
+    return () => {
+      dispatch(companyActions.changeNavState({
+        changeCompany:false,
+        changeNav:false
+      }));
+    };
+  }, [dispatch]);
+
   return (
     <Container fluid className="mb-5">
       <Row>
@@ -28,7 +46,7 @@ const Candidates = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="industry_All"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="industry_All">All</label>
                     </div>
@@ -112,7 +130,7 @@ const Candidates = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="country_Egypt"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="country_Egypt">Egypt</label>
                     </div>
@@ -184,7 +202,7 @@ const Candidates = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="city_all"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="city_all">All</label>
                     </div>
@@ -262,7 +280,7 @@ const Candidates = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="area_ All"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="area_ All"> All</label>
                     </div>
@@ -332,7 +350,7 @@ const Candidates = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="experience_All"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="experience_All">All</label>
                     </div>
@@ -400,7 +418,7 @@ const Candidates = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="education_All"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="education_All">All</label>
                     </div>
@@ -474,7 +492,7 @@ const Candidates = () => {
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="date_all"
-                        checked
+                        defaultChecked
                       />
                       <label htmlFor="date_all">All</label>
                     </div>
@@ -522,7 +540,7 @@ const Candidates = () => {
             <Container fluid>
               <Row>
                 <div className="d-flex justify-content-center align-items-center my-3 flex-wrap">
-                  <h2>Recommended Jobs</h2>
+                  <h2>Recommended Employees</h2>
                   <div className={`${styles.subscribe_container} ms-auto`}>
                     <input type="text" placeholder="Search here.." />
                     <FontAwesomeIcon

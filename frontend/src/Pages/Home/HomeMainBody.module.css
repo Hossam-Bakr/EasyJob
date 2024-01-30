@@ -342,6 +342,11 @@
 /* ------------------------------------------------- media query section----------------------- */
 
 
+@media screen and (max-width:1000px) {
+ .resume_caption_circle,.resume_caption_circle_two{
+    display: none;
+ }
+} 
 @media screen and (max-width:768px) {
    .caption{
     width: 95vw;
