@@ -13,15 +13,14 @@ process.on("uncaughtException", (err) => {
 });
 
 dotenv.config({ path: "config.env" });
-const dbConnection = require("./config/database");
+const { defineDBRelationships } = require("./models/modelsRelationships");
 
 const globalErrorHandler = require("./controllers/errorController");
 
 // Routes
 const mountRoutes = require("./routes");
 
-// Connect with db
-dbConnection();
+defineDBRelationships();
 
 // express app
 const app = express();
