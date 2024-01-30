@@ -1,27 +1,27 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-// Application Details
-
-const applicationSchema = new mongoose.Schema(
-  {
-    job: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Job",
-    },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-    status: {
-      type: String,
-      enum: ["Pending", "Accepted", "Rejected"],
-      default: "Pending",
-    },
-    answers: [String],
+const Application = sequelize.define("Application", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true,
   },
-  { timestamps: true }
-);
-
-const Application = mongoose.model("Application", applicationSchema);
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    isIn: [["Pending", "Accepted", "Rejected"]],
+  },
+  answers: {
+    type: DataTypes.JSON,
+    set(value) {
+      this.setDataValue("answers", JSON.stringify(value));
+    },
+    get() {
+      return JSON.parse(this.getDataValue("answers"));
+    },
+  },
+});
 
 module.exports = Application;
