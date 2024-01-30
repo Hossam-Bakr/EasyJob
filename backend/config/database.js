@@ -1,13 +1,13 @@
-const mongoose = require("mongoose");
+const Sequelize = require("sequelize");
 
-const dbConnection = () => {
-  mongoose.connect(process.env.DB_URI).then((conn) => {
-    console.log(`Database Connected: ${conn.connection.host}`);
-  });
-  // .catch((err) => {
-  //   console.error(`Database Connection Error: ${err.message}`);
-  //   // process.exit(1);
-  // });
-};
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    dialect: "mysql",
+    host: "localhost",
+  }
+);
 
-module.exports = dbConnection;
+module.exports = sequelize;
