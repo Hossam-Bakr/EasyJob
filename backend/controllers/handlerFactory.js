@@ -1,6 +1,6 @@
 const catchAsync = require("./../utils/catchAsync");
 const ApiError = require("./../utils/ApiError");
-const APIFeatures = require("./../utils/apiFeatures");
+const { Op } = require("sequelize");
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -69,21 +69,38 @@ exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
 
-    const documentsCount = await Model.countDocuments();
-    const features = new APIFeatures(Model.find(filter), req.query)
-      .filter()
-      .search(Model.modelName)
-      .sort()
-      .limitFields()
-      .paginate(documentsCount);
+    const { page = 1, limit = 100, sort, fields, keyword } = req.query;
 
-    const { paginationResult, query } = features;
-    const doc = await query;
+    if (keyword && Model.rawAttributes.title) {
+      filter = {
+        [Op.or]: [
+          { title: { [Op.iLike]: `%${keyword}%` } },
+          { description: { [Op.iLike]: `%${keyword}%` } },
+        ],
+      };
+    }
+
+    const docs = await Model.findAll({
+      where: filter,
+      // order: sort ? sort.split(",").map((item) => item.split(":")) : [["createdAt", "DESC"]],
+      order: sort ? [sort.split(",")] : [["createdAt", "DESC"]],
+      attributes: fields ? fields.split(",") : undefined,
+      limit,
+      offset: (page - 1) * limit,
+    });
+
+    const documentsCount = await Model.count();
 
     res.status(200).json({
       status: "success",
-      results: doc.length,
-      paginationResult,
-      data: doc,
+      results: docs.length,
+      paginationResults: {
+        currentPage: page,
+        limit,
+        numberOfPages: Math.ceil(documentsCount / limit),
+        next: page * limit < documentsCount ? page + 1 : null,
+        prev: page > 1 ? page - 1 : null,
+      },
+      data: docs,
     });
   });
