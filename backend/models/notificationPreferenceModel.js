@@ -23,9 +23,15 @@ const NotificationPreference = sequelize.define("NotificationPreference", {
       ],
     ],
   },
-  description: {
-    type: DataTypes.TEXT,
+  frequency: {
+    type: DataTypes.STRING,
     allowNull: false,
+    isIn: [["weekly", "monthly"]],
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
   },
 });
 
