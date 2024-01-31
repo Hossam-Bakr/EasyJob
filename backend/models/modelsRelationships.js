@@ -33,6 +33,9 @@ const defineDBRelationships = () => {
   Company.hasMany(Interview, cascadeOptions);
   Interview.belongsTo(Company);
 
+  Job.hasMany(Interview, cascadeOptions);
+  Interview.belongsTo(Job);
+
   // M:N
 
   User.belongsToMany(Skill, { through: UserSkill });
