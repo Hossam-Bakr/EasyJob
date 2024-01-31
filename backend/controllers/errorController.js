@@ -1,20 +1,14 @@
+const { UniqueConstraintError, ValidationError } = require("sequelize");
 const ApiError = require("./../utils/ApiError");
 
-const handleCastErrorDB = (err) => {
-  const message = `Invalid ${err.path}: ${err.value}.`;
+const handleUniqueConstraintError = (err) => {
+  const message = `Duplicate field value: ${err.errors[0].value}. Please use another value!`;
   return new ApiError(message, 400);
 };
 
-const handleDuplicateFieldsDB = (err) => {
-  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-
-  const message = `Duplicate field value: ${value}. Please use another value!`;
-  return new ApiError(message, 400);
-};
-
-const handleValidationErrorDB = (err) => {
-  const errors = Object.values(err.errors).map((el) => el.message);
-
+const handleValidationError = (err) => {
+  // const errors = Object.values(err.errors).map((el) => el.message);
+  const errors = err.errors.map((error) => error.message);
   const message = `Invalid input data. ${errors.join(". ")}`;
   return new ApiError(message, 400);
 };
@@ -61,10 +55,9 @@ module.exports = (err, req, res, next) => {
     let error = { ...err };
     error.message = err.message;
 
-    if (error.name === "CastError") error = handleCastErrorDB(error);
-    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
-    if (error.name === "ValidationError")
-      error = handleValidationErrorDB(error);
+    if (error instanceof UniqueConstraintError)
+      error = handleUniqueConstraintError(error);
+    if (error instanceof ValidationError) error = handleValidationError(error);
     if (error.name === "JsonWebTokenError") error = handleJWTError();
     if (error.name === "TokenExpiredError") error = handleJWTExpiredError();
 
