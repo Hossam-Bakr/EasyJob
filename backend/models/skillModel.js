@@ -1,32 +1,49 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database"); 
 
-const skillSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, "Please enter your skill name"],
-      trim: true,
-    },
-    proficiency: {
-      type: Number,
-      required: [true, "Please enter your skill proficiency"],
-      enum: [1, 2, 3, 4, 5],
-      default: 1,
-    },
-    interest: {
-      type: Number,
-      required: [true, "Please enter your skill interest"],
-      enum: [1, 2, 3, 4],
-      default: 1,
-    },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+const Skill = sequelize.define("Skill", {
+  id: {
+    type : DataTypes.INTEGER , 
+    primaryKey : true , 
+    autoIncrement : true , 
+    allowNull : false, 
+  } , 
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: { msg: "Please enter your skill name" }
+    }
   },
-  { timestamps: true }
-);
-
-const Skill = mongoose.model("Skill", skillSchema);
+  proficiency: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      isIn: {
+        args: [[1, 2, 3, 4, 5]],
+        msg: "Proficiency must be between 1 and 5"
+      }
+    },
+    defaultValue: 1
+  },
+  interest: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      isIn: {
+        args: [[1, 2, 3, 4]],
+        msg: "Interest must be between 1 and 4"
+      }
+    },
+    defaultValue: 1
+  },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: true 
+  },
+  
+}, {
+  timestamps: true
+});
 
 module.exports = Skill;

@@ -1,106 +1,70 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const jobSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: [true, "Please enter your job title"],
-      trim: true,
-      maxLength: [70, "Your job title cannot exceed 70 characters"],
-    },
-    description: {
-      type: String,
-      required: [true, "Please enter your description"],
-      trim: true,
-    },
-    requirements: {
-      type: [String],
-      required: [true, "Please enter your requirements"],
-      trim: true,
-    },
-    requiredSkills: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Skill",
-      },
-    ],
-    salary: {
-      type: Number,
-      required: [true, "Please enter your salary"],
-      trim: true,
-    },
-    careerLevel: {
-      type: String,
-      enum: [
-        "Student",
-        "Entry",
-        "Junior",
-        "Mid-level",
-        "Experienced",
-        "Senior",
-        "Lead",
-        "Manager",
-        "Director",
-        "Executive",
-        "Consultant",
-        "Entrepreneur",
-        "Chief",
-        "Not specified",
-      ],
-      default: "Not specified",
-    },
-    type: {
-      type: String,
-      enum: [
-        "Full time",
-        "Part time",
-        "Internship",
-        "Temporary",
-        "Freelance project",
-        "Work from home",
-        "Other",
-      ],
-      default: "Other",
-    },
-    location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        required: true,
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
-    },
-    applications: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Application",
-      },
-    ],
-    company: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Company",
-    },
-    // applicants: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    //   },
-    // ],
-    deadline: {
-      type: Date,
-      required: [true, "Please enter job deadline"],
-    },
+const Job = sequelize.define("Job", {
+  id: {
+    type : DataTypes.INTEGER , 
+    primaryKey : true , 
+    autoIncrement : true , 
+    allowNull : false, 
+  } , 
+  title: {
+    type: DataTypes.STRING, 
+    allowNull: false,
+    validate: {
+      notEmpty: { msg: "Please enter your job title" }
+    }
   },
-  {
-    timestamps: true,
+  description: {
+    type: DataTypes.TEXT, 
+    allowNull: false,
+    validate: {
+      notEmpty: { msg: "Please enter your description" }
+    }
+  },
+  requirements: {
+    type: DataTypes.STRING, 
+    allowNull: false,
+    validate: {
+      notEmpty: { msg: "Please enter your requirements" }
+    }
+  },
+  salary: {
+    type: DataTypes.FLOAT, 
+    allowNull: false,
+    validate: {
+      notEmpty: { msg: "Please enter your salary" }
+    }
+  },
+  careerLevel: {
+    type: DataTypes.ENUM(
+      "Student", "Entry", "Junior", "Mid-level", "Experienced", "Senior",
+      "Lead", "Manager", "Director", "Executive", "Consultant", "Entrepreneur",
+      "Chief", "Not specified"
+    ),
+    defaultValue: "Not specified"
+  },
+  type: {
+    type: DataTypes.ENUM(
+      "Full time", "Part time", "Internship", "Temporary", "Freelance project",
+      "Work from home", "Other"
+    ),
+    defaultValue: "Other"
+  },
+  location: {
+    // type: DataTypes.GEOMETRY('POINT'), 
+     type: DataTypes.STRING, 
+    allowNull: false
+  },
+  deadline: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    validate: {
+      notEmpty: { msg: "Please enter job deadline" },
+      isDate: { msg: "Deadline must be a valid date" }
+    }
   }
-);
-
-jobSchema.index({ title: "text", description: "text" });
-
-const Job = mongoose.model("Job", jobSchema);
-
+}, {
+  timestamps: true
+});
 module.exports = Job;
