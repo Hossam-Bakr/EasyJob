@@ -37,7 +37,7 @@ const JobPost = ({
 
   const checkToNavigateJobDetails = () => {
     if (isLogin) {
-      //navigate to job details
+      console.log("logged in")
     } else {
       setModalShow(true);
     }

@@ -7,7 +7,6 @@ import Home from "./Pages/Home/Home";
 import Root from "./Pages/Root";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import Explore from "./Pages/Explore/Explore";
 import Categories from './Pages/Categories/Categories';
 import About from "./Pages/About/About";
 import CompanyRegister from "./Pages/CompanyRegister/CompanyRegister";
@@ -34,7 +33,6 @@ const router = createBrowserRouter([
       {path:"jobs",element:<Posts/>},
       {path:"candidates",element:<Candidates/>},
       { path: "about", element: <About /> },
-      { path: "explore", element: <Explore /> },
       { path: "categories", element: <Categories /> },
       { path: "companies", element: <Categories /> },
       { path: "saved", element: <Saved /> },

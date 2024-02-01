@@ -14,6 +14,189 @@ import {
 import Accordion from "react-bootstrap/Accordion";
 import FilterAccordion from "../../Components/Ui/FilterAccordion";
 
+const jobs = [
+  {
+    key: 1,
+    name: "Yata",
+    jobTitle: "Call Center",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L1",
+    city: "Cairo",
+    full: true,
+    remote: true,
+    part: false,
+    freelance: false,
+  },
+  {
+    key: 2,
+    name: "Blognation",
+    jobTitle: "Electrical Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L2",
+    city: "Giza",
+    full: true,
+    remote: true,
+    part: false,
+    freelance: false,
+  },
+  {
+    key: 3,
+    name: "Mynte",
+    jobTitle: "Frontend React Developer",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L3",
+    city: "Alex",
+    freelance: true,
+    full: true,
+    part: false,
+    remote: false,
+  },
+  {
+    key: 4,
+    name: "Voonder",
+    jobTitle: "Financial Advisor",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L4",
+    city: "Cairo",
+    part: true,
+    freelance: true,
+    remote: false,
+    full: false,
+  },
+  {
+    key: 5,
+    name: "Abata",
+    jobTitle: "Node Js developer",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L5",
+    city: "Tanta",
+    full: true,
+    freelance: true,
+    remote: false,
+    part: false,
+  },
+  {
+    key: 6,
+    name: "Linktype",
+    jobTitle: "GIS Technical Architect",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L6",
+    city: "Cairo",
+    part: true,
+    full: true,
+    freelance: false,
+    remote: false,
+  },
+  {
+    key: 7,
+    name: "Yata",
+    jobTitle: "Call Center",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L1",
+    city: "Cairo",
+    full: true,
+    remote: true,
+    part: false,
+    freelance: false,
+  },
+  {
+    key: 8,
+    name: "Blognation",
+    jobTitle: "Electrical Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L2",
+    city: "Giza",
+    full: true,
+    remote: true,
+    part: false,
+    freelance: false,
+  },
+  {
+    key: 9,
+    name: "Mynte",
+    jobTitle: "Frontend React Developer",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L3",
+    city: "Alex",
+    freelance: true,
+    full: true,
+    part: false,
+    remote: false,
+  },
+  {
+    key: 10,
+    name: "Voonder",
+    jobTitle: "Financial Advisor",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L4",
+    city: "Cairo",
+    part: true,
+    freelance: true,
+    remote: false,
+    full: false,
+  },
+  {
+    key: 11,
+    name: "Abata",
+    jobTitle: "Node Js developer",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L5",
+    city: "Tanta",
+    full: true,
+    freelance: true,
+    remote: false,
+    part: false,
+  },
+  {
+    key: 12,
+    name: "Linktype",
+    jobTitle: "GIS Technical Architect",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L6",
+    city: "Cairo",
+    part: true,
+    full: true,
+    freelance: false,
+    remote: false,
+  },
+  {
+    key: 13,
+    name: "Yata",
+    jobTitle: "Call Center",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L1",
+    city: "Cairo",
+    full: true,
+    remote: true,
+    part: false,
+    freelance: false,
+  },
+  {
+    key: 14,
+    name: "Blognation",
+    jobTitle: "Electrical Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L2",
+    city: "Giza",
+    full: true,
+    remote: true,
+    part: false,
+    freelance: false,
+  },
+  {
+    key: 15,
+    name: "Mynte",
+    jobTitle: "Frontend React Developer",
+    desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+    logo: "L3",
+    city: "Alex",
+    freelance: true,
+    full: true,
+    part: false,
+    remote: false,
+  },
+];
+
 const Posts = () => {
   return (
     <Container fluid className="mb-5">
@@ -85,7 +268,7 @@ const Posts = () => {
                       <label htmlFor="country_all">All</label>
                     </div>
                   </li>
-                  <li >
+                  <li>
                     <div>
                       <input
                         type="checkbox"
@@ -96,7 +279,7 @@ const Posts = () => {
                       <label htmlFor="country_Egypt">Egypt</label>
                     </div>
                   </li>
-                  <li >
+                  <li>
                     <div>
                       <input
                         type="checkbox"
@@ -106,17 +289,19 @@ const Posts = () => {
                       <label htmlFor="country_Saudi">Saudi Arabia</label>
                     </div>
                   </li>
-                  <li >
+                  <li>
                     <div>
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="country_United_Arab_Emarates"
                       />
-                      <label htmlFor="country_United_Arab_Emarates">United Arab Emarates</label>
+                      <label htmlFor="country_United_Arab_Emarates">
+                        United Arab Emarates
+                      </label>
                     </div>
                   </li>
-                  <li >
+                  <li>
                     <div>
                       <input
                         type="checkbox"
@@ -126,7 +311,7 @@ const Posts = () => {
                       <label htmlFor="country_America">America</label>
                     </div>
                   </li>
-                  <li >
+                  <li>
                     <div>
                       <input
                         type="checkbox"
@@ -136,14 +321,16 @@ const Posts = () => {
                       <label htmlFor="country_Canada">Canada</label>
                     </div>
                   </li>
-                  <li >
+                  <li>
                     <div>
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="country_United_Kingdom"
                       />
-                      <label htmlFor="country_United_Kingdom">United Kingdom</label>
+                      <label htmlFor="country_United_Kingdom">
+                        United Kingdom
+                      </label>
                     </div>
                   </li>
                 </ul>
@@ -249,7 +436,7 @@ const Posts = () => {
               </FilterAccordion>
               <FilterAccordion title="Filter by Area" eventKey="3">
                 <ul className={styles.filter_list}>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -260,7 +447,7 @@ const Posts = () => {
                       <label htmlFor="area_ All"> All</label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -270,7 +457,7 @@ const Posts = () => {
                       <label htmlFor="area_Maadi">Maadi</label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -280,7 +467,7 @@ const Posts = () => {
                       <label htmlFor="area_NasrCity">Nasr City</label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -290,17 +477,19 @@ const Posts = () => {
                       <label htmlFor="area_NewCairo">New Cairo</label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="area_6th_of_October"
                       />
-                      <label htmlFor="area_6th_of_October">6th of October</label>
+                      <label htmlFor="area_6th_of_October">
+                        6th of October
+                      </label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -317,7 +506,7 @@ const Posts = () => {
               </FilterAccordion>
               <FilterAccordion title="Filter by Industry" eventKey="4">
                 <ul className={styles.filter_list}>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -328,27 +517,32 @@ const Posts = () => {
                       <label htmlFor="industry_All">All</label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="industry_ Frontend_Developer"
                       />
-                      <label htmlFor="industry_ Frontend_Developer"> Frontend Developer</label>
+                      <label htmlFor="industry_ Frontend_Developer">
+                        {" "}
+                        Frontend Developer
+                      </label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between"> 
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="industry_Backend_Developer"
                       />
-                      <label htmlFor="industry_Backend_Developer">Backend Developer</label>
+                      <label htmlFor="industry_Backend_Developer">
+                        Backend Developer
+                      </label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -358,7 +552,7 @@ const Posts = () => {
                       <label htmlFor="industry_Accounting">Accounting</label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -368,7 +562,7 @@ const Posts = () => {
                       <label htmlFor="industry_Engineering">Engineering</label>
                     </div>
                   </li>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -385,7 +579,7 @@ const Posts = () => {
               </FilterAccordion>
               <FilterAccordion title="Filter by Experience" eventKey="5">
                 <ul className={styles.filter_list}>
-                <li className="d-flex justify-content-between">
+                  <li className="d-flex justify-content-between">
                     <div>
                       <input
                         type="checkbox"
@@ -496,245 +690,25 @@ const Posts = () => {
                     />
                   </div>
                 </div>
-                <JobPost
-                  name="Yata"
-                  jobTitle="Call Center"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L1"
-                  city="Cairo"
-                  full={true}
-                  remote={true}
-                />
 
-                <JobPost
-                  name="Blognation"
-                  jobTitle="Electrical Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L2"
-                  city="Giza"
-                  full={true}
-                  remote={true}
-                />
-
-                <JobPost
-                  name="Mynte"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L3"
-                  city="Alex"
-                  freelance={true}
-                  full={true}
-                />
-
-                <JobPost
-                  name="Voonder"
-                  jobTitle="Financial Advisor"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L4"
-                  city="Cairo"
-                  part={true}
-                  freelance={true}
-                />
-
-                <JobPost
-                  name="Abata"
-                  jobTitle="Node Js developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L5"
-                  city="Tanta"
-                  full={true}
-                />
-                <JobPost
-                  name="Raya"
-                  jobTitle="Mern Stack"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L2"
-                  city="Tanta"
-                  full={true}
-                  remote={true}
-                />
-                <JobPost
-                  name="Linktype"
-                  jobTitle="GIS Technical Architect"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L6"
-                  city="Cairo"
-                  part={true}
-                  full={true}
-                />
-
-                <JobPost
-                  name="Yata"
-                  jobTitle="Nuclear Power Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L1"
-                  city="Cairo"
-                  full={true}
-                  remote={true}
-                />
-
-                <JobPost
-                  name="Blognation"
-                  jobTitle="Technical Writer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L2"
-                  city="Giza"
-                  full={true}
-                  remote={true}
-                />
-
-                <JobPost
-                  name="Mynte"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L3"
-                  city="Alex"
-                  part={true}
-                  remote={true}
-                />
-
-                <JobPost
-                  name="Voonder"
-                  jobTitle="Call Center"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L4"
-                  city="Cairo"
-                  part={true}
-                  remote={true}
-                  full={true}
-                  freelance={true}
-                />
-
-                <JobPost
-                  name="Abata"
-                  jobTitle="Node Js| php developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L5"
-                  city="Tanta"
-                  full={true}
-                  remote={true}
-                />
-                <JobPost
-                  name="Abata"
-                  jobTitle="Node Js| php developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L5"
-                  city="Tanta"
-                />
-                <JobPost
-                  name="Linktype"
-                  jobTitle="GIS Technical Architect"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L6"
-                  city="Cairo"
-                  full={true}
-                  remote={true}
-                />
-                <JobPost
-                  name="Yata"
-                  jobTitle="Call Center"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L1"
-                  city="Cairo"
-                  full={true}
-                  remote={true}
-                />
-
-                <JobPost
-                  name="Blognation"
-                  jobTitle="Electrical Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L2"
-                  city="Giza"
-                  full={true}
-                  remote={true}
-                />
-
-                <JobPost
-                  name="Mynte"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L3"
-                  city="Alex"
-                  freelance={true}
-                  full={true}
-                />
-
-                <JobPost
-                  name="Voonder"
-                  jobTitle="Financial Advisor"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L4"
-                  city="Cairo"
-                  part={true}
-                  freelance={true}
-                />
-
-                <JobPost
-                  name="Abata"
-                  jobTitle="Node Js developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L5"
-                  city="Tanta"
-                  full={true}
-                />
-                <JobPost
-                  name="Raya"
-                  jobTitle="Mern Stack"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L2"
-                  city="Tanta"
-                  full={true}
-                  remote={true}
-                />
-                     <JobPost
-                  name="Abata"
-                  jobTitle="Node Js| php developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L5"
-                  city="Tanta"
-                />
-                <JobPost
-                  name="Linktype"
-                  jobTitle="GIS Technical Architect"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L6"
-                  city="Cairo"
-                  full={true}
-                  remote={true}
-                />
-                <JobPost
-                  name="Yata"
-                  jobTitle="Call Center"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  logo="L1"
-                  city="Cairo"
-                  full={true}
-                  remote={true}
-                />
+                <>
+                  {jobs.map((job) => {
+                    return (
+                      <JobPost
+                        key={job.key}
+                        name={job.name}
+                        jobTitle={job.jobTitle}
+                        desc={job.desc}
+                        logo={job.logo}
+                        city={job.city}
+                        full={job.full}
+                        remote={job.remote}
+                        part={job.part}
+                        freelance={job.freelance}
+                      />
+                    );
+                  })}
+                </>
               </Row>
             </Container>
             <div

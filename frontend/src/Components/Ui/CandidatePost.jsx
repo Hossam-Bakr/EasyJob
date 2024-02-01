@@ -45,7 +45,7 @@ const CandidatePost = ({
 
   const checkNavigateToCandidateProfile = () => {
     if (isLogin) {
-      //navigate to candidate profile
+      console.log("is logged pass")
     } else {
       setModalShow(true);
     }
@@ -86,7 +86,7 @@ const CandidatePost = ({
 
   return (
     <>
-      <Col xl={6} xxl={4} data-aos="zoom-in-up" data-aos-duration="1000">
+      <Col lg={6} xl={4} data-aos="zoom-in-up" data-aos-duration="1000">
         <div
           className={styles.candidate}
           onClick={checkNavigateToCandidateProfile}
@@ -114,7 +114,7 @@ const CandidatePost = ({
             </div>
             <div className="d-flex flex-column justify-content-center ms-2">
               <span className={styles.name}>
-                {isLogin ? { name } : "Hidden Name"}
+                 {isLogin ?  name  : "Hidden Name"}
               </span>
               <span className={styles.title}>{jobTitle}</span>
 

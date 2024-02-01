@@ -15,6 +15,251 @@ import CandidatePost from "../../Components/Ui/CandidatePost";
 import { useDispatch } from "react-redux";
 import { companyActions } from "../../Store/companyNav-slice";
 
+
+const candidatePosts = [
+  {
+    key: 1,
+    pic: "p1",
+    name: "Salim Amin",
+    jobTitle: "Frontend Developer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Cairo",
+    level: "fresher",
+    degree: "Bachelor's Degree of Engineering",
+    age: "24",
+    available: true,
+    full: true,
+    remote: true,
+    part: true,
+    department: "Department of Systems and Computers"
+  },
+  {
+    key: 2,
+    pic: "p2",
+    name: "Amr Khaled",
+    jobTitle: "Mechanical Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Giza",
+    level: "2 years of experience",
+    degree: "Bachelor's Degree of Engineering",
+    age: "28",
+    full: true,
+    part: true,
+    remote: true,
+    department: "Department of Mechanical Engineering"
+  },
+  {
+    key: 3,
+    pic: "p3",
+    name: "Hamdi Reda",
+    jobTitle: "Data Scientist",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Cairo",
+    level: "2 years of experience",
+    degree: "Bachelor's Degree of Computer Science",
+    age: "25",
+    available: true,
+    full: true,
+    part: false,
+    remote: true,
+    department: "Department of Artificial Intelligence"
+  },
+  {
+    key: 4,
+    pic: "p4",
+    name: "Ahmed Rajab",
+    jobTitle: "AI Specialist",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Cairo",
+    level: "7 years of experience",
+    degree: "Bachelor's Degree of Computer Science",
+    age: "38",
+    available: true,
+    full: true,
+    part: false,
+    remote: true,
+    department: "Department of Artificial Intelligence"
+  },
+  {
+    key: 5,
+    pic: "p5",
+    name: "Yousef Diaa",
+    jobTitle: "PHP Developer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Tanta",
+    level: "2 years of experience",
+    degree: "Bachelor's Degree of Information Technology",
+    age: "28",
+    available: true,
+    full: true,
+    part: false,
+    remote: true,
+    department: "Department of Web Developement"
+  },
+
+  {
+    key: 6,
+    pic: "p6",
+    name: "Sayed Ali",
+    jobTitle: "Frontend | React JS",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Alex",
+    level: "1 years of experience",
+    degree: "Bachelor's Degree of Engineering",
+    age: "24",
+    available: true,
+    full: true,
+    remote: true,
+    part:true,
+    department: "Department of Systems and Computers"
+  },
+  {
+    key: 7,
+    pic: "p7",
+    name: "Khaled Zaki",
+    jobTitle: "Civil Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Alex",
+    level: "1 years of experience",
+    degree: "Bachelor's Degree of Engineering",
+    age: "25",
+    available: true,
+    full: true,
+    part: true,
+    remote: false,
+    department: "Department of Civil Engineer"
+  },
+  {
+    key: 8,
+    pic: "p1",
+    name: "Salim Amin",
+    jobTitle: "Frontend Developer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Cairo",
+    level: "fresher",
+    degree: "Bachelor's Degree of Engineering",
+    age: "24",
+    available: true,
+    full: true,
+    remote: true,
+    part: true,
+    department: "Department of Systems and Computers"
+  },
+
+  {
+    key:9,
+    pic: "p2",
+    name: "Amr Khaled",
+    jobTitle: "Mechanical Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Giza",
+    level: "2 years of experience",
+    degree: "Bachelor's Degree of Engineering",
+    age: "28",
+    full: true,
+    part: true,
+    remote: true,
+    department: "Department of Mechanical Engineering"
+  },
+  {
+    key: 10,
+    pic: "p3",
+    name: "Hamdi Reda",
+    jobTitle: "Data Scientist",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Cairo",
+    level: "2 years of experience",
+    degree: "Bachelor's Degree of Computer Science",
+    age: "25",
+    available: true,
+    full: true,
+    part: false,
+    remote: true,
+    department: "Department of Artificial Intelligence"
+  },
+  {
+    key: 11,
+    pic: "p4",
+    name: "Ahmed Rajab",
+    jobTitle: "AI Specialist",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Cairo",
+    level: "7 years of experience",
+    degree: "Bachelor's Degree of Computer Science",
+    age: "38",
+    available: true,
+    full: true,
+    part: false,
+    remote: true,
+    department: "Department of Artificial Intelligence"
+  },
+  {
+    key: 12,
+    pic: "p5",
+    name: "Yousef Diaa",
+    jobTitle: "PHP Developer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Tanta",
+    level: "2 years of experience",
+    degree: "Bachelor's Degree of Information Technology",
+    age: "28",
+    available: true,
+    full: true,
+    part: false,
+    remote: true,
+    department: "Department of Web Developement"
+  },
+  {
+    key: 13,
+    pic: "p7",
+    name: "Khaled Zaki",
+    jobTitle: "Civil Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Alex",
+    level: "1 years of experience",
+    degree: "Bachelor's Degree of Engineering",
+    age: "25",
+    available: true,
+    full: true,
+    part: true,
+    remote: false,
+    department: "Department of Civil Engineer"
+  },
+  {
+    key: 14,
+    pic: "p1",
+    name: "Salim Amin",
+    jobTitle: "Frontend Developer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Cairo",
+    level: "fresher",
+    degree: "Bachelor's Degree of Engineering",
+    age: "24",
+    available: true,
+    full: true,
+    remote: true,
+    part: true,
+    department: "Department of Systems and Computers"
+  },
+
+  {
+    key:15,
+    pic: "p2",
+    name: "Amr Khaled",
+    jobTitle: "Mechanical Engineer",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim laudantium eaque harum expedita error autem soluta.",
+    city: "Giza",
+    level: "2 years of experience",
+    degree: "Bachelor's Degree of Engineering",
+    age: "28",
+    full: true,
+    part: true,
+    remote: true,
+    department: "Department of Mechanical Engineering"
+  },
+  
+];
+
 const Candidates = () => {
 
   const dispatch=useDispatch();
@@ -34,7 +279,7 @@ const Candidates = () => {
 
   return (
     <Container fluid className="mb-5">
-      <Row>
+      <Row className="g-0">
         <Col sm={4} xl={3} className={styles.aside_container}>
           <aside className={styles.job_filters}>
             <Accordion alwaysOpen defaultActiveKey={["0"]}>
@@ -540,7 +785,7 @@ const Candidates = () => {
             <Container fluid>
               <Row>
                 <div className="d-flex justify-content-center align-items-center my-3 flex-wrap">
-                  <h2>Recommended Employees</h2>
+                  <h2>Recommended Candidates</h2>
                   <div className={`${styles.subscribe_container} ms-auto`}>
                     <input type="text" placeholder="Search here.." />
                     <FontAwesomeIcon
@@ -549,290 +794,26 @@ const Candidates = () => {
                     />
                   </div>
                 </div>
-                <CandidatePost
-                  pic="p1"
-                  name="Salim Amin"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  part={true}
-                  department="Department of Systems and Computers"
+                <>
+                {candidatePosts.map((candidate)=>{
+                  return <CandidatePost
+                  key={candidate.key}
+                  pic={candidate.pic}
+                  name={candidate.name}
+                  jobTitle={candidate.jobTitle}
+                  desc={candidate.desc}
+                  city={candidate.city}
+                  level={candidate.level}
+                  degree={candidate.degree}
+                  age={candidate.age}
+                  available={candidate.available}
+                  full={candidate.full}
+                  remote={candidate.remote}
+                  part={candidate.part}
+                  department={candidate.department}
                 />
-
-                <CandidatePost
-                  pic="p2"
-                  name="Amr Khaled"
-                  jobTitle="Mechanical Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Giza"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of Engineering"
-                  age="28"
-                  full={true}
-                  part={true}
-                  remote={true}
-                  department="Department of Mechanical Engineering"
-                />
-
-                <CandidatePost
-                  pic="p3"
-                  name="Hamdi Reda"
-                  jobTitle="Data Scientist"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                 laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of  Computer Science"
-                  age="25"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  department="Department of Artificial Intelligence"
-                />
-
-                <CandidatePost
-                  pic="p4"
-                  name="Ahmed Ragab"
-                  jobTitle="Artificial Intelligence Specialist"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="7 years of expierence"
-                  degree="Bachelor's Degree of  Computer Science"
-                  age="38"
-                  full={true}
-                  remote={true}
-                  department="Artificial Intelligence Specialist"
-                />
-
-                <CandidatePost
-                  pic="p5"
-                  name="Mohammed Diaa"
-                  jobTitle="PHP Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                   laudantium eaque harum expedita error autem soluta."
-                  city="Alex"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of Information Technology"
-                  age="28"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  department="Department of Web Developement"
-                />
-                <CandidatePost
-                  pic="p6"
-                  name="Salim Amin"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                 laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  part={true}
-                  department="Department of Systems and Computers"
-                />
-                <CandidatePost
-                  pic="p7"
-                  name="Amir Hamad"
-                  jobTitle="Civil Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-             laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  part={true}
-                  department="Department of Civil Engineer"
-                />
-                <CandidatePost
-                  pic="p1"
-                  name="Salim Amin"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  part={true}
-                  department="Department of Systems and Computers"
-                />
-
-                <CandidatePost
-                  pic="p2"
-                  name="Amr Khaled"
-                  jobTitle="Mechanical Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Giza"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of Engineering"
-                  age="28"
-                  full={true}
-                  part={true}
-                  remote={true}
-                  department="Department of Mechanical Engineering"
-                />
-
-                <CandidatePost
-                  pic="p3"
-                  name="Hamdi Reda"
-                  jobTitle="Data Scientist"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                 laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of  Computer Science"
-                  age="25"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  department="Department of Artificial Intelligence"
-                />
-
-                <CandidatePost
-                  pic="p4"
-                  name="Ahmed Ragab"
-                  jobTitle="Artificial Intelligence Specialist"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="7 years of expierence"
-                  degree="Bachelor's Degree of  Computer Science"
-                  age="38"
-                  full={true}
-                  remote={true}
-                  department="Artificial Intelligence Specialist"
-                />
-
-                <CandidatePost
-                  pic="p5"
-                  name="Mohammed Diaa"
-                  jobTitle="PHP Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                   laudantium eaque harum expedita error autem soluta."
-                  city="Alex"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of Information Technology"
-                  age="28"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  department="Department of Web Developement"
-                />
-                <CandidatePost
-                  pic="p6"
-                  name="Salim Amin"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                 laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  part={true}
-                  department="Department of Systems and Computers"
-                />
-                <CandidatePost
-                  pic="p7"
-                  name="Amir Hamad"
-                  jobTitle="Civil Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-             laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  part={true}
-                  department="Department of Civil Engineer"
-                />
-                <CandidatePost
-                  pic="p1"
-                  name="Salim Amin"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  part={true}
-                  department="Department of Systems and Computers"
-                />
-                <CandidatePost
-                  pic="p1"
-                  name="Salim Amin"
-                  jobTitle="Frontend React Developer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="fresher"
-                  degree="Bachelor's Degree of Engineering"
-                  age="24"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  part={true}
-                  department="Department of Systems and Computers"
-                />
-
-                <CandidatePost
-                  pic="p2"
-                  name="Amr Khaled"
-                  jobTitle="Mechanical Engineer"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-                  city="Giza"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of Engineering"
-                  age="28"
-                  full={true}
-                  part={true}
-                  remote={true}
-                  department="Department of Mechanical Engineering"
-                />
-
-                <CandidatePost
-                  pic="p3"
-                  name="Hamdi Reda"
-                  jobTitle="Data Scientist"
-                  desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                 laudantium eaque harum expedita error autem soluta."
-                  city="Cairo"
-                  level="2 years of expierence"
-                  degree="Bachelor's Degree of  Computer Science"
-                  age="25"
-                  available={true}
-                  full={true}
-                  remote={true}
-                  department="Department of Artificial Intelligence"
-                />
+                })}
+                </>
               </Row>
             </Container>
             <div
