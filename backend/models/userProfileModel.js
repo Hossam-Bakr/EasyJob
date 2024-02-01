@@ -10,6 +10,9 @@ const UserProfile = sequelize.define("UserProfile", {
   },
   immediateHiring: DataTypes.BOOLEAN,
 
+  // Profile Picture
+  avatar: DataTypes.STRING,
+
   // Personal Information
   birthDate: {
     type: DataTypes.DATEONLY,
@@ -24,6 +27,11 @@ const UserProfile = sequelize.define("UserProfile", {
     allowNull: false,
   },
   drivingLicense: DataTypes.BOOLEAN,
+
+  phone: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 
   // Location
   country: {
