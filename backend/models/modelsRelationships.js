@@ -7,6 +7,7 @@ const NotificationPreference = require("./notificationPreferenceModel");
 const PricingPlan = require("./pricingPlanModel");
 const Interview = require("./interviewModel");
 const UserProfile = require("./userProfileModel");
+const CompanyProfile = require("./companyProfileModel");
 const UserSkill = require("./userSkillModel");
 const RequiredSkill = require("./requiredSkillModel");
 const SavedJob = require("./savedJobModel");
@@ -58,6 +59,9 @@ const defineDBRelationships = () => {
 
   User.hasOne(UserProfile, cascadeOptions);
   UserProfile.belongsTo(User);
+
+  Company.hasOne(CompanyProfile, cascadeOptions);
+  CompanyProfile.belongsTo(Company);
 };
 
 module.exports = defineDBRelationships;
