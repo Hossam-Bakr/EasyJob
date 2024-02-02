@@ -14,34 +14,18 @@ const UserProfile = sequelize.define("UserProfile", {
   avatar: DataTypes.STRING,
 
   // Personal Information
-  birthDate: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
-  },
+  birthDate: DataTypes.DATEONLY,
   gender: {
     type: DataTypes.STRING,
     isIn: [["male", "female"]],
   },
-  nationality: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+  nationality: DataTypes.STRING,
   drivingLicense: DataTypes.BOOLEAN,
-
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+  phone: DataTypes.STRING,
 
   // Location
-  country: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  city: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+  country: DataTypes.STRING,
+  city: DataTypes.STRING,
   area: DataTypes.STRING,
 
   // Interests
@@ -98,7 +82,6 @@ const UserProfile = sequelize.define("UserProfile", {
   // Experience
   totalYearsOfExperience: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     isIn: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]],
   },
 
