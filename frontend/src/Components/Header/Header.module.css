@@ -1,6 +1,7 @@
 .header{
     position: relative;
     padding-top: 1.25rem;
+    margin-top: 3.125rem;
 }
 .header::after{
     content: '';

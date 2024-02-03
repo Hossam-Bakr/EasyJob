@@ -107,6 +107,15 @@ ul li{
   top: 50%;
   right:1.25rem;
 }
+.nav-tabs li button{
+  color: var(--font_color);
+  font-weight: 700;
+}
+.nav-tabs li .active{
+  background-color: var(--main_color) !important;
+  color: white !important;
+}
+
 
 
 

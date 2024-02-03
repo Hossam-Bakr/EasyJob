@@ -9,6 +9,7 @@ import {
   faBookmark,
   faBuilding,
   faCircleUser,
+  faEnvelope,
   faFileContract,
   faGears,
   faPencil,
@@ -187,7 +188,15 @@ const SideBar = ({ onClose, show }) => {
                 />
               </li>
             )}
-
+            <Link to={"contact"}>
+              <li className={styles.contact_list_item}>
+                Contact Us{" "}
+                <FontAwesomeIcon
+                  className={styles.list_icons}
+                  icon={faEnvelope}
+                />
+              </li>
+              </Link>
             {isCompanyHome ? (
               <Link to={"/"}>
                 <li className={styles.contact_list_item} onClick={handleClose}>

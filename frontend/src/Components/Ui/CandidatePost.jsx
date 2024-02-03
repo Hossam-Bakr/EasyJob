@@ -86,7 +86,7 @@ const CandidatePost = ({
 
   return (
     <>
-      <Col lg={6} xl={4} data-aos="zoom-in-up" data-aos-duration="1000">
+      <Col lg={6} xl={6} xxl={4} data-aos="zoom-in-up" data-aos-duration="1000">
         <div
           className={styles.candidate}
           onClick={checkNavigateToCandidateProfile}

@@ -19,6 +19,8 @@ import Saved from "./Pages/Saved/Saved";
 import Applications from "./Pages/Applications/Applications";
 import setThemeMood from "./Store/mood-actions";
 import "./App.css";
+import ContactUs from "./Pages/ContactUs/ContactUs";
+import NotFound from "./Pages/Error/NotFound";
 
 
 
@@ -34,6 +36,7 @@ const router = createBrowserRouter([
       {path:"candidates",element:<Candidates/>},
       { path: "about", element: <About /> },
       { path: "categories", element: <Categories /> },
+      { path: "contact", element: <ContactUs /> },
       { path: "companies", element: <Categories /> },
       { path: "saved", element: <Saved /> },
       { path: "applications", element: <Applications /> },
@@ -42,6 +45,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "user-register", element: <Register /> },
       { path: "company-register", element: <CompanyRegister />},
+      {path: "*", element: <NotFound/>},
     ],
   },
 ]);

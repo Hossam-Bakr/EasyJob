@@ -1,0 +1,21 @@
+.not_found_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    min-width: 100vw;
+}
+.not_found_container img{
+    width:50%;
+}
+
+@media screen and (max-width:650px) {
+    .not_found_container img{
+        width:80%;
+    }
+}
+@media screen and (max-width:400px) {
+    .not_found_container img{
+        width:100%;
+    }
+}

@@ -5,6 +5,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import MainButton from "./MainButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBuilding,
   faCircleInfo,
   faCoins,
   faFire,
@@ -43,10 +44,15 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
           <FontAwesomeIcon className={styles.search_icon} icon={faSearch} />
         </div>
         <ul className={styles.contact_list}>
-          {isLogin ? (
+          {isLogin ? (<>
             <Link onClick={handleClose} to={"jobs"} end="true">
-              <li className={styles.contact_list_item}>JOBS</li>
+              <li className={styles.contact_list_item}>Explore{" "}  <FontAwesomeIcon icon={faFire} className={styles.list_icons}/></li>
             </Link>
+            <Link onClick={handleClose} to={"jobs"} end="true">
+              <li className={styles.contact_list_item}>Companies{" "}  <FontAwesomeIcon icon={faBuilding} className={styles.list_icons}/></li>
+            </Link>
+
+            </>
           ) : (
             <>
               {isCompanyHome ? (
@@ -101,8 +107,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
             </Link>
           ) : (
             <>
-              {" "}
-              <Link onClick={handleClose} to={"explore"}>
+            {!isLogin && <Link onClick={handleClose} to={"jobs"}>
                 <li className={styles.contact_list_item}>
                   Explore{" "}
                   <FontAwesomeIcon
@@ -110,7 +115,8 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                     icon={faFire}
                   />
                 </li>
-              </Link>
+              </Link>}
+           
               <Link onClick={handleClose} to={"categories"}>
                 <li className={styles.contact_list_item}>
                   Categories{" "}

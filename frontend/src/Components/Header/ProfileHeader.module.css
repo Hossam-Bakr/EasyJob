@@ -145,7 +145,7 @@
 }
 @media screen and (max-width:400px) {
    .ediet_section_btn{
-    top: -20px;
+    top: -1.25rem;
     right: 0;
    }
    .contact_info h3{

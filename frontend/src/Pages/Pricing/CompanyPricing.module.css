@@ -1,0 +1,118 @@
+.package{
+    padding:0.625rem 0;
+    border-radius: 0.625rem;
+    border: 0.0625rem solid rgb(222, 222, 222);
+    border-top: 0.3125rem solid black;
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.247);
+}
+.package_type h3{
+    font-size: 3.125rem;
+    font-weight: 700;
+    text-align: center;
+}
+.package_type,.price{
+    border-bottom: 0.0625rem solid rgb(222, 222, 222);
+    padding: 0.625rem 0;
+}
+.price{
+    margin: 0.625rem 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.price_number{
+    font-size: 2.8125rem;
+    font-weight: 700;
+}
+.price_type{
+    font-size: 0.75rem;
+    color: var(--dark_white);
+}
+.del_price{
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-top: 0.3125rem;
+    opacity: .5;
+}
+.pricing_note{
+    text-align: center;
+}
+.pricing_note span{
+    font-size: 1rem;
+    margin-top: 0.625rem;
+}
+.features{
+    padding: 0.625rem 0;
+}
+.features ul{
+    padding-left:0.625rem;
+    min-height: 17.5rem;
+}
+.features ul li{
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0.625rem 0;
+}
+.list_icon{
+    margin-right: 0.625rem;
+    color: var(--main_color);
+}
+
+.order_btn,.order_btn_selected{
+    width: 80%;
+    padding: 0.3125rem 0.625rem;
+    background-color: transparent;
+    border: 0.0625rem solid var(--main_color);
+    border-radius: 0.5rem;
+    color: var(--main_color);
+    font-weight: 700;
+    transition: all .3s;
+}
+.order_btn_selected{
+    background-color: var(--main_color);
+    border: 0.0625rem solid transparent;
+    color: white;
+}
+.order_btn:hover{
+    background-color: var(--main_color);
+    border: 0.0625rem solid transparent;
+    color: white;
+}
+.order_btn_selected:hover{
+    background-color: transparent;
+    border: 0.0625rem solid var(--main_color);
+    color: var(--main_color);
+}
+.golden_package .price_number{
+    color: var(--main_color);
+}
+.golden_package .price_number .price_type{
+    color: var(--main_color);
+}
+
+.golden_package{
+    border-color: var(--main_color);
+}
+.crown_icon{
+    color: var(--golden);
+}
+
+@media screen and (min-width:770px) and (max-width:1158px) {
+    .features ul{
+      min-height: 350px;
+    }
+}
+
+@media screen and  (min-width:770px) and (max-width:886px) {
+   .package_type h3{
+    font-size: 2.8125rem;
+    font-weight: 700;
+    text-align: center;
+}
+}
+@media screen and (max-width:240px) {
+   .package_type h3{
+    font-size: 2.1875rem;
+}
+}

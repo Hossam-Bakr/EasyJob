@@ -1,0 +1,65 @@
+.contact_info{
+    background-image: url(../../images/contactusbg.jpg);
+    background-size: cover;
+    position: relative;
+}
+.contact_info_layer{
+    background-color: rgba(0,0,0,.8);
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index: 3;
+    color: white;
+}
+.contact_links{
+    width: fit-content;
+    position: absolute;
+    top:50%;
+    left: 30%;
+    transform: translate(-30%,-50%);   
+}
+.data_link_h6{
+    font-size: 0.875rem;
+    line-height: 1.05rem;
+    font-weight: 700;
+}
+.data_link_p{
+    font-size: 0.8125rem;
+    line-height: 1.4625rem;
+    font-weight: 300;
+    color: #DDD;
+}
+
+.contact_info_icon{
+    font-size: 1.5625rem;
+    line-height: 1.5625rem;
+    font-weight: 900;
+    color: var(--main_color);
+}
+
+.contact_info_icons svg{
+    border: 1px solid rgb(65, 65, 65);
+    font-size: 1.25rem;
+}
+.sub_title{
+    font-size: 0.75rem;
+    line-height: 0.9rem;
+    letter-spacing: 0.25rem;
+    font-weight: 700;
+    color: var(--main_color);
+}
+.form_title{
+    font-size: 3.125rem;
+    line-height: 3.375rem;
+    letter-spacing: 0.125rem;
+    font-weight: 700;
+    color: var(--font_color);
+}
+#form-message{
+    width: 100%;
+}
+.form-control{
+    background-color: rgb(246, 246, 246);
+}

@@ -24,17 +24,33 @@ const LoginForm = () => {
   const {mutate,isPending} = useMutation({
     mutationFn:signFormsHandler,
     onSuccess:(response)=>{
-      // console.log(response.data.data.user)
-      // console.log(response.data.token)
-      if(response.data.status==='success'){
-        setIsEmailError(false);
-        setIsPasswordError(false);
-        dispatch(userActions.setUserInfo(response.data.data.user));
-        dispatch(userActions.setIsLogin(true))
-        dispatch(saveUserInfoIntoLocalStorag(response.data.data.user)); 
-        dispatch(saveIsLoginState(true))
-        navigate('/jobs')
-      }
+      // console.log(response)
+      let res=response.data;
+      if(res.status==='success'){
+        if(res.data.user){
+          if(res.data.user.role==="user"){
+            setIsEmailError(false);
+            setIsPasswordError(false);
+            dispatch(userActions.setUserInfo(res.data.user));
+            dispatch(userActions.setIsLogin(true))
+            dispatch(saveUserInfoIntoLocalStorag(res.data.user)); 
+            dispatch(saveIsLoginState(true))
+            navigate('/jobs')
+          }
+        }
+        else if(res.data.company){
+          if(res.role==="company"){
+            setIsEmailError(false);
+            setIsPasswordError(false);
+            // dispatch(userActions.setUserInfo(res.data.user));
+            // dispatch(userActions.setIsLogin(true))
+            // dispatch(saveUserInfoIntoLocalStorag(res.data.user)); 
+            // dispatch(saveIsLoginState(true))
+            //handle company register
+            navigate('/candidates')
+          }
+        }
+        }
       else{
         alert('sorry something went wrong please try again later!');
       }
@@ -78,11 +94,10 @@ const LoginForm = () => {
     >
       <Form className={styles.login_form}>
         <div className={styles.user_input_faild}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="emailInput">Email</label>
           <Field
             type="email"
-            id="email"
-            email="email"
+            id="emailInput"
             name="email"
             placeholder="example@gmail.com"
           />
@@ -90,10 +105,10 @@ const LoginForm = () => {
           {isEmailError&&<InputErrorMessage text='email not found!'/>}      
        </div>
         <div className={styles.user_input_faild}>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="passwordInput">Password</label>
           <Field
             type="password"
-            id="password"
+            id="passwordInput"
             name="password"
             placeholder="********"
           />
