@@ -11,16 +11,7 @@ const Application = sequelize.define("Application", {
   status: {
     type: DataTypes.STRING,
     allowNull: false,
-    isIn: [["Pending", "Accepted", "Rejected"]],
-  },
-  answers: {
-    type: DataTypes.JSON,
-    set(value) {
-      this.setDataValue("answers", JSON.stringify(value));
-    },
-    get() {
-      return JSON.parse(this.getDataValue("answers"));
-    },
+    isIn: [["Pending", "Accepted", "Closed"]],
   },
 });
 
