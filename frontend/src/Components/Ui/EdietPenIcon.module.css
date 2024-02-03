@@ -1,0 +1,51 @@
+.ediet_div{
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    background-color: var(--vanilla);
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.3125rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .8s;
+}
+.ediet_pen_icon{
+    color: var(--main_color);
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+.ediet_span{
+    font-size: 0.8125rem ;
+    color: var(--main_color);
+    font-weight: 700;
+    text-align: center;
+    overflow: hidden;
+    width: 0;
+    opacity: 0;
+    transition: all .8s;
+}
+
+.ediet_div:hover .ediet_span{
+    opacity: 1;
+    width: 2.5rem;
+} 
+.ediet_div:hover{
+    padding: 0.5rem 0.3125rem;
+    justify-content: space-evenly;
+    width: 5rem;
+}
+@media screen and (max-width:360px) {
+    .ediet_div{
+        top:6%;
+        right: 3%;
+    }
+}
+@media screen and (max-width:260px){
+    .ediet_div{
+        display: none;
+    }
+}

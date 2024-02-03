@@ -15,7 +15,7 @@ body{
 
 :root{
   --main_color:rgb(0, 110, 255);
-  --darker_main_color:rgb(5, 59, 129);
+  --darker_main_color:#053b81;
   --golden:#FCA730;
   --font_color:black;
   --main_bg_color:white;
@@ -25,7 +25,6 @@ body{
   --sky:#F4F9FF;
   --light:rgb(93, 156, 179);
   --vanilla:rgb(236, 246, 252);
-  
   --circle_color:rgba(0, 110, 255, 0.863);
   --main_font:'Quicksand', sans-serif;
   --jakarta:'Plus Jakarta Sans', sans-serif;
@@ -107,6 +106,7 @@ ul li{
   top: 50%;
   right:1.25rem;
 }
+<<<<<<< HEAD
 .nav-tabs li button{
   color: var(--font_color);
   font-weight: 700;
@@ -117,6 +117,13 @@ ul li{
 }
 
 
+=======
+.mini_word{
+  font-size: 12px !important;
+  color: var(--dark_white) !important;
+  font-weight: 700;
+}
+>>>>>>> dd6c62d2c5117557e40b3a68814528f6fc142e19
 
 
 @media screen and (max-width:768px) {

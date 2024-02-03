@@ -9,7 +9,7 @@ import footerLogo from "../../images/mainLogo.png";
 
 const Footer = () => {
   return (
-    <section className={styles.footer}>
+    <footer className={styles.footer}>
       <div className="container">
         <Row>
           <Col md={4}>
@@ -61,7 +61,7 @@ const Footer = () => {
         </Row>
       </div>
 
-    </section>
+    </footer>
   )
 }
 

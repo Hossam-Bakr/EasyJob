@@ -1,33 +1,33 @@
 .job_filters{
     background-color: var(--vanilla);
-    border-radius: 10px;
-    padding: 10px;
-    min-height: 220vh;
+    border-radius: 0.625rem;
+    padding: 0.625rem;
+    min-height: 280vh;
 }
 .filter_icon{
-    font-size: 20px;
-    margin-right: 10px;
+    font-size: 1.25rem;
+    margin-right: 0.625rem;
     color: var(--main_color);
-    padding-bottom: 5px;
+    padding-bottom: 0.3125rem;
 }
 .filter_list{
     padding-inline: 0;
     font-weight: 600;
 }
 .checkbox_type{
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 .more{
     color: var(--dark_white);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
 }
 .filter_list li{
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
 }
 .filter_list li label, .more{
     cursor: pointer;
-    padding: 3px 0;
+    padding: 0.1875rem 0;
     transition: color .3s;
 }
 
@@ -40,36 +40,36 @@
 }
 .num_span_dev{
     background-color: var(--vanilla);
-    min-width: 30px;
+    min-width: 1.875rem;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 1.25rem;
 }
 .num_span{
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
 }
 /* ____________________________job posts side_____________________________________ */
 .job_posts{
-    padding: 5px 0;
+    padding: 0.3125rem 0;
  }
  .job_posts h2,.job_filters div h2{
      font-weight: 700;
-     padding: 10px;
+     padding: 0.625rem;
  }
  .subscribe_container{
     background-color: transparent !important;
-    border: 0.0625rem solid var(--dark_white) !important;
+    border: 1px solid var(--dark_white) !important;
     padding: 0 !important;
     position: relative;
-    border-radius: 0.625rem;
-    min-width: 18.75rem;
+    border-radius: 10px;
+    min-width: 300px;
 }
 .subscribe_container input{
     background-color: transparent;
     border: none;
     outline: none;
     width:80%;
-    padding:0.625rem;
+    padding:10px;
     height: 100%;
     color:  var(--font_color);
 }
@@ -80,14 +80,14 @@
     top: 50%;
     transform: translate(-6%,-50%);
     color: var(--main_color);
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 700;
     cursor: pointer;
 }
 .page_num{
     background-color: var(--vanilla);
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -106,7 +106,7 @@
     font-weight: 700;
     border-radius: 50%;
     background-color: var(--vanilla);
-    padding: 10px 15px;
+    padding: 0.625rem 0.9375rem;
     cursor: pointer;
     color: var(--main_color);
     transition: transform .5s;
@@ -119,10 +119,10 @@
     color: white;
 }
 .arrow_left:hover{
-    transform: translateX(-10px);
+    transform: translateX(-0.625rem);
 }
 .arrow_right:hover{
-    transform: translateX(10px);
+    transform: translateX(0.625rem);
 }
 
 
