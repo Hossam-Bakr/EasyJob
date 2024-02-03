@@ -60,8 +60,11 @@ const Job = sequelize.define(
       ),
       allowNull: false,
     },
-    location: {
-      // type: DataTypes.GEOMETRY("POINT"),
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    city: {
       type: DataTypes.STRING,
       allowNull: false,
     },
