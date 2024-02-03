@@ -9,6 +9,8 @@ const Interview = require("./interviewModel");
 const UserProfile = require("./userProfileModel");
 const CompanyProfile = require("./companyProfileModel");
 const Category = require("./categoryModel");
+const Question = require("./questionModel");
+const Answer = require("./answerModel");
 const JobCategory = require("./jobCategoryModel");
 const UserSkill = require("./userSkillModel");
 const RequiredSkill = require("./requiredSkillModel");
@@ -39,6 +41,12 @@ const defineDBRelationships = () => {
 
   Job.hasMany(Interview, cascadeOptions);
   Interview.belongsTo(Job);
+
+  Job.hasMany(Question, cascadeOptions);
+  Question.belongsTo(Job);
+
+  Application.hasMany(Answer, cascadeOptions);
+  Answer.belongsTo(Application);
 
   // M:N
 
