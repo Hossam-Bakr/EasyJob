@@ -106,7 +106,6 @@ ul li{
   top: 50%;
   right:1.25rem;
 }
-<<<<<<< HEAD
 .nav-tabs li button{
   color: var(--font_color);
   font-weight: 700;
@@ -117,13 +116,11 @@ ul li{
 }
 
 
-=======
 .mini_word{
   font-size: 12px !important;
   color: var(--dark_white) !important;
   font-weight: 700;
 }
->>>>>>> dd6c62d2c5117557e40b3a68814528f6fc142e19
 
 
 @media screen and (max-width:768px) {

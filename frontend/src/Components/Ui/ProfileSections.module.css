@@ -10,7 +10,7 @@
     transition: all .5s;
 }
 .contact_info_section.main_style_spread{
-    height: 85vh;
+    height: 75vh;
 }
 .sec_title{
     color: var(--font_color);
@@ -35,6 +35,7 @@
 .show_more_btn{
     color: var(--main_color);
     margin-left: 0.625rem;
+    background-color: transparent;
 }
 .info_tail_li{
     display: flex;
@@ -59,13 +60,96 @@
     position: unset;
     transform: translateX(0);
 }
+.contact_info_img{
+    width:50%;
+}
+
+
+/* ____________________________________About________________________________________________________________ */
+
+.about_sec{
+    overflow: hidden;
+    position: relative;
+}
+
+.about_p{
+    font-size: 0.9375rem;
+    margin-top: 0.9375rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.about_p:hover{
+    -webkit-line-clamp: unset;
+    white-space: normal;
+    overflow: visible;
+}
+
+
+/* ____________________________________education_sec________________________________________________________________ */
+.education_sec ul{
+    margin-top: 1.875rem;
+}
+.education_sec ul li{
+    display: flex;
+}
+.education_logo{
+    width: 4.375rem;
+    margin-right: 0.625rem;
+}
+.education_caption h3{
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+.education_caption span{
+    display: block;
+}
+.education_grade{
+    font-weight: 700;
+    font-size: 0.9375rem;
+}
+
+
+@media screen and (max-width:1178px) {
+    .contact_info_img{
+        width:70%;
+    } 
+}
+@media screen and (max-width:885px) {
+    .contact_info_img{
+        width:100%;
+    } 
+    .education_logo{
+        width: 8.125rem;
+    }
+}
+@media screen and (max-width:770px) {
+    .contact_info_container{
+        display: none !important;
+    } 
+    .contact_info_section.main_style_spread{
+        height:65vh !important;
+    }
+}
+@media screen and (max-width:485px) {
+  .education_logo{
+        width: 12.5rem;
+    }
+}
 
 @media screen and (max-width:350px) {
     .main_style{
-        height: 35vh;
         padding-inline: 5px;
     }
     .main_style.main_style_spread{
         height: 100vh;
+    }
+}
+@media screen and (max-width:220px) {
+    .contact_info_section.main_style_spread{
+        height:70vh !important;
     }
 }
