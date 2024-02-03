@@ -8,6 +8,8 @@ const PricingPlan = require("./pricingPlanModel");
 const Interview = require("./interviewModel");
 const UserProfile = require("./userProfileModel");
 const CompanyProfile = require("./companyProfileModel");
+const Category = require("./categoryModel");
+const JobCategory = require("./jobCategoryModel");
 const UserSkill = require("./userSkillModel");
 const RequiredSkill = require("./requiredSkillModel");
 const SavedJob = require("./savedJobModel");
@@ -51,6 +53,9 @@ const defineDBRelationships = () => {
 
   Job.belongsToMany(Skill, { through: RequiredSkill });
   Skill.belongsToMany(Job, { through: RequiredSkill });
+
+  Job.belongsToMany(Category, { through: JobCategory });
+  Category.belongsToMany(Job, { through: JobCategory });
 
   // 1:1
 
