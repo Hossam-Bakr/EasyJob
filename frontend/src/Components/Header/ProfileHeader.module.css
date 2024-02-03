@@ -1,7 +1,7 @@
 .header_container{
     width: 100%;
     min-height: 50vh;
-    border-radius: 2.5rem;
+    border-radius: 1.875rem;
     margin-bottom: 3.125rem;
     margin-top: 0.75rem;
     position: relative;
@@ -82,41 +82,60 @@
 }
 
 .sub_header{
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-    border-bottom: 0.0625rem solid rgb(203, 203, 203);
+    padding: 1.25rem 0.625rem;
     position: relative;
 }
-.ediet_section_btn{
-    color: var(--main_color);
-    background-color: var(--off_white);
-    border: 0.0625rem solid rgb(215, 214, 214);
-    transition: all .5s;
+.contact_info{
+    margin-left:3.125rem;
+    padding-left:0.625rem
 }
-.ediet_section_btn:hover{
-    color: var(--off_white);
-    background-color: var(--main_color);
-    transform: translateY(-0.3125rem);
-}
-
 .sub_header div h3{
     font-size: 2.1875rem;
     font-weight: 700;
+    color: var(--font_color);
     margin: 0;
 }
-.sub_header div span{
+.sub_header div{
     font-size: 1rem;
     color: var(--dark_white);
     font-weight: 700;
 }
+
+.resume_div{
+    border: 0.0625rem dotted var(--main_color);
+    border-radius: 0.625rem;
+    padding: 0.625rem 0.9375rem;
+}
+.resume_div span{
+    color: var(--font_color);
+    font-size: 1rem;
+}
+.view_cv,.delete_cv{
+    cursor: pointer;
+    transition: all .3s;
+}
+.delete_cv{
+    opacity: .6;
+}
+.delete_cv:hover{
+    color:red;
+    opacity: 1;
+}
+.delete_cv:hover svg{
+    transition: color .3s;
+}
+.delete_cv:hover svg{
+    color:red;
+}
+.view_cv:hover{
+    color: var(--main_color);
+}
+
 .contact_icons{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.3125rem 0.625rem 1.25rem 0.3125rem;
-    position: absolute;
-    right: 0;
-    bottom: 0;
 }
 .contact_icon{
     font-size: 1.5625rem;
@@ -135,19 +154,8 @@
         margin: 0 !important;
     }
 }
-@media screen and (max-width:450px) {
-   .contact_icons{
-    position:unset;
-    justify-content: start;
-    padding-left: 0;
-    padding-top: 10px;
-   }
-}
+
 @media screen and (max-width:400px) {
-   .ediet_section_btn{
-    top: -20px;
-    right: 0;
-   }
    .contact_info h3{
      font-size: 1.875rem !important;
 }
@@ -156,5 +164,16 @@
 }
 .contact_info{
     padding: 0 !important;
+}
+}
+
+@media screen and (max-width:335px)
+{
+.links_and_cv{
+    flex-wrap: wrap;
+}
+.contact_icons{
+    margin-left: auto;
+    margin-top:0.625rem;
 }
 }

@@ -1,0 +1,71 @@
+.main_style{
+    border-radius: 1.875rem;
+    padding:1.5625rem 2.5rem;
+    margin: 3.125rem 0;
+    background-color: white;
+    position: relative;
+}
+.contact_info_section{
+    height: 30vh;
+    transition: all .5s;
+}
+.contact_info_section.main_style_spread{
+    height: 85vh;
+}
+.sec_title{
+    color: var(--font_color);
+    font-size: 1.5625rem;
+    font-weight: 700;
+    margin-left: 0.625rem
+}
+.contact_info_body{
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 1.25rem;
+    overflow: hidden;
+    position: relative;
+}
+.contact_info_body_header ul li{
+    margin: 0.3125rem 0;
+}
+.list_icon{
+    color: var(--main_color);
+    margin-right: 0.3125rem;
+}
+.show_more_btn{
+    color: var(--main_color);
+    margin-left: 0.625rem;
+}
+.info_tail_li{
+    display: flex;
+    flex-direction: column;
+    margin: 0.625rem 0;
+}
+.info_tail_li_title{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+}
+.contact_info_body_tail{
+    padding: 0.625rem 0;
+    border-radius: 1.875rem;
+    margin-top: 0.625rem;
+    background-color: var(--vanilla);
+    position: absolute;
+    left: 0;
+    transform: translateX(-150%);
+    transition: all .5s;
+}
+.contact_info_body_tail.showContactInfo{
+    position: unset;
+    transform: translateX(0);
+}
+
+@media screen and (max-width:350px) {
+    .main_style{
+        height: 35vh;
+        padding-inline: 5px;
+    }
+    .main_style.main_style_spread{
+        height: 100vh;
+    }
+}
