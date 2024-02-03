@@ -68,6 +68,10 @@ const Job = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    openPositions: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     deadline: DataTypes.DATE,
   },
   {
