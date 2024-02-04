@@ -48,6 +48,9 @@ const defineDBRelationships = () => {
   Application.hasMany(Answer, cascadeOptions);
   Answer.belongsTo(Application);
 
+  Category.hasMany(Company, { foreignKey: "industry" });
+  Company.belongsTo(Category, { foreignKey: "industry", as: "Industry" });
+
   // M:N
 
   User.belongsToMany(Skill, { through: UserSkill });
