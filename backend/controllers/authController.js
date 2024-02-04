@@ -34,12 +34,8 @@ exports.companySignup = catchAsync(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    description: req.body.description,
     phone: req.body.phone,
     industry: req.body.industry,
-    location: req.body.location,
-    founded: req.body.founded,
-    size: req.body.size,
   });
 
   const token = generateJWT(newCompany._id);
