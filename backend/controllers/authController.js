@@ -126,8 +126,10 @@ exports.protect = catchAsync(async (req, res, next) => {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
   // Check if user(company) still exists
-  const user = await User.findById(decoded.id);
-  const company = await Company.findById(decoded.id);
+  // const user = await User.findById(decoded.id);
+  // const company = await Company.findById(decoded.id);
+  const user = await User.findByPk(decoded.id);
+  const company = await Company.findByPk(decoded.id);
 
   if (!user && !company)
     return next(new ApiError("This account does no longer exist.", 404));
