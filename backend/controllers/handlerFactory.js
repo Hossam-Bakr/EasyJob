@@ -2,41 +2,45 @@ const catchAsync = require("./../utils/catchAsync");
 const ApiError = require("./../utils/ApiError");
 const { Op } = require("sequelize");
 
+
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndDelete(req.params.id);
+    const row = await Model.findByPk(req.params.id);
 
-    if (!doc) {
+    if (!row) {
       return next(new ApiError("No document found with that ID", 404));
     }
-
-    res.status(204).json({
+    await row.destroy(); 
+    res.status(202).json({
       status: "success",
       data: null,
     });
   });
 
+
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const doc = await Model.findByPk(req.params.id);
 
     if (!doc) {
       return next(new ApiError("No document found with that ID", 404));
     }
 
+    const updatedDoc = await doc.update(req.body);
+
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
-        data: doc,
-      },
+        data: updatedDoc 
+      }
     });
   });
 
+
+
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log('from create method')
     const doc = await Model.create(req.body);
 
     res.status(201).json({
@@ -47,16 +51,16 @@ exports.createOne = (Model) =>
     });
   });
 
+
 exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
-    let query = Model.findById(req.params.id);
+    let query = Model.findByPk(req.params.id);
     if (popOptions) query = query.populate(popOptions);
     const doc = await query;
 
     if (!doc) {
       return next(new ApiError("No document found with that ID", 404));
     }
-
     res.status(200).json({
       status: "success",
       data: {
@@ -65,7 +69,9 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+
+
+  exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
 

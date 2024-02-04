@@ -46,7 +46,7 @@ exports.companySignup = catchAsync(async (req, res, next) => {
 
   newCompany.password = undefined;
 
-  res.status(201).json({
+  res.status(201).send({
     status: httpStatusText.SUCCESS,
     token,
     data: {
@@ -57,51 +57,53 @@ exports.companySignup = catchAsync(async (req, res, next) => {
 
 exports.Login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  if (!email || !password)
+
+  if (!email || !password) {
     return next(new ApiError("Please provide email and password", 400));
+  }
 
-  const user = await User.findOne({ email }).select("+password");
-  const company = await Company.findOne({ email }).select("+password");
+  const user = await User.findOne({ where: { email } });
+  const company = await Company.findOne({ where: { email } });
 
-  if (!user && !company) return next(new ApiError("User not found", 404));
+  if (!user && !company) {
+    return next(new ApiError("User not found", 404));
+  }
 
   if (user) {
-    const isPasswordCorrect = await user.correctPassword(
-      password,
-      user.password
-    );
+    const isPasswordCorrect = await user.correctPassword(password);
 
-    if (!isPasswordCorrect)
+    if (!isPasswordCorrect) {
       return next(new ApiError("Incorrect email or password", 401));
+    }
 
-    const token = generateJWT(user._id);
-
-    user.password = undefined;
+    const token = generateJWT(user.id);
 
     res.status(200).json({
-      status: httpStatusText.SUCCESS,
+      status: "success",
       token,
       data: {
-        user,
+        user: {
+          ...user.toJSON(),
+          password: undefined,
+        },
       },
     });
   } else if (company) {
-    const isPasswordCorrect = await company.correctPassword(
-      password,
-      company.password
-    );
+    const isPasswordCorrect = await company.correctPassword(password);
 
-    if (!isPasswordCorrect) return next(new ApiError("User not found", 404));
-
-    const token = generateJWT(company._id);
-
-    company.password = undefined;
+    if (!isPasswordCorrect) {
+      return next(new ApiError("Incorrect email or password", 401));
+    }
+    const token = generateJWT(company.id);
 
     res.status(200).json({
-      status: httpStatusText.SUCCESS,
+      status: "success",
       token,
       data: {
-        company,
+        company: {
+          ...company.toJSON(),
+          password: undefined,
+        },
       },
     });
   }

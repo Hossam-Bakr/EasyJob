@@ -12,9 +12,10 @@ const router = express.Router();
 router.post("/user/signup", userSignupValidator, authController.userSignup);
 router.post(
   "/company/signup",
-  companySignupValidator,
+  // companySignupValidator,
   authController.companySignup
 );
-router.post("/login", loginValidator, authController.Login);
+// router.post("/login", loginValidator, authController.Login);
+router.post("/login", authController.Login);
 
 module.exports = router;
