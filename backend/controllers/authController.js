@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Company = require("../models/companyModel");
+const CompanyProfile = require("../models/companyProfileModel");
 const generateJWT = require("../utils/generateJWT");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
@@ -37,6 +38,8 @@ exports.companySignup = catchAsync(async (req, res, next) => {
     phone: req.body.phone,
     industry: req.body.industry,
   });
+
+  const companyProfile = await newCompany.createCompanyProfile();
 
   const token = generateJWT(newCompany._id);
 
