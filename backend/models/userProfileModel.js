@@ -69,7 +69,11 @@ const UserProfile = sequelize.define("UserProfile", {
     get() {
       return JSON.parse(this.getDataValue("jobCategories"));
     },
-  },
+  } , 
+  // jobCategories: {
+  //   type: DataTypes.STRING,
+  // },
+  
   companiesFind: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
@@ -112,6 +116,12 @@ const UserProfile = sequelize.define("UserProfile", {
   website: DataTypes.STRING,
   other: DataTypes.STRING,
 
+});
+
+module.exports = UserProfile;
+
+
+
   /*
   // As associations
   Experiences (type, title, organization, industry, start date, end date, is current, description)
@@ -119,6 +129,3 @@ const UserProfile = sequelize.define("UserProfile", {
   Skills
   Educations (school, degree, field of study, grade, start date, end date, description)
   */
-});
-
-module.exports = UserProfile;
