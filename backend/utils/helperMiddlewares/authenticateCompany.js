@@ -1,44 +1,36 @@
-
-/*
-    this middleware does not work yes  
-    
-*/
-
-
-const generateJWT = require("../generateJWT");
+const jwt = require("jsonwebtoken");
+const Company = require("../../models/companyModel");
 
 const authenticateCompany = async (req, res, next) => {
-  try {
-    let token;
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-      token = req.headers.authorization.split(' ')[1];
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
 
-    }
+  if (!token)
+    return next(
+      new ApiError("You are not logged in! Please log in to get access.", 401)
+    );
 
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: "You are not logged in! Please log in to get access."
-      });
-    }
+  // Verification token
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const company = await Company.findByPk(decoded.id);
 
-    const decoded = generateJWT.verify(token, SECRET_KEY);
-    req.companyId = decoded.companyId;
+  if (!user && !company)
+    return next(new ApiError("This account does no longer exist.", 404));
 
-    const existingCompany = await Company.findByPk(decoded.companyId);
-    if (!existingCompany) {
-      return res.status(401).json({
-        success: false,
-        message: "The company belonging to this token no longer exists."
-      });
-    }
-    next();
-  } catch (error) {
+  if (company) {
     return res.status(401).json({
       success: false,
-      message: "You are not authorized to access this resource."
+      message: "The company belonging to this token no longer exists.",
     });
   }
+   next();
 };
 
 module.exports = authenticateCompany;

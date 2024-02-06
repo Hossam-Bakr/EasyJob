@@ -60,6 +60,9 @@ exports.createJob = catchAsync(async (req, res) => {
   });
 });
 
+
+
+
 exports.updateJob = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.id);
 
