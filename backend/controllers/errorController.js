@@ -13,6 +13,13 @@ const handleValidationError = (err) => {
   return new ApiError(message, 400);
 };
 
+const handleSequelizeDataTruncation = (err) => {
+  return new ApiError(
+    `Invalid input data: ${err.parent.parameters[0]}. Please provide a valid input`,
+    400
+  );
+};
+
 const handleJWTError = () =>
   new ApiError("Invalid token. Please log in again!", 401);
 
@@ -58,6 +65,11 @@ module.exports = (err, req, res, next) => {
     if (error instanceof UniqueConstraintError)
       error = handleUniqueConstraintError(error);
     if (error instanceof ValidationError) error = handleValidationError(error);
+    if (
+      error.name === "SequelizeDatabaseError" &&
+      error.parent.code === "WARN_DATA_TRUNCATED"
+    )
+      error = handleSequelizeDataTruncation(error);
     if (error.name === "JsonWebTokenError") error = handleJWTError();
     if (error.name === "TokenExpiredError") error = handleJWTExpiredError();
 
