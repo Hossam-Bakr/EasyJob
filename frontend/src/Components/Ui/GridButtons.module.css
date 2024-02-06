@@ -1,0 +1,18 @@
+
+.veiw_controllers{
+    padding: 15px 10px 20px 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+ }
+ .veiw_controllers svg{
+    margin-inline: 20px;
+    font-size: 30px;
+    opacity: .5;
+    cursor: pointer;
+    transition: all .3s;
+ }
+ .veiw_controllers svg:hover{
+    opacity:1;
+    scale: 1.1;
+ }

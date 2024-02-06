@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,195 +9,250 @@ import {
   faArrowLeft,
   faArrowRight,
   faFilter,
-  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "react-bootstrap/Accordion";
 import FilterAccordion from "../../Components/Ui/FilterAccordion";
+import SearchField from "../../Components/Ui/SearchField";
+import GridButtons from "../../Components/Ui/GridButtons";
 
 const jobs = [
   {
     key: 1,
-    name: "Yata",
+    name: "LG",
     jobTitle: "Call Center",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
     logo: "L1",
+    country: "Egypt",
     city: "Cairo",
     full: true,
     remote: true,
     part: false,
     freelance: false,
+    time: "Now",
+    salary: "100",
   },
   {
     key: 2,
-    name: "Blognation",
+    name: "Huwawei",
     jobTitle: "Electrical Engineer",
     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
     logo: "L2",
+    country: "Egypt",
     city: "Giza",
     full: true,
     remote: true,
     part: false,
     freelance: false,
+    time: "9 days",
+    salary: "120",
   },
   {
     key: 3,
-    name: "Mynte",
+    name: "Amazon",
     jobTitle: "Frontend React Developer",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
     logo: "L3",
+    country: "Egypt",
     city: "Alex",
     freelance: true,
     full: true,
     part: false,
     remote: false,
+    time: "14 days",
+    salary: "confidential",
   },
   {
     key: 4,
-    name: "Voonder",
+    name: "We",
     jobTitle: "Financial Advisor",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
     logo: "L4",
+    country: "Egypt",
     city: "Cairo",
     part: true,
     freelance: true,
     remote: false,
     full: false,
+    time: "5 min",
+    salary: "40",
   },
   {
     key: 5,
-    name: "Abata",
+    name: "Etisalat",
     jobTitle: "Node Js developer",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
     logo: "L5",
+    country: "Egypt",
     city: "Tanta",
     full: true,
     freelance: true,
     remote: false,
     part: false,
+    time: "15 min",
+    salary: "100",
   },
   {
     key: 6,
-    name: "Linktype",
+    name: "Etoile",
     jobTitle: "GIS Technical Architect",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
     logo: "L6",
+    country: "Egypt",
     city: "Cairo",
     part: true,
     full: true,
     freelance: false,
     remote: false,
+    time: "15 min",
+    salary: "200",
   },
   {
     key: 7,
-    name: "Yata",
+    name: "Msary",
     jobTitle: "Call Center",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L1",
+    logo: "L7",
+    country: "Egypt",
     city: "Cairo",
     full: true,
     remote: true,
     part: false,
     freelance: false,
+    time: "12 min",
+    salary: "confidential",
   },
   {
     key: 8,
-    name: "Blognation",
+    name: "Raya",
     jobTitle: "Electrical Engineer",
     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L2",
+    logo: "L8",
+    country: "Egypt",
     city: "Giza",
     full: true,
     remote: true,
     part: false,
     freelance: false,
+    time: "1 month",
+    salary: "300",
   },
   {
     key: 9,
-    name: "Mynte",
+    name: "Vodafone",
     jobTitle: "Frontend React Developer",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L3",
+    logo: "L9",
+    country: "Egypt",
     city: "Alex",
     freelance: true,
     full: true,
     part: false,
     remote: false,
+    time: "15 min",
+    salary: "confidential",
   },
   {
     key: 10,
-    name: "Voonder",
+    name: "Orange",
     jobTitle: "Financial Advisor",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L4",
+    logo: "L10",
+    country: "Egypt",
     city: "Cairo",
     part: true,
     freelance: true,
     remote: false,
     full: false,
+    time: "6 min",
+    salary: "100",
   },
   {
     key: 11,
-    name: "Abata",
+    name: "El-Araby",
     jobTitle: "Node Js developer",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L5",
+    logo: "L11",
+    country: "Egypt",
     city: "Tanta",
     full: true,
     freelance: true,
     remote: false,
     part: false,
+    time: "1 h",
+    salary: "confidential",
   },
   {
     key: 12,
-    name: "Linktype",
+    name: "Concentrix",
     jobTitle: "GIS Technical Architect",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L6",
+    logo: "L12",
+    country: "Egypt",
     city: "Cairo",
     part: true,
     full: true,
     freelance: false,
     remote: false,
+    time: "15 min",
+    salary: "confidential",
   },
   {
     key: 13,
-    name: "Yata",
+    name: "Talat Mostafa",
     jobTitle: "Call Center",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L1",
+    logo: "L13",
+    country: "Egypt",
     city: "Cairo",
     full: true,
     remote: true,
     part: false,
     freelance: false,
+    time: "15 min",
+    salary: "250",
   },
   {
     key: 14,
-    name: "Blognation",
+    name: "SAINT GOBAIN",
     jobTitle: "Electrical Engineer",
     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L2",
+    logo: "L14",
+    country: "Egypt",
     city: "Giza",
     full: true,
     remote: true,
     part: false,
     freelance: false,
+    time: "2 days",
+    salary: "380",
   },
   {
     key: 15,
-    name: "Mynte",
+    name: "Wadi Degla",
     jobTitle: "Frontend React Developer",
     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L3",
+    logo: "L15",
+    country: "Egypt",
     city: "Alex",
     freelance: true,
     full: true,
     part: false,
     remote: false,
+    time: "11 days",
+    salary: "170",
   },
 ];
 
 const Posts = () => {
+  const [gridView, setGridView] = useState(true);
+
+  const setGrid = () => {
+    setGridView(true);
+  };
+  const setList = () => {
+    setGridView(false);
+  };
+
   return (
     <Container fluid className="mb-5">
       <Row>
@@ -682,33 +737,31 @@ const Posts = () => {
               <Row>
                 <div className="d-flex justify-content-center align-items-center my-3 flex-wrap">
                   <h2>Recommended Jobs</h2>
-                  <div className={`${styles.subscribe_container} ms-auto`}>
-                    <input type="text" placeholder="Search here.." />
-                    <FontAwesomeIcon
-                      className={styles.search_icon}
-                      icon={faSearch}
-                    />
-                  </div>
+                  <SearchField />
                 </div>
 
-                <>
-                  {jobs.map((job) => {
-                    return (
-                      <JobPost
-                        key={job.key}
-                        name={job.name}
-                        jobTitle={job.jobTitle}
-                        desc={job.desc}
-                        logo={job.logo}
-                        city={job.city}
-                        full={job.full}
-                        remote={job.remote}
-                        part={job.part}
-                        freelance={job.freelance}
-                      />
-                    );
-                  })}
-                </>
+                <GridButtons setGrid={setGrid} setList={setList} />
+
+                {jobs.map((job) => {
+                  return (
+                    <JobPost
+                      key={job.key}
+                      name={job.name}
+                      jobTitle={job.jobTitle}
+                      desc={job.desc}
+                      logo={job.logo}
+                      country={job.country}
+                      city={job.city}
+                      full={job.full}
+                      remote={job.remote}
+                      part={job.part}
+                      freelance={job.freelance}
+                      time={job.time}
+                      salary={job.salary}
+                      grid={gridView}
+                    />
+                  );
+                })}
               </Row>
             </Container>
             <div

@@ -36,6 +36,7 @@ const CandidatePost = ({
   remote,
   degree,
   department,
+  grid
 }) => {
   const [modalShow, setModalShow] = useState(false);
 
@@ -84,12 +85,17 @@ const CandidatePost = ({
       break;
   }
 
+  let xxlSize=grid?4:12;
+  let xlSize=grid?6:12;
+  let lgSize=grid?6:12;
+
   return (
     <>
-      <Col lg={6} xl={6} xxl={4} data-aos="zoom-in-up" data-aos-duration="1000">
+      <Col lg={lgSize} xl={xlSize} xxl={xxlSize} >
         <div
           className={styles.candidate}
           onClick={checkNavigateToCandidateProfile}
+          data-aos="zoom-in-up" data-aos-duration="1000"
         >
           <div className={styles.header_icons}>
             <div

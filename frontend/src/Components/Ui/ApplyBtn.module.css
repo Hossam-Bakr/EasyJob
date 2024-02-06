@@ -1,0 +1,31 @@
+.apply_btn_white,.apply_btn_main_color{
+    font-size: 0.875rem;
+    padding: 0.3125rem 0.625rem;
+    border-radius: 0.3125rem;
+    transition: all .3s;
+    background-color: var(--sky);
+    color: var(--main_color);
+    border: 0.0625rem solid var(--vanilla);
+}
+
+.apply_btn_main_color{
+    color: var(--main_color);
+    background-color: transparent;
+    border: 0.0625rem solid var(--main_color);
+}
+
+.apply_btn_white:hover{
+    color: white;
+    background-color: var(--main_color);
+    border: 0.0625rem solid transparent;
+    transform: translateX(-0.3125rem);
+    font-weight: 600;
+}
+
+.apply_btn_main_color:hover{
+    scale: 1.1;
+    color: white;
+    background-color: var(--main_color);
+    border: 0.0625rem solid transparent;
+    font-weight: 600;
+}

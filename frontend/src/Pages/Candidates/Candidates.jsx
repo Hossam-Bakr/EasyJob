@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import styles from "./Candidates.module.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,11 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faArrowRight,
-  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import CandidatePost from "../../Components/Ui/CandidatePost";
 import { useDispatch } from "react-redux";
 import { companyActions } from "../../Store/companyNav-slice";
+import SearchField from "../../Components/Ui/SearchField";
+import GridButtons from "../../Components/Ui/GridButtons";
 
 
 const candidatePosts = [
@@ -261,6 +262,15 @@ const candidatePosts = [
 ];
 
 const Candidates = () => {
+
+  const [gridView, setGridView] = useState(true);
+
+  const setGrid = () => {
+    setGridView(true);
+  };
+  const setList = () => {
+    setGridView(false);
+  };
 
   const dispatch=useDispatch();
 
@@ -786,15 +796,11 @@ const Candidates = () => {
               <Row>
                 <div className="d-flex justify-content-center align-items-center my-3 flex-wrap">
                   <h2>Recommended Candidates</h2>
-                  <div className={`${styles.subscribe_container} ms-auto`}>
-                    <input type="text" placeholder="Search here.." />
-                    <FontAwesomeIcon
-                      className={styles.search_icon}
-                      icon={faSearch}
-                    />
-                  </div>
+                  <SearchField/>
                 </div>
-                <>
+
+                <GridButtons setGrid={setGrid} setList={setList} />
+     
                 {candidatePosts.map((candidate)=>{
                   return <CandidatePost
                   key={candidate.key}
@@ -811,9 +817,10 @@ const Candidates = () => {
                   remote={candidate.remote}
                   part={candidate.part}
                   department={candidate.department}
+                  grid={gridView}
                 />
                 })}
-                </>
+             
               </Row>
             </Container>
             <div

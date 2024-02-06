@@ -18,9 +18,11 @@ import CompanyHome from "./Pages/Home/CompanyHome";
 import Saved from "./Pages/Saved/Saved";
 import Applications from "./Pages/Applications/Applications";
 import setThemeMood from "./Store/mood-actions";
-import "./App.css";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import NotFound from "./Pages/Error/NotFound";
+import Companies from './Pages/Companies/Companies';
+import "./App.css";
+import CompanyProfile from "./Pages/Profiles/CompanyProfile";
 
 
 
@@ -37,11 +39,12 @@ const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "categories", element: <Categories /> },
       { path: "contact", element: <ContactUs /> },
-      { path: "companies", element: <Categories /> },
+      { path: "companies", element: <Companies /> },
       { path: "saved", element: <Saved /> },
       { path: "applications", element: <Applications /> },
       { path: "packages", element: <CompanyPricing /> },
       { path: "user-profile", element: <UserProfile /> },
+      { path: "company-profile", element: <CompanyProfile /> },
       { path: "login", element: <Login /> },
       { path: "user-register", element: <Register /> },
       { path: "company-register", element: <CompanyRegister />},

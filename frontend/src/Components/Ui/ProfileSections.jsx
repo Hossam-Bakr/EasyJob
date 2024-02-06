@@ -143,7 +143,51 @@ const ProfileSections = () => {
       {/* skills */}
       <section className={`${styles.main_style}`}>
         <EdietPenIcon text="+Add" />
-        <h3 className={styles.sec_title}>Skills</h3>
+          <h3 className={styles.sec_title}>Skills</h3>
+          <div className={`${styles.skill_color} d-flex`}>
+              <div className="d-flex justify-content-center align-items-center mx-2">
+                <div className={styles.red_circle}></div>{" "}
+                <span className="mini_word">Entry</span>
+              </div>
+              <div className="d-flex justify-content-center align-items-center mx-2">
+                <div className={styles.yellow_circle}></div>{" "}
+                <span className="mini_word">Medium</span>
+              </div>
+              <div className="d-flex justify-content-center align-items-center mx-2">
+                <div className={styles.green_circle}></div>{" "}
+                <span className="mini_word">Expert</span>
+              </div>
+          </div>
+
+        <div className={`${styles.candidate_skills} d-flex mt-4`}>
+          <div className={`${styles.skill} ${styles.expert} mx-2`}>
+            <span>HTML</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.expert} mx-2`}>
+            <span>CSS</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.medium} mx-2`}>
+            <span>JS</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.medium} mx-2`}>
+            <span>JQuery</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.medium} mx-2`}>
+            <span>React Js</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.expert} mx-2`}>
+            <span>TypeScript</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.low} mx-2`}>
+            <span>SQL</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.expert} mx-2`}>
+            <span>Office</span>
+          </div>
+          <div className={`${styles.skill}  ${styles.low} mx-2`}>
+            <span>Java</span>
+          </div>
+        </div>
       </section>
     </>
   );

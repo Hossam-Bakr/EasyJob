@@ -2,9 +2,14 @@
     background-color: var(--vanilla);
     border-radius: 0.625rem;
     padding: 0.625rem;
-    min-height: 380vh;
+    min-height: 220vh;
 }
-
+.filter_icon{
+    font-size: 1.25rem;
+    margin-right: 0.625rem;
+    color: var(--main_color);
+    padding-bottom: 0.3125rem;
+}
 .filter_list{
     padding-inline: 0;
     font-weight: 600;
@@ -43,15 +48,16 @@
     font-size: 0.625rem;
     font-weight: 700;
 }
-/* _______________________________________________________________________ */
-
+/* ____________________________job posts side_____________________________________ */
 .job_posts{
-    padding: 5px 0;
+    padding: 0.3125rem 0;
  }
  .job_posts h2,.job_filters div h2{
      font-weight: 700;
      padding: 0.625rem;
  }
+
+
 .page_num{
     background-color: var(--vanilla);
     width: 2.5rem;
@@ -87,10 +93,10 @@
     color: white;
 }
 .arrow_left:hover{
-    transform: translateX(-10px);
+    transform: translateX(-0.625rem);
 }
 .arrow_right:hover{
-    transform: translateX(10px);
+    transform: translateX(0.625rem);
 }
 
 

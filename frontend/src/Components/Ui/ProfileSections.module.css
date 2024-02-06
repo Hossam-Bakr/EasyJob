@@ -1,7 +1,7 @@
 .main_style{
     border-radius: 1.875rem;
     padding:1.5625rem 2.5rem;
-    margin: 3.125rem 0;
+    margin: 2.5rem 0;
     background-color: white;
     position: relative;
 }
@@ -112,6 +112,50 @@
     font-size: 0.9375rem;
 }
 
+/* ____________________________________skills________________________________________________________________ */
+
+.skill{
+    background-color: var(--vanilla);
+    padding: 5px 10px;
+    border-radius: 5px;
+    min-width: 80px;
+    text-align: center;
+    position: relative;
+}
+.red_circle,.yellow_circle,.green_circle{
+    width: 8px;
+    height: 8px;
+    margin-right: 2px;
+    border-radius: 50%;
+}
+.red_circle{
+    background-color: red;
+}
+.yellow_circle{
+    background-color: orange;
+
+}
+.green_circle{
+    background-color: rgb(7, 176, 7);
+}
+.expert{
+    border: 2px solid rgb(7, 176, 7);
+}
+.medium{
+    border: 2px solid orange; 
+
+}
+.low{
+    border: 2px solid red; 
+}
+.skill_color{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px 10px 0;
+}
+
+
 
 @media screen and (max-width:1178px) {
     .contact_info_img{
@@ -139,7 +183,6 @@
         width: 12.5rem;
     }
 }
-
 @media screen and (max-width:350px) {
     .main_style{
         padding-inline: 5px;

@@ -56,34 +56,7 @@
      font-weight: 700;
      padding: 0.625rem;
  }
- .subscribe_container{
-    background-color: transparent !important;
-    border: 1px solid var(--dark_white) !important;
-    padding: 0 !important;
-    position: relative;
-    border-radius: 10px;
-    min-width: 300px;
-}
-.subscribe_container input{
-    background-color: transparent;
-    border: none;
-    outline: none;
-    width:80%;
-    padding:10px;
-    height: 100%;
-    color:  var(--font_color);
-}
 
-.search_icon{
-    position: absolute;
-    right: 6%;
-    top: 50%;
-    transform: translate(-6%,-50%);
-    color: var(--main_color);
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-}
 .page_num{
     background-color: var(--vanilla);
     width: 2.5rem;
@@ -131,9 +104,3 @@
         display: none;
     }
 }
-@media screen and (max-width:313px) {
-    .subscribe_container{
-     min-width:100%;
-     margin: auto;
-    }
- }

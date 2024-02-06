@@ -6,10 +6,25 @@
 }
 .company img{
     opacity: .7;
-    width: 110px;
+    width: 90px;
     cursor: pointer;
     transition: all .3s;
 }
-.company img:hover{
+
+.single_container{
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+.single_container img:hover{
     opacity: 1;
 }
+
+.double_contianer{
+    height: 200px;
+}
+.double_contianer img{
+    opacity: 1;
+}
+

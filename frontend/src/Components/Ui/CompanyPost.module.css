@@ -8,6 +8,9 @@
     cursor: pointer;
     position: relative;
 }
+.grid_height{
+   min-height: 8.125rem;
+}
 .job:hover{
     border: 0.0625rem solid var(--main_color);
 }
@@ -24,6 +27,7 @@
 .company_logo{
     width: 5rem;
 }
+
 .job_icons{
     display: flex;
     justify-content: center;
@@ -33,7 +37,7 @@
     right: 0;
     padding: 0.625rem 0.5rem 0.3125rem 0.3125rem;
 }
-.bookmark_icon,.eye_icon{
+.eye_icon{
     font-size: 1rem;
     border-radius: 50%;
     border: 0.0625rem solid rgba(100, 100, 100, 0.151);
@@ -42,9 +46,10 @@
     cursor: pointer;
     transition: all .3s;
 }
-.bookmark_icon:hover,.eye_icon:hover{
+.eye_icon:hover{
     background-color: var(--main_color);
     color: white;
+    transform: translateX(0.3125rem);
 }
 .bookmark_icon{
     padding: 0.625rem 0.75rem;
@@ -73,34 +78,7 @@
     color: var(--main_color);
 }
 
-.info span{
-    font-size: 0.8125rem;
-    color: var(--dark_white);
-}
-.job_footer{
-    border-top: 0.0625rem solid rgb(220, 217, 217);
-    padding-top: 0.625rem;
-    margin-top: 0.625rem;
-}
-.job_footer h6{
-    margin: 0;
-    font-size: 1.25rem;
-    color: var(--main_color);
-    font-weight: 6  00;
-}
-.salary_per_h{
-    color: var(--dark_white);
-    font-weight: 400;
-    font-size: 1rem;
-}
 
-
-@media screen and (min-width:1200px) and (max-width:1300px) {
-    .header_container{
-        margin-top: 0.625rem;
-    }
-    
- }
 @media screen and (max-width:260px) {
     .job_icons{
        display:none;

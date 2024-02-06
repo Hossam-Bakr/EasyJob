@@ -1,20 +1,21 @@
 import React from "react";
+import styles from "./CompanyProfile.module.css";
 import ProfileHeader from "../../Components/Header/ProfileHeader";
 import Container from "react-bootstrap/Container";
-import styles from "./UserProfile.module.css";
 import ProfileSections from "../../Components/Ui/ProfileSections";
 
-const UserProfile = () => {
+const CompanyProfile = () => {
   return (
     <>
       <div className={styles.profile_layer}></div>
       <Container fluid="xl" className={styles.profile_body}>
         <div className={styles.profile_header}>
           <ProfileHeader
-            cover="c1"
-            pic="p1"
-            name="Bassam Hafez"
-            field="Frontend Developer | React JS"
+            cover="c2"
+            pic="p2"
+            type="company"
+            name="Huwawei"
+            field="information and communications technology (ICT)"
             city="Cairo"
             country="Egypt"
           />
@@ -25,4 +26,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default CompanyProfile;

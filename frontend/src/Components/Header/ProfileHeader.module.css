@@ -37,6 +37,41 @@
     background-color: var(--off_white);
     border: 0.0625rem solid rgb(215, 214, 214);
 }
+.header_links{
+    margin-left: auto;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+    padding:0.625rem;
+    padding-top: 0;
+    transform: translateY(100%);
+}
+.header_links ul{
+    margin: 0;
+    border:0.0625rem solid rgb(219, 219, 219) ;
+    border-top: none;
+    border-radius:0 0 0.3125rem 0.3125rem;
+    padding: 0.625rem;
+    background-color: var(--vanilla);
+}
+.header_links ul a li{
+    margin-inline:2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    color: var(--font_color);
+    transition: all .3s;
+}
+.header_links ul li svg{
+    margin-right: 0.5rem;
+    color: var(--main_color);
+}
+.header_links ul a li:hover{
+    transform: translateY(-0.125rem);  
+}
+
+/* case user */
 .profile_pic{
     width: 8.125rem;
     height: 8.125rem;
@@ -45,6 +80,24 @@
     bottom: 0;
     left: 10%;
     transform: translateY(50%);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+.profile_pic img{
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+/* case company */
+.profile_pic_company{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    border-radius: 10px;
+    transform: translateY(50%);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 .cartoona{
     position: relative;
@@ -53,10 +106,14 @@
     border-radius: 50%;
     cursor: pointer;
 }
-.profile_pic img{
-    width: 100%;
-    border-radius: 50%;
+.profile_pic_company .cartoona{
+    border-radius: 10px;
 }
+.profile_pic_company img{
+    width: 100%;
+    border-radius: 10px;
+}
+
 .ediet_profile_pic_btn{
     width: 1.875rem;
     height: 1.875rem;
@@ -81,6 +138,7 @@
     opacity: 1;
 }
 
+
 .sub_header{
     padding: 1.25rem 0.625rem;
     position: relative;
@@ -100,7 +158,14 @@
     color: var(--dark_white);
     font-weight: 700;
 }
-
+.company_info{
+   align-items:space-around;
+   padding-top: 20px;
+   padding-left: 50px;
+}
+.company_info div{
+    padding-left: 25px;
+}
 .resume_div{
     border: 0.0625rem dotted var(--main_color);
     border-radius: 0.625rem;
@@ -156,13 +221,10 @@
 }
 
 @media screen and (max-width:400px) {
-<<<<<<< HEAD
    .ediet_section_btn{
     top: -1.25rem;
     right: 0;
    }
-=======
->>>>>>> dd6c62d2c5117557e40b3a68814528f6fc142e19
    .contact_info h3{
      font-size: 1.875rem !important;
 }
