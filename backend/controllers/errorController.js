@@ -1,4 +1,3 @@
-const { UniqueConstraintError, ValidationError } = require("sequelize");
 const ApiError = require("./../utils/ApiError");
 
 const handleUniqueConstraintError = (err) => {
@@ -70,9 +69,13 @@ module.exports = (err, req, res, next) => {
     let error = { ...err };
     error.message = err.message;
 
-    if (error instanceof UniqueConstraintError)
+    if (
+      error.name === "SequelizeUniqueConstraintError" &&
+      error.parent.code === "ER_DUP_ENTRY"
+    )
       error = handleUniqueConstraintError(error);
-    if (error instanceof ValidationError) error = handleValidationError(error);
+    if (error.name === "SequelizeValidationError")
+      error = handleValidationError(error);
     if (
       error.name === "SequelizeDatabaseError" &&
       error.parent.code === "WARN_DATA_TRUNCATED"
