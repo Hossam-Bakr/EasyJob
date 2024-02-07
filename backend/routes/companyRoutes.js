@@ -6,6 +6,10 @@ const {
   getCandidatesByCompanyCategories,
 } = require("../controllers/candidateController");
 const authController = require("../controllers/authController");
+const {
+  updateCompanyInfoValidator,
+  updateCompanyLinksValidator,
+} = require("../utils/validators/companyValidator");
 
 router.use(authController.protect, authController.restrictTo("company"));
 
@@ -15,9 +19,14 @@ router.patch(
   companyController.uploadCompanyMedia,
   companyController.updateCompanyMedia
 );
-router.patch("/profile/info", companyController.updateCompanyInfo);
+router.patch(
+  "/profile/info",
+  updateCompanyInfoValidator,
+  companyController.updateCompanyInfo
+);
 router.patch(
   "/profile/online-presence",
+  updateCompanyLinksValidator,
   companyController.updateOnlinePresence
 );
 
