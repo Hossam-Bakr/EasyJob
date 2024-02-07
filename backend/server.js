@@ -2,7 +2,6 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 dotenv.config({ path: "config.env" });
@@ -19,7 +18,6 @@ const app = express();
 app.use(cors());
 app.options("*", cors());
 
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "uploads")));
 
@@ -61,4 +59,4 @@ sequelize
   })
   .catch((error) => {
     console.error("Unable to connect to the database:\n", error);
-});
+  });
