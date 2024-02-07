@@ -4,9 +4,10 @@
     border-radius: 1.25rem;
     padding: 1.25rem;
     margin-bottom: 3.125rem;
-    transition: border .3s;
+    transition: border .5s;
     cursor: pointer;
     position: relative;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.274);
 }
 .grid_height{
    min-height: 8.125rem;
@@ -79,6 +80,11 @@
 }
 
 
+@media screen and (min-width:1115px) and (max-width:1366px) {
+    .grid_height{
+       min-height: 10.625rem;
+     }
+ }
 @media screen and (max-width:260px) {
     .job_icons{
        display:none;

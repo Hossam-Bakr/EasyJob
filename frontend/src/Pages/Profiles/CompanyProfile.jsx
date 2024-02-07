@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./CompanyProfile.module.css";
 import ProfileHeader from "../../Components/Header/ProfileHeader";
 import Container from "react-bootstrap/Container";
-import ProfileSections from "../../Components/Ui/ProfileSections";
+import CompanyProfileSections from "../../Components/Ui/CompanyProfileSections";
+
 
 const CompanyProfile = () => {
   return (
@@ -15,12 +16,17 @@ const CompanyProfile = () => {
             pic="p2"
             type="company"
             name="Huwawei"
-            field="information and communications technology (ICT)"
+            field="Information and communications technology (ICT)"
             city="Cairo"
             country="Egypt"
           />
+
+            <div className="position-relative px-2">
+             <CompanyProfileSections/>
+            </div>
         </div>
-        <ProfileSections />
+
+
       </Container>
     </>
   );

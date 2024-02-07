@@ -4,10 +4,7 @@ import Col from "react-bootstrap/esm/Col";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRight,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 import L1 from "../../images/logo/saintgobain.png";
 import L2 from "../../images/logo/huwawei.webp";
@@ -25,7 +22,6 @@ import L13 from "../../images/logo/concentrix.webp";
 import L14 from "../../images/logo/talatmostafa.png";
 import L15 from "../../images/logo/cairo.png";
 import ApplyBtn from "./ApplyBtn";
-
 
 const CompanyPost = ({ logo, name, industry, desc, country, city, grid }) => {
   useEffect(() => {
@@ -85,50 +81,50 @@ const CompanyPost = ({ logo, name, industry, desc, country, city, grid }) => {
       break;
   }
 
-  let xlSize=grid?4:12;
-  let lgSize=grid?6:12;
-  let companyHeightClass=grid?styles.grid_height:'';
+  let xlSize = grid ? 4 : 12;
+  let lgSize = grid ? 6 : 12;
+  let companyHeightClass = grid ? styles.grid_height : "";
   return (
     <>
-      <Col lg={lgSize} xl={xlSize} >
-        <div className={styles.job} >
-          <div className={styles.job_icons}  data-aos="zoom-in-up" data-aos-duration="1000">
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              title="view"
-              className={`${styles.eye_icon} mx-2`}
-            />
-          </div>
-
-
-          <div className={styles.header_container}>
-
-            <div className={styles.logo_div}>
-              <img
-                src={companyLogo}
-                alt="company logo"
-                className={styles.company_logo}
+      <Col lg={lgSize} xl={xlSize}>
+        <div data-aos="zoom-in-up" data-aos-duration="1000">
+          <div className={styles.job}>
+            <div className={styles.job_icons}>
+              <FontAwesomeIcon
+                icon={faArrowRight}
+                title="view"
+                className={`${styles.eye_icon} mx-2`}
               />
             </div>
 
-            <div className="d-flex flex-column ms-3 mt-1">
-              <span className={styles.job_name}>{name}</span>
-              <span className="mini_word">
-                <FontAwesomeIcon
-                  icon={faLocationDot}
-                  className={styles.location_icon}
+            <div className={styles.header_container}>
+              <div className={styles.logo_div}>
+                <img
+                  src={companyLogo}
+                  alt="company logo"
+                  className={styles.company_logo}
                 />
-                {city}, {country}
-              </span>
+              </div>
+
+              <div className="d-flex flex-column ms-3 mt-1">
+                <span className={styles.job_name}>{name}</span>
+                <span className="mini_word">
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    className={styles.location_icon}
+                  />
+                  {city}, {country}
+                </span>
+              </div>
             </div>
-          </div>
-        
-           <div className={companyHeightClass}>
-              <h4 >{industry}</h4>
-                <p>{desc}</p>
+
+            <div className={companyHeightClass}>
+              <h4>{industry}</h4>
+              <p>{desc}</p>
             </div>
-          <div className="text-center">
-           <ApplyBtn text="Related Jobs"/>
+            <div className="text-center">
+              <ApplyBtn text="Related Jobs" />
+            </div>
           </div>
         </div>
       </Col>

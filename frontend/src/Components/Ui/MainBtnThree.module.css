@@ -57,7 +57,7 @@
 .main_color_btn{
     color:white !important;
     background-color:var(--main_color) !important;
-    box-shadow: 0 0 3px var(--main_color);
+    box-shadow: 0 0 0.1875rem var(--main_color);
 }
 
 .first_layer2{

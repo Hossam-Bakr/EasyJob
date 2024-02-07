@@ -4,10 +4,11 @@
     border-radius: 1.25rem;
     padding: 1.25rem;
     margin-bottom: 3.125rem;
-    transition: border .3s;
+    transition: border .5s;
     cursor: pointer;
     overflow: hidden;
     position: relative;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.274);
 }
 .header_icons{
     position: absolute;

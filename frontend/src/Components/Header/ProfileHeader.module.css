@@ -83,21 +83,20 @@
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 .profile_pic img{
-    width: 100%;
+    object-fit: cover;
     border-radius: 50%;
 }
 
-
 /* case company */
 .profile_pic_company{
-    width: 150px;
-    height: 150px;
+    width: 9.375rem;
+    height: 9.375rem;
     position: absolute;
     bottom: 0;
     left: 10%;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     transform: translateY(50%);
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.5);
 }
 .cartoona{
     position: relative;
@@ -107,11 +106,11 @@
     cursor: pointer;
 }
 .profile_pic_company .cartoona{
-    border-radius: 10px;
+    border-radius: 0.625rem !important;
 }
 .profile_pic_company img{
-    width: 100%;
-    border-radius: 10px;
+    object-fit: cover;
+    border-radius: 0.625rem;
 }
 
 .ediet_profile_pic_btn{
@@ -131,13 +130,12 @@
     cursor: pointer;
     transform: translate(-20%,-20%);
     opacity: 0;
-    transition: opacity .3s;
+    transition: all .4s;
 }
 
 .cartoona:hover .ediet_profile_pic_btn{
     opacity: 1;
 }
-
 
 .sub_header{
     padding: 1.25rem 0.625rem;
@@ -160,11 +158,11 @@
 }
 .company_info{
    align-items:space-around;
-   padding-top: 20px;
-   padding-left: 50px;
+   padding-top: 1.25rem;
+   padding-left: 3.125rem;
 }
 .company_info div{
-    padding-left: 25px;
+    padding-left: 0.625rem;
 }
 .resume_div{
     border: 0.0625rem dotted var(--main_color);
@@ -214,11 +212,31 @@
     transform: translateY(-0.625rem);
 }
 
+@media screen and (max-width:1040px) {
+  .header_links{
+    margin: 0;
+    padding: 0;
+  }
+  .header_links ul{
+    padding: 0.3125rem;
+}
+.header_links ul a li{
+    margin-inline:0.9375rem;
+}
+}
+
 @media screen and (max-width:957px) {
     .contact_info{
         margin: 0 !important;
     }
 }
+
+
+@media screen and (max-width:768px) {
+    .header_links{
+      display: none;
+    }
+  }
 
 @media screen and (max-width:400px) {
    .ediet_section_btn{
@@ -234,7 +252,11 @@
 .contact_info{
     padding: 0 !important;
 }
+.company_info{
+    padding-top: 1.25rem !important;
+}  
 }
+
 
 @media screen and (max-width:335px)
 {

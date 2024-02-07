@@ -1,0 +1,48 @@
+.photo_container{
+    width: 7.5rem;
+    border-radius:50%;
+}
+.photo_container img{   
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.employee{
+    display:flex;
+}
+.employee_content{
+    margin-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+.employee_content h3{
+    color: var(--font_color);
+    font-size: 1.5625rem;
+    font-weight: 700;
+}
+.employee_content h4{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+
+@media screen and (max-width:768px) {
+    .photo_container{
+        width: 9.375rem;
+    }
+}
+@media screen and (max-width:570px) {
+   .show_profile_btn{
+     margin-left: auto;
+     margin-top: 0.625rem;
+   }
+}
+@media screen and (max-width:400px) {
+    .employee_content h3{
+        font-size: 1.25rem;
+   }
+    .employee_content h4{
+        font-size: 1rem;
+   }
+}

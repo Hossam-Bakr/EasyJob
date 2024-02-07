@@ -116,16 +116,16 @@
 
 .skill{
     background-color: var(--vanilla);
-    padding: 5px 10px;
-    border-radius: 5px;
-    min-width: 80px;
+    padding: 0.3125rem 0.625rem;
+    border-radius: 0.3125rem;
+    min-width: 5rem;
     text-align: center;
     position: relative;
 }
 .red_circle,.yellow_circle,.green_circle{
-    width: 8px;
-    height: 8px;
-    margin-right: 2px;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.125rem;
     border-radius: 50%;
 }
 .red_circle{
@@ -139,20 +139,20 @@
     background-color: rgb(7, 176, 7);
 }
 .expert{
-    border: 2px solid rgb(7, 176, 7);
+    border: 1px solid rgb(7, 176, 7);
 }
 .medium{
-    border: 2px solid orange; 
+    border: 1px solid orange; 
 
 }
 .low{
-    border: 2px solid red; 
+    border: 1px solid red; 
 }
 .skill_color{
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 0 10px 10px 0;
+    padding: 0 0.625rem 0.625rem 0;
 }
 
 

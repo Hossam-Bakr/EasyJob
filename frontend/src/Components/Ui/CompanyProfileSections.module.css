@@ -1,0 +1,114 @@
+.main_style{
+    border-radius: 1.25rem;
+    padding:1.5625rem 2.5rem;
+    margin: 2.5rem 0;
+    background-color: white;
+    position: relative;
+}
+.sec_title{
+    color: var(--font_color);
+    font-size: 1.5625rem;
+    font-weight: 700;
+    margin-left: 0.625rem
+}
+
+/* overview section */
+
+.desc_container{
+    display: flex;
+    align-items: center;
+    padding: 1.5625rem 0;
+}
+.desc{
+    padding: 1.25rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-radius: 0.625rem;
+    height: 100%;
+    background-color: var(--vanilla);
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.274);
+}
+.desc_title{
+    font-weight: 600;
+    color: var(--dark_white);
+    font-size: 1.0625rem;
+}
+.general_info_list{
+    margin: 1.25rem;
+}
+
+.general_info_list li{
+    display: flex;
+    flex-direction: column;
+    margin: 1.25rem 0;
+}
+
+.general_info_list li span{
+    font-size:1rem;
+    font-weight: 600;
+    margin-left: 0.625rem;
+}
+.info_title{
+    color: var(--dark_white);
+    margin:0 !important;
+}
+
+.contact_icons{
+    display: flex;
+    align-items: center;
+    margin-top: 0.8125rem;
+}
+.contact_icon{
+    font-size: 1.5625rem;
+    margin-right: 0.9375rem;
+    cursor: pointer;
+    transition: all .5s;
+}
+.contact_icon:hover{
+    transform: translateY(-0.625rem);
+}
+
+/* employee section */
+
+.employee_ul li{
+        border: 1px solid rgb(199, 199, 199);
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        padding-left: 30px;
+}
+
+@media screen and (max-width:798px) {
+    .general_info_list{
+        margin: 0;
+    }
+    
+    .general_info_list li span{
+        margin-left:0;
+    }
+    .employee_ul{
+        margin: 0;
+        padding: 0;
+    }
+    .employee_ul li{
+        padding-inline: 0 !important;
+        padding-left: 0.3125rem !important;
+    }
+    .employees_section{
+        padding-inline: 0;
+        margin-inline: 0;
+    }
+}
+@media screen and (max-width:400px) {
+    .desc_container{
+        padding:0;
+        margin-top: 1.5625rem;
+    }
+    .desc{
+        padding:0.625rem;
+        height:auto;
+    }
+    .job_section{
+        padding-inline: 0;
+    }
+}

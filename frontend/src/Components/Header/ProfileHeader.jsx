@@ -10,6 +10,7 @@ import {
   faFileContract,
   faLocationDot,
   faPencil,
+  faShare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -65,13 +66,37 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
             </div>
           </div>
         </div>
-
-        {type === "company" ? (
-          ""
-        ) : (
-          <>
-            <div className={styles.header_links}>
-              <ul className="d-flex align-items-center">
+        <div className={styles.header_links}>
+          <ul className="d-flex align-items-center">
+            {type === "company" ? (
+              <>
+                <Link>
+                  <li>
+                    <FontAwesomeIcon icon={faBookmark} />
+                    Draft
+                  </li>
+                </Link>
+                <Link>
+                  <li>
+                    <FontAwesomeIcon icon={faShare} />
+                    Share
+                  </li>
+                </Link>
+                <Link>
+                  <li>
+                    <FontAwesomeIcon icon={faBook} />
+                    Activity
+                  </li>
+                </Link>
+                <Link>
+                  <li>
+                    <FontAwesomeIcon icon={faAdd} />
+                    New Post
+                  </li>
+                </Link>
+              </>
+            ) : (
+              <>
                 <Link to={"/saved"}>
                   <li>
                     <FontAwesomeIcon icon={faBookmark} />
@@ -96,10 +121,10 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
                     New Section
                   </li>
                 </Link>
-              </ul>
-            </div>
-          </>
-        )}
+              </>
+            )}
+          </ul>
+        </div>
       </header>
       <div className={styles.sub_header}>
         <EdietPenIcon />
@@ -120,20 +145,7 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
             className={`${styles.links_and_cv} d-flex justify-content-between align-items-center mt-3`}
           >
             {type === "company" ? (
-              <div className={`${styles.contact_icons} ms-auto`}>
-                <FontAwesomeIcon
-                  icon={faLinkedin}
-                  className={styles.contact_icon}
-                />
-                <FontAwesomeIcon
-                  icon={faGithub}
-                  className={styles.contact_icon}
-                />
-                <FontAwesomeIcon
-                  icon={faBehance}
-                  className={styles.contact_icon}
-                />
-              </div>
+              ""
             ) : (
               <>
                 <div className={styles.resume_div}>

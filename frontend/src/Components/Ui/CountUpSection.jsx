@@ -43,7 +43,7 @@ const CountUpSection = () => {
                 className={styles.countUp_icon}
               />
               <h3>{startCounter&&<CountUp start={0} end={500} duration={3} delay={0}/>}</h3>
-              <p>Candidates</p>
+              <p>Employees</p>
             </div>
           </Col>
           <Col sm={6} md={3}>

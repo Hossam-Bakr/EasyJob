@@ -159,7 +159,7 @@ const ProfileSections = () => {
               </div>
           </div>
 
-        <div className={`${styles.candidate_skills} d-flex mt-4`}>
+        <div className={`${styles.candidate_skills} d-flex mt-4 mb-3`}>
           <div className={`${styles.skill} ${styles.expert} mx-2`}>
             <span>HTML</span>
           </div>

@@ -5,9 +5,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowRight,
   faBookmark,
+  faEdit,
   faEye,
   faLocationDot,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import ApplyBtn from "./ApplyBtn";
 import L1 from "../../images/logo/lg.png";
@@ -43,7 +46,8 @@ const JobPost = ({
   freelance,
   time,
   salary,
-  grid
+  grid,
+  profile,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
@@ -61,7 +65,6 @@ const JobPost = ({
   }, []);
 
   let companyLogo = L1;
-
 
   switch (logo) {
     case "L1":
@@ -114,75 +117,115 @@ const JobPost = ({
       break;
   }
 
-  let xlSize=grid?4:12;
-  let lgSize=grid?6:12;
+  let xlSize = grid ? 4 : 12;
+  let lgSize = grid ? 6 : 12;
 
   return (
     <>
-      <Col lg={lgSize} xl={xlSize}>
-        <div className={styles.job} onClick={checkToNavigateJobDetails}  data-aos="zoom-in-up" data-aos-duration="1000">
-          <div className={styles.job_icons}>
-            <FontAwesomeIcon
-              onClick={checkToNavigateJobDetails}
-              icon={faBookmark}
-              title="save"
-              className={`${styles.bookmark_icon} mx-2`}
-            />
-            <FontAwesomeIcon
-              onClick={checkToNavigateJobDetails}
-              icon={faEye}
-              title="view"
-              className={`${styles.eye_icon} mx-2`}
-            />
-          </div>
-          
-          <div className={styles.header_container}>
-            <div className={styles.logo_div}>
-              <img
-                src={companyLogo}
-                alt="company logo"
-                className={styles.company_logo}
-              />
-            </div>
-
-            <div className="d-flex flex-column ms-3 mt-1">
-              <span className={styles.job_name}>{name}</span>
-              <span className="mini_word">{time}</span>
-            </div>
-          </div>
-          <h4>{jobTitle}</h4>
-          <p>{desc}</p>
-          <div
-            className={`${styles.info} d-flex justify-content-evenly align-items-center`}
-          >
-            {remote && <span>Remote</span>}
-            {full && <span>Full Time</span>}
-            {part && <span>Part Time</span>}
-            {freelance && <span>Freelance</span>}
-            <span>
-              <FontAwesomeIcon
-                icon={faLocationDot}
-                className={styles.location_icon}
-              />{" "}
-              {city}, {country}
-            </span>
-          </div>
-
-          {isLogin && (
-            <div
-              className={`${styles.job_footer} d-flex justify-content-between align-items-center pt-3`}
-            >
-              {salary === "confidential" ? (
-                ""
+      <Col lg={lgSize} xl={xlSize} className={styles.job_container}>
+        <div data-aos="zoom-in-up" data-aos-duration="1000">
+          <div className={styles.job} onClick={checkToNavigateJobDetails}>
+            <div className={styles.job_icons}>
+              {profile ? (
+                <>
+                  {" "}
+                  <FontAwesomeIcon
+                    onClick={checkToNavigateJobDetails}
+                    icon={faEdit}
+                    title="ediet post"
+                    className={`${styles.bookmark_icon} mx-2`}
+                  />
+                  <FontAwesomeIcon
+                    onClick={checkToNavigateJobDetails}
+                    icon={faArrowRight}
+                    title="preview"
+                    className={`${styles.eye_icon} mx-2`}
+                  />
+                </>
               ) : (
-                <h6>
-                  ${salary}
-                  <span className={styles.salary_per_h}>/H</span>
-                </h6>
+                <>
+                  {" "}
+                  <FontAwesomeIcon
+                    onClick={checkToNavigateJobDetails}
+                    icon={faBookmark}
+                    title="save"
+                    className={`${styles.bookmark_icon} mx-2`}
+                  />
+                  <FontAwesomeIcon
+                    onClick={checkToNavigateJobDetails}
+                    icon={faEye}
+                    title="view"
+                    className={`${styles.eye_icon} mx-2`}
+                  />
+                </>
               )}
-              <ApplyBtn type="white" text="Apply Now" />
             </div>
-          )}
+
+            <div className={styles.header_container}>
+              <div className={styles.logo_div}>
+                <img
+                  src={companyLogo}
+                  alt="company logo"
+                  className={styles.company_logo}
+                />
+              </div>
+
+              <div className="d-flex flex-column ms-3 mt-1">
+                <span className={styles.job_name}>{name}</span>
+                <span className="mini_word">{time}</span>
+              </div>
+            </div>
+            <h4>{jobTitle}</h4>
+            <p>{desc}</p>
+            <div
+              className={`${styles.info} d-flex justify-content-evenly align-items-center`}
+            >
+              {remote && <span>Remote</span>}
+              {full && <span>Full Time</span>}
+              {part && <span>Part Time</span>}
+              {freelance && <span>Freelance</span>}
+
+              {profile ? (
+                <span className={styles.delete_post}>
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                  />{" "}
+                    Delete
+                </span>
+              ) : (
+                <span>
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    className={styles.location_icon}
+                  />{" "}
+                  {city}, {country}
+                </span>
+              )}
+            </div>
+
+            {profile ? (
+              ""
+            ) : (
+              <>
+                {isLogin && (
+                  <div
+                    className={`${styles.job_footer} d-flex justify-content-between align-items-center pt-3`}
+                  >
+                    {salary === "confidential" ? (
+                      ""
+                    ) : (
+                      <h6>
+                        ${salary}
+                        <span className={styles.salary_per_h}>/H</span>
+                      </h6>
+                    )}
+
+                    <ApplyBtn type="white" text="Apply Now" />
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </Col>
       <LoginAlertModal show={modalShow} onHide={() => setModalShow(false)} />
