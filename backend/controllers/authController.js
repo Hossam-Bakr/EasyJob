@@ -17,7 +17,7 @@ exports.userSignup = catchAsync(async (req, res, next) => {
     skills: req.body.skills,
   });
 
-  const token = generateJWT(newUser._id);
+  const token = generateJWT(newUser.id);
 
   newUser.password = undefined;
 
@@ -41,7 +41,7 @@ exports.companySignup = catchAsync(async (req, res, next) => {
 
   const companyProfile = await newCompany.createCompanyProfile();
 
-  const token = generateJWT(newCompany._id);
+  const token = generateJWT(newCompany.id);
 
   newCompany.password = undefined;
 
