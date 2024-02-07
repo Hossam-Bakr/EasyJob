@@ -1,18 +1,18 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Application = sequelize.define("Application", {
+const Category = sequelize.define("Category", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    allowNull: false,
     autoIncrement: true,
+    allowNull: false,
   },
-  status: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
-    isIn: [["Pending", "Accepted", "Closed"]],
+    unique: true,
   },
 });
 
-module.exports = Application;
+module.exports = Category;

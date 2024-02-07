@@ -1,7 +1,7 @@
 const { check } = require("express-validator");
 const validatorError = require("./validationError");
-const User = require("../../models/userModel");
-const Company = require("../../models/companyModel");
+// const User = require("../../models/userModel");
+// const Company = require("../../models/companyModel");
 
 exports.userSignupValidator = [
   check("firstName")
@@ -70,18 +70,7 @@ exports.companySignupValidator = [
     .notEmpty()
     .withMessage("Email is required")
     .isEmail()
-    .withMessage("Must be a valid email address")
-    .custom(async (value) => {
-      const user = await User.findOne({ email: value });
-      if (user) {
-        return Promise.reject("Email already exists");
-      }
-
-      const company = await Company.findOne({ email: value });
-      if (company) {
-        return Promise.reject("Email already exists");
-      }
-    }),
+    .withMessage("Must be a valid email address"),
 
   check("password")
     .notEmpty()
@@ -95,13 +84,6 @@ exports.companySignupValidator = [
     .matches(/[A-Z]/)
     .withMessage("Password must contain a uppercase letter"),
 
-  check("description")
-    .notEmpty()
-    .withMessage("Description is required")
-    .isLength({ min: 10, max: 300 })
-    .withMessage("Description must be between 10 to 300 characters")
-    .trim(),
-
   check("phone")
     .notEmpty()
     .withMessage("Phone number is required")
@@ -109,44 +91,11 @@ exports.companySignupValidator = [
     .withMessage("Must be a valid phone number")
     .trim(),
 
-  check("industry").notEmpty().withMessage("Industry is required").trim(),
-
-  check("location")
+  check("industry")
     .notEmpty()
-    .withMessage("Location is required")
-    .isObject()
-    .withMessage("Location must be an object")
-    .custom((value) => {
-      if (!value.type || value.type !== "Point") {
-        return Promise.reject("Location type must be Point");
-      }
-
-      if (
-        !value.coordinates ||
-        !Array.isArray(value.coordinates) ||
-        value.coordinates.length !== 2
-      ) {
-        return Promise.reject("Invalid coordinates in location");
-      }
-
-      const [longitude, latitude] = value.coordinates;
-      if (isNaN(longitude) || isNaN(latitude)) {
-        return Promise.reject("Invalid coordinates in location");
-      }
-
-      return true;
-    }),
-
-  check("founded")
-    .optional()
-    .isDate()
-    .withMessage("Founded must be a valid date")
-    .trim(),
-
-  check("size")
-    .optional()
-    .isIn(["1-10", "11-50", "51-200", "201-500", "500+"])
-    .withMessage("Invalid size")
+    .withMessage("Industry is required")
+    .isInt()
+    .withMessage("Industry must be a number")
     .trim(),
 
   check("role").isEmpty().withMessage("Role is not allowed"),

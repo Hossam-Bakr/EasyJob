@@ -1,18 +1,21 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Application = sequelize.define("Application", {
+const Question = sequelize.define("Question", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    allowNull: false,
     autoIncrement: true,
+    allowNull: false,
   },
-  status: {
+  questionText: {
     type: DataTypes.STRING,
     allowNull: false,
-    isIn: [["Pending", "Accepted", "Closed"]],
+  },
+  type: {
+    type: DataTypes.ENUM("text", "yes/no", "voice"),
+    allowNull: false,
   },
 });
 
-module.exports = Application;
+module.exports = Question;

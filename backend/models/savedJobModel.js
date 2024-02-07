@@ -1,18 +1,13 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Application = sequelize.define("Application", {
+const SavedJob = sequelize.define("SavedJob", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false,
     autoIncrement: true,
   },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    isIn: [["Pending", "Accepted", "Closed"]],
-  },
 });
 
-module.exports = Application;
+module.exports = SavedJob;

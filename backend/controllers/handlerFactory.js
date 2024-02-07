@@ -1,42 +1,46 @@
 const catchAsync = require("./../utils/catchAsync");
 const ApiError = require("./../utils/ApiError");
-const APIFeatures = require("./../utils/apiFeatures");
+const { Op } = require("sequelize");
+
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndDelete(req.params.id);
+    const row = await Model.findByPk(req.params.id);
 
-    if (!doc) {
+    if (!row) {
       return next(new ApiError("No document found with that ID", 404));
     }
-
-    res.status(204).json({
+    await row.destroy(); 
+    res.status(202).json({
       status: "success",
       data: null,
     });
   });
 
+
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const doc = await Model.findByPk(req.params.id);
 
     if (!doc) {
       return next(new ApiError("No document found with that ID", 404));
     }
 
+    const updatedDoc = await doc.update(req.body);
+
     res.status(200).json({
-      status: "success",
+      status: 'success',
       data: {
-        data: doc,
-      },
+        data: updatedDoc 
+      }
     });
   });
 
+
+
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    console.log('from create method')
     const doc = await Model.create(req.body);
 
     res.status(201).json({
@@ -47,16 +51,16 @@ exports.createOne = (Model) =>
     });
   });
 
+
 exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
-    let query = Model.findById(req.params.id);
+    let query = Model.findByPk(req.params.id);
     if (popOptions) query = query.populate(popOptions);
     const doc = await query;
 
     if (!doc) {
       return next(new ApiError("No document found with that ID", 404));
     }
-
     res.status(200).json({
       status: "success",
       data: {
@@ -65,25 +69,44 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+
+
+  exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
 
-    const documentsCount = await Model.countDocuments();
-    const features = new APIFeatures(Model.find(filter), req.query)
-      .filter()
-      .search(Model.modelName)
-      .sort()
-      .limitFields()
-      .paginate(documentsCount);
+    const { page = 1, limit = 100, sort, fields, keyword } = req.query;
 
-    const { paginationResult, query } = features;
-    const doc = await query;
+    if (keyword && Model.rawAttributes.title) {
+      filter = {
+        [Op.or]: [
+          { title: { [Op.iLike]: `%${keyword}%` } },
+          { description: { [Op.iLike]: `%${keyword}%` } },
+        ],
+      };
+    }
+
+    const docs = await Model.findAll({
+      where: filter,
+      // order: sort ? sort.split(",").map((item) => item.split(":")) : [["createdAt", "DESC"]],
+      order: sort ? [sort.split(",")] : [["createdAt", "DESC"]],
+      attributes: fields ? fields.split(",") : undefined,
+      limit,
+      offset: (page - 1) * limit,
+    });
+
+    const documentsCount = await Model.count();
 
     res.status(200).json({
       status: "success",
-      results: doc.length,
-      paginationResult,
-      data: doc,
+      results: docs.length,
+      paginationResults: {
+        currentPage: page,
+        limit,
+        numberOfPages: Math.ceil(documentsCount / limit),
+        next: page * limit < documentsCount ? page + 1 : null,
+        prev: page > 1 ? page - 1 : null,
+      },
+      data: docs,
     });
   });

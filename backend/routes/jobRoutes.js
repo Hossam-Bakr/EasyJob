@@ -11,30 +11,30 @@ const {
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(jobController.getAllJobs)
-  .post(
-    authController.protect,
-    authController.restrictTo("company"),
-    createJobValidator,
-    jobController.createJob
-  );
+router.route("/").get(jobController.getAllJobs).post(
+  authController.protect,
+  authController.restrictTo("company"),
+  // createJobValidator,
+  jobController.createJob
+);
 
 router
   .route("/:id")
-  .get(getJobValidator, jobController.getJob)
-  .patch(
-    authController.protect,
-    authController.restrictTo("company"),
-    updateJobValidator,
-    jobController.updateJob
+  .get(
+    // getJobValidator,
+    jobController.getJob
   )
   .delete(
     authController.protect,
     authController.restrictTo("company", "admin"),
-    deleteJobValidator,
+    // deleteJobValidator,
     jobController.deleteJob
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo("company"),
+    // updateJobValidator,
+    jobController.updateJob
   );
 
 module.exports = router;

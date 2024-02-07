@@ -1,106 +1,73 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 const bcrypt = require("bcryptjs");
 
-const companySchema = new mongoose.Schema(
+const Company = sequelize.define(
+  "Company",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
     name: {
-      type: String,
-      required: [true, "Please enter your company name"],
-      trim: true,
-      maxLength: [50, "Your companyName cannot exceed 50 characters"],
-      minLength: [3, "Your companyName must be at least 3 characters"],
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [3, 50],
+      },
     },
     email: {
-      type: String,
-      required: [true, "Please enter your email"],
-      trim: true,
+      type: DataTypes.STRING,
+      allowNull: false,
       unique: true,
     },
     password: {
-      type: String,
-      required: [true, "Please enter your password"],
-      trim: true,
-    },
-    description: {
-      type: String,
-      trim: true,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     phone: {
-      type: String,
-      trim: true,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
+    // FK from category
     industry: {
-      type: String,
-      required: [true, "Please enter your industry"],
-      trim: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        default: "Point",
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
-    },
-    founded: {
-      type: Date,
-      // required: [true, "Please enter your founded date"],
-    },
-    size: {
-      type: String,
-      enum: ["1-10", "11-50", "51-200", "201-500", "500+"],
-    },
-    avatar: String,
     role: {
-      type: String,
-      enum: ["company"],
-      default: "company",
+      type: DataTypes.ENUM,
+      values: ["company"],
+      defaultValue: "company",
     },
-    // jobs: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Job",
-    //   },
-    // ],
   },
   {
     timestamps: true,
+    hooks: {
+      beforeSave: async (company) => {
+        if (company.changed("password")) {
+          company.password = await bcrypt.hash(company.password, 12);
+        }
+      },
+    },
   }
 );
 
-companySchema.pre("save", async function (next) {
-  // only run this function if password was actually modified
-  if (!this.isModified("password")) return next();
-
-  this.password = await bcrypt.hash(this.password, 12);
-
-  next();
-});
-
-companySchema.methods.correctPassword = async function (
-  candidatePassword,
-  userPassword
-) {
-  return await bcrypt.compare(candidatePassword, userPassword);
+// instance methods
+Company.prototype.correctPassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
-companySchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+Company.prototype.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
       10
     );
-
     return JWTTimestamp < changedTimestamp;
   }
-
-  // NOT changed
   return false;
 };
-
-const Company = mongoose.model("Company", companySchema);
 
 module.exports = Company;

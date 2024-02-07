@@ -1,106 +1,81 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const jobSchema = new mongoose.Schema(
+const Job = sequelize.define(
+  "Job",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
     title: {
-      type: String,
-      required: [true, "Please enter your job title"],
-      trim: true,
-      maxLength: [70, "Your job title cannot exceed 70 characters"],
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     description: {
-      type: String,
-      required: [true, "Please enter your description"],
-      trim: true,
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
     requirements: {
-      type: [String],
-      required: [true, "Please enter your requirements"],
-      trim: true,
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
-    requiredSkills: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Skill",
-      },
-    ],
-    salary: {
-      type: Number,
-      required: [true, "Please enter your salary"],
-      trim: true,
+    workplace: {
+      type: DataTypes.ENUM("remote", "office", "hybrid"),
+      allowNull: false,
+    },
+    salaryRangeMin: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    salaryRangeMax: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    minExperience: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     careerLevel: {
-      type: String,
-      enum: [
+      type: DataTypes.ENUM(
         "Student",
         "Entry",
         "Junior",
         "Mid-level",
-        "Experienced",
-        "Senior",
-        "Lead",
-        "Manager",
-        "Director",
-        "Executive",
-        "Consultant",
-        "Entrepreneur",
-        "Chief",
-        "Not specified",
-      ],
-      default: "Not specified",
+        "Experienced/Senior",
+        "Manager/Lead"
+      ),
+      allowNull: false,
     },
     type: {
-      type: String,
-      enum: [
+      type: DataTypes.ENUM(
         "Full time",
         "Part time",
         "Internship",
-        "Temporary",
+        "Volunteering",
         "Freelance project",
-        "Work from home",
-        "Other",
-      ],
-      default: "Other",
+        "Shift based"
+      ),
+      allowNull: false,
     },
-    location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        required: true,
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    applications: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Application",
-      },
-    ],
-    company: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Company",
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    // applicants: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    //   },
-    // ],
-    deadline: {
-      type: Date,
-      required: [true, "Please enter job deadline"],
+    openPositions: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
+    deadline: DataTypes.DATE,
   },
   {
     timestamps: true,
   }
 );
-
-jobSchema.index({ title: "text", description: "text" });
-
-const Job = mongoose.model("Job", jobSchema);
-
 module.exports = Job;
