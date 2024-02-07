@@ -24,7 +24,7 @@ const LoginForm = () => {
   const {mutate,isPending} = useMutation({
     mutationFn:signFormsHandler,
     onSuccess:(response)=>{
-      // console.log(response)
+      console.log(response)
       let res=response.data;
       if(res.status==='success'){
         if(res.data.user){
@@ -39,16 +39,18 @@ const LoginForm = () => {
           }
         }
         else if(res.data.company){
-          if(res.role==="company"){
-            setIsEmailError(false);
-            setIsPasswordError(false);
-            // dispatch(userActions.setUserInfo(res.data.user));
-            // dispatch(userActions.setIsLogin(true))
-            // dispatch(saveUserInfoIntoLocalStorag(res.data.user)); 
-            // dispatch(saveIsLoginState(true))
-            //handle company register
-            navigate('/candidates')
+          if(res.data.company){
+            if(res.data.company.role==="company"){
+              setIsEmailError(false);
+              setIsPasswordError(false);
+              dispatch(userActions.setUserInfo(res.data.user));
+              dispatch(userActions.setIsLogin(true))
+              dispatch(saveUserInfoIntoLocalStorag(res.data.user)); 
+              dispatch(saveIsLoginState(true))
+              navigate('/candidates')
+            }
           }
+       
         }
         }
       else{

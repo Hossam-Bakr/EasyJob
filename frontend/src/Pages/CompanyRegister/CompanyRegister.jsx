@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './CompanyRegister.module.css';
 import CompanyRegisterForm from './CompanyRegisterForm';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 const CompanyRegister = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
   return (
     <div className={styles.company_register_container}>
         <div className={styles.company_register_caption}> 

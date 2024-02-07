@@ -28,12 +28,22 @@ import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
 import JobPost from "../../Components/Ui/JobPost";
 import VerticalSlider from "../../Components/Ui/VerticalSlider";
 import CountUpSection from './../../Components/Ui/CountUpSection';
+import { useNavigate } from "react-router-dom";
 
 const HomeMainBody = () => {
   const darkMode = useSelector((state) => state.mode.darkMode);
   const resumeCaptionClasses = !darkMode
     ? styles.resume_caption
     : styles.resume_caption_dark;
+
+
+  const navigate=useNavigate();
+
+  const navigateToExplore =()=>{
+    navigate("/jobs")
+  }
+
+
 
   useEffect(() => {
     AOS.init();
@@ -113,68 +123,80 @@ const HomeMainBody = () => {
         <Container fluid="lg" className="pb-5">
           <Row>
             <JobPost
-              name="Yata"
+              name="LG"
               jobTitle="Nuclear Power Engineer"
               desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
                   laudantium eaque harum expedita error autem soluta."
               logo="L1"
               city="Cairo"
+              grid={true}
             />
 
             <JobPost
-              name="Blognation"
+              name="Huwawei"
               jobTitle="Technical Writer"
               desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
                   laudantium eaque harum expedita error autem soluta."
               logo="L2"
               city="Giza"
+              grid={true}
             />
 
             <JobPost
-              name="Mynte"
+              name="Amazon"
               jobTitle="Frontend React Developer"
               desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
                   laudantium eaque harum expedita error autem soluta."
               logo="L3"
               city="Alex"
+              grid={true}
+
             />
 
             <JobPost
-              name="Voonder"
+              name="WE"
               jobTitle="Financial Advisor"
               desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
                   laudantium eaque harum expedita error autem soluta."
               logo="L4"
               city="Cairo"
+              grid={true}
+
             />
 
             <JobPost
-              name="Abata"
+              name="Etisalat"
               jobTitle="Node Js| php developer"
               desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
                   laudantium eaque harum expedita error autem soluta."
               logo="L5"
               city="Tanta"
+              grid={true}
+
             />
             <JobPost
-              name="Abata"
+              name="Etoile"
               jobTitle="Node Js| php developer"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L5"
-              city="Tanta"
-            />
-            <JobPost
-              name="Linktype"
-              jobTitle="GIS Technical Architect"
               desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
                   laudantium eaque harum expedita error autem soluta."
               logo="L6"
+              city="Tanta"
+              grid={true}
+
+            />
+            <JobPost
+              name="Msary"
+              jobTitle="GIS Technical Architect"
+              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
+                  laudantium eaque harum expedita error autem soluta."
+              logo="L7"
               city="Cairo"
+              grid={true}
+
             />
           </Row>
           <div className="text-center">
-            <MainButtonTwo text="View All Listing" />
+            <MainButtonTwo onClick={navigateToExplore} text="View All Listing" />
           </div>
         </Container>
       </section>
@@ -198,7 +220,7 @@ const HomeMainBody = () => {
           data-aos="zoom-in-up"
           data-aos-duration="1000"
         >
-          <MainButtonTwo text="All Job Offers " />
+          <MainButtonTwo onClick={navigateToExplore} text="All Job Offers " />
         </div>
       </section>
 

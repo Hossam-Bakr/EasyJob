@@ -23,6 +23,7 @@ import NotFound from "./Pages/Error/NotFound";
 import Companies from './Pages/Companies/Companies';
 import "./App.css";
 import CompanyProfile from "./Pages/Profiles/CompanyProfile";
+import CompanyInfo from "./Pages/CompanyInfo/CompanyInfo";
 
 
 
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: "packages", element: <CompanyPricing /> },
       { path: "user-profile", element: <UserProfile /> },
       { path: "company-profile", element: <CompanyProfile /> },
+      { path: "company-info", element: <CompanyInfo /> },
       { path: "login", element: <Login /> },
       { path: "user-register", element: <Register /> },
       { path: "company-register", element: <CompanyRegister />},
