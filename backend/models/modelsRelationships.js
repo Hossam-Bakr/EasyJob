@@ -11,6 +11,9 @@ const CompanyProfile = require("./companyProfileModel");
 const Category = require("./categoryModel");
 const Question = require("./questionModel");
 const Answer = require("./answerModel");
+const Certification = require("./certificationModel");
+const Education = require("./educationModel");
+const Experience = require("./experienceModel");
 const JobCategory = require("./jobCategoryModel");
 const UserSkill = require("./userSkillModel");
 const RequiredSkill = require("./requiredSkillModel");
@@ -50,6 +53,15 @@ const defineDBRelationships = () => {
 
   Category.hasMany(Company, { foreignKey: "industry" });
   Company.belongsTo(Category, { foreignKey: "industry", as: "Industry" });
+
+  UserProfile.hasMany(Certification, cascadeOptions);
+  Certification.belongsTo(UserProfile);
+
+  UserProfile.hasMany(Education, cascadeOptions);
+  Education.belongsTo(UserProfile);
+
+  UserProfile.hasMany(Experience, cascadeOptions);
+  Experience.belongsTo(UserProfile);
 
   // M:N
 
