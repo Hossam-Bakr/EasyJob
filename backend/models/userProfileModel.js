@@ -8,20 +8,20 @@ const UserProfile = sequelize.define("UserProfile", {
     allowNull: false,
     autoIncrement: true,
   },
-  immediateHiring: DataTypes.BOOLEAN,
 
-  // Profile Picture
+  // Media
   avatar: DataTypes.STRING,
+  coverPhoto: DataTypes.STRING,
 
   // Personal Information
   birthDate: DataTypes.DATEONLY,
+  phone: DataTypes.STRING,
   gender: {
     type: DataTypes.STRING,
     isIn: [["male", "female"]],
   },
   nationality: DataTypes.STRING,
   drivingLicense: DataTypes.BOOLEAN,
-  phone: DataTypes.STRING,
 
   // Location
   country: DataTypes.STRING,
@@ -30,50 +30,21 @@ const UserProfile = sequelize.define("UserProfile", {
 
   // Interests
   currentCareerLevel: {
-    type: DataTypes.STRING,
-    isIn: [
-      [
-        "student",
-        "entry",
-        "experienced",
-        "manager",
-        "executive",
-        "not specified",
-      ],
-    ],
+    type: DataTypes.ENUM(
+      "student",
+      "entry",
+      "experienced",
+      "manager",
+      "executive",
+      "not specified"
+    ),
     defaultValue: "not specified",
   },
-  jobTypes: {
-    type: DataTypes.JSON,
-    set(value) {
-      this.setDataValue("jobsType", JSON.stringify(value));
-    },
-    get() {
-      return JSON.parse(this.getDataValue("jobsType"));
-    },
-  },
-  jobTitles: {
-    type: DataTypes.JSON,
-    set(value) {
-      this.setDataValue("jobTitles", JSON.stringify(value));
-    },
-    get() {
-      return JSON.parse(this.getDataValue("jobTitles"));
-    },
-  },
-  jobCategories: {
-    type: DataTypes.JSON,
-    set(value) {
-      this.setDataValue("jobCategories", JSON.stringify(value));
-    },
-    get() {
-      return JSON.parse(this.getDataValue("jobCategories"));
-    },
-  } , 
-  // jobCategories: {
-  //   type: DataTypes.STRING,
-  // },
-  
+  jobTypes: DataTypes.JSON,
+  jobTitles: DataTypes.JSON,
+  jobCategories: DataTypes.JSON,
+
+  /*
   companiesFind: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
@@ -82,11 +53,15 @@ const UserProfile = sequelize.define("UserProfile", {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
+  */
 
   // Experience
   totalYearsOfExperience: {
     type: DataTypes.INTEGER,
-    isIn: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]],
+    validate: {
+      min: 0,
+      max: 50,
+    },
   },
 
   // Education
@@ -102,8 +77,10 @@ const UserProfile = sequelize.define("UserProfile", {
         "vocational",
       ],
     ],
-    defaultValue: "high school",
   },
+
+  // languages [[id, language, proficiency], ...]
+  languages: DataTypes.JSON,
 
   // online presence
   linkedIn: DataTypes.STRING,
@@ -115,17 +92,14 @@ const UserProfile = sequelize.define("UserProfile", {
   youtube: DataTypes.STRING,
   website: DataTypes.STRING,
   other: DataTypes.STRING,
-
 });
 
 module.exports = UserProfile;
 
-
-
-  /*
+/*
   // As associations
   Experiences (type, title, organization, industry, start date, end date, is current, description)
-  Languages (language, reading, writing, speaking)
   Skills
   Educations (school, degree, field of study, grade, start date, end date, description)
+  Certifications (title, organization, issue date, credential ID, credential URL)
   */

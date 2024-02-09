@@ -1,7 +1,5 @@
 const { check } = require("express-validator");
 const validatorError = require("./validationError");
-// const User = require("../../models/userModel");
-// const Company = require("../../models/companyModel");
 
 exports.userSignupValidator = [
   check("firstName")
@@ -23,17 +21,7 @@ exports.userSignupValidator = [
     .withMessage("Email is required")
     .isEmail()
     .withMessage("Must be a valid email address")
-    .custom(async (value) => {
-      const user = await User.findOne({ email: value });
-      if (user) {
-        return Promise.reject("Email already exists");
-      }
-
-      const company = await Company.findOne({ email: value });
-      if (company) {
-        return Promise.reject("Email already exists");
-      }
-    }),
+    .normalizeEmail(),
 
   check("password")
     .notEmpty()
@@ -46,12 +34,6 @@ exports.userSignupValidator = [
     .withMessage("Password must contain a lowercase letter")
     .matches(/[A-Z]/)
     .withMessage("Password must contain a uppercase letter"),
-
-  check("phone")
-    .optional()
-    .isMobilePhone()
-    .withMessage("Must be a valid phone number")
-    .trim(),
 
   check("role").isEmpty().withMessage("Role is not allowed"),
 
