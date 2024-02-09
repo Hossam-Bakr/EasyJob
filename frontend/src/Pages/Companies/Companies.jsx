@@ -170,6 +170,7 @@ const Companies = () => {
     setGridView(false)
   }
   
+
   return (
     <Container fluid className="mb-5">
       <Row>

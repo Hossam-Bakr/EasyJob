@@ -18,6 +18,7 @@ const RegisterForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: signFormsHandler,
+  
     onSuccess: (response) => {
       if (response.data.status === 'success') {
         setIsEmailError(false);
@@ -47,7 +48,8 @@ const RegisterForm = () => {
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
+    phone:""
   };
   const onSubmit = (values) => {
     mutate({ type: "user/signup", formData: values });
@@ -60,6 +62,7 @@ const RegisterForm = () => {
       .matches(/[A-Z]+/, "Must contain at least one uppercase character")
       .matches(/[a-z]+/, 'Must contain at least one lowercase character')
       .matches(/[0-9]+/, 'Must contain at least one number'),
+      phone:string().matches(/^01[0-2,5]{1}[0-9]{8}$/,"Invalid phone number").required("phone is required"),
   });
 
   return (
@@ -87,6 +90,10 @@ const RegisterForm = () => {
         <div className='d-flex flex-column mb-5 position-relative'>
           <Field type="password" id='Password' name='password' placeholder='Password' />
           <ErrorMessage name='password' component={InputErrorMessage} />
+        </div>
+        <div className='d-flex flex-column mb-5 position-relative'>
+          <Field type="tel" id='userPhone' name='phone' placeholder='phone number' />
+          <ErrorMessage name='phone' component={InputErrorMessage} />
         </div>
         {isPending ? <button type='submit' className={styles.register_btn}><FontAwesomeIcon className='fa-spin' icon={faYinYang} /></button> : <button type='submit' className={styles.register_btn}>Register</button>}
         <div>

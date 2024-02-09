@@ -20,6 +20,7 @@ const CompanyPricing = () => {
   const dispatch=useDispatch();
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     dispatch(companyActions.changeNavState({
       changeCompany:false,
       changeNav:true
