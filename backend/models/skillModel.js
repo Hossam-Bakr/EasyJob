@@ -11,14 +11,8 @@ const Skill = sequelize.define("Skill", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    validate: {
-      notEmpty: { msg: "Please enter your skill name" },
-    },
+    unique: true,
   },
-  // industry: {
-  //   type: DataTypes.STRING,
-  //   allowNull: true,
-  // },
 });
 
 module.exports = Skill;
