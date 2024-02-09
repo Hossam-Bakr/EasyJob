@@ -65,8 +65,8 @@ const defineDBRelationships = () => {
 
   // M:N
 
-  User.belongsToMany(Skill, { through: UserSkill });
-  Skill.belongsToMany(User, { through: UserSkill });
+  UserProfile.belongsToMany(Skill, { through: UserSkill });
+  Skill.belongsToMany(UserProfile, { through: UserSkill });
 
   // User.belongsToMany(Job, { through: "UserJobs" });
   // Job.belongsToMany(User, { through: "UserJobs" });
