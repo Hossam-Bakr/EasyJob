@@ -41,11 +41,12 @@ const CandidatePost = ({
   const [modalShow, setModalShow] = useState(false);
 
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const role = useSelector((state) => state.userInfo.role);
   const emp_pic = isLogin ? styles.employee_pic : styles.employee_pic_blur;
   // const navigate=useNavigate();
 
   const checkNavigateToCandidateProfile = () => {
-    if (isLogin) {
+    if (isLogin &&role==="company") {
       console.log("is logged pass");
     } else {
       setModalShow(true);

@@ -8,6 +8,8 @@ import {
   faArrowRightFromBracket,
   faBookmark,
   faBuilding,
+  faBuildingLock,
+  faChartPie,
   faCircleUser,
   faEnvelope,
   faFileContract,
@@ -22,16 +24,21 @@ import { saveIsLoginState } from "../../Store/userInfo-actions";
 import { Link, useNavigate } from "react-router-dom";
 import LoginAlertModal from "./LoginAlertModal";
 import profile_pic from "../../images/p1.jpeg";
+import huwawei from "../../images/logo/huwawei.webp";
 
 const SideBar = ({ onClose, show }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const isLogin = useSelector((state) => state.userInfo.isLogin);
-  const isCompanyHome = useSelector((state) => state.companyNav.isCompanyHome);
+  const role = useSelector((state) => state.userInfo.role);
   const userData = useSelector((state) => state.userInfo.data);
+  const changeContent = useSelector(
+    (state) => state.companyNav.changeNavContent
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleClose = () => {
     onClose();
   };
@@ -41,17 +48,24 @@ const SideBar = ({ onClose, show }) => {
     navigate("user-profile");
   };
 
+  const navigateTocompanyProfile = () => {
+    handleClose();
+    navigate("company-profile");
+  };
+
   const signOutHandler = () => {
     localStorage.removeItem("userData");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
     dispatch(userActions.setIsLogin(false));
     dispatch(saveIsLoginState(false));
     handleClose();
     navigate("/");
   };
-  const showAlert =()=>{
+  const showAlert = () => {
     handleClose();
-    setModalShow(true)
-  }
+    setModalShow(true);
+  };
   return (
     <>
       <Offcanvas
@@ -63,181 +77,335 @@ const SideBar = ({ onClose, show }) => {
         <Offcanvas.Header className={styles.header} closeButton>
           <Offcanvas.Title>
             {isLogin ? (
-              <div
-                onClick={navigateToProfilePage}
-                className={`${styles.profile_content} d-flex align-items-center`}
-                title="view profile"
-              >
-                <img
-                  src={profile_pic}
-                  className={styles.profile_pic}
-                  alt="profile_pic"
-                />
-                  <div className="ms-3 d-flex justify-content-center flex-column">
-                    <span className={styles.profile_name}>{userData.firstName + " " + userData.lastName}</span>
-                    <span className={styles.user_email}>{userData.email}</span>
+              <>
+                {role === "user" ? (
+                  <div
+                    onClick={navigateToProfilePage}
+                    className={`${styles.profile_content} d-flex align-items-center`}
+                    title="view profile"
+                  >
+                    <img
+                      src={profile_pic}
+                      className={styles.profile_pic}
+                      alt="profile_pic"
+                    />
+                    <div className="ms-3 d-flex justify-content-center flex-column">
+                      <span className={styles.profile_name}>
+                        {userData.firstName + " " + userData.lastName}
+                      </span>
+                      <span className={styles.user_email}>
+                        {userData.email}
+                      </span>
+                    </div>
                   </div>
-               
-              </div>
+                ) : (
+                  <div
+                    onClick={navigateTocompanyProfile}
+                    className={`${styles.profile_content} d-flex align-items-center`}
+                    title="view profile"
+                  >
+                    <img
+                      src={huwawei}
+                      className={styles.profile_pic}
+                      alt="company logo"
+                    />
+                    <div className="ms-3 d-flex justify-content-center flex-column">
+                      <span className={styles.profile_name}>
+                        {userData.name}
+                      </span>
+                      <span className={styles.user_email}>
+                        {userData.email}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </>
             ) : (
-              <div
-                onClick={() => setModalShow(true)}
-                className={`${styles.profile_content} d-flex align-items-center`}
-                title="Sign in to view your profile"
-              >
-                <FontAwesomeIcon
-                  icon={faCircleUser}
-                  className={styles.profile_icon}
-                />
-                <h5 className={`${styles.profile_name} mt-2`}>User Guest</h5>
-              </div>
+              <>
+                {changeContent ? (
+                  <>
+                    <div
+                      onClick={() => setModalShow(true)}
+                      className={`${styles.profile_content} d-flex align-items-center`}
+                      title="Sign in to view your profile"
+                    >
+                      <FontAwesomeIcon
+                        icon={faBuildingLock}
+                        className={`${styles.profile_icon} ${styles.profile_logo}`}
+
+                      />
+                      <h5 className={`${styles.profile_name} mt-2`}>
+                        Company Guest
+                      </h5>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      onClick={() => setModalShow(true)}
+                      className={`${styles.profile_content} d-flex align-items-center`}
+                      title="Sign in to view your profile"
+                    >
+                      <FontAwesomeIcon
+                        icon={faCircleUser}
+                        className={styles.profile_icon}
+                      />
+                      <h5 className={`${styles.profile_name} mt-2`}>
+                        User Guest
+                      </h5>
+                    </div>
+                  </>
+                )}
+              </>
             )}
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul className={styles.contact_list}>
-            {!isCompanyHome?<>
-              {isLogin ? (
+            {isLogin ? (
               <>
-                <li className={styles.contact_list_item}>
-                  Ediet Profile
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faPencil}
-                  />
-                </li>
-              <Link to={"saved"}>
-                <li className={styles.contact_list_item} onClick={handleClose}>
-                    Saved Jobs
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faBookmark}
-                  />
-                </li>
-              </Link>
-              <Link to={"applications"}>
-              <li className={styles.contact_list_item} onClick={handleClose}>
-                Applications
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faFileContract}
-                />
-              </li>
-            </Link>
-              </>
-            ) : (
-              <>
-              <li
-                onClick={showAlert}
-                className={styles.contact_list_item}
-              >
-                Saved Jobs
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faBookmark}
-                />
-              </li>
-              <li
-              onClick={showAlert}
-              className={styles.contact_list_item}
-            >
-              Applications
-              <FontAwesomeIcon
-                className={styles.list_icons}
-                icon={faFileContract}
-              />
-            </li>
-            </>
-            )}
-            
-            </>:<>
-            <li className={styles.contact_list_item} onClick={handleClose}>
-                  Dashboard{" "}
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faSackDollar}
-                  />
-                </li>
-                <li className={styles.contact_list_item} onClick={handleClose}>
-                  Employees Management{" "}
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faUsers}
-                  />
-                </li>
-            
-            </>}
-           
-       
-            {isCompanyHome ? (
-              <Link to={"packages"}>
-                <li className={styles.contact_list_item} onClick={handleClose}>
-                  Show Packages{" "}
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faSackDollar}
-                  />
-                </li>
-              </Link>
-            ) : (
-              <li className={styles.contact_list_item}>
-                Go Premium{" "}
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faSackDollar}
-                />
-              </li>
-            )}
-            <Link to={"contact"}>
-              <li className={styles.contact_list_item}>
-                Contact Us{" "}
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faEnvelope}
-                />
-              </li>
-              </Link>
-            {isCompanyHome ? (
-              <Link to={"/"}>
-                <li className={styles.contact_list_item} onClick={handleClose}>
-                  Join As Employee{" "}
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faUserTie}
-                  />
-                </li>
-              </Link>
-            ) : (
-              <>
-                {!isLogin ? (
-                  <Link to={"company-home"}>
+                {/* logged in */}
+                {role === "user" ? (
+                  <>
+                    {/* logged in and user */}
+                    <li className={styles.contact_list_item}>
+                      Ediet Profile
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faPencil}
+                      />
+                    </li>
+                    <Link to={"saved"}>
+                      <li
+                        className={styles.contact_list_item}
+                        onClick={handleClose}
+                      >
+                        Saved Jobs
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faBookmark}
+                        />
+                      </li>
+                    </Link>
+                    <Link to={"applications"}>
+                      <li
+                        className={styles.contact_list_item}
+                        onClick={handleClose}
+                      >
+                        Applications
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faFileContract}
+                        />
+                      </li>
+                    </Link>
+                    <li className={styles.contact_list_item}>
+                      Go Premium{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faSackDollar}
+                      />
+                    </li>
+                    <Link to={"contact"}>
+                      <li className={styles.contact_list_item}>
+                        Contact Us{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faEnvelope}
+                        />
+                      </li>
+                    </Link>
+                    <li className={styles.contact_list_item}>
+                      Account Setting{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faGears}
+                      />
+                    </li>
+                    <li
+                      className={styles.contact_list_item}
+                      onClick={signOutHandler}
+                    >
+                      Log Out
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faArrowRightFromBracket}
+                      />
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    {/* logged in and company */}
+                    <Link to={"company-info"}>
                     <li
                       className={styles.contact_list_item}
                       onClick={handleClose}
                     >
-                     Join As Company{" "}
+                      Ediet Profile{" "}
                       <FontAwesomeIcon
                         className={styles.list_icons}
-                        icon={faBuilding}
+                        icon={faPencil}
                       />
                     </li>
-                  </Link>
-                ):<li className={styles.contact_list_item}>
-                Account Setting{" "}
-                <FontAwesomeIcon className={styles.list_icons} icon={faGears} />
-              </li>}
+                    </Link>
+                    <Link to={"company-dashboard"}>
+                    <li
+                      className={styles.contact_list_item}
+                      onClick={handleClose}
+                    >
+                      Dashboard{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faChartPie}
+                      />
+                    </li>
+                    </Link>
+                    <Link to={"packages"}>
+                      <li
+                        className={styles.contact_list_item}
+                        onClick={handleClose}
+                      >
+                        Packages{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faSackDollar}
+                        />
+                      </li>
+                    </Link>
+                    <Link to={"company-admins"}>
+                    <li
+                      className={styles.contact_list_item}
+                      onClick={handleClose}
+                    >
+                      Manage Users{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faUsers}
+                      />
+                    </li>
+                    </Link>
+                    <Link to={"contact"}>
+                      <li className={styles.contact_list_item}>
+                        Contact Us{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faEnvelope}
+                        />
+                      </li>
+                    </Link>
+                    <li className={styles.contact_list_item}>
+                      Account Setting{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faGears}
+                      />
+                    </li>
+                    <li
+                      className={styles.contact_list_item}
+                      onClick={signOutHandler}
+                    >
+                      Log Out
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faArrowRightFromBracket}
+                      />
+                    </li>
+                  </>
+                )}
               </>
-            )}
-
-         
-            {isLogin && (
-              <li className={styles.contact_list_item} onClick={signOutHandler}>
-                Log Out
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faArrowRightFromBracket}
-                />
-              </li>
+            ) : (
+              <>
+                {changeContent ? (
+                  <>
+                    {/* not logged in and company side */}
+                    <Link to={"packages"}>
+                      <li
+                        className={styles.contact_list_item}
+                        onClick={handleClose}
+                      >
+                        Packages{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faSackDollar}
+                        />
+                      </li>
+                    </Link>
+                    <Link to={"contact"}>
+                      <li className={styles.contact_list_item}>
+                        Contact Us{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faEnvelope}
+                        />
+                      </li>
+                    </Link>
+                    <Link to={"/"}>
+                      <li
+                        className={styles.contact_list_item}
+                        onClick={handleClose}
+                      >
+                        Join As Employee{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faUserTie}
+                        />
+                      </li>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    {/* not logged in and user side */}
+                    <li
+                      onClick={showAlert}
+                      className={styles.contact_list_item}
+                    >
+                      Saved Jobs
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faBookmark}
+                      />
+                    </li>
+                    <li
+                      onClick={showAlert}
+                      className={styles.contact_list_item}
+                    >
+                      Applications
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faFileContract}
+                      />
+                    </li>
+                    <li className={styles.contact_list_item}>
+                      Go Premium{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faSackDollar}
+                      />
+                    </li>
+                    <Link to={"contact"}>
+                      <li className={styles.contact_list_item}>
+                        Contact Us{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faEnvelope}
+                        />
+                      </li>
+                    </Link>
+                    <Link to={"company-home"}>
+                      <li
+                        className={styles.contact_list_item}
+                        onClick={handleClose}
+                      >
+                        Join As Company{" "}
+                        <FontAwesomeIcon
+                          className={styles.list_icons}
+                          icon={faBuilding}
+                        />
+                      </li>
+                    </Link>
+                  </>
+                )}
+              </>
             )}
           </ul>
 
@@ -249,10 +417,7 @@ const SideBar = ({ onClose, show }) => {
           </p>
         </Offcanvas.Body>
       </Offcanvas>
-      <LoginAlertModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+      <LoginAlertModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
   );
 };

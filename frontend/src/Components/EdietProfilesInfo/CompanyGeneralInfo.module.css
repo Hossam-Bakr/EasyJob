@@ -1,0 +1,12 @@
+
+.general_info_vector_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.general_info_vector{
+    width:600px;
+}
+.general_info_vector img{
+    width: 100%;
+}

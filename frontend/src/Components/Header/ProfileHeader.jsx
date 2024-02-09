@@ -28,21 +28,29 @@ import {
 import EdietPenIcon from "../Ui/EdietPenIcon";
 import { Link } from "react-router-dom";
 
-const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
-  let profile_cover = c1;
-  let profile_pic = p1;
+const ProfileHeader = ({
+  cover,
+  pic,
+  type,
+  name,
+  city,
+  country,
+  industry,
+}) => {
+  let profile_cover = cover !== null ? cover : type === "company" ? c2 : c1;
+  let profile_pic = pic !== null ? pic : type === "company" ? p2 : p1;
 
-  if (cover === "c1") {
-    profile_cover = c1;
-  } else {
-    profile_cover = c2;
+  let companyIndustry="Software Engineering";
+  switch (industry) {
+    case 10:
+      companyIndustry="Information and communications technology (ICT)"
+      break;
+  
+    default:
+      break;
   }
 
-  if (pic === "p1") {
-    profile_pic = p1;
-  } else {
-    profile_pic = p2;
-  }
+
 
   let profilePictureClasses =
     type === "company" ? styles.profile_pic_company : styles.profile_pic;
@@ -131,14 +139,17 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className=" d-flex flex-column">
             <h3>{name}</h3>
-            <span>{field}</span>
-            <span>
-              <FontAwesomeIcon
-                icon={faLocationDot}
-                className="special_main_color"
-              />{" "}
-              {city}, {country}
-            </span>
+            <span>{companyIndustry}</span>
+            {(city || country) && (
+              <span>
+                <FontAwesomeIcon
+                  icon={faLocationDot}
+                  className="special_main_color"
+                />{" "}
+                {city ? city : ""}
+                {country ? ", " + country : ""}
+              </span>
+            )}
           </div>
 
           <div
@@ -194,3 +205,17 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
 };
 
 export default ProfileHeader;
+
+// const userData=useSelector((state)=>state.userInfo.data)
+// const role=useSelector((state)=>state.userInfo.role)
+
+// const profile_cover = useRef(c1);
+// const profile_pic = useRef(p1);
+
+// useEffect(() => {
+//   let newProfilePic = role === "user" ? userData.logo?userData.logo:p1 : userData.logo?userData.logo:p2;
+//   let newProfileCover = role === "user" ? userData.coverPhoto?userData.coverPhoto:c1 : userData.coverPhoto?userData.coverPhoto:c2;
+
+//   profile_pic.current = newProfilePic;
+//   profile_cover.current = newProfileCover;
+// }, [userData, role]);

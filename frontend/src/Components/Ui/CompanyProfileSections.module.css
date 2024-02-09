@@ -78,6 +78,22 @@
         padding-left: 30px;
 }
 
+
+
+.no_data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    background-color: red;
+    margin: auto;
+}
+.no_data img{
+    width: 100%;
+}
+
+
+
 @media screen and (max-width:798px) {
     .general_info_list{
         margin: 0;

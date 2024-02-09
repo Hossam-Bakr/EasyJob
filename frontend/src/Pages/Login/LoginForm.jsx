@@ -8,15 +8,17 @@ import styles from "./LoginForm.module.css";
 import SignWithGoogle from "../../Components/Ui/SignWithGoogle";
 import signFormsHandler from "../../util/Http";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faYinYang} from '@fortawesome/free-solid-svg-icons';
+import { faYinYang} from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from "react-redux";
 import { userActions } from "../../Store/userInfo-slice";
-import saveUserInfoIntoLocalStorag, { saveIsLoginState } from "../../Store/userInfo-actions";
+import saveUserInfoIntoLocalStorag, { saveIsLoginState, saveRoleState, saveTokenState } from "../../Store/userInfo-actions";
+import {faEye,faEyeSlash} from "@fortawesome/free-regular-svg-icons";
 
 const LoginForm = () => {
 
   const [isEmailError,setIsEmailError]=useState(false);
   const [isPasswordError,setIsPasswordError]=useState(false);
+  const [showPassword,setShowPassword]=useState(false);
 
   const navigate=useNavigate();
   const dispatch=useDispatch();
@@ -24,7 +26,6 @@ const LoginForm = () => {
   const {mutate,isPending} = useMutation({
     mutationFn:signFormsHandler,
     onSuccess:(response)=>{
-      console.log(response)
       let res=response.data;
       if(res.status==='success'){
         if(res.data.user){
@@ -33,8 +34,12 @@ const LoginForm = () => {
             setIsPasswordError(false);
             dispatch(userActions.setUserInfo(res.data.user));
             dispatch(userActions.setIsLogin(true))
+            dispatch(userActions.setRole("user"))
+            dispatch(userActions.setToken(res.token))
             dispatch(saveUserInfoIntoLocalStorag(res.data.user)); 
             dispatch(saveIsLoginState(true))
+            dispatch(saveRoleState("user"))
+            dispatch(saveTokenState(res.token))
             navigate('/jobs')
           }
         }
@@ -43,14 +48,17 @@ const LoginForm = () => {
             if(res.data.company.role==="company"){
               setIsEmailError(false);
               setIsPasswordError(false);
-              dispatch(userActions.setUserInfo(res.data.user));
+              dispatch(userActions.setUserInfo(res.data.company));
               dispatch(userActions.setIsLogin(true))
-              dispatch(saveUserInfoIntoLocalStorag(res.data.user)); 
+              dispatch(userActions.setRole("company"))
+              dispatch(userActions.setToken(res.token))
+              dispatch(saveUserInfoIntoLocalStorag(res.data.company)); 
               dispatch(saveIsLoginState(true))
+              dispatch(saveRoleState("company"))
+              dispatch(saveTokenState(res.token))
               navigate('/candidates')
             }
           }
-       
         }
         }
       else{
@@ -87,6 +95,15 @@ const LoginForm = () => {
     .matches(/[0-9]+/, 'Must contain at least one number')
   });
 
+
+  const toggleShowPassword=()=>{
+    setShowPassword((showPassword)=>!showPassword);
+
+  }
+
+  const eyeShape=showPassword?faEye:faEyeSlash;
+  const passwordType=showPassword?"text":"password";
+
   return (
     <>
     <Formik
@@ -109,19 +126,22 @@ const LoginForm = () => {
         <div className={styles.user_input_faild}>
           <label htmlFor="passwordInput">Password</label>
           <Field
-            type="password"
+            type={passwordType}
             id="passwordInput"
             name="password"
             placeholder="********"
           />
           <ErrorMessage name="password" component={InputErrorMessage}/>
           {isPasswordError&&<InputErrorMessage text='Incorrect Password!'/>}
+          <FontAwesomeIcon onClick={toggleShowPassword} className={styles.show_password_field} icon={eyeShape}/>
         </div>
+
        {isPending?<button type="submit" className={styles.login_btn}>
           <FontAwesomeIcon className="fa-spin" icon={faYinYang}/>
         </button>:<button type="submit" className={styles.login_btn}>
           Login
         </button>} 
+
         <div className={styles.form_options}>
           <span><Link>Forgot Password?</Link></span>
           <span>

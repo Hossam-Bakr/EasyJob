@@ -11,7 +11,7 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import CandidatePost from "../../Components/Ui/CandidatePost";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { companyActions } from "../../Store/companyNav-slice";
 import SearchField from "../../Components/Ui/SearchField";
 import GridButtons from "../../Components/Ui/GridButtons";
@@ -273,19 +273,23 @@ const Candidates = () => {
   };
 
   const dispatch=useDispatch();
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
 
   useEffect(() => {
-    dispatch(companyActions.changeNavState({
-      changeCompany:false,
-      changeNav:true
-    }));
-    return () => {
+    if(!isLogin){
       dispatch(companyActions.changeNavState({
         changeCompany:false,
-        changeNav:false
+        changeNav:true
       }));
-    };
-  }, [dispatch]);
+      return () => {
+        dispatch(companyActions.changeNavState({
+          changeCompany:false,
+          changeNav:false
+        }));
+      };
+    }
+ 
+  }, [dispatch,isLogin]);
 
   return (
     <Container fluid className="mb-5">
