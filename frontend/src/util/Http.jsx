@@ -20,10 +20,10 @@ const signFormsHandler = async ({ type, formData }) => {
 
 export default signFormsHandler;
 
-export const updateFormHandler = async ({ type, formData, companyToken }) => {
+export const updateFormHandler = async ({ formData, companyToken,logo,cover }) => {
   try {
     const response = await axios.patch(
-      `http://127.0.0.1:3000/api/v1/companies/profile/${type}`,
+      `http://127.0.0.1:3000/api/v1/companies/profile/media`,
       formData,
       {
         headers: {

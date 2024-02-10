@@ -3,12 +3,16 @@ import styles from "./CompanyProfile.module.css";
 import ProfileHeader from "../../Components/Header/ProfileHeader";
 import Container from "react-bootstrap/Container";
 import CompanyProfileSections from "../../Components/Ui/CompanyProfileSections";
-import { useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import axios from "axios";
+
 
 const CompanyProfile = () => {
   const [companyProfileData, setCompanyProfileData] = useState({});
   const companyToken = useSelector((state) => state.userInfo.token);
+
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +40,7 @@ const CompanyProfile = () => {
 
   console.log(companyProfileData);
   console.log(companyProfileData.Company);
+
   const { name, industry, phone } = companyProfileData.Company || {};
   const {
     logo,

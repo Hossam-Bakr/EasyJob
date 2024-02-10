@@ -99,7 +99,7 @@ const MainNavbar = () => {
                       to={"user-dashboard"}
                       end
                     >
-                      Dashboard
+                      DASHBOARD
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>
@@ -145,7 +145,7 @@ const MainNavbar = () => {
                       to={"company-dashboard"}
                       end
                     >
-                      Dashboard
+                      DASHBOARD
                     </NavLink>
                   </li>
                 <li className={`${styles.special_hidden} mx-4`}>
@@ -156,7 +156,7 @@ const MainNavbar = () => {
                       to={"candidates"}
                       end
                     >
-                      Candidates
+                      CANDIDATES
                     </NavLink>
                   </li>
                 <li className={`${styles.special_hidden} mx-4`}>
@@ -167,7 +167,7 @@ const MainNavbar = () => {
                       to={"company-admins"}
                       end
                     >
-                      Users
+                      USERS
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>

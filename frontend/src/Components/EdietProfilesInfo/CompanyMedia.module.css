@@ -61,15 +61,59 @@
     opacity: 1;
     scale: 1.1;
 }
-.company_old_cover{
-    width: 90%;
+.company_old_cover,.company_no_cover{
+    width:90%;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.284);
+    border: 1px solid var(--main_color);
+
 }
-.company_old_cover img{
-    object-fit: cover;
+
+.company_old_cover label{
+    width: 100%;
     border-radius: 10px;
+    margin:0;
+    overflow: hidden;
+    cursor: pointer;
+}
+.company_old_cover label img{
+    border-radius: 10px;
+    object-fit: cover;
 }
 .cover_section{
     padding: 20px 0;
     border-top: 1px solid rgb(212, 212, 212);
+}
+
+.company_no_cover label{
+     margin: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.company_no_cover label img{
+    width: 18.75rem;
+    border-radius: 10px;
+
+}
+
+
+.save_btn{
+    background-color: var(--main_color);
+    color: white;
+    padding: 0.625rem 0.9375rem;
+    border-radius: 0.9375rem;
+    font-weight: 700;
+    transition:all .3s;
+}
+.save_btn:hover{
+    background-color: rgb(9, 75, 161);
+    transform: translateX(5px);
 }

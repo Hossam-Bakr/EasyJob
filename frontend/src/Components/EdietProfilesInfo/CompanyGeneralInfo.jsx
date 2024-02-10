@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./CompanyGeneralInfo.module.css";
+import styles from "./EdietInfo.module.css";
 import SectionMainTitle from "./../../Components/Ui/SectionMainTitle";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,8 +12,8 @@ const CompanyGeneralInfo = (props) => {
   return (
     <div>
       <SectionMainTitle title="Company General Info" />
-      {props.name ? (
-        <Row className="mb-5">
+      {props? (
+        <Row className="mb-5" id="general">
           <Col md={6}>
             <GeneralInfoForm data={props}/>
           </Col>

@@ -25,7 +25,9 @@ import JobPost from "./JobPost";
 import MainBtnThree from "./MainBtnThree";
 import ListedEmployees from "./ListedEmployees";
 import noData from "../../images/noData.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { edietActions } from "../../Store/defaultEdietPage-slice";
 
 const CompanyProfileSections = ({
   city,
@@ -156,9 +158,18 @@ const CompanyProfileSections = ({
       break;
   }
 
+  const dispatch=useDispatch();
+  const navigate=useNavigate()
+
+  const navigateToEdietProfile=(type)=>{
+    dispatch(edietActions.setDefaultEdietPage(type))
+    navigate("/company-info")
+  }
+
+
   return (
     <Tabs defaultActiveKey="overview" id="uncontrolled-tab-example" fill>
-      <Tab eventKey="overview" title="Overview">
+      <Tab eventKey="overview" title="Overview" onClick={()=>navigateToEdietProfile("info")}>
         {!city && !country && !size && !desc && !founded ? (
           <div className="d-flex flex-column align-items-center p-5">
             <div className={styles.no_data}>
@@ -171,8 +182,8 @@ const CompanyProfileSections = ({
           </div>
         ) : (
           <div className={styles.main_style}>
-            <h3 className={styles.sec_title}>Company Overview</h3>
             <EdietPenIcon />
+            <h3 className={styles.sec_title}>Company Overview</h3>
             <Row className={styles.general_info}>
               <Col md={7}>
                 <ul className={styles.general_info_list}>
@@ -217,69 +228,73 @@ const CompanyProfileSections = ({
                       <span>{phone}</span>
                     </li>
                   )}
-                  <li>
-                    <span className={styles.info_title}>
-                      <FontAwesomeIcon icon={faSquarePhone} /> Contact links:
-                    </span>{" "}
-                    <div className={`${styles.contact_icons}`}>
-                      {linkedin && (
-                        <Link to={linkedin}>
-                          <FontAwesomeIcon
-                            icon={faLinkedin}
-                            className={styles.contact_icon}
-                          />
-                        </Link>
-                      )}
-                      {facebook && (
-                        <Link to={facebook}>
-                          <FontAwesomeIcon
-                            icon={faFacebook}
-                            className={styles.contact_icon}
-                          />
-                        </Link>
-                      )}
-                      {youtube && (
-                        <Link to={youtube}>
-                          <FontAwesomeIcon
-                            icon={faYoutube}
-                            className={styles.contact_icon}
-                          />
-                        </Link>
-                      )}
-                      {website && (
-                        <Link to={website}>
-                          <FontAwesomeIcon
-                            icon={faEnvelope}
-                            className={styles.contact_icon}
-                          />
-                        </Link>
-                      )}
-                      {twitter && (
-                        <Link to={twitter}>
-                          <FontAwesomeIcon
-                            icon={faTwitter}
-                            className={styles.contact_icon}
-                          />
-                        </Link>
-                      )}
-                      {instagram && (
-                        <Link to={instagram}>
-                          <FontAwesomeIcon
-                            icon={faInstagram}
-                            className={styles.contact_icon}
-                          />
-                        </Link>
-                      )}
-                      {behance && (
-                        <Link to={behance}>
-                          <FontAwesomeIcon
-                            icon={faInstagram}
-                            className={styles.contact_icon}
-                          />
-                        </Link>
-                      )}
-                    </div>
-                  </li>
+
+                {(linkedin && facebook && youtube && website && twitter&& behance && instagram)&&
+                      <li>
+                      <span className={styles.info_title}>
+                        <FontAwesomeIcon icon={faSquarePhone} /> Contact links:
+                      </span>{" "}
+                      <div className={`${styles.contact_icons}`}>
+                        {linkedin && (
+                          <Link to={linkedin}>
+                            <FontAwesomeIcon
+                              icon={faLinkedin}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {facebook && (
+                          <Link to={facebook}>
+                            <FontAwesomeIcon
+                              icon={faFacebook}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {youtube && (
+                          <Link to={youtube}>
+                            <FontAwesomeIcon
+                              icon={faYoutube}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {website && (
+                          <Link to={website}>
+                            <FontAwesomeIcon
+                              icon={faEnvelope}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {twitter && (
+                          <Link to={twitter}>
+                            <FontAwesomeIcon
+                              icon={faTwitter}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {instagram && (
+                          <Link to={instagram}>
+                            <FontAwesomeIcon
+                              icon={faInstagram}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {behance && (
+                          <Link to={behance}>
+                            <FontAwesomeIcon
+                              icon={faInstagram}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                      </div>
+                    </li>
+                }
+              
                 </ul>
               </Col>
               <Col md={5} className={styles.desc_container}>

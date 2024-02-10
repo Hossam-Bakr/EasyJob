@@ -30,6 +30,8 @@ const CropEasyModal = ({ onHide, show, imgUrl, setImgUrl, setImgFile }) => {
     );
     setImgUrl(url);
     setImgFile(file);
+    console.log("here url for logo",url)
+    console.log("here file for logo",file)
 
     setLoading(false)
     onHide();
@@ -113,69 +115,3 @@ const CropEasyModal = ({ onHide, show, imgUrl, setImgUrl, setImgFile }) => {
 
 export default CropEasyModal;
 
-// Helper function to get the cropped image
-// const getCroppedImg = async(imageSrc, crop, rotation, scale) => {
-//     const canvas = document.createElement("canvas");
-//     const ctx = canvas.getContext("2d");
-
-//     // Set the canvas width and height
-//     canvas.width = crop.width;
-//     canvas.height = crop.height;
-
-//     // Perform cropping, rotation, and scaling on the image
-//     ctx.drawImage(
-//       imageSrc,
-//       crop.x,
-//       crop.y,
-//       crop.width,
-//       crop.height,
-//       0,
-//       0,
-//       canvas.width,
-//       canvas.height
-//     );
-
-//     // Convert the canvas to a data URL representing the cropped image
-//     const base64Image = canvas.toDataURL("image/jpeg");
-
-//     // Convert the data URL to a Blob object
-//     const blob = await new Promise((resolve, reject) => {
-//       canvas.toBlob((blob) => {
-//         resolve(blob);
-//       }, "image/jpeg");
-//     });
-
-//     // Return the cropped image as a file object
-//     return {
-//       file: new File([blob], "cropped.jpg", { type: "image/jpeg" }),
-//       base64Image,
-//     };
-//   };
-
-//   try {
-//     const croppedImage = await getCroppedImg(
-//      url,
-//       croppedAreaPixeles,
-//       rotation,
-//       { horizontal: false, vertical: false }
-//     );
-
-//     // Now you can send the cropped image to the backend API
-//     // using the Axios library or any other method of your choice
-//     // For example, using Axios:
-//     const formData = new FormData();
-//     formData.append('image', croppedImage.file);
-
-//     // Make a POST request to the backend API endpoint
-//     await axios.post('http://127.0.0.1:3000/api/v1/companies/profile/media', formData, {
-//       headers: {
-//         'Content-Type': 'multipart/form-data'
-//       }
-//     });
-
-//     // Close the modal or perform any other necessary actions
-//    onHide();
-//   } catch (error) {
-//     console.error('Error cropping image:', error);
-//   }
-//

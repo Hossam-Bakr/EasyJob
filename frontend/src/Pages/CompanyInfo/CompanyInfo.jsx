@@ -15,6 +15,8 @@ const CompanyInfo = () => {
   //used in info and profile so i will create custome hook
   const [companyProfileData, setCompanyProfileData] = useState({});
   const companyToken = useSelector((state) => state.userInfo.token);
+  const defaultPage = useSelector((state) => state.defaultEdiet.defaultEdietPage);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +41,8 @@ const CompanyInfo = () => {
 
     fetchData();
   }, [companyToken]);
+  
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -60,12 +64,13 @@ const CompanyInfo = () => {
     youtube,
     website,
     behance,
+    vimeo
   } = companyProfileData || {};
 
   return (
     <Container className={styles.company_info_container}>
       <Tabs
-        defaultActiveKey="media"
+        defaultActiveKey={defaultPage}
         id="uncontrolled-tab-example"
         className="mb-5 mt-5"
         fill
@@ -96,6 +101,7 @@ const CompanyInfo = () => {
             youtube={youtube}
             website={website}
             behance={behance}
+            vimeo={vimeo}
           />
         </Tab>
       </Tabs>

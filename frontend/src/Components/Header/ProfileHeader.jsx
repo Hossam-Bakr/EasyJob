@@ -14,11 +14,11 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-import c1 from "../../images/userCover.jpg";
-import c2 from "../../images/companyCover.jpg";
-
 import p1 from "../../images/p1.jpeg";
-import p2 from "../../images/logo/huwawei.webp";
+import c1 from "../../images/userCover.jpg";
+
+import p2 from "../../images/noLogo.jpg";
+import c2 from "../../images/noCover.jpg";
 
 import {
   faBehance,
@@ -26,7 +26,9 @@ import {
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 import EdietPenIcon from "../Ui/EdietPenIcon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { edietActions } from "../../Store/defaultEdietPage-slice";
 
 const ProfileHeader = ({
   cover,
@@ -37,8 +39,11 @@ const ProfileHeader = ({
   country,
   industry,
 }) => {
-  let profile_cover = cover !== null ? cover : type === "company" ? c2 : c1;
-  let profile_pic = pic !== null ? pic : type === "company" ? p2 : p1;
+
+  let profile_cover = cover? cover : type === "company" ? c2 : c1;
+  let profile_pic = pic? pic : type === "company" ? p2 : p1;
+
+  const headerClasses=cover?styles.header_container:styles.header_container_no_cover;
 
   let companyIndustry="Software Engineering";
   switch (industry) {
@@ -51,6 +56,13 @@ const ProfileHeader = ({
   }
 
 
+  const dispatch=useDispatch();
+  const navigate=useNavigate()
+
+  const navigateToEdietProfile=(type)=>{
+    dispatch(edietActions.setDefaultEdietPage(type))
+    navigate("/company-info")
+  }
 
   let profilePictureClasses =
     type === "company" ? styles.profile_pic_company : styles.profile_pic;
@@ -58,10 +70,11 @@ const ProfileHeader = ({
 
   return (
     <>
-      <header className={styles.header_container}>
+      <header className={headerClasses}>
         <img src={profile_cover} alt="cover pic" />
+        
         <div className={styles.ediet_cover_btn} title="change cover photo">
-          <FontAwesomeIcon icon={faPencil} />
+          <FontAwesomeIcon icon={faPencil} onClick={()=>navigateToEdietProfile("media")}/>
         </div>
         <div className={profilePictureClasses}>
           <div className={styles.cartoona}>
@@ -70,7 +83,7 @@ const ProfileHeader = ({
               className={styles.ediet_profile_pic_btn}
               title="change profile photo"
             >
-              <FontAwesomeIcon icon={faCamera} />
+              <FontAwesomeIcon icon={faCamera} onClick={()=>navigateToEdietProfile("media")}/>
             </div>
           </div>
         </div>
@@ -134,8 +147,9 @@ const ProfileHeader = ({
           </ul>
         </div>
       </header>
+      
       <div className={styles.sub_header}>
-        <EdietPenIcon />
+        <EdietPenIcon onClick={()=>navigateToEdietProfile("info")} />
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className=" d-flex flex-column">
             <h3>{name}</h3>
@@ -206,16 +220,3 @@ const ProfileHeader = ({
 
 export default ProfileHeader;
 
-// const userData=useSelector((state)=>state.userInfo.data)
-// const role=useSelector((state)=>state.userInfo.role)
-
-// const profile_cover = useRef(c1);
-// const profile_pic = useRef(p1);
-
-// useEffect(() => {
-//   let newProfilePic = role === "user" ? userData.logo?userData.logo:p1 : userData.logo?userData.logo:p2;
-//   let newProfileCover = role === "user" ? userData.coverPhoto?userData.coverPhoto:c1 : userData.coverPhoto?userData.coverPhoto:c2;
-
-//   profile_pic.current = newProfilePic;
-//   profile_cover.current = newProfileCover;
-// }, [userData, role]);
