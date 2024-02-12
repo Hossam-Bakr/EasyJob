@@ -26,7 +26,7 @@ router.patch(
 );
 router.patch(
   "/profile/online-presence",
-  updateCompanyLinksValidator,
+  // updateCompanyLinksValidator,
   companyController.updateOnlinePresence
 );
 
