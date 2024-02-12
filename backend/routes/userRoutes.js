@@ -92,7 +92,7 @@ router
 // Online Presence
 router.patch(
   "/profile/online-presence",
-  userValidator.updateOnlinePresenceValidator,
+  // userValidator.updateOnlinePresenceValidator,
   userController.updateOnlinePresence
 );
 
