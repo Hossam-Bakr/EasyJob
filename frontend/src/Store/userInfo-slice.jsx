@@ -4,7 +4,9 @@ const userInfoSlice=createSlice({
     name:'userInfo',
     initialState:{
         data:null,
-        isLogin:false
+        isLogin:false,
+        role:"",
+        token:""
     },
     reducers:{
         setUserInfo(state,action){
@@ -12,6 +14,12 @@ const userInfoSlice=createSlice({
         },
         setIsLogin(state,action){
             state.isLogin=action.payload
+        },
+        setRole(state,action){
+            state.role=action.payload
+        },
+        setToken(state,action){
+            state.token=action.payload
         }
     }
 })

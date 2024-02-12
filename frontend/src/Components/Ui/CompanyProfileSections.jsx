@@ -5,8 +5,10 @@ import EdietPenIcon from "./EdietPenIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
-  faGithub,
+  faInstagram,
   faLinkedin,
+  faTwitter,
+  faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faBuildingCircleCheck,
@@ -22,8 +24,27 @@ import styles from "./CompanyProfileSections.module.css";
 import JobPost from "./JobPost";
 import MainBtnThree from "./MainBtnThree";
 import ListedEmployees from "./ListedEmployees";
+import noData from "../../images/noData.jpg";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { edietActions } from "../../Store/defaultEdietPage-slice";
 
-const CompanyProfileSections = () => {
+const CompanyProfileSections = ({
+  city,
+  country,
+  founded,
+  industry,
+  size,
+  desc,
+  phone,
+  facebook,
+  instagram,
+  website,
+  twitter,
+  linkedin,
+  youtube,
+  behance
+}) => {
   const myJobs = [
     {
       key: 1,
@@ -82,7 +103,7 @@ const CompanyProfileSections = () => {
       title: "Software Engineering Team Leader",
       country: "Egypt",
       city: "Cairo",
-      photo:"p1"
+      photo: "p1",
     },
     {
       id: "e2",
@@ -90,7 +111,7 @@ const CompanyProfileSections = () => {
       title: "Frontend Developer Angular",
       country: "Egypt",
       city: "Cairo",
-      photo:"p2"
+      photo: "p2",
     },
     {
       id: "e3",
@@ -98,7 +119,7 @@ const CompanyProfileSections = () => {
       title: "Accounting",
       country: "Egypt",
       city: "Cairo",
-      photo:"p3"
+      photo: "p3",
     },
     {
       id: "e4",
@@ -106,7 +127,7 @@ const CompanyProfileSections = () => {
       title: "Unit Tester| Mern Stack",
       country: "Egypt",
       city: "Cairo",
-      photo:"p4"
+      photo: "p4",
     },
     {
       id: "e5",
@@ -114,7 +135,7 @@ const CompanyProfileSections = () => {
       title: "sales & marketing director",
       country: "Egypt",
       city: "Cairo",
-      photo:"p5"
+      photo: "p5",
     },
     {
       id: "e6",
@@ -122,84 +143,177 @@ const CompanyProfileSections = () => {
       title: "Assistant Floor @Huwawei",
       country: "Egypt",
       city: "Cairo",
-      photo:"p6"
+      photo: "p6",
     },
   ];
 
+  let companyIndustry="Software Engineering";
+
+  switch (industry) {
+    case 10:
+      companyIndustry = "Information and communications technology (ICT)";
+      break;
+
+    default:
+      break;
+  }
+
+  const dispatch=useDispatch();
+  const navigate=useNavigate()
+
+  const navigateToEdietProfile=(type)=>{
+    dispatch(edietActions.setDefaultEdietPage(type))
+    navigate("/company-info")
+  }
+
+
   return (
     <Tabs defaultActiveKey="overview" id="uncontrolled-tab-example" fill>
-      <Tab eventKey="overview" title="Overview">
-        <div className={styles.main_style}>
-          <h3 className={styles.sec_title}>Company Overview</h3>
-          <EdietPenIcon />
-          <Row className={styles.general_info}>
-            <Col md={7}>
-              <ul className={styles.general_info_list}>
-                <li>
-                  <span className={styles.info_title}>
-                    {" "}
-                    <FontAwesomeIcon icon={faLocationDot} /> Location:
-                  </span>{" "}
-                  <span>Cairo, Egypt</span>
-                </li>
-                <li>
-                  <span className={styles.info_title}>
-                    <FontAwesomeIcon icon={faClockRotateLeft} /> Founded:
-                  </span>{" "}
-                  <span>2/2/2024</span>
-                </li>
-                <li>
-                  <span className={styles.info_title}>
-                    <FontAwesomeIcon icon={faBuildingCircleCheck} /> Industry:
-                  </span>{" "}
-                  <span>Information and communications technology (ICT)</span>
-                </li>
-                <li>
-                  <span className={styles.info_title}>
-                    <FontAwesomeIcon icon={faUsers} /> Company size:
-                  </span>{" "}
-                  <span>more than 1000 employees</span>
-                </li>
-                <li>
-                  <span className={styles.info_title}>
-                    <FontAwesomeIcon icon={faSquarePhone} /> Contact links:
-                  </span>{" "}
-                  <div className={`${styles.contact_icons}`}>
-                    <FontAwesomeIcon
-                      icon={faLinkedin}
-                      className={styles.contact_icon}
-                    />
-                    <FontAwesomeIcon
-                      icon={faGithub}
-                      className={styles.contact_icon}
-                    />
-                    <FontAwesomeIcon
-                      icon={faFacebook}
-                      className={styles.contact_icon}
-                    />
-                    <FontAwesomeIcon
-                      icon={faEnvelope}
-                      className={styles.contact_icon}
-                    />
-                  </div>
-                </li>
-              </ul>
-            </Col>
-            <Col md={5} className={styles.desc_container}>
-              <div className={styles.desc}>
-                <h6 className={styles.desc_title}>Company Desc:</h6>
-                <span>
-                  Founded in 1987, Huawei is a leading global provider of
-                  information and communications technology (ICT) infrastructure
-                  and smart devices. We have 207,000 employees and operate in
-                  over 170 countries and regions, serving more than three
-                  billion people around the world
-                </span>
-              </div>
-            </Col>
-          </Row>
-        </div>
+      <Tab eventKey="overview" title="Overview" onClick={()=>navigateToEdietProfile("info")}>
+        {!city && !country && !size && !desc && !founded ? (
+          <div className="d-flex flex-column align-items-center p-5">
+            <div className={styles.no_data}>
+              <img src={noData} alt="noData" />
+            </div>
+            <span className="mini_word">
+              Complete your Profile Information{" "}
+              <Link to={"/company-info"}>here</Link>
+            </span>
+          </div>
+        ) : (
+          <div className={styles.main_style}>
+            <EdietPenIcon />
+            <h3 className={styles.sec_title}>Company Overview</h3>
+            <Row className={styles.general_info}>
+              <Col md={7}>
+                <ul className={styles.general_info_list}>
+                  {city && country && (
+                    <li>
+                      <span className={styles.info_title}>
+                        {" "}
+                        <FontAwesomeIcon icon={faLocationDot} /> Location:
+                      </span>{" "}
+                      <span>
+                        {city ? city : ""} {country ? ", " + country : ""}
+                      </span>
+                    </li>
+                  )}
+                  {founded && (
+                    <li>
+                      <span className={styles.info_title}>
+                        <FontAwesomeIcon icon={faClockRotateLeft} /> Founded:
+                      </span>{" "}
+                      <span>{founded}</span>
+                    </li>
+                  )}
+                  <li>
+                    <span className={styles.info_title}>
+                      <FontAwesomeIcon icon={faBuildingCircleCheck} /> Industry:
+                    </span>{" "}
+                    <span>{companyIndustry}</span>
+                  </li>
+                  {size && (
+                    <li>
+                      <span className={styles.info_title}>
+                        <FontAwesomeIcon icon={faUsers} /> Company size:
+                      </span>{" "}
+                      <span>{size}</span>
+                    </li>
+                  )}
+                  {phone && (
+                    <li>
+                      <span className={styles.info_title}>
+                        <FontAwesomeIcon icon={faUsers} /> Phone Number:
+                      </span>{" "}
+                      <span>{phone}</span>
+                    </li>
+                  )}
+
+                {(linkedin && facebook && youtube && website && twitter&& behance && instagram)&&
+                      <li>
+                      <span className={styles.info_title}>
+                        <FontAwesomeIcon icon={faSquarePhone} /> Contact links:
+                      </span>{" "}
+                      <div className={`${styles.contact_icons}`}>
+                        {linkedin && (
+                          <Link to={linkedin}>
+                            <FontAwesomeIcon
+                              icon={faLinkedin}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {facebook && (
+                          <Link to={facebook}>
+                            <FontAwesomeIcon
+                              icon={faFacebook}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {youtube && (
+                          <Link to={youtube}>
+                            <FontAwesomeIcon
+                              icon={faYoutube}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {website && (
+                          <Link to={website}>
+                            <FontAwesomeIcon
+                              icon={faEnvelope}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {twitter && (
+                          <Link to={twitter}>
+                            <FontAwesomeIcon
+                              icon={faTwitter}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {instagram && (
+                          <Link to={instagram}>
+                            <FontAwesomeIcon
+                              icon={faInstagram}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {behance && (
+                          <Link to={behance}>
+                            <FontAwesomeIcon
+                              icon={faInstagram}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                      </div>
+                    </li>
+                }
+              
+                </ul>
+              </Col>
+              <Col md={5} className={styles.desc_container}>
+                <div className={styles.desc}>
+                  <h6 className={styles.desc_title}>Company Desc:</h6>
+                  <span>
+                    Founded in 1987, Huawei is a leading global provider of
+                    information and communications technology (ICT)
+                    infrastructure and smart devices. We have 207,000 employees
+                    and operate in over 170 countries and regions, serving more
+                    than three billion people around the world
+                  </span>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        )}
       </Tab>
+
       <Tab eventKey="jobs" title="Jobs">
         <div className={`${styles.main_style} ${styles.job_section}`}>
           <h3 className={styles.sec_title}>Posted Jobs</h3>
@@ -229,16 +343,15 @@ const CompanyProfileSections = () => {
           </div>
         </div>
       </Tab>
-      
+
       <Tab eventKey="employees" title="Employees">
         <div className={`${styles.main_style} ${styles.employees_section}`}>
           <h3 className={styles.sec_title}> Employees Working on Huwawei</h3>
           <ul className={`${styles.employee_ul} mt-4`}>
             {myEmployees.map((employee) => {
               return (
-                <li className="my-5 py-4">
+                <li className="my-5 py-4" key={employee.id}>
                   <ListedEmployees
-                    key={employee.id}
                     pic={employee.photo}
                     name={employee.name}
                     title={employee.title}

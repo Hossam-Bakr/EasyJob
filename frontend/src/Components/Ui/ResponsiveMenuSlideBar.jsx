@@ -11,16 +11,19 @@ import {
   faFire,
   faHome,
   faLayerGroup,
-  faSearch,
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
 import logo from "../../images/mainLogo.png";
+import SearchField from "./SearchField";
 
 const ResponsiveMenuSlideBar = ({ onClose, show }) => {
   const isLogin = useSelector((state) => state.userInfo.isLogin);
-  const isCompanyHome = useSelector((state) => state.companyNav.isCompanyHome);
+  const role = useSelector((state) => state.userInfo.role);
+  const changeContent = useSelector(
+    (state) => state.companyNav.changeNavContent
+  );
 
   const handleClose = () => {
     onClose();
@@ -38,48 +41,58 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
           <img src={logo} className={styles.logo} alt="mykid logo" />
         </Offcanvas.Title>
       </Offcanvas.Header>
-      <Offcanvas.Body>
-        <div className={`${styles.subscribe_container} form-control`}>
-          <input type="text" placeholder="Search here.." />
-          <FontAwesomeIcon className={styles.search_icon} icon={faSearch} />
-        </div>
-        <ul className={styles.contact_list}>
-          {isLogin ? (<>
-            <Link onClick={handleClose} to={"jobs"} end="true">
-              <li className={styles.contact_list_item}>Explore{" "}  <FontAwesomeIcon icon={faFire} className={styles.list_icons}/></li>
-            </Link>
-            <Link onClick={handleClose} to={"jobs"} end="true">
-              <li className={styles.contact_list_item}>Companies{" "}  <FontAwesomeIcon icon={faBuilding} className={styles.list_icons}/></li>
-            </Link>
 
-            </>
-          ) : (
+      <Offcanvas.Body>
+        <SearchField />
+        <ul className={styles.contact_list}>
+
+          {isLogin ? (
             <>
-              {isCompanyHome ? (
-                <Link onClick={handleClose} to={"company-home"} end="true">
-                  <li className={styles.contact_list_item}>
-                    Home{" "}
-                    <FontAwesomeIcon
-                      className={styles.list_icons}
-                      icon={faHome}
-                    />
-                  </li>
-                </Link>
-              ) : (
-                <Link onClick={handleClose} to={"/"} end="true">
-                  <li className={styles.contact_list_item}>
-                    Home{" "}
-                    <FontAwesomeIcon
-                      className={styles.list_icons}
-                      icon={faHome}
-                    />
-                  </li>
-                </Link>
-              )}
-            </>
-          )}
-          {isCompanyHome && (
-            <Link onClick={handleClose} to={"candidates"}>
+            {role === "user" ?
+             <>
+              {/* logged and user */}
+              <Link onClick={handleClose} to={"user-dashboard"} end="true">
+                <li className={styles.contact_list_item}>
+                  Dashboard{" "}
+                  <FontAwesomeIcon
+                    icon={faFire}
+                    className={styles.list_icons}
+                  />
+                </li>
+              </Link>
+              <Link onClick={handleClose} to={"jobs"} end="true">
+                <li className={styles.contact_list_item}>
+                  Explore{" "}
+                  <FontAwesomeIcon
+                    icon={faFire}
+                    className={styles.list_icons}
+                  />
+                </li>
+              </Link>
+              <Link onClick={handleClose} to={"jobs"} end="true">
+                <li className={styles.contact_list_item}>
+                  Companies{" "}
+                  <FontAwesomeIcon
+                    icon={faBuilding}
+                    className={styles.list_icons}
+                  />
+                </li>
+              </Link>
+              
+             </>
+              : 
+            <>
+              {/* logged and company */}
+              <Link onClick={handleClose} to={"company-dashboard"} end="true">
+                <li className={styles.contact_list_item}>
+                  Dashboard{" "}
+                  <FontAwesomeIcon
+                    icon={faFire}
+                    className={styles.list_icons}
+                  />
+                </li>
+              </Link>
+              <Link onClick={handleClose} to={"candidates"}>
               <li className={styles.contact_list_item}>
                 Candidates{" "}
                 <FontAwesomeIcon
@@ -88,8 +101,27 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                 />
               </li>
             </Link>
-          )}
-          <Link onClick={handleClose} to={"about"}>
+            <Link onClick={handleClose} to={"packages"}>
+              <li className={styles.contact_list_item}>
+                Packages{" "}
+                <FontAwesomeIcon className={styles.list_icons} icon={faCoins} />
+              </li>
+            </Link>
+            </>}</>
+          ) : (
+            <>{changeContent ?
+               <>
+                 {/* not logged and company */}
+                 <Link onClick={handleClose} to={"company-home"} end="true">
+                  <li className={styles.contact_list_item}>
+                    Home{" "}
+                    <FontAwesomeIcon
+                      className={styles.list_icons}
+                      icon={faHome}
+                    />
+                  </li>
+                </Link>
+                <Link onClick={handleClose} to={"about"}>
             <li className={styles.contact_list_item}>
               About{" "}
               <FontAwesomeIcon
@@ -98,26 +130,23 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               />
             </li>
           </Link>
-          {isCompanyHome ? (
+
+                <Link onClick={handleClose} to={"candidates"}>
+              <li className={styles.contact_list_item}>
+                Candidates{" "}
+                <FontAwesomeIcon
+                  className={styles.list_icons}
+                  icon={faUserTie}
+                />
+              </li>
+            </Link>
             <Link onClick={handleClose} to={"packages"}>
               <li className={styles.contact_list_item}>
                 Packages{" "}
                 <FontAwesomeIcon className={styles.list_icons} icon={faCoins} />
               </li>
             </Link>
-          ) : (
-            <>
-            {!isLogin && <Link onClick={handleClose} to={"jobs"}>
-                <li className={styles.contact_list_item}>
-                  Explore{" "}
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faFire}
-                  />
-                </li>
-              </Link>}
-           
-              <Link onClick={handleClose} to={"categories"}>
+            <Link onClick={handleClose} to={"categories"}>
                 <li className={styles.contact_list_item}>
                   Categories{" "}
                   <FontAwesomeIcon
@@ -126,7 +155,46 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                   />
                 </li>
               </Link>
-            </>
+               </> : 
+               <>
+                 {/* not logged and user */}
+                 <Link onClick={handleClose} to={"/"} end="true">
+                  <li className={styles.contact_list_item}>
+                    Home{" "}
+                    <FontAwesomeIcon
+                      className={styles.list_icons}
+                      icon={faHome}
+                    />
+                  </li>
+                </Link>
+                <Link onClick={handleClose} to={"about"}>
+            <li className={styles.contact_list_item}>
+              About{" "}
+              <FontAwesomeIcon
+                className={styles.list_icons}
+                icon={faCircleInfo}
+              />
+            </li>
+          </Link>
+          <Link onClick={handleClose} to={"jobs"}>
+                  <li className={styles.contact_list_item}>
+                    Explore{" "}
+                    <FontAwesomeIcon
+                      className={styles.list_icons}
+                      icon={faFire}
+                    />
+                  </li>
+                </Link>
+                <Link onClick={handleClose} to={"categories"}>
+                <li className={styles.contact_list_item}>
+                  Categories{" "}
+                  <FontAwesomeIcon
+                    className={styles.list_icons}
+                    icon={faLayerGroup}
+                  />
+                </li>
+              </Link>
+               </>}</>
           )}
         </ul>
         {isLogin ? (
@@ -138,7 +206,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
             <Link to={"login"} onClick={handleClose} className="mx-2">
               <MainButton text="Login" />
             </Link>
-            {isCompanyHome ? (
+            {changeContent ? (
               <Link to={"/"} onClick={handleClose} className="mx-2">
                 <MainButton type="white" text="Employee" />
               </Link>

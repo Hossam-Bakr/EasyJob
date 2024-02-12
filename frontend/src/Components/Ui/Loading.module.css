@@ -1,8 +1,9 @@
-.loading_body{
+
+
+.loading_body,.loading_two{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, .6);
     color: var(--main_color);
     position: absolute;
     top: 0;
@@ -10,4 +11,16 @@
     right: 0;
     bottom: 0;
     z-index: 2;
+}
+
+.loading_body{
+    background-color: rgba(12, 12, 12, 0.7);
+    backdrop-filter: blur(7px);
+}
+
+.loading_two{
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    color: var(--main_color);
+    font-size: 3.125rem;
 }

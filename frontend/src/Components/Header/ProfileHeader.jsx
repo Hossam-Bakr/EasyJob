@@ -14,11 +14,11 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-import c1 from "../../images/userCover.jpg";
-import c2 from "../../images/companyCover.jpg";
-
 import p1 from "../../images/p1.jpeg";
-import p2 from "../../images/logo/huwawei.webp";
+import c1 from "../../images/userCover.jpg";
+
+import p2 from "../../images/noLogo.jpg";
+import c2 from "../../images/noCover.jpg";
 
 import {
   faBehance,
@@ -26,22 +26,42 @@ import {
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 import EdietPenIcon from "../Ui/EdietPenIcon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { edietActions } from "../../Store/defaultEdietPage-slice";
 
-const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
-  let profile_cover = c1;
-  let profile_pic = p1;
+const ProfileHeader = ({
+  cover,
+  pic,
+  type,
+  name,
+  city,
+  country,
+  industry,
+}) => {
 
-  if (cover === "c1") {
-    profile_cover = c1;
-  } else {
-    profile_cover = c2;
+  let profile_cover = cover? cover : type === "company" ? c2 : c1;
+  let profile_pic = pic? pic : type === "company" ? p2 : p1;
+
+  const headerClasses=cover?styles.header_container:styles.header_container_no_cover;
+
+  let companyIndustry="Software Engineering";
+  switch (industry) {
+    case 10:
+      companyIndustry="Information and communications technology (ICT)"
+      break;
+  
+    default:
+      break;
   }
 
-  if (pic === "p1") {
-    profile_pic = p1;
-  } else {
-    profile_pic = p2;
+
+  const dispatch=useDispatch();
+  const navigate=useNavigate()
+
+  const navigateToEdietProfile=(type)=>{
+    dispatch(edietActions.setDefaultEdietPage(type))
+    navigate("/company-info")
   }
 
   let profilePictureClasses =
@@ -50,10 +70,11 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
 
   return (
     <>
-      <header className={styles.header_container}>
+      <header className={headerClasses}>
         <img src={profile_cover} alt="cover pic" />
+        
         <div className={styles.ediet_cover_btn} title="change cover photo">
-          <FontAwesomeIcon icon={faPencil} />
+          <FontAwesomeIcon icon={faPencil} onClick={()=>navigateToEdietProfile("media")}/>
         </div>
         <div className={profilePictureClasses}>
           <div className={styles.cartoona}>
@@ -62,7 +83,7 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
               className={styles.ediet_profile_pic_btn}
               title="change profile photo"
             >
-              <FontAwesomeIcon icon={faCamera} />
+              <FontAwesomeIcon icon={faCamera} onClick={()=>navigateToEdietProfile("media")}/>
             </div>
           </div>
         </div>
@@ -126,19 +147,23 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
           </ul>
         </div>
       </header>
+      
       <div className={styles.sub_header}>
-        <EdietPenIcon />
+        <EdietPenIcon onClick={()=>navigateToEdietProfile("info")} />
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className=" d-flex flex-column">
             <h3>{name}</h3>
-            <span>{field}</span>
-            <span>
-              <FontAwesomeIcon
-                icon={faLocationDot}
-                className="special_main_color"
-              />{" "}
-              {city}, {country}
-            </span>
+            <span>{companyIndustry}</span>
+            {(city || country) && (
+              <span>
+                <FontAwesomeIcon
+                  icon={faLocationDot}
+                  className="special_main_color"
+                />{" "}
+                {city ? city : ""}
+                {country ? ", " + country : ""}
+              </span>
+            )}
           </div>
 
           <div
@@ -194,3 +219,4 @@ const ProfileHeader = ({ cover, pic, type, name, field, city, country }) => {
 };
 
 export default ProfileHeader;
+
