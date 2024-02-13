@@ -57,6 +57,7 @@ const CompanyProfile = () => {
     youtube,
     website,
     behance,
+    vimeo
   } = companyProfileData || {};
 
   return (
@@ -71,6 +72,12 @@ const CompanyProfile = () => {
             city={city}
             country={country}
             industry={industry}
+            facebook={facebook}
+            instagram={instagram}
+            website={website}
+            twitter={twitter}
+            linkedin={linkedin}
+            behance={behance}
             type="company"
           />
 
@@ -90,6 +97,7 @@ const CompanyProfile = () => {
               linkedin={linkedin}
               youtube={youtube}
               behance={behance}
+              vimeo={vimeo}
             />
           </div>
         </div>

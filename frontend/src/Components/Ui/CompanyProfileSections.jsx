@@ -8,6 +8,7 @@ import {
   faInstagram,
   faLinkedin,
   faTwitter,
+  faVimeo,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -43,7 +44,8 @@ const CompanyProfileSections = ({
   twitter,
   linkedin,
   youtube,
-  behance
+  behance,
+  vimeo
 }) => {
   const myJobs = [
     {
@@ -229,14 +231,14 @@ const CompanyProfileSections = ({
                     </li>
                   )}
 
-                {(linkedin && facebook && youtube && website && twitter&& behance && instagram)&&
+                {(linkedin || facebook || youtube || website || twitter|| behance || instagram)&&
                       <li>
                       <span className={styles.info_title}>
                         <FontAwesomeIcon icon={faSquarePhone} /> Contact links:
                       </span>{" "}
                       <div className={`${styles.contact_icons}`}>
                         {linkedin && (
-                          <Link to={linkedin}>
+                          <Link to={linkedin} target={"_blank"}>
                             <FontAwesomeIcon
                               icon={faLinkedin}
                               className={styles.contact_icon}
@@ -244,7 +246,7 @@ const CompanyProfileSections = ({
                           </Link>
                         )}
                         {facebook && (
-                          <Link to={facebook}>
+                          <Link to={facebook} target={"_blank"}>
                             <FontAwesomeIcon
                               icon={faFacebook}
                               className={styles.contact_icon}
@@ -252,7 +254,7 @@ const CompanyProfileSections = ({
                           </Link>
                         )}
                         {youtube && (
-                          <Link to={youtube}>
+                          <Link to={youtube} target={"_blank"}>
                             <FontAwesomeIcon
                               icon={faYoutube}
                               className={styles.contact_icon}
@@ -260,7 +262,7 @@ const CompanyProfileSections = ({
                           </Link>
                         )}
                         {website && (
-                          <Link to={website}>
+                          <Link to={website} target={"_blank"}>
                             <FontAwesomeIcon
                               icon={faEnvelope}
                               className={styles.contact_icon}
@@ -268,7 +270,7 @@ const CompanyProfileSections = ({
                           </Link>
                         )}
                         {twitter && (
-                          <Link to={twitter}>
+                          <Link to={twitter} target={"_blank"}>
                             <FontAwesomeIcon
                               icon={faTwitter}
                               className={styles.contact_icon}
@@ -276,7 +278,7 @@ const CompanyProfileSections = ({
                           </Link>
                         )}
                         {instagram && (
-                          <Link to={instagram}>
+                          <Link to={instagram} target={"_blank"}>
                             <FontAwesomeIcon
                               icon={faInstagram}
                               className={styles.contact_icon}
@@ -284,9 +286,17 @@ const CompanyProfileSections = ({
                           </Link>
                         )}
                         {behance && (
-                          <Link to={behance}>
+                          <Link to={behance} target={"_blank"}>
                             <FontAwesomeIcon
                               icon={faInstagram}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {vimeo && (
+                          <Link to={vimeo} target={"_blank"}>
+                            <FontAwesomeIcon
+                              icon={faVimeo}
                               className={styles.contact_icon}
                             />
                           </Link>

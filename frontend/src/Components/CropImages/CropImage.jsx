@@ -88,5 +88,7 @@ export default async function getCroppedImg(
     canvas.toBlob((file) => {
       resolve({ file: file, url: URL.createObjectURL(file) });
     }, 'image/jpeg');
-  });
+  }
+  
+  );
 }

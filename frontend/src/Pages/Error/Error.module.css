@@ -1,21 +1,31 @@
-.not_found_container{
+.not_found_container,.main_error{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    min-height: 100vh;
     min-width: 100vw;
 }
 .not_found_container img{
     width:50%;
 }
 
+.main_error{
+    flex-direction: column;
+}
+.main_error img{
+    width: 30%;
+}
+
+
+
 @media screen and (max-width:650px) {
-    .not_found_container img{
+    .not_found_container img,.main_error img{
         width:80%;
     }
+
 }
 @media screen and (max-width:400px) {
-    .not_found_container img{
+    .not_found_container img,.main_error img{
         width:100%;
     }
 }

@@ -14,6 +14,8 @@ import Accordion from "react-bootstrap/Accordion";
 import FilterAccordion from "../../Components/Ui/FilterAccordion";
 import SearchField from "../../Components/Ui/SearchField";
 import GridButtons from "../../Components/Ui/GridButtons";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const jobs = [
   {
@@ -253,10 +255,15 @@ const Posts = () => {
     setGridView(false);
   };
 
+  const role=useSelector((state)=>state.userInfo.role)
+  const navigate=useNavigate();
 
   useEffect(()=>{
+    if(role==="company"){
+      navigate("/candidates")
+    }
     window.scrollTo(0, 0)
-  },[])
+  },[navigate,role])
 
   return (
     <Container fluid className="mb-5">
