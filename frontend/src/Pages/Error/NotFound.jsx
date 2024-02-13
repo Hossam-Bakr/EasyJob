@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './NotFound.module.css';
+import styles from './Error.module.css';
 import not_found_img from "../../images/404.jpg";
 
 const NotFound = () => {

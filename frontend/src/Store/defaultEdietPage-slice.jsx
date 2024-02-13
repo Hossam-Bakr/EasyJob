@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const defaultEdietSlice=createSlice({
     name:"defaultEdiet",
     initialState:{
-        defaultEdietPage:"info"
+        defaultEdietPage:"media"
     },
 
     reducers:{

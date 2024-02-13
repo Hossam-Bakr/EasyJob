@@ -11,12 +11,13 @@ const UserProfile = () => {
       <Container fluid="xl" className={styles.profile_body}>
         <div className={styles.profile_header}>
           <ProfileHeader
-            cover="c1"
-            pic="p1"
+            // cover="c1"
+            // pic="p1"
             name="Bassam Hafez"
             field="Frontend Developer | React JS"
             city="Cairo"
             country="Egypt"
+            type="user"
           />
         </div>
         <ProfileSections />

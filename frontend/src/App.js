@@ -26,6 +26,8 @@ import CompanyInfo from "./Pages/CompanyInfo/CompanyInfo";
 import CompanyAdmins from "./Pages/CompanyAdmins/CompanyAdmins";
 import CompanyDashboard from "./Pages/Dashboards/CompanyDashboard";
 import UserDashboard from "./Pages/Dashboards/UserDashboard";
+import MyTest from "./Components/Test/MyTest";
+import MainError from "./Pages/Error/MainError";
 
 
 
@@ -34,6 +36,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement:<MainError/>,
     children: [
       { index: true, element: <Home /> },
       { path: "company-home", element: <CompanyHome /> },
@@ -55,6 +58,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "user-register", element: <Register /> },
       { path: "company-register", element: <CompanyRegister />},
+      { path: "test", element: <MyTest />},
       {path: "*", element: <NotFound/>},
     ],
   },
