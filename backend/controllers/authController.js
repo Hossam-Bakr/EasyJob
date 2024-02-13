@@ -16,7 +16,7 @@ exports.userSignup = catchAsync(async (req, res, next) => {
 
   await newUser.createUserProfile();
 
-  const token = generateJWT(newUser.id);
+  const token = generateJWT(newUser.email);
 
   newUser.password = undefined;
 
@@ -40,7 +40,7 @@ exports.companySignup = catchAsync(async (req, res, next) => {
 
   const companyProfile = await newCompany.createCompanyProfile();
 
-  const token = generateJWT(newCompany.id);
+  const token = generateJWT(newCompany.email);
 
   newCompany.password = undefined;
 
@@ -74,7 +74,7 @@ exports.Login = catchAsync(async (req, res, next) => {
       return next(new ApiError("Incorrect email or password", 401));
     }
 
-    const token = generateJWT(user.id);
+    const token = generateJWT(user.email);
 
     res.status(200).json({
       status: "success",
@@ -92,7 +92,7 @@ exports.Login = catchAsync(async (req, res, next) => {
     if (!isPasswordCorrect) {
       return next(new ApiError("Incorrect email or password", 401));
     }
-    const token = generateJWT(company.id);
+    const token = generateJWT(company.email);
 
     res.status(200).json({
       status: "success",
@@ -127,11 +127,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   // Verification token
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-  // Check if user(company) still exists
-  // const user = await User.findById(decoded.id);
-  // const company = await Company.findById(decoded.id);
-  const user = await User.findByPk(decoded.id);
-  const company = await Company.findByPk(decoded.id);
+  const user = await User.findOne({ where: { email: decoded.email } });
+  const company = await Company.findOne({ where: { email: decoded.email } });
 
   if (!user && !company)
     return next(new ApiError("This account does no longer exist.", 404));
