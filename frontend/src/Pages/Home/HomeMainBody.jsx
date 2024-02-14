@@ -43,7 +43,9 @@ const HomeMainBody = () => {
     navigate("/jobs")
   }
 
-
+  const navigateToCategories =()=>{
+    navigate("/categories")
+  }
 
   useEffect(() => {
     AOS.init();
@@ -109,7 +111,7 @@ const HomeMainBody = () => {
                   </li>
                 </ul>
                 <div className="text-center">
-                  <MainButtonTwo text="Start Finding Jobs" />
+                  <MainButtonTwo  onClick={navigateToExplore} text="Start Finding Jobs" />
                 </div>
               </div>
             </Col>
@@ -398,7 +400,7 @@ const HomeMainBody = () => {
           data-aos="zoom-in-up"
           data-aos-duration="1000"
         >
-          <MainButtonTwo text="All Categories " />
+          <MainButtonTwo onClick={navigateToCategories} text="All Categories " />
         </div>
       </section>
    

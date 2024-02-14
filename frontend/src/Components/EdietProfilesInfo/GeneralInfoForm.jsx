@@ -134,7 +134,7 @@ const GeneralInfoForm = ({ data }) => {
         return currentFounded;
       }),
 
-    description: string(),
+    description: string().required("description is required"),
   });
 
   return (

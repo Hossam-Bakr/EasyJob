@@ -19,7 +19,6 @@ const CompanyHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const navigateToCompanySignUpPage = () => {
     navigate("/company-register");
   };
@@ -29,15 +28,22 @@ const CompanyHome = () => {
 
   useEffect(() => {
     AOS.init();
-    dispatch(companyActions.changeNavState({
-      changeCompany:true,
-      changeNav:true
-    }));
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
+    dispatch(
+      companyActions.changeNavState({
+        changeCompany: true,
+        changeNav: true,
+      })
+    );
     return () => {
-      dispatch(companyActions.changeNavState({
-        changeCompany:false,
-        changeNav:false
-      }));
+      dispatch(
+        companyActions.changeNavState({
+          changeCompany: false,
+          changeNav: false,
+        })
+      );
     };
   }, [dispatch]);
 
@@ -132,7 +138,7 @@ const CompanyHome = () => {
 
       <section className={styles.fourth_sec}>
         <h2 className="text-center mb-5">Trusted By</h2>
-        <HomeTopEmployersSlider type='two_rows'/>
+        <HomeTopEmployersSlider type="two_rows" />
       </section>
     </>
   );

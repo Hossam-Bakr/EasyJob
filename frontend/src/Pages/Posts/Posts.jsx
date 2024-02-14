@@ -255,15 +255,17 @@ const Posts = () => {
     setGridView(false);
   };
 
-  const role=useSelector((state)=>state.userInfo.role)
+  const role=useSelector((state)=>state.userInfo.role);
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
+
   const navigate=useNavigate();
 
   useEffect(()=>{
-    if(role==="company"){
+    if(role==="company"&&isLogin){
       navigate("/candidates")
     }
     window.scrollTo(0, 0)
-  },[navigate,role])
+  },[navigate,role,isLogin])
 
   return (
     <Container fluid className="mb-5">
