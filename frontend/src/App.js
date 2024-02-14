@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { getRoleState, getToken, getUserInfoFromLocalStorage, getisLoginState } from "./Store/userInfo-actions";
 import Home from "./Pages/Home/Home";
 import Root from "./Pages/Root";
@@ -28,6 +28,8 @@ import CompanyDashboard from "./Pages/Dashboards/CompanyDashboard";
 import UserDashboard from "./Pages/Dashboards/UserDashboard";
 import MyTest from "./Components/Test/MyTest";
 import MainError from "./Pages/Error/MainError";
+import fetchProfileData from "./Store/profileInfo-actions";
+import SuperAdminDashboard from "./Pages/Dashboards/SuperAdmin/SuperAdminDashboard";
 
 
 
@@ -59,6 +61,7 @@ const router = createBrowserRouter([
       { path: "user-register", element: <Register /> },
       { path: "company-register", element: <CompanyRegister />},
       { path: "test", element: <MyTest />},
+      { path: "super", element: <SuperAdminDashboard />},
       {path: "*", element: <NotFound/>},
     ],
   },
@@ -67,8 +70,18 @@ const router = createBrowserRouter([
 
 
 function App() {
-  const dispatch=useDispatch();
 
+  const dispatch=useDispatch();
+  const token = useSelector((state) => state.userInfo.token);
+  const role=useSelector((state)=>state.userInfo.role)
+
+    // get profile data from database
+    useEffect(()=>{
+      if(role&&token){
+        dispatch(fetchProfileData(token,role))
+      }
+    },[dispatch,token,role]);
+    
   // recieve user data from localStorage with login and role states
   useEffect(()=>{
     if (JSON.parse(localStorage.getItem("userData"))){
@@ -80,6 +93,9 @@ function App() {
     }
     dispatch(getisLoginState())
   },[dispatch]);
+
+
+
 
 
     const queryClient= new QueryClient();

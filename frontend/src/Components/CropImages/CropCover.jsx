@@ -31,8 +31,6 @@ const CropCover = ({ onHide, show, imgUrl, setImgUrl, setImgFile }) => {
       );
       setImgUrl(url);
       setImgFile(file);
-        console.log("here url for cover",url)
-        console.log("here file for cover",file)
       setLoading(false)
       onHide();
     };
@@ -42,7 +40,7 @@ const CropCover = ({ onHide, show, imgUrl, setImgUrl, setImgFile }) => {
     <Modal
     onHide={onHide}
     show={show}
-    size="xl"
+    size="lg"
     aria-labelledby="contained-modal-title-vcenter"
     centered
     className={styles.modal_container}

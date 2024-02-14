@@ -2,7 +2,7 @@
     background-color: var(--vanilla);
     border-radius: 0.625rem;
     padding: 0.625rem;
-    min-height: 380vh;
+    min-height: 350vh;
 }
 
 .filter_list{

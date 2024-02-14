@@ -1,0 +1,33 @@
+.super_container{
+    margin: 50px;
+    margin-left: 0;
+}
+.side_bar{
+    background-color: rgba(2, 20, 44, 0.831);
+    padding: 20px;
+    min-height: 80vh;
+    border-radius: 10px;
+}
+.content_pages{
+    padding: 20px;
+}
+.side_bar_item 
+{
+    margin: 10px 0;
+}
+.side_bar_item a{ 
+    color: rgb(232, 227, 227) !important;
+    font-weight: 600;
+}
+
+
+.category_container{
+    padding-inline: 50px;
+}
+
+
+@media screen and (max-width:384px) {
+    .category_container{
+        padding: 0;
+    }
+}

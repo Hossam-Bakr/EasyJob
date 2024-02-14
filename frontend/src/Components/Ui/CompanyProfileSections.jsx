@@ -171,7 +171,7 @@ const CompanyProfileSections = ({
 
   return (
     <Tabs defaultActiveKey="overview" id="uncontrolled-tab-example" fill>
-      <Tab eventKey="overview" title="Overview" onClick={()=>navigateToEdietProfile("info")}>
+      <Tab eventKey="overview" title="Overview" >
         {!city && !country && !size && !desc && !founded ? (
           <div className="d-flex flex-column align-items-center p-5">
             <div className={styles.no_data}>
@@ -184,7 +184,7 @@ const CompanyProfileSections = ({
           </div>
         ) : (
           <div className={styles.main_style}>
-            <EdietPenIcon />
+            <EdietPenIcon onClick={()=>navigateToEdietProfile("info")}/>
             <h3 className={styles.sec_title}>Company Overview</h3>
             <Row className={styles.general_info}>
               <Col md={7}>
@@ -311,11 +311,7 @@ const CompanyProfileSections = ({
                 <div className={styles.desc}>
                   <h6 className={styles.desc_title}>Company Desc:</h6>
                   <span>
-                    Founded in 1987, Huawei is a leading global provider of
-                    information and communications technology (ICT)
-                    infrastructure and smart devices. We have 207,000 employees
-                    and operate in over 170 countries and regions, serving more
-                    than three billion people around the world
+                    {desc?desc:'Add You Description here'}
                   </span>
                 </div>
               </Col>

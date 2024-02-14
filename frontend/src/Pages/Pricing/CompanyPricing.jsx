@@ -74,6 +74,13 @@ const CompanyPricing = () => {
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
+                      300 Unlocks
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       Connecting with 150 candidates of our choice
                     </li>
                     <li>
@@ -132,6 +139,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Unlimited search in Easy job database
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      600 Unlocks
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -197,6 +211,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Unlimited search in Easy job database
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      900 Unlocks
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -280,6 +301,13 @@ const CompanyPricing = () => {
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
+                      1000 Unlocks
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       Connecting with 150 candidates of our choice
                     </li>
                     <li>
@@ -339,6 +367,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Unlimited search in Easy job database
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      2000 Unlocks
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -405,6 +440,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Unlimited search in Easy job database
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      3000 Unlocks
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -487,6 +529,13 @@ const CompanyPricing = () => {
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
+                      5000 Unlocks
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       Connecting with 150 candidates of our choice
                     </li>
                     <li>
@@ -545,6 +594,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Unlimited search in Easy job database
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      6000 Unlocks
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -610,6 +666,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Unlimited search in Easy job database
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      7000 Unlocks
                     </li>
                     <li>
                       <FontAwesomeIcon

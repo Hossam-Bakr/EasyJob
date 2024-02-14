@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./CompanyMedia.module.css";
 import SectionMainTitle from "../Ui/SectionMainTitle";
 import noLogo from "../../images/noLogo.jpg";
@@ -20,13 +20,14 @@ const CompanyMedia = ({ logo, cover }) => {
   const [coverFile, setCoverFile] = useState(null);
   const [coverUrl, setCoverUrl] = useState(null);
 
+  const [profileLogo,setProfileLogo]=useState(null);
+  const [profileCover,setProfileCover]=useState(null);
+
   const inputRef = useRef(null);
   const coverRef = useRef(null);
   const companyToken = useSelector((state) => state.userInfo.token);
   const navigate = useNavigate();
 
-  const profileLogo = logo ? logo : noLogo;
-  const profileCover = cover ? cover : noCover;
 
   const coverClasses =
     cover || coverUrl ? styles.company_old_cover : styles.company_no_cover;
@@ -50,7 +51,6 @@ const CompanyMedia = ({ logo, cover }) => {
       const url = URL.createObjectURL(file);
       setCoverUrl(url);
     }
-    console.log("imgFile in handle cover", coverFile);
     setCoverModal(true);
   };
 
@@ -62,36 +62,52 @@ const CompanyMedia = ({ logo, cover }) => {
     coverRef.current.click();
   };
 
-  const sendData = async (formData) => {
-    console.log("formData in send", formData);
-    try {
-      const response = await axios.patch(
-        "http://127.0.0.1:3000/api/v1/companies/profile/media",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${companyToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(response);
-      navigate("/company-profile");
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
+
+  const companyProfileData = useSelector((state) => state.profileInfo.data);
+
+  useEffect(() => {
+    if (companyProfileData?.coverPhoto) {
+      const profileCoverURL = require(`../../../../backend/uploads/companies/${companyProfileData.coverPhoto}`);
+      setProfileCover(profileCoverURL);
+    }
+    if(companyProfileData?.logo)
+    {
+      const profileLogoUrl = require(`../../../../backend/uploads/companies/${companyProfileData.logo}`);
+      setProfileLogo(profileLogoUrl);
+    }
+  }, [companyProfileData]);
+  
   const handleSave = async (e) => {
     e.preventDefault();
     if (imgFile && coverFile) {
       const formData = new FormData();
       formData.append("logo", imgFile);
       formData.append("coverPhoto", coverFile);
-      console.log("formData in handle save", formData); //empty
-      await sendData(formData);
+
+      try {
+        const response = await axios.patch(
+          "http://127.0.0.1:3000/api/v1/companies/profile/media",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${companyToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log(response);
+        navigate("/company-profile");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+
+
+  const edietedImgLogo=imgUrl ? imgUrl : profileLogo?profileLogo:noLogo;
+  const edietedImgCover=coverUrl ? coverUrl : profileCover?profileCover:noCover;
+
 
   return (
     <>
@@ -102,7 +118,7 @@ const CompanyMedia = ({ logo, cover }) => {
           <SectionMainTitle title="Company Logo" />
           <div className={styles.company_old_logo}>
             <label htmlFor="profileLogo">
-              <img src={imgUrl ? imgUrl : profileLogo} alt="logo" />
+              <img src={edietedImgLogo} alt="logo" />
             </label>
             <input
               accept="image/*"
@@ -136,7 +152,7 @@ const CompanyMedia = ({ logo, cover }) => {
           <SectionMainTitle title="Company Cover" />
           <div className={coverClasses}>
             <label htmlFor="profileCover">
-              <img src={coverUrl ? coverUrl : profileCover} alt="Cover" />
+              <img src={edietedImgCover} alt="Cover" />
             </label>
             <input
               accept="image/*"

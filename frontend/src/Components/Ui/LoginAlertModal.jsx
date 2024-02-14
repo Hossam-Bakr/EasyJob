@@ -10,11 +10,11 @@ const LoginAlertModal = (props) => {
   const navigate=useNavigate();
   const navigateToSignUpPage=()=>{
     props.onHide();
-    navigate('user-register');
+    navigate('/user-register');
  }
   const navigateToLoginPage=()=>{
     props.onHide();
-    navigate('login');
+    navigate('/login');
  }
 
   return (

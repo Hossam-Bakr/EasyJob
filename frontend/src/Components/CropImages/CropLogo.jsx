@@ -30,8 +30,6 @@ const CropEasyModal = ({ onHide, show, imgUrl, setImgUrl, setImgFile }) => {
     );
     setImgUrl(url);
     setImgFile(file);
-    console.log("here url for logo",url)
-    console.log("here file for logo",file)
 
     setLoading(false)
     onHide();

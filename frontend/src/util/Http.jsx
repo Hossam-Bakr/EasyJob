@@ -1,11 +1,9 @@
 import axios from "axios";
+const baseServerUrl = "http://127.0.0.1:3000/api/v1/";
 
 const signFormsHandler = async ({ type, formData }) => {
   try {
-    const response = await axios.post(
-      `http://127.0.0.1:3000/api/v1/auth/${type}`,
-      formData
-    );
+    const response = await axios.post(`${baseServerUrl}auth/${type}`, formData);
 
     return response;
   } catch (error) {
@@ -20,15 +18,10 @@ const signFormsHandler = async ({ type, formData }) => {
 
 export default signFormsHandler;
 
-
-
-
-
-
-export const updateFormHandler = async({ type,formData, companyToken}) => {
+export const updateFormHandler = async ({ type, formData, companyToken }) => {
   try {
     const response = await axios.patch(
-      `http://127.0.0.1:3000/api/v1/companies/profile/${type}`,
+      `${baseServerUrl}companies/profile/${type}`,
       formData,
       {
         headers: {
@@ -44,5 +37,32 @@ export const updateFormHandler = async({ type,formData, companyToken}) => {
       throw error.request;
     }
     throw error.message;
+  }
+};
+
+export const getCategories = async ({ signal, type, formData, method }) => {
+  try {
+    let response = null;
+    if (type) {
+      if (method === "post") {
+        response = await axios.post(
+          `${baseServerUrl}categories${type}`,
+          formData
+        );
+      } else if (method === "put") {
+        response = await axios.put(
+          `${baseServerUrl}categories${type}${formData}`
+        );
+      } else if (method === "delete") {
+        response = await axios.delete(
+          `${baseServerUrl}categories${type}${formData}`
+        );
+      }
+    } else {
+      response = await axios(`${baseServerUrl}categories`, { signal });
+    }
+    return response;
+  } catch (error) {
+    console.error(error);
   }
 };

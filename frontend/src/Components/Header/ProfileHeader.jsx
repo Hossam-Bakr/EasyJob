@@ -52,7 +52,6 @@ const ProfileHeader = ({
   let profile_pic = pic ? pic : type === "company" ? p2 : p1;
 
 
-
   let companyIndustry = "Software Engineering";
   switch (industry) {
     case 10:
@@ -85,10 +84,10 @@ const ProfileHeader = ({
       <header className={headerClasses}>
         <img src={profile_cover} alt="cover pic" />
 
-        <div className={styles.ediet_cover_btn} title="change cover photo">
+        <div className={styles.ediet_cover_btn} onClick={() => navigateToEdietProfile("media")} title="change cover photo">
           <FontAwesomeIcon
             icon={faPencil}
-            onClick={() => navigateToEdietProfile("media")}
+            
           />
         </div>
         <div className={profilePictureClasses}>
@@ -97,10 +96,10 @@ const ProfileHeader = ({
             <div
               className={styles.ediet_profile_pic_btn}
               title="change profile photo"
+              onClick={() => navigateToEdietProfile("media")}
             >
               <FontAwesomeIcon
                 icon={faCamera}
-                onClick={() => navigateToEdietProfile("media")}
               />
             </div>
           </div>

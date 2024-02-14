@@ -3,6 +3,8 @@ import userInfoSlice from "./userInfo-slice";
 import modeSlice from "./mood-slice";
 import companySlice from "./companyNav-slice";
 import defaultEdietSlice from "./defaultEdietPage-slice";
+import profileSlice from "./profileInfo-slice";
+
 
 const store = configureStore({
   reducer: {
@@ -10,6 +12,7 @@ const store = configureStore({
     userInfo: userInfoSlice.reducer,
     companyNav: companySlice.reducer,
     defaultEdiet: defaultEdietSlice.reducer,
+    profileInfo:profileSlice.reducer
   },
 });
 
