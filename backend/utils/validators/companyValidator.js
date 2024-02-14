@@ -21,15 +21,13 @@ exports.updateCompanyInfoValidator = [
     .trim(),
 
   check("size")
-    .notEmpty()
-    .withMessage("Please provide company size")
+    .optional()
     .isIn(["1-10", "11-50", "51-200", "201-500", "500+"])
     .withMessage("Please provide valid company size")
     .trim(),
 
   check("foundedYear")
-    .notEmpty()
-    .withMessage("Please provide founded year")
+    .optional()
     .isInt({ min: 1800, max: new Date().getFullYear() })
     .withMessage("Please provide valid founded year")
     .trim(),
@@ -42,8 +40,7 @@ exports.updateCompanyInfoValidator = [
     .trim(),
 
   check("location")
-    .notEmpty()
-    .withMessage("Please provide company location")
+    .optional()
     .isObject()
     .withMessage("Location must be an object")
     .custom((value) => {

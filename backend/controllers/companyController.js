@@ -100,15 +100,6 @@ exports.updateCompanyInfo = catchAsync(async (req, res) => {
   ];
 
   for (const field of expectedFields) {
-    if (!req.body[field] && !companyProfile[field]) {
-      return res.status(400).json({
-        status: "fail",
-        message: `Please provide ${field}`,
-      });
-    }
-  }
-
-  for (const field of expectedFields) {
     if (req.body[field]) companyProfile[field] = req.body[field];
   }
 
