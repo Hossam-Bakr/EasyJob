@@ -7,9 +7,10 @@ import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
 import Loading from "./../Ui/Loading";
 import FloatingPopup from "./../Ui/FloatingPopup";
+import { useDispatch, useSelector } from "react-redux";
+import fetchProfileData from './../../Store/profileInfo-actions';
 
 const CompanyLinksForm = ({ data }) => {
   const [showResponse, setShowResponse] = useState(false);
@@ -28,6 +29,11 @@ const CompanyLinksForm = ({ data }) => {
   const [currentBehance, setCurrentBehance] = useState("");
   const [currentVimeo, setCurrentVimeo] = useState("");
 
+  const dispatch = useDispatch();
+
+  const companyToken = useSelector((state) => state.userInfo.token);
+  const role = useSelector((state) => state.userInfo.role);
+
   useEffect(() => {
     if (data) {
       setCurrentFacebook(data.facebook || "");
@@ -41,13 +47,15 @@ const CompanyLinksForm = ({ data }) => {
     }
   }, [data]);
 
-  const companyToken = useSelector((state) => state.userInfo.token);
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
     onSuccess: (data) => {
       if (data.data.status === "success") {
         console.log(data);
+        if(role&&companyToken){
+          dispatch(fetchProfileData(companyToken,role))
+        }
         setResponseMessage({
           title: "Edieted Successfully",
           content: "your Links updated successfully",

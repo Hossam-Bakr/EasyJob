@@ -7,11 +7,15 @@ import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Ui/Loading";
 import FloatingPopup from "../Ui/FloatingPopup";
+import fetchProfileData from "../../Store/profileInfo-actions";
 
 const GeneralInfoForm = ({ data }) => {
+
+
+  
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
@@ -29,6 +33,11 @@ const GeneralInfoForm = ({ data }) => {
     coordinates: [0, 0],
   });
 
+  const dispatch = useDispatch();
+
+  const companyToken = useSelector((state) => state.userInfo.token);
+  const role = useSelector((state) => state.userInfo.role);
+
   useEffect(() => {
     if (data) {
       setCurrentCountry(data.country || "");
@@ -45,13 +54,16 @@ const GeneralInfoForm = ({ data }) => {
     }
   }, [data]);
 
-  const companyToken = useSelector((state) => state.userInfo.token);
-
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
     onSuccess: (data) => {
       if (data.data.status === "success") {
         console.log(data);
+        
+        if(role&&companyToken){
+          dispatch(fetchProfileData(companyToken,role))
+        }
+
         setResponseMessage({
           title: "Edieted Successfully",
           content: "your Information updated successfully",

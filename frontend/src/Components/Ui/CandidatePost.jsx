@@ -169,7 +169,7 @@ const CandidatePost = ({
           </div>
         </div>
       </Col>
-      <LoginAlertModal show={modalShow} onHide={() => setModalShow(false)} />
+      <LoginAlertModal show={modalShow} onHide={() => setModalShow(false)} type="company" />
     </>
   );
 };

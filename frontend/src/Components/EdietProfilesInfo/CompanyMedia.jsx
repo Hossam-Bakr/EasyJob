@@ -7,9 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import CropLogo from "../CropImages/CropLogo";
 import CropCover from "../CropImages/CropCover";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import FloatingPopup from "../Ui/FloatingPopup";
+import fetchProfileData from "../../Store/profileInfo-actions";
 
 const CompanyMedia = ({ logo, cover }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -24,13 +25,19 @@ const CompanyMedia = ({ logo, cover }) => {
   const [profileCover, setProfileCover] = useState(null);
 
   const [showResponse, setShowResponse] = useState(false);
-  const [responseMessage,setResponseMessage]=useState({title:"",content:""});
-  const [successResponse,setSuccessResponse]=useState(true);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
 
+  const dispatch = useDispatch();
   const inputRef = useRef(null);
   const coverRef = useRef(null);
+  
   const companyToken = useSelector((state) => state.userInfo.token);
   const companyProfileData = useSelector((state) => state.profileInfo.data);
+  const role = useSelector((state) => state.userInfo.role);
 
   const coverClasses =
     cover || coverUrl ? styles.company_old_cover : styles.company_no_cover;
@@ -76,6 +83,8 @@ const CompanyMedia = ({ logo, cover }) => {
     }
   }, [companyProfileData]);
 
+
+
   const handleSave = async (e) => {
     e.preventDefault();
     if (imgFile || coverFile) {
@@ -95,19 +104,29 @@ const CompanyMedia = ({ logo, cover }) => {
           }
         );
         console.log(response);
-        setResponseMessage({title:"Edieted Successfully",content:"your logo and cover updated successfully"})
-        setSuccessResponse(true)
-        setShowResponse(true)
+
+        if (role && companyToken) {
+          dispatch(fetchProfileData(companyToken, role));
+        }
+
+        setResponseMessage({
+          title: "Edieted Successfully",
+          content: "your logo and cover updated successfully",
+        });
+        setSuccessResponse(true);
+        setShowResponse(true);
       } catch (error) {
         console.error(error);
-        setResponseMessage({title:"Request Faild",content:"your logo and cover faild to be uploaded please try again"})
-        setSuccessResponse(false)
-        setShowResponse(true)
+        setResponseMessage({
+          title: "Request Faild",
+          content: "your logo and cover faild to be uploaded please try again",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
       }
     }
   };
 
-  showResponse&&console.log("k")
   const edietedImgLogo = imgUrl ? imgUrl : profileLogo ? profileLogo : noLogo;
   const edietedImgCover = coverUrl
     ? coverUrl
@@ -215,10 +234,10 @@ const CompanyMedia = ({ logo, cover }) => {
         setImgFile={setCoverFile}
       />
       <FloatingPopup
-      showResponse={showResponse}
-      setShowResponse={setShowResponse}
-      message={responseMessage}
-      success={successResponse}
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
       />
     </>
   );

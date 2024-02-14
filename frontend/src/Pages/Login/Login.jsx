@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Login.module.css';
 import logo from '../../images/mainLogo.png';
-import vector from "../../images/login vector.png";
+import vector from "../../images/loginVector.png";
 import LoginForm from './LoginForm';
 
 const Login = () => {

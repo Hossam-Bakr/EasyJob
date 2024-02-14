@@ -26,7 +26,7 @@
     align-items: center;
 }
 .caption_vector{
-    width: 21.875rem;
+    width: 31.25rem;
 }
 .caption_vector img{
     width: 100%;
@@ -79,6 +79,9 @@
     }
     .user_login_form{
         padding: 0.625rem;
+    }
+    .caption_vector{
+        width: 21.875rem;
     }
 }
 
