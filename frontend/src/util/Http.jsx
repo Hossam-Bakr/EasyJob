@@ -19,6 +19,7 @@ const signFormsHandler = async ({ type, formData }) => {
 export default signFormsHandler;
 
 export const updateFormHandler = async ({ type, formData, companyToken }) => {
+  console.log("from function",formData)
   try {
     const response = await axios.patch(
       `${baseServerUrl}companies/profile/${type}`,

@@ -9,7 +9,7 @@ import CropLogo from "../CropImages/CropLogo";
 import CropCover from "../CropImages/CropCover";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import FloatingPopup from "../Ui/FloatingPopup";
 
 const CompanyMedia = ({ logo, cover }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -20,14 +20,17 @@ const CompanyMedia = ({ logo, cover }) => {
   const [coverFile, setCoverFile] = useState(null);
   const [coverUrl, setCoverUrl] = useState(null);
 
-  const [profileLogo,setProfileLogo]=useState(null);
-  const [profileCover,setProfileCover]=useState(null);
+  const [profileLogo, setProfileLogo] = useState(null);
+  const [profileCover, setProfileCover] = useState(null);
+
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage,setResponseMessage]=useState({title:"",content:""});
+  const [successResponse,setSuccessResponse]=useState(true);
 
   const inputRef = useRef(null);
   const coverRef = useRef(null);
   const companyToken = useSelector((state) => state.userInfo.token);
-  const navigate = useNavigate();
-
+  const companyProfileData = useSelector((state) => state.profileInfo.data);
 
   const coverClasses =
     cover || coverUrl ? styles.company_old_cover : styles.company_no_cover;
@@ -62,25 +65,20 @@ const CompanyMedia = ({ logo, cover }) => {
     coverRef.current.click();
   };
 
-
-
-  const companyProfileData = useSelector((state) => state.profileInfo.data);
-
   useEffect(() => {
     if (companyProfileData?.coverPhoto) {
-      const profileCoverURL = require(`../../../../backend/uploads/companies/${companyProfileData.coverPhoto}`);
+      const profileCoverURL = `http://127.0.0.1:3000/companies/${companyProfileData.coverPhoto}`;
       setProfileCover(profileCoverURL);
     }
-    if(companyProfileData?.logo)
-    {
-      const profileLogoUrl = require(`../../../../backend/uploads/companies/${companyProfileData.logo}`);
+    if (companyProfileData?.logo) {
+      const profileLogoUrl = `http://127.0.0.1:3000/companies/${companyProfileData.logo}`;
       setProfileLogo(profileLogoUrl);
     }
   }, [companyProfileData]);
-  
+
   const handleSave = async (e) => {
     e.preventDefault();
-    if (imgFile && coverFile) {
+    if (imgFile || coverFile) {
       const formData = new FormData();
       formData.append("logo", imgFile);
       formData.append("coverPhoto", coverFile);
@@ -97,17 +95,25 @@ const CompanyMedia = ({ logo, cover }) => {
           }
         );
         console.log(response);
-        navigate("/company-profile");
+        setResponseMessage({title:"Edieted Successfully",content:"your logo and cover updated successfully"})
+        setSuccessResponse(true)
+        setShowResponse(true)
       } catch (error) {
         console.error(error);
+        setResponseMessage({title:"Request Faild",content:"your logo and cover faild to be uploaded please try again"})
+        setSuccessResponse(false)
+        setShowResponse(true)
       }
     }
   };
 
-
-  const edietedImgLogo=imgUrl ? imgUrl : profileLogo?profileLogo:noLogo;
-  const edietedImgCover=coverUrl ? coverUrl : profileCover?profileCover:noCover;
-
+  showResponse&&console.log("k")
+  const edietedImgLogo = imgUrl ? imgUrl : profileLogo ? profileLogo : noLogo;
+  const edietedImgCover = coverUrl
+    ? coverUrl
+    : profileCover
+    ? profileCover
+    : noCover;
 
   return (
     <>
@@ -142,7 +148,7 @@ const CompanyMedia = ({ logo, cover }) => {
             </button>
           </div>
           <span className="mini_word mt-4">
-            maximum size of 5 MB. Logo Recommended aspect ratio of 1:1
+            maximum size of 3 MB. Logo Recommended aspect ratio of 1:1
           </span>
         </div>
 
@@ -207,6 +213,12 @@ const CompanyMedia = ({ logo, cover }) => {
         imgUrl={coverUrl}
         setImgUrl={setCoverUrl}
         setImgFile={setCoverFile}
+      />
+      <FloatingPopup
+      showResponse={showResponse}
+      setShowResponse={setShowResponse}
+      message={responseMessage}
+      success={successResponse}
       />
     </>
   );

@@ -1,0 +1,29 @@
+.popup_container{
+    position: fixed;
+    bottom:1.875rem;
+    right: 0;
+    min-width:25%;
+    min-height: 100px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popupHeaderSuccess{
+    background-color: var(--vanilla);
+    border-top: 3px solid rgb(29, 202, 29);
+}
+.popupHeaderFaild{
+    background-color: var(--vanilla);
+    border-top: 3px solid red;
+}
+
+.success_icon{
+    color: rgb(29, 202, 29);
+    margin-right: 5px;
+    font-size: 16px;
+}
+.faild_icon{
+    color:red;
+    margin-right: 5px;
+    font-size: 16px;
+}

@@ -12,12 +12,7 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import {
-  faBuildingCircleCheck,
-  faClockRotateLeft,
   faEnvelope,
-  faLocationDot,
-  faSquarePhone,
-  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -192,9 +187,8 @@ const CompanyProfileSections = ({
                   {city && country && (
                     <li>
                       <span className={styles.info_title}>
-                        {" "}
-                        <FontAwesomeIcon icon={faLocationDot} /> Location:
-                      </span>{" "}
+                        Location:
+                      </span>
                       <span>
                         {city ? city : ""} {country ? ", " + country : ""}
                       </span>
@@ -203,30 +197,30 @@ const CompanyProfileSections = ({
                   {founded && (
                     <li>
                       <span className={styles.info_title}>
-                        <FontAwesomeIcon icon={faClockRotateLeft} /> Founded:
-                      </span>{" "}
+                      Founded:
+                      </span>
                       <span>{founded}</span>
                     </li>
                   )}
                   <li>
                     <span className={styles.info_title}>
-                      <FontAwesomeIcon icon={faBuildingCircleCheck} /> Industry:
-                    </span>{" "}
+                     Industry:
+                    </span>
                     <span>{companyIndustry}</span>
                   </li>
                   {size && (
                     <li>
                       <span className={styles.info_title}>
-                        <FontAwesomeIcon icon={faUsers} /> Company size:
-                      </span>{" "}
-                      <span>{size}</span>
+                       Company size:
+                      </span>
+                      <span>{size} employee</span>
                     </li>
                   )}
                   {phone && (
                     <li>
                       <span className={styles.info_title}>
-                        <FontAwesomeIcon icon={faUsers} /> Phone Number:
-                      </span>{" "}
+                     Phone Number:
+                      </span>
                       <span>{phone}</span>
                     </li>
                   )}
@@ -234,8 +228,8 @@ const CompanyProfileSections = ({
                 {(linkedin || facebook || youtube || website || twitter|| behance || instagram)&&
                       <li>
                       <span className={styles.info_title}>
-                        <FontAwesomeIcon icon={faSquarePhone} /> Contact links:
-                      </span>{" "}
+                       Contact links:
+                      </span>
                       <div className={`${styles.contact_icons}`}>
                         {linkedin && (
                           <Link to={linkedin} target={"_blank"}>

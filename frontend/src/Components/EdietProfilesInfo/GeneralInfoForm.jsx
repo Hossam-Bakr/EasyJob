@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./EdietInfoForm.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -8,35 +8,73 @@ import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Loading from "../Ui/Loading";
+import FloatingPopup from "../Ui/FloatingPopup";
 
 const GeneralInfoForm = ({ data }) => {
-  const currentCountry = data.country || "";
-  const currentCity = data.city || "";
-  const currentSize = data.size || "";
-  const currentFounded = data.founded || "";
-  const currentDescription = data.desc || "";
-  const currentLocation = data.location || {
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
+
+  const [currentCountry, setCurrentCountry] = useState("");
+  const [currentCity, setCurrentCity] = useState("");
+  const [currentSize, setCurrentSize] = useState("");
+  const [currentFounded, setCurrentFounded] = useState("");
+  const [currentDescription, setCurrentDescription] = useState("");
+  const [currentLocation, setCurrentLocation] = useState({
     type: "Point",
     coordinates: [0, 0],
-  };
+  });
+
+  useEffect(() => {
+    if (data) {
+      setCurrentCountry(data.country || "");
+      setCurrentCity(data.city || "");
+      setCurrentSize(data.size || "");
+      setCurrentFounded(data.founded || "");
+      setCurrentDescription(data.desc || "");
+      setCurrentLocation(
+        data.location || {
+          type: "Point",
+          coordinates: [0, 0],
+        }
+      );
+    }
+  }, [data]);
 
   const companyToken = useSelector((state) => state.userInfo.token);
-  const navigate = useNavigate();
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
     onSuccess: (data) => {
       if (data.data.status === "success") {
         console.log(data);
-        navigate("/company-profile");
+        setResponseMessage({
+          title: "Edieted Successfully",
+          content: "your Information updated successfully",
+        });
+        setSuccessResponse(true);
+        setShowResponse(true);
       } else {
-        alert("something went wronge please try again");
+        setResponseMessage({
+          title: "Request Faild",
+          content: "your data faild to be uploaded please try again",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
       }
     },
     onError: (error) => {
       console.log(error);
+      setResponseMessage({
+        title: "Request Faild",
+        content: "your data faild to be uploaded please try again",
+      });
+      setSuccessResponse(false);
+      setShowResponse(true);
     },
   });
 
@@ -50,12 +88,30 @@ const GeneralInfoForm = ({ data }) => {
   };
 
   const onSubmit = (values) => {
-    mutate({ type: "info", formData: values, companyToken: companyToken });
+    const updatedValues = {
+      country: values.country !== "" ? values.country : currentCountry,
+      city: values.city !== "" ? values.city : currentCity,
+      size: values.size !== "" ? values.size : currentSize,
+      foundedYear:
+        values.foundedYear !== "" ? values.foundedYear : currentFounded,
+      description:
+        values.description !== "" ? values.description : currentDescription,
+      location: values.location !== "" ? values.location : currentLocation,
+    };
+    mutate({
+      type: "info",
+      formData: updatedValues,
+      companyToken: companyToken,
+    });
   };
 
   const validationSchema = object({
-    country: string().matches(/^[A-Z]+/, "Country Start With Capital letter"),
-    city: string().matches(/^[A-Z]+/, "Country Start With Capital letter"),
+    country: string()
+      .matches(/^[A-Z]+/, "Country Start With Capital letter")
+      .required("country is required"),
+    city: string()
+      .matches(/^[A-Z]+/, "Country Start With Capital letter")
+      .required("country is required"),
     foundedYear: string()
       .matches(/^[1-9][0-9]{3}$/, "Invalid year format")
       .test("future-year", "Future year not allowed", function (value) {
@@ -76,6 +132,7 @@ const GeneralInfoForm = ({ data }) => {
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={validationSchema}
+          enableReinitialize
         >
           <Form className={styles.general_info_form}>
             <div className={styles.field}>
@@ -116,9 +173,9 @@ const GeneralInfoForm = ({ data }) => {
                 <label htmlFor="companyCountry">Country</label>
                 <Field
                   type="text"
-                  placeholder={currentCountry}
                   id="companyCountry"
                   name="country"
+                  placeholder={currentCountry}
                   className={data.country ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="country" component={InputErrorMessage} />
@@ -169,7 +226,7 @@ const GeneralInfoForm = ({ data }) => {
             <div className={`${styles.field} ${styles.text_area_desc}`}>
               <Field
                 as="textarea"
-                placeholder={currentDescription || "description"}
+                placeholder={currentDescription}
                 id="description"
                 name="description"
                 cols="30"
@@ -206,19 +263,14 @@ const GeneralInfoForm = ({ data }) => {
       ) : (
         <Loading />
       )}
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };
 
 export default GeneralInfoForm;
-
-// {/* <div className={styles.field}>
-// <label htmlFor="companyPhone">Phone</label>
-// <Field
-//   type="tel"
-//   placeholder={data.phone}
-//   id="companyPhone"
-//   name="companyPhone"
-// />
-// <ErrorMessage name="companyPhone" component={InputErrorMessage} />
-// </div> */}

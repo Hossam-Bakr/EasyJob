@@ -14,20 +14,22 @@ const CompanyProfile = () => {
   const companyProfileData = useSelector((state) => state.profileInfo.data);
   const [profileCover, setProfileCover] = useState(null);
   const [profileLogo, setProfileLogo] = useState(null);
-
+  
   useEffect(() => {
     if (companyProfileData?.coverPhoto) {
-      const coverPhotoURL = require(`../../../../backend/uploads/companies/${companyProfileData.coverPhoto}`).default;
+      const coverPhotoURL = `http://127.0.0.1:3000/companies/${companyProfileData.coverPhoto}`;
       setProfileCover(coverPhotoURL);
     }
 
     if (companyProfileData?.logo) {
-      const logoURL = require(`../../../../backend/uploads/companies/${companyProfileData.logo}`).default;
+      const logoURL =`http://127.0.0.1:3000/companies/${companyProfileData.logo}`;
       setProfileLogo(logoURL);
     }
   }, [companyProfileData]);
+
+
   return (
-    
+  
     <>
       {companyProfileData ? (
         <>

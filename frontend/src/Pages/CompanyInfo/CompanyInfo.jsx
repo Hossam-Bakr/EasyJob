@@ -104,6 +104,7 @@ const CompanyInfo = () => {
             vimeo={vimeo}
           />
         </Tab>
+        
       </Tabs>
     </Container>
   );

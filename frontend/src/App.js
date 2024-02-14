@@ -30,6 +30,7 @@ import MyTest from "./Components/Test/MyTest";
 import MainError from "./Pages/Error/MainError";
 import fetchProfileData from "./Store/profileInfo-actions";
 import SuperAdminDashboard from "./Pages/Dashboards/SuperAdmin/SuperAdminDashboard";
+import CompanyAccountSetting from "./Pages/AccountSetting/CompanyAccountSetting";
 
 
 
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
       { path: "company-info", element: <CompanyInfo /> },
       { path: "company-admins", element: <CompanyAdmins /> },
       { path: "company-dashboard", element: <CompanyDashboard /> },
+      { path: "company-account-setting", element: <CompanyAccountSetting /> },
       { path: "login", element: <Login /> },
       { path: "user-register", element: <Register /> },
       { path: "company-register", element: <CompanyRegister />},
@@ -93,8 +95,6 @@ function App() {
     }
     dispatch(getisLoginState())
   },[dispatch]);
-
-
 
 
 

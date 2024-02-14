@@ -1,13 +1,13 @@
 .field{
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     width: 100%;
     position: relative;
 }
 .field label{
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 0.3125rem;
 }
 .disabled_faild{
     color: var(--dark_white);
@@ -28,28 +28,29 @@
     padding: 0.625rem 0.9375rem;
     border-radius: 0.9375rem;
     font-weight: 700;
+    min-width: 6.875rem;
     transition:all .3s;
 }
 .save_btn:hover{
     background-color: rgb(9, 75, 161);
-    transform: translateX(5px);
+    transform: translateX(0.3125rem);
 }
 .empty_field{
-    border: 1px solid rgb(165, 165, 165)
+    border: 0.0625rem solid rgb(165, 165, 165)
 }
 .text_area_desc{
     width: 100%;
-    margin-top: 10px;
+    margin-top: 0.625rem;
 }
 .text_area_desc textarea{
-    border-radius: 10px;
+    border-radius: 0.625rem;
     width: 100%;
-    padding: 10px;
+    padding: 0.625rem;
     outline: none;
-    border: 1px solid rgb(162, 162, 162);
+    border: 0.0625rem solid rgb(162, 162, 162);
 }
 
-@media screen and (max-width:250px) {
+@media screen and (max-width:15.625rem) {
     .collection{
         flex-wrap: wrap;
     } 

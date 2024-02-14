@@ -1,0 +1,34 @@
+.setting_form_container{
+    margin-bottom: 40px;
+    background-color: var(--vanilla);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    width: 70%;
+}
+.title{
+    font-size: 25px;
+    color: var(--font_color);
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.input_faild{
+margin-bottom: 30px;
+display: flex;
+flex-direction: column;
+position: relative;
+}
+
+.input_faild label{
+    margin-bottom: 10px;
+    color: var(--font_color);
+    font-weight: 700;
+}
+
+.save_btn{
+    background-color: var(--darker_main_color);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+}

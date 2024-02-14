@@ -67,15 +67,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.284);
-    border: 1px solid var(--main_color);
-
 }
 
 .company_old_cover label{
     width: 100%;
     border-radius: 10px;
     margin:0;
+    padding: 0;
     overflow: hidden;
     cursor: pointer;
 }
@@ -97,6 +95,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.284);
+    border: 1px solid var(--main_color);
 }
 .company_no_cover label img{
     width: 18.75rem;

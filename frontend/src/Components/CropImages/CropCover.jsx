@@ -57,7 +57,7 @@ const CropCover = ({ onHide, show, imgUrl, setImgUrl, setImgFile }) => {
         crop={crop}
         rotation={rotation}
         zoom={zoom}
-        aspect={2000 / 600}
+        aspect={2000 / 625}
         onCropChange={setCrop}
         onZoomChange={setZoom}
         onRotationChange={setRotation}
