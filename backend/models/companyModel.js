@@ -51,6 +51,7 @@ const Company = sequelize.define(
         }
       },
     },
+    paranoid: true,
   }
 );
 

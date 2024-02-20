@@ -50,6 +50,7 @@ const User = sequelize.define(
         }
       },
     },
+    paranoid: true,
   }
 );
 

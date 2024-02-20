@@ -1,4 +1,4 @@
-const { check , body } = require("express-validator");
+const { check, body } = require("express-validator");
 const validatorError = require("./validationError");
 const bcrypt = require("bcryptjs");
 
@@ -126,7 +126,6 @@ exports.updateCompanyLinksValidator = [
   validatorError,
 ];
 
-
 const commonPasswords = [
   "Password_123",
   "Abc_1234",
@@ -140,17 +139,15 @@ exports.changePasswordValidator = [
     .withMessage("You must provide your current password"),
   body("new_password")
     .notEmpty()
-    .withMessage("You must provide your new password")
-    .isLength({ min: 8, max: 20 })
-    .withMessage("Password must be 8-20 characters long")
-    .matches(/[A-Z]/)
-    .withMessage("Password must include at least one uppercase letter")
+    .withMessage("Password is required")
+    .isLength({ min: 5 })
+    .withMessage("Password must be at least 5 characters")
     .matches(/\d/)
-    .withMessage("Password must include at least one number")
-    .matches(/[@#_&!$%^*()\-+=]/)
-    .withMessage(
-      "Password must include at least one special character (@, #, _, &, !, $, %, ^, *, (, ), -, +, =)"
-    )
+    .withMessage("Password must contain a number")
+    .matches(/[a-z]/)
+    .withMessage("Password must contain a lowercase letter")
+    .matches(/[A-Z]/)
+    .withMessage("Password must contain an uppercase letter")
     .custom((value) => !commonPasswords.includes(value))
     .withMessage("Password is too common. Please try another."),
 

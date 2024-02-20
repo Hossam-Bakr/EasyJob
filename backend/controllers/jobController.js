@@ -113,13 +113,15 @@ exports.deleteJob = catchAsync(async (req, res) => {
 });
 
 exports.getLatestJob = catchAsync(async (req, res) => {
-  const _limit = Number(req.params.limit)  ; 
+  const _limit = Number(req.params.limit);
   const latestJobs = await Job.findAll({
-    limit:_limit ,
+    limit: _limit,
     order: [["createdAt", "DESC"]],
   });
   if (!latestJobs.length) {
-    return res.status(404).json({ msg: "there is no jobs yet", latestJobs });
+    return res
+      .status(404)
+      .json({ message: "there is no jobs yet", latestJobs });
   }
   res.status(200).json({ status: "success", latestJobs });
 });

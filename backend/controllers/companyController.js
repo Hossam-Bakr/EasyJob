@@ -143,20 +143,21 @@ exports.updateOnlinePresence = catchAsync(async (req, res) => {
 });
 
 // change password Of company
-exports.changePassword = catchAsync(async (req, res)=> {
-  const company = req.company  ; 
+exports.changePassword = catchAsync(async (req, res) => {
+  const company = req.company;
   company.password = req.body.new_password;
-  await company.save() ; 
-  res.status(200).json({status : "success" , companyData : company}) 
-})
+  await company.save();
+  res.status(200).json({ status: "success", companyData: company });
+});
 
-
-exports.deleteUserAccount = catchAsync(async (req, res)=> {
+exports.deleteUserAccount = catchAsync(async (req, res) => {
   if (!req.company) {
     throw new Error("company not found");
   }
   const deleted = await req.company.destroy();
   if (deleted) {
-    return res.status(401).json({status : "success" , msg : "company account deleted."});
+    return res
+      .status(401)
+      .json({ status: "success", message: "company account deactivated" });
   }
-})
+});
