@@ -11,6 +11,8 @@ const {
   updateCompanyLinksValidator,
 } = require("../utils/validators/companyValidator");
 
+const {changePasswordValidator} = require("../utils/validators/companyValidator");
+
 router.use(authController.protect, authController.restrictTo("company"));
 
 router.route("/profile").get(companyController.getCompanyProfile);
@@ -31,5 +33,8 @@ router.patch(
 );
 
 router.get("/:companyId/candidates", getCandidatesByCompanyCategories);
+
+router.patch('/changePassword' ,   changePasswordValidator , companyController.changePassword )
+router.delete('/delete-account'  , companyController.deleteUserAccount )
 
 module.exports = router;

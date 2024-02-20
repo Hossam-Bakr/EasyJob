@@ -60,9 +60,6 @@ exports.createJob = catchAsync(async (req, res) => {
   });
 });
 
-
-
-
 exports.updateJob = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.id);
 
@@ -113,4 +110,16 @@ exports.deleteJob = catchAsync(async (req, res) => {
     status: "success",
     data: null,
   });
+});
+
+exports.getLatestJob = catchAsync(async (req, res) => {
+  const _limit = Number(req.params.limit)  ; 
+  const latestJobs = await Job.findAll({
+    limit:_limit ,
+    order: [["createdAt", "DESC"]],
+  });
+  if (!latestJobs.length) {
+    return res.status(404).json({ msg: "there is no jobs yet", latestJobs });
+  }
+  res.status(200).json({ status: "success", latestJobs });
 });

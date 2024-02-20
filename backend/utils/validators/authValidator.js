@@ -23,17 +23,36 @@ exports.userSignupValidator = [
     .withMessage("Must be a valid email address")
     .normalizeEmail(),
 
+  // check("password")
+  //   .notEmpty()
+  //   .withMessage("Password is required")
+  //   .isLength({ min: 5 })
+  //   .withMessage("Password must be at least 5 characters")
+  //   .matches(/\d/)
+  //   .withMessage("Password must contain a number")
+  //   .matches(/[a-z]/)
+  //   .withMessage("Password must contain a lowercase letter")
+  //   .matches(/[A-Z]/)
+  //   .withMessage("Password must contain a uppercase letter"),
+
+  // @desc -- Password must be 8-20 characters long,
+  //          include at least one uppercase letter, one number,
+  //          and one special character (@, #, _, &)
   check("password")
     .notEmpty()
     .withMessage("Password is required")
-    .isLength({ min: 5 })
-    .withMessage("Password must be at least 5 characters")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Password must be 8-20 characters long")
     .matches(/\d/)
     .withMessage("Password must contain a number")
     .matches(/[a-z]/)
     .withMessage("Password must contain a lowercase letter")
     .matches(/[A-Z]/)
-    .withMessage("Password must contain a uppercase letter"),
+    .withMessage("Password must contain an uppercase letter")
+    .matches(/[@#_&!$%^*()\-+=]/)
+    .withMessage(
+      "Password must include at least one special character (@, #, _, &, !, $, %, ^, *, (, ), -, +, =)"
+    ),
 
   check("role").isEmpty().withMessage("Role is not allowed"),
 
@@ -54,17 +73,36 @@ exports.companySignupValidator = [
     .isEmail()
     .withMessage("Must be a valid email address"),
 
+  // @desc -- Password must be 8-20 characters long,
+  //          include at least one uppercase letter, one number,
+  //          and one special character (@, #, _, &)
   check("password")
     .notEmpty()
     .withMessage("Password is required")
-    .isLength({ min: 5 })
-    .withMessage("Password must be at least 5 characters")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Password must be 8-20 characters long")
     .matches(/\d/)
     .withMessage("Password must contain a number")
     .matches(/[a-z]/)
     .withMessage("Password must contain a lowercase letter")
     .matches(/[A-Z]/)
-    .withMessage("Password must contain a uppercase letter"),
+    .withMessage("Password must contain an uppercase letter")
+    .matches(/[@#_&!$%^*()\-+=]/)
+    .withMessage(
+      "Password must include at least one special character (@, #, _, &, !, $, %, ^, *, (, ), -, +, =)"
+    ),
+
+  // check("password")
+  //   .notEmpty()
+  //   .withMessage("Password is required")
+  //   .isLength({ min: 5 })
+  //   .withMessage("Password must be at least 5 characters")
+  //   .matches(/\d/)
+  //   .withMessage("Password must contain a number")
+  //   .matches(/[a-z]/)
+  //   .withMessage("Password must contain a lowercase letter")
+  //   .matches(/[A-Z]/)
+  //   .withMessage("Password must contain a uppercase letter"),
 
   check("phone")
     .notEmpty()

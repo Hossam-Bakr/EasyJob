@@ -96,4 +96,8 @@ router.patch(
   userController.updateOnlinePresence
 );
 
+router.patch('/changePassword' ,   userValidator.changePasswordValidator , userController.changePassword )
+router.delete('/delete-account' , userController.deleteUserAccount )
+
+
 module.exports = router;

@@ -1,5 +1,6 @@
-const { check } = require("express-validator");
+const { check, body } = require("express-validator");
 const validatorError = require("./validationError");
+const bcrypt = require("bcryptjs");
 
 exports.updateUserInfoValidator = [
   check("birthDate")
@@ -647,5 +648,66 @@ exports.updateOnlinePresenceValidator = [
     .withMessage("Please provide valid other URL")
     .trim(),
 
+  validatorError,
+];
+
+const commonPasswords = [
+  "Password_123",
+  "Abc_1234",
+  "Welcome_123",
+  "Admin_123",
+  "User_123",
+];
+
+exports.changePasswordValidator = [
+  body("current_password")
+    .notEmpty()
+    .withMessage("You must provide your current password"),
+  body("new_password")
+    .notEmpty()
+    .withMessage("You must provide your new password")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Password must be 8-20 characters long")
+    .matches(/[A-Z]/)
+    .withMessage("Password must include at least one uppercase letter")
+    .matches(/\d/)
+    .withMessage("Password must include at least one number")
+    .matches(/[@#_&!$%^*()\-+=]/)
+    .withMessage(
+      "Password must include at least one special character (@, #, _, &, !, $, %, ^, *, (, ), -, +, =)"
+    )
+    .custom((value) => !commonPasswords.includes(value))
+    .withMessage("Password is too common. Please try another."),
+
+  body("confirm_new_password")
+    .notEmpty()
+    .withMessage("You must confirm your new password")
+    .custom(async (val, { req }) => {
+      if (
+        req.body.current_password === req.body.new_password &&
+        req.body.new_password === val
+      ) {
+        throw new Error(
+          "New password is already in use, please try another password"
+        );
+      }
+      const user = req.user;
+      if (!user) {
+        throw new Error("You are not authenticated");
+      }
+
+      const isCorrectPassword = await bcrypt.compare(
+        req.body.current_password,
+        user.password
+      );
+      if (!isCorrectPassword) {
+        throw new Error("The current password is incorrect");
+      }
+
+      if (req.body.new_password !== val) {
+        throw new Error("Password confirmation is incorrect");
+      }
+      return true;
+    }),
   validatorError,
 ];

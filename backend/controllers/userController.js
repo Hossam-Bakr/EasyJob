@@ -5,6 +5,9 @@ const Certification = require("../models/certificationModel");
 const sharp = require("sharp");
 const { uploadMixOfImages } = require("../utils/uploadImage");
 const catchAsync = require("../utils/catchAsync");
+const User = require("../models/userModel");
+const bcrypt = require("bcryptjs");
+
 
 exports.uploadUserProfileMedia = uploadMixOfImages([
   { name: "avatar", maxCount: 1 },
@@ -503,3 +506,22 @@ exports.updateOnlinePresence = catchAsync(async (req, res) => {
     },
   });
 });
+
+
+// change password Of user
+exports.changePassword = catchAsync(async (req, res)=> {
+  const user = req.user ; 
+  user.password = req.body.new_password;
+  await user.save() ; 
+  res.status(200).json({status : "success" , userData : user}) 
+})
+
+exports.deleteUserAccount = catchAsync(async (req, res)=> {
+  if (!req.user) {
+    throw new Error("User not found");
+  }
+  const deleted = await req.user.destroy();
+  if (deleted) {
+    return res.status(401).json({status : "success" , msg : "User account deleted."});
+  }
+})
