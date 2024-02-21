@@ -3,7 +3,7 @@ const router = express.Router();
 
 const authController = require("../controllers/authController");
 const industryController = require("../controllers/industryController");
-// const industryValidator = require("../utils/validators/industryValidator");
+const industryValidator = require("../utils/validators/industryValidator");
 
 router.get("/", industryController.getAllIndustries);
 router.get("/:id", industryController.getIndustry);
@@ -13,14 +13,14 @@ router.use(authController.protect, authController.restrictTo("admin"));
 
 router.post(
   "/",
-  // industryValidator.createIndustryValidator,
+  industryValidator.createIndustryValidator,
   industryController.createIndustry
 );
 
 router
   .route("/:id")
   .put(
-    // industryValidator.updateIndustryValidator,
+    industryValidator.updateIndustryValidator,
     industryController.updateIndustry
   )
   .delete(industryController.deleteIndustry);
