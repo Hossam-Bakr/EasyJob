@@ -507,7 +507,7 @@ exports.updateOnlinePresence = catchAsync(async (req, res) => {
 // change password Of user
 exports.changePassword = catchAsync(async (req, res) => {
   const user = req.user;
-  user.password = req.body.new_password;
+  user.password = req.body.newPassword;
   await user.save();
   res.status(200).json({ status: "success", userData: user });
 });

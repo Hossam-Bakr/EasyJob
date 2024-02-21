@@ -145,7 +145,7 @@ exports.updateOnlinePresence = catchAsync(async (req, res) => {
 // change password Of company
 exports.changePassword = catchAsync(async (req, res) => {
   const company = req.company;
-  company.password = req.body.new_password;
+  company.password = req.body.newPassword;
   await company.save();
   res.status(200).json({ status: "success", companyData: company });
 });

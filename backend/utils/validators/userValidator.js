@@ -660,10 +660,11 @@ const commonPasswords = [
 ];
 
 exports.changePasswordValidator = [
-  body("current_password")
+  body("currentPassword")
     .notEmpty()
     .withMessage("You must provide your current password"),
-  body("new_password")
+
+  body("newPassword")
     .notEmpty()
     .withMessage("Password is required")
     .isLength({ min: 5 })
@@ -677,13 +678,13 @@ exports.changePasswordValidator = [
     .custom((value) => !commonPasswords.includes(value))
     .withMessage("Password is too common. Please try another."),
 
-  body("confirm_new_password")
+  body("confirmNewPassword")
     .notEmpty()
     .withMessage("You must confirm your new password")
     .custom(async (val, { req }) => {
       if (
-        req.body.current_password === req.body.new_password &&
-        req.body.new_password === val
+        req.body.currentPassword === req.body.newPassword &&
+        req.body.newPassword === val
       ) {
         throw new Error(
           "New password is already in use, please try another password"
@@ -695,14 +696,14 @@ exports.changePasswordValidator = [
       }
 
       const isCorrectPassword = await bcrypt.compare(
-        req.body.current_password,
+        req.body.currentPassword,
         user.password
       );
       if (!isCorrectPassword) {
         throw new Error("The current password is incorrect");
       }
 
-      if (req.body.new_password !== val) {
+      if (req.body.newPassword !== val) {
         throw new Error("Password confirmation is incorrect");
       }
       return true;
