@@ -1,5 +1,6 @@
 const authRouter = require("./authRoutes");
 const jobRouter = require("./jobRoutes");
+const industryRouter = require("./industryRoutes");
 const categoryRouter = require("./categoryRoutes");
 const skillRouter = require("./skillRoutes");
 const companyRouter = require("./companyRoutes");
@@ -9,6 +10,7 @@ const specificTasksRouter = require("./specificTasksRoutes");
 const mountRoutes = (app) => {
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/jobs", jobRouter);
+  app.use("/api/v1/industries", industryRouter);
   app.use("/api/v1/categories", categoryRouter);
   app.use("/api/v1/skills", skillRouter);
   app.use("/api/v1/users", userRouter);
