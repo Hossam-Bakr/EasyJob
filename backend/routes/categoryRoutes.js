@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const authController = require("../controllers/authController");
 const categoryController = require("../controllers/categoryController");
@@ -13,6 +13,7 @@ router.use(authController.protect, authController.restrictTo("admin"));
 
 router.post(
   "/",
+  categoryController.setIndustryId,
   categoryValidator.createCategoryValidator,
   categoryController.createCategory
 );
