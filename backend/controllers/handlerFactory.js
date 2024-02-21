@@ -2,7 +2,6 @@ const catchAsync = require("./../utils/catchAsync");
 const ApiError = require("./../utils/ApiError");
 const { Op } = require("sequelize");
 
-
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const row = await Model.findByPk(req.params.id);
@@ -10,13 +9,12 @@ exports.deleteOne = (Model) =>
     if (!row) {
       return next(new ApiError("No document found with that ID", 404));
     }
-    await row.destroy(); 
+    await row.destroy();
     res.status(202).json({
       status: "success",
       data: null,
     });
   });
-
 
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -29,18 +27,16 @@ exports.updateOne = (Model) =>
     const updatedDoc = await doc.update(req.body);
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
-        data: updatedDoc 
-      }
+        data: updatedDoc,
+      },
     });
   });
 
-
-
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    console.log('from create method')
+    console.log("from create method");
     const doc = await Model.create(req.body);
 
     res.status(201).json({
@@ -50,7 +46,6 @@ exports.createOne = (Model) =>
       },
     });
   });
-
 
 exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
@@ -69,11 +64,10 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-
-
-  exports.getAll = (Model) =>
+exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
+    if (req.params.industryId) filter = { industryId: req.params.industryId };
 
     const { page = 1, limit = 100, sort, fields, keyword } = req.query;
 
