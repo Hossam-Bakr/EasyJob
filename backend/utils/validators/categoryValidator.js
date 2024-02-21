@@ -13,6 +13,12 @@ exports.createCategoryValidator = [
       return true;
     }),
 
+  check("IndustryId")
+    .notEmpty()
+    .withMessage("Category must belong to an industry")
+    .isInt()
+    .withMessage("Industry id must be an integer"),
+
   validatorError,
 ];
 
@@ -27,6 +33,12 @@ exports.updateCategoryValidator = [
       }
       return true;
     }),
+
+  check("IndustryId")
+    .notEmpty()
+    .withMessage("Category must belong to an industry")
+    .isInt()
+    .withMessage("Industry id must be an integer"),
 
   validatorError,
 ];
