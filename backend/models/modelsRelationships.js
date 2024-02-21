@@ -8,6 +8,7 @@ const PricingPlan = require("./pricingPlanModel");
 const Interview = require("./interviewModel");
 const UserProfile = require("./userProfileModel");
 const CompanyProfile = require("./companyProfileModel");
+const Industry = require("./industryModel");
 const Category = require("./categoryModel");
 const Question = require("./questionModel");
 const Answer = require("./answerModel");
@@ -15,6 +16,7 @@ const Certification = require("./certificationModel");
 const Education = require("./educationModel");
 const Experience = require("./experienceModel");
 const JobCategory = require("./jobCategoryModel");
+const CompanyCategory = require("./companyCategoryModel");
 const UserSkill = require("./userSkillModel");
 const RequiredSkill = require("./requiredSkillModel");
 const SavedJob = require("./savedJobModel");
@@ -51,8 +53,11 @@ const defineDBRelationships = () => {
   Application.hasMany(Answer, cascadeOptions);
   Answer.belongsTo(Application);
 
-  Category.hasMany(Company, { foreignKey: "industry" });
-  Company.belongsTo(Category, { foreignKey: "industry", as: "Industry" });
+  Industry.hasMany(Category, cascadeOptions);
+  Category.belongsTo(Industry);
+
+  Industry.hasMany(Company, cascadeOptions);
+  Company.belongsTo(Industry);
 
   UserProfile.hasMany(Certification, cascadeOptions);
   Certification.belongsTo(UserProfile);
@@ -79,6 +84,9 @@ const defineDBRelationships = () => {
 
   Job.belongsToMany(Category, { through: JobCategory });
   Category.belongsToMany(Job, { through: JobCategory });
+
+  Company.belongsToMany(Category, { through: CompanyCategory });
+  Category.belongsToMany(Company, { through: CompanyCategory });
 
   // 1:1
 
