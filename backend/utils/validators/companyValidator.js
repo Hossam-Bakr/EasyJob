@@ -126,6 +126,32 @@ exports.updateCompanyLinksValidator = [
   validatorError,
 ];
 
+exports.updateSpecializationsValidator = [
+  body("specializations")
+    .notEmpty()
+    .withMessage("Please provide specializations")
+    .isArray()
+    .withMessage("Specializations must be an array")
+    .custom((value) => {
+      if (value.length === 0) {
+        return Promise.reject("Specializations cannot be empty");
+      }
+
+      return true;
+    })
+    .custom((value) => {
+      for (const id of value) {
+        if (isNaN(id) || id < 1) {
+          return Promise.reject("Invalid specialization id");
+        }
+      }
+
+      return true;
+    }),
+
+  validatorError,
+];
+
 const commonPasswords = [
   "Password_123",
   "Abc_1234",
