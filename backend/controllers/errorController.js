@@ -19,6 +19,9 @@ const handleSequelizeDataTruncation = (err) => {
   );
 };
 
+const handleSequelizeFKReferenceError = (err) =>
+  new ApiError(`Invalid input data. Please provide a valid input`, 400);
+
 const handleJWTError = () =>
   new ApiError("Invalid token. Please log in again!", 401);
 
@@ -81,6 +84,11 @@ module.exports = (err, req, res, next) => {
       error.parent.code === "WARN_DATA_TRUNCATED"
     )
       error = handleSequelizeDataTruncation(error);
+    if (
+      error.name === "SequelizeForeignKeyConstraintError" &&
+      error.parent.code === "ER_NO_REFERENCED_ROW_2"
+    )
+      error = handleSequelizeFKReferenceError(error);
     if (error.name === "JsonWebTokenError") error = handleJWTError();
     if (error.name === "TokenExpiredError") error = handleJWTExpiredError();
 
