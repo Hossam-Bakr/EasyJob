@@ -73,7 +73,7 @@ exports.companySignupValidator = [
     .withMessage("Must be a valid phone number")
     .trim(),
 
-  check("industry")
+  check("industryId")
     .notEmpty()
     .withMessage("Industry is required")
     .isInt()

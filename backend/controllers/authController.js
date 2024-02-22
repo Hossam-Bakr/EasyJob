@@ -35,7 +35,7 @@ exports.companySignup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     phone: req.body.phone,
-    industry: req.body.industry,
+    IndustryId: req.body.industryId,
   });
 
   const companyProfile = await newCompany.createCompanyProfile();

@@ -31,11 +31,6 @@ const Company = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // FK from category
-    industry: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     role: {
       type: DataTypes.ENUM,
       values: ["company"],
