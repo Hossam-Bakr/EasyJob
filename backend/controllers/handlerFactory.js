@@ -64,7 +64,7 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, include = null) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
     if (req.params.industryId) filter = { industryId: req.params.industryId };
@@ -80,6 +80,16 @@ exports.getAll = (Model) =>
       };
     }
 
+    // exclude fields from the filter
+    const excludedFields = ["page", "limit", "sort", "fields", "keyword"];
+    excludedFields.forEach((el) => delete req.query[el]);
+
+    for (const field in req.query) {
+      if (Model.rawAttributes[field]) {
+        filter[field] = req.query[field];
+      }
+    }
+
     const docs = await Model.findAll({
       where: filter,
       // order: sort ? sort.split(",").map((item) => item.split(":")) : [["createdAt", "DESC"]],
@@ -87,6 +97,7 @@ exports.getAll = (Model) =>
       attributes: fields ? fields.split(",") : undefined,
       limit,
       offset: (page - 1) * limit,
+      include,
     });
 
     const documentsCount = await Model.count();
