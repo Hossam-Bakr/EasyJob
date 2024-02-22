@@ -56,7 +56,10 @@ const defineDBRelationships = () => {
   Industry.hasMany(Category, cascadeOptions);
   Category.belongsTo(Industry);
 
-  Industry.hasMany(Company, cascadeOptions);
+  Industry.hasMany(Company, {
+    foreignKey: { allowNull: false },
+    ...cascadeOptions,
+  });
   Company.belongsTo(Industry);
 
   UserProfile.hasMany(Certification, cascadeOptions);
