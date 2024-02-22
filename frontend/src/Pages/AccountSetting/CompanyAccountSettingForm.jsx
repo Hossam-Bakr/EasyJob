@@ -24,7 +24,7 @@ const CompanyAccountSettingForm = () => {
       if (res.status === "success") {
         setResponseMessage({
           title: "Saved Successfully",
-          content: "your logo and cover updated successfully",
+          content: "your Password updated successfully",
         });
         setSuccessResponse(true);
         setShowResponse(true);

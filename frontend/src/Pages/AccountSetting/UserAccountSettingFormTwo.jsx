@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import FloatingPopup from "../../Components/Ui/FloatingPopup";
 import styles from "./CompanyAccountSettingForm.module.css";
-const CompanyAccountSettingFormTwo = () => {
+
+const UserAccountSettingFormTwo = () => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
@@ -63,7 +64,6 @@ const CompanyAccountSettingFormTwo = () => {
       .email("Email not valid")
       .required("Email is required"),
   });
-
   return (
     <>
       <Formik
@@ -113,4 +113,4 @@ const CompanyAccountSettingFormTwo = () => {
   );
 };
 
-export default CompanyAccountSettingFormTwo;
+export default UserAccountSettingFormTwo;

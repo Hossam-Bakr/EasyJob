@@ -25,7 +25,6 @@ const fetchProfileData = (token, type) => {
             console.error("Error fetching data:", error);
           }
     }
-
 };
 
 export default fetchProfileData;

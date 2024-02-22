@@ -4,7 +4,6 @@ const baseServerUrl = "http://127.0.0.1:3000/api/v1/";
 const signFormsHandler = async ({ type, formData }) => {
   try {
     const response = await axios.post(`${baseServerUrl}auth/${type}`, formData);
-
     return response;
   } catch (error) {
     if (error.response) {
