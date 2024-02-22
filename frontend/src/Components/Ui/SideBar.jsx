@@ -178,12 +178,15 @@ const SideBar = ({ onClose, show }) => {
                   {role === "user" ? (
                     <>
                       {/* logged in and user */}
-                      <li className={styles.contact_list_item}   onClick={handleClose}>
+                      <li
+                        className={styles.contact_list_item}
+                        onClick={handleClose}
+                      >
                         Ediet Profile
                         <FontAwesomeIcon
                           className={styles.list_icons}
                           icon={faPencil}
-                        /> 
+                        />
                       </li>
                       <Link to={"saved"}>
                         <li
@@ -217,7 +220,10 @@ const SideBar = ({ onClose, show }) => {
                         />
                       </li>
                       <Link to={"contact"}>
-                        <li className={styles.contact_list_item}   onClick={handleClose}>
+                        <li
+                          className={styles.contact_list_item}
+                          onClick={handleClose}
+                        >
                           Contact Us{" "}
                           <FontAwesomeIcon
                             className={styles.list_icons}
@@ -225,13 +231,18 @@ const SideBar = ({ onClose, show }) => {
                           />
                         </li>
                       </Link>
-                      <li className={styles.contact_list_item}   onClick={handleClose}>
-                        Account Setting{" "}
-                        <FontAwesomeIcon
-                          className={styles.list_icons}
-                          icon={faGears}
-                        />
-                      </li>
+                      <Link to={"user-account-setting"}>
+                        <li
+                          className={styles.contact_list_item}
+                          onClick={handleClose}
+                        >
+                          Account Setting{" "}
+                          <FontAwesomeIcon
+                            className={styles.list_icons}
+                            icon={faGears}
+                          />
+                        </li>
+                      </Link>
                       <li
                         className={styles.contact_list_item}
                         onClick={signOutHandler}
@@ -295,7 +306,10 @@ const SideBar = ({ onClose, show }) => {
                         </li>
                       </Link>
                       <Link to={"contact"}>
-                        <li className={styles.contact_list_item}   onClick={handleClose}>
+                        <li
+                          className={styles.contact_list_item}
+                          onClick={handleClose}
+                        >
                           Contact Us{" "}
                           <FontAwesomeIcon
                             className={styles.list_icons}
@@ -303,7 +317,10 @@ const SideBar = ({ onClose, show }) => {
                           />
                         </li>
                       </Link>
-                      <Link to={"company-account-setting"}   onClick={handleClose}>
+                      <Link
+                        to={"company-account-setting"}
+                        onClick={handleClose}
+                      >
                         <li className={styles.contact_list_item}>
                           Account Setting{" "}
                           <FontAwesomeIcon

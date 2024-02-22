@@ -3,9 +3,10 @@ import SectionMainTitle from './../../Components/Ui/SectionMainTitle';
 import CompanyAccountSettingForm from './CompanyAccountSettingForm';
 import CompanyAccountSettingFormTwo from './CompanyAccountSettingFormTwo';
 
+
 const CompanyAccountSetting = () => {
   return (
-    <div className='my-5'>
+    <div className="position-relative pt-5">
       <SectionMainTitle title="Account Setting"/>
       <div className='p-3 my-3 d-flex align-items-center justify-content-center flex-column'>
         <CompanyAccountSettingForm/>

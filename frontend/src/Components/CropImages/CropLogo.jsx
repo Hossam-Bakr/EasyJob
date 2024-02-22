@@ -5,7 +5,7 @@ import styles from "./CropLogo.module.css";
 import Form from "react-bootstrap/Form";
 import { faCrop } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "react-bootstrap/esm/Button";
+import Button from "react-bootstrap/Button";
 import getCroppedImg from "./CropImage";
 import logo from "../../images/noLogo.jpg";
 import LoadingTwo from "../Ui/LoadingTwo";
