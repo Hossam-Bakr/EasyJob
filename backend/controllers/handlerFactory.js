@@ -10,7 +10,7 @@ exports.deleteOne = (Model) =>
       return next(new ApiError("No document found with that ID", 404));
     }
     await row.destroy();
-    res.status(202).json({
+    res.status(204).json({
       status: "success",
       data: null,
     });
