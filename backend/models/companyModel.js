@@ -38,7 +38,6 @@ const Company = sequelize.define(
     },
   },
   {
-    timestamps: true,
     hooks: {
       beforeSave: async (company) => {
         if (company.changed("password")) {
