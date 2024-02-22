@@ -178,7 +178,7 @@ exports.changePasswordValidator = [
     .custom((value) => !commonPasswords.includes(value))
     .withMessage("Password is too common. Please try another."),
 
-  body("confirm_newPassword")
+  body("confirmNewPassword")
     .notEmpty()
     .withMessage("You must confirm your new password")
     .custom(async (val, { req }) => {
