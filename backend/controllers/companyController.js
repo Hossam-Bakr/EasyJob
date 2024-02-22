@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const Company = require("../models/companyModel");
-const CompanyProfile = require("../models/companyProfileModel");
+const Category = require("../models/categoryModel");
 const sharp = require("sharp");
 const { uploadMixOfImages } = require("../utils/uploadImage");
 const catchAsync = require("../utils/catchAsync");
@@ -12,10 +12,18 @@ exports.uploadCompanyMedia = uploadMixOfImages([
 
 exports.getCompanyProfile = catchAsync(async (req, res) => {
   const companyProfile = await req.company.getCompanyProfile({
-    include: {
-      model: Company,
-      attributes: ["id", "name", "email", "phone", "industry"],
-    },
+    include: [
+      {
+        model: Company,
+        attributes: ["id", "name", "email", "phone", "industryId"],
+      },
+      {
+        model: Category,
+        attributes: ["id", "name"],
+        through: { attributes: [] },
+        as: "specializations",
+      },
+    ],
   });
 
   res.status(200).json({
@@ -133,6 +141,19 @@ exports.updateOnlinePresence = catchAsync(async (req, res) => {
   }
 
   await companyProfile.save();
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      companyProfile,
+    },
+  });
+});
+
+exports.updateSpecializations = catchAsync(async (req, res) => {
+  const companyProfile = await req.company.getCompanyProfile();
+
+  await companyProfile.setSpecializations(req.body.specializations);
 
   res.status(200).json({
     status: "success",
