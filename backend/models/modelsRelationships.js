@@ -16,7 +16,7 @@ const Certification = require("./certificationModel");
 const Education = require("./educationModel");
 const Experience = require("./experienceModel");
 const JobCategory = require("./jobCategoryModel");
-const CompanyCategory = require("./companyCategoryModel");
+const CompanySpecialization = require("./companySpecializationModel");
 const UserSkill = require("./userSkillModel");
 const RequiredSkill = require("./requiredSkillModel");
 const SavedJob = require("./savedJobModel");
@@ -88,8 +88,14 @@ const defineDBRelationships = () => {
   Job.belongsToMany(Category, { through: JobCategory });
   Category.belongsToMany(Job, { through: JobCategory });
 
-  Company.belongsToMany(Category, { through: CompanyCategory });
-  Category.belongsToMany(Company, { through: CompanyCategory });
+  CompanyProfile.belongsToMany(Category, {
+    through: CompanySpecialization,
+    as: "specializations",
+  });
+  Category.belongsToMany(CompanyProfile, {
+    through: CompanySpecialization,
+    as: "specializations",
+  });
 
   // 1:1
 

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const CompanyCategory = sequelize.define("CompanyCategory", {
+const CompanySpecialization = sequelize.define("CompanySpecialization", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -10,4 +10,4 @@ const CompanyCategory = sequelize.define("CompanyCategory", {
   },
 });
 
-module.exports = CompanyCategory;
+module.exports = CompanySpecialization;
