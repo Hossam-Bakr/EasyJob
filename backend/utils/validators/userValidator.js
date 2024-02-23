@@ -3,6 +3,22 @@ const validatorError = require("./validationError");
 const bcrypt = require("bcryptjs");
 
 exports.updateUserInfoValidator = [
+  check("isOPenToWork")
+    .notEmpty()
+    .withMessage("Please provide open to work status")
+    .isBoolean()
+    .withMessage("Please provide valid open to work status")
+    .trim(),
+
+  check("about")
+    .notEmpty()
+    .withMessage("Please provide about")
+    .isString()
+    .withMessage("About must be a string")
+    .isLength({ min: 30, max: 300 })
+    .withMessage("About must be between 30 and 300 characters")
+    .trim(),
+
   check("birthDate")
     .notEmpty()
     .withMessage("Please provide birth date")

@@ -14,6 +14,11 @@ const UserProfile = sequelize.define("UserProfile", {
   coverPhoto: DataTypes.STRING,
 
   // Personal Information
+  isOPenToWork: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
+  about: DataTypes.TEXT,
   birthDate: DataTypes.DATEONLY,
   phone: DataTypes.STRING,
   gender: {
