@@ -3,20 +3,20 @@ const validatorError = require("./validationError");
 const bcrypt = require("bcryptjs");
 
 exports.updateUserInfoValidator = [
-  check("isOPenToWork")
+  check("firstName")
+    .optional()
     .notEmpty()
-    .withMessage("Please provide open to work status")
-    .isBoolean()
-    .withMessage("Please provide valid open to work status")
+    .withMessage("First name is required")
+    .isLength({ min: 3, max: 20 })
+    .withMessage("First name must be between 3 to 20 characters")
     .trim(),
 
-  check("about")
+  check("lastName")
+    .optional()
     .notEmpty()
-    .withMessage("Please provide about")
-    .isString()
-    .withMessage("About must be a string")
-    .isLength({ min: 30, max: 300 })
-    .withMessage("About must be between 30 and 300 characters")
+    .withMessage("Last name is required")
+    .isLength({ min: 3, max: 20 })
+    .withMessage("Last name must be between 3 to 20 characters")
     .trim(),
 
   check("birthDate")
@@ -46,6 +46,12 @@ exports.updateUserInfoValidator = [
     .withMessage("Please provide valid nationality")
     .trim(),
 
+  check("openToWork")
+    .optional()
+    .isBoolean()
+    .withMessage("Please provide valid driving license")
+    .trim(),
+
   check("drivingLicense")
     .optional()
     .isBoolean()
@@ -71,6 +77,13 @@ exports.updateUserInfoValidator = [
     .isString()
     .withMessage("Area must be a string")
     .trim(),
+
+    check("about")
+    .optional()
+    .isString()
+    .withMessage("about must be a string")
+    .trim()
+    .isLength({ min: 45, max: 400 }).withMessage('About description must be between 45 and 250 characters') , 
 
   validatorError,
 ];

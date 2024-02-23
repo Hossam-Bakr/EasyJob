@@ -5,6 +5,7 @@ const Certification = require("../models/certificationModel");
 const sharp = require("sharp");
 const { uploadMixOfImages } = require("../utils/uploadImage");
 const catchAsync = require("../utils/catchAsync");
+const User = require("../models/userModel");
 
 exports.uploadUserProfileMedia = uploadMixOfImages([
   { name: "avatar", maxCount: 1 },
@@ -25,11 +26,25 @@ exports.getUserProfile = catchAsync(async (req, res) => {
       },
     ],
   });
+  const skills = await userProfile.getSkills();
+  const skillsData = skills.map(skill => ({
+    skillName: skill.name, 
+    proficiency: skill.UserSkill.proficiency,
+    yearsOfExperience: skill.UserSkill.yearsOfExperience
+  }));
+
+  const { firstName, lastName, email } = req.user; 
 
   res.status(200).json({
     status: "success",
     data: {
-      userProfile,
+      userProfile, 
+      userInfo: {
+        firstName,
+        lastName,
+        email,
+      },
+      skillsData
     },
   });
 });
@@ -97,10 +112,8 @@ exports.updateUserProfileMedia = catchAsync(async (req, res) => {
 
 exports.updateUserInfo = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
-
+  
   const expectedFields = [
-    "isOPenToWork",
-    "about",
     "birthDate",
     "phone",
     "gender",
@@ -109,11 +122,11 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
     "country",
     "city",
     "area",
+    "about",
+    "openToWork" 
   ];
 
   const requiredFields = [
-    "isOPenToWork",
-    "about",
     "birthDate",
     "phone",
     "nationality",
@@ -136,16 +149,28 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
 
   await userProfile.save();
 
+  if(req.body.firstName || req.body.lastName) {
+    req.user.firstName = req.body.firstName ;  
+    req.user.lastName = req.body.lastName ;  
+    await req.user.save() ;
+  }
+const {firstName, lastName} = req.user ;
+
   res.status(200).json({
     status: "success",
     data: {
       userProfile,
+      userInfo: {
+        firstName,
+        lastName
+      },
     },
   });
 });
 
 exports.updateUserCareerInterests = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
+
 
   const expectedFields = [
     "currentCareerLevel",
