@@ -35,7 +35,7 @@ import UserAccountSetting from "./Pages/AccountSetting/UserAccountSetting";
 import UserInfo from "./Pages/UserInfo/UserInfo";
 
 
-
+//pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
 
 const router = createBrowserRouter([
   {

@@ -51,9 +51,14 @@ button{
 }
 input{
   outline: none;
-  padding: 10px;
+  padding:8px 10px;
   border: 1px solid rgb(180, 180, 180);
-  border-radius: 15px;
+  border-radius: 10px;
+  transition: all .4s;
+}
+input:focus{
+  border: 1px solid var(--main_color);
+  box-shadow: 0 0 5px rgba(0, 110, 255, 0.8);
 }
 label{
   margin-left: 5px;
@@ -120,7 +125,19 @@ ul li{
   color: var(--dark_white) !important;
   font-weight: 700;
 }
-
+select{
+  border: 1px solid rgb(212, 212, 212);
+  padding: 10px;
+  border-radius: 10px;
+}
+/* option{
+  background-color: var(--sky);
+  padding: 10px 0 !important;
+  transition: all .5s;
+}
+option:hover{
+  
+} */
 
 @media screen and (max-width:768px) {
   body,html{

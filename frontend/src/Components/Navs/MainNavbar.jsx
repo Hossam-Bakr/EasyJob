@@ -240,17 +240,6 @@ const MainNavbar = () => {
               CATEGORIES
             </NavLink>
           </li>
-          <li className={`${styles.special_hidden} mx-4`}>
-                  <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"contact"}
-              >
-                CONTACT US
-              </NavLink>
-            </li>
-          
                 </>
               ) : (
                 <>

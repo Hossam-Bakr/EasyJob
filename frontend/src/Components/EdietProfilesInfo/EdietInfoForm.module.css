@@ -50,7 +50,13 @@
     outline: none;
     border: 0.0625rem solid rgb(162, 162, 162);
 }
-
+.user_general_info .field{
+    margin-bottom: 30px;
+}
+.gender_title{
+    font-size: 20px;
+    font-weight: 700;
+}
 @media screen and (max-width:15.625rem) {
     .collection{
         flex-wrap: wrap;

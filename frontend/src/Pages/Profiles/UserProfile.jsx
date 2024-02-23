@@ -8,6 +8,7 @@ import Loading from "../../Components/Ui/Loading";
 
 const UserProfile = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
+  const userProfileMainData = useSelector((state) => state.profileInfo.mainData);
   const [profileCover, setProfileCover] = useState(null);
   const [profileAvatar, setProfileAvatar] = useState(null);
 
@@ -33,7 +34,8 @@ const UserProfile = () => {
               <ProfileHeader
                 cover={profileCover}
                 pic={profileAvatar}
-                // name={userProfileData.name}
+                firstName={userProfileMainData.firstName}
+                lastName={userProfileMainData.lastName}
                 city={userProfileData.city}
                 country={userProfileData.country}
                 gender={userProfileData.gender}
@@ -48,7 +50,7 @@ const UserProfile = () => {
             </div>
             <ProfileSections
               phone={userProfileData.phone}
-              // email={userProfileData.}
+              email={userProfileMainData.email}
               // url={userProfileData.}
               birthDate={userProfileData.birthDate}
               nationality={userProfileData.nationality}

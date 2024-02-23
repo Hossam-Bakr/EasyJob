@@ -19,7 +19,7 @@ const UserGeneralInfoForm = ({ data }) => {
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
-//   const [countryCities, setCountryCities] = useState([]);
+  //   const [countryCities, setCountryCities] = useState([]);
 
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentCity, setCurrentCity] = useState("");
@@ -132,99 +132,99 @@ const UserGeneralInfoForm = ({ data }) => {
       .required("Phone is required"),
   });
 
-//   const handleCountryChange = (e) => {
-//     console.log(e.target.value)
-//     setCountryCities([]);
-//     switch (e.target.value) {
-//       case "Egypt":
-//         setCountryCities([
-//           "Cairo",
-//           "Alexandria",
-//           "Giza",
-//           "Shubra El-Kheima",
-//           "Port Said",
-//           "Suez",
-//           "Luxor",
-//           "Aswan",
-//           "Tanta",
-//           "Mansoura",
-//           "Fayyum",
-//           "Zagazig",
-//           "Ismailia",
-//           "Minya",
-//           "Damanhur",
-//           "Beni Suef",
-//           "Sohag",
-//           "Hurghada",
-//           "6th of October City",
-//           "Shibin El Kom",
-//           "Banha",
-//           "Kafr el-Sheikh",
-//           "Arish",
-//           "10th of Ramadan City",
-//           "Bilbais",
-//           "Marsa Matruh",
-//           "Idfu",
-//           "Mit Ghamr",
-//         ]);
-//         break;
-//       case "UAE":
-//         setCountryCities([
-//           "Dubai",
-//           "Abu Dhabi",
-//           "Sharjah",
-//           "Al Ain",
-//           "Ajman",
-//           "Ras Al Khaimah",
-//           "Fujairah",
-//           "Umm Al Quwain",
-//         ]);
-//         break;
-//       case "SaudiArabia":
-//         setCountryCities([
-//           "Riyadh",
-//           "Jeddah",
-//           "Mecca",
-//           "Medina",
-//           "Dammam",
-//           "Tabuk",
-//           "Buraidah",
-//           "Khobar",
-//           "Abha",
-//           "Taif",
-//           "Khamis Mushait",
-//           "Hail",
-//           "Najran",
-//           "Yanbu",
-//           "Al Qatif",
-//           "Jubail",
-//           "Al-Kharj",
-//           "Qurayyat",
-//           "Ahsa",
-//           "Dhahran",
-//         ]);
-//         break;
-//       case "Kuwait":
-//         setCountryCities([
-//           "Kuwait City",
-//           "Al Ahmadi",
-//           "Hawalli",
-//           "Salmiya",
-//           "Al Farwaniyah",
-//           "Fahaheel",
-//           "Jahra",
-//           "Al Shuwaikh",
-//           "Sabah as Salim",
-//           "Salwa",
-//           "Al Jahra",
-//         ]);
-//         break;
+  //   const handleCountryChange = (e) => {
+  //     console.log(e.target.value)
+  //     setCountryCities([]);
+  //     switch (e.target.value) {
+  //       case "Egypt":
+  //         setCountryCities([
+  //           "Cairo",
+  //           "Alexandria",
+  //           "Giza",
+  //           "Shubra El-Kheima",
+  //           "Port Said",
+  //           "Suez",
+  //           "Luxor",
+  //           "Aswan",
+  //           "Tanta",
+  //           "Mansoura",
+  //           "Fayyum",
+  //           "Zagazig",
+  //           "Ismailia",
+  //           "Minya",
+  //           "Damanhur",
+  //           "Beni Suef",
+  //           "Sohag",
+  //           "Hurghada",
+  //           "6th of October City",
+  //           "Shibin El Kom",
+  //           "Banha",
+  //           "Kafr el-Sheikh",
+  //           "Arish",
+  //           "10th of Ramadan City",
+  //           "Bilbais",
+  //           "Marsa Matruh",
+  //           "Idfu",
+  //           "Mit Ghamr",
+  //         ]);
+  //         break;
+  //       case "UAE":
+  //         setCountryCities([
+  //           "Dubai",
+  //           "Abu Dhabi",
+  //           "Sharjah",
+  //           "Al Ain",
+  //           "Ajman",
+  //           "Ras Al Khaimah",
+  //           "Fujairah",
+  //           "Umm Al Quwain",
+  //         ]);
+  //         break;
+  //       case "SaudiArabia":
+  //         setCountryCities([
+  //           "Riyadh",
+  //           "Jeddah",
+  //           "Mecca",
+  //           "Medina",
+  //           "Dammam",
+  //           "Tabuk",
+  //           "Buraidah",
+  //           "Khobar",
+  //           "Abha",
+  //           "Taif",
+  //           "Khamis Mushait",
+  //           "Hail",
+  //           "Najran",
+  //           "Yanbu",
+  //           "Al Qatif",
+  //           "Jubail",
+  //           "Al-Kharj",
+  //           "Qurayyat",
+  //           "Ahsa",
+  //           "Dhahran",
+  //         ]);
+  //         break;
+  //       case "Kuwait":
+  //         setCountryCities([
+  //           "Kuwait City",
+  //           "Al Ahmadi",
+  //           "Hawalli",
+  //           "Salmiya",
+  //           "Al Farwaniyah",
+  //           "Fahaheel",
+  //           "Jahra",
+  //           "Al Shuwaikh",
+  //           "Sabah as Salim",
+  //           "Salwa",
+  //           "Al Jahra",
+  //         ]);
+  //         break;
 
-//       default:
-//         setCountryCities([]);
-//         break;
-//     }
-//   };
+  //       default:
+  //         setCountryCities([]);
+  //         break;
+  //     }
+  //   };
 
   return (
     <>
@@ -235,7 +235,9 @@ const UserGeneralInfoForm = ({ data }) => {
           validationSchema={validationSchema}
           enableReinitialize
         >
-          <Form className={styles.general_info_form}>
+          <Form
+            className={`${styles.general_info_form} ${styles.user_general_info}`}
+          >
             <div className={styles.collection}>
               <div className={styles.field}>
                 <label htmlFor="firstName">First Name</label>
@@ -275,7 +277,8 @@ const UserGeneralInfoForm = ({ data }) => {
                   as="select"
                   name="country"
                   id="userCountry"
-                //   onChange={handleCountryChange}
+                  className="form-select"
+                  //   onChange={handleCountryChange}
                 >
                   <option value="Egypt">Egypt</option>
                   <option value="UAE">UAE</option>
@@ -287,7 +290,12 @@ const UserGeneralInfoForm = ({ data }) => {
 
               <div className={styles.field}>
                 <label htmlFor="userCity">City</label>
-                <Field as="select" name="city" id="userCity">
+                <Field
+                  as="select"
+                  name="city"
+                  id="userCity"
+                  className="form-select"
+                >
                   {/* {countryCities.map((city) => (
                     <option key={city} value={city}>{city}</option>
                   ))} */}
@@ -323,15 +331,7 @@ const UserGeneralInfoForm = ({ data }) => {
                 />
                 <ErrorMessage name="area" component={InputErrorMessage} />
               </div>
-            </div>
-
-            <div>
-              <h6>Gender</h6>
-              <Field type="radio" id="male" name="gender" value="male" />
-              <label htmlFor="male">male</label>
-              <Field type="radio" id="female" name="gender" value="female" />
-              <label htmlFor="female">female</label>
-            </div>
+            </div>   
             <div className={styles.field}>
               <label htmlFor="userPhone">Phone</label>
               <Field
@@ -341,6 +341,20 @@ const UserGeneralInfoForm = ({ data }) => {
                 className={data.phone ? "" : styles.empty_field}
               />
               <ErrorMessage name="phone" component={InputErrorMessage} />
+            </div>
+
+            <div className="mb-4">
+            <h6 className={styles.gender_title}>Gender</h6>
+            <div className="d-flex">
+              <div className="form-check">
+                <Field type="radio" id="male" name="gender" value="male" className="form-check-input" />
+                <label htmlFor="male" className="form-check-label">male</label>
+              </div>
+              <div>
+                <Field type="radio" id="female" name="gender" value="female" />
+                <label htmlFor="female">female</label>
+              </div>
+            </div>
             </div>
             <div className={`${styles.field} ${styles.text_area_desc}`}>
               <Field

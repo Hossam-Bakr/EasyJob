@@ -36,7 +36,8 @@ const ProfileHeader = ({
   cover,
   pic,
   type,
-  name,
+  firstName,
+  lastName,
   city,
   country,
   industry,
@@ -171,7 +172,7 @@ const ProfileHeader = ({
         <EdietPenIcon onClick={() => navigateToEdietProfile("info")} />
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className=" d-flex flex-column">
-            <h3>{name}</h3>
+            <h3>{firstName}{" "}{lastName}</h3>
             <span>{companyIndustry}</span>
             {(city || country) && (
               <span>
@@ -194,7 +195,7 @@ const ProfileHeader = ({
               <>
                 <div className={styles.resume_div}>
                   <span>
-                    {name} Resume{" "}
+                    {firstName} Resume{" "}
                     <span className="mini_word">(last update 2 days ago)</span>
                   </span>
                   <div className="d-flex justify-content-center align-items-center mt-2">
