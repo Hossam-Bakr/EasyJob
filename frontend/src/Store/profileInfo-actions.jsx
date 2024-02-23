@@ -25,10 +25,11 @@ const fetchProfileData = (token, role) => {
                 Authorization: `Bearer ${token}`,
               },
             }
-          );
+          );  
           console.log(res.data.data)
-          const userData = res.data.data.userProfile;
-          dispatch(profileActions.setProfileInfo(userData));
+          const userData = res.data.data;
+          dispatch(profileActions.setProfileInfo(userData.userProfile));
+          dispatch(profileActions.setProfileMainInfo(userData.user));
         }
       }
     } catch (error) {

@@ -4,10 +4,14 @@ const profileSlice=createSlice({
     name:"profileInfo",
     initialState:{
         data:null,
+        mainData:null
     },
     reducers:{
         setProfileInfo(state,action){
             state.data=action.payload        
+        },
+        setProfileMainInfo(state,action){
+            state.mainData=action.payload        
         },
     }
 

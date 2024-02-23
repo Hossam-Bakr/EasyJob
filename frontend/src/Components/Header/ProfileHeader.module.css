@@ -93,6 +93,8 @@
     left: 10%;
     transform: translateY(50%);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--main_color);
+    overflow: hidden;
 }
 .profile_pic img{
     object-fit: cover;

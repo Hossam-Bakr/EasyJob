@@ -15,9 +15,6 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-import noAvatarMAle from "../../images/noAvatarMale.jpg";
-import noAvatarFemal from "../../images/noAvatarFemal.jpg";
-
 import p2 from "../../images/noLogo.jpg";
 import c2 from "../../images/noCover.jpg";
 
@@ -33,6 +30,7 @@ import EdietPenIcon from "../Ui/EdietPenIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
+import UserProfilePic from "../Ui/UserProfilePic";
 
 const ProfileHeader = ({
   cover,
@@ -52,14 +50,8 @@ const ProfileHeader = ({
   stackOverflow,
   gender,
 }) => {
+  
   let profile_cover = cover ? cover : c2;
-  let profile_pic = pic
-    ? pic
-    : type === "company"
-    ? p2
-    : gender === "female"
-    ? noAvatarFemal
-    : noAvatarMAle;
 
   let companyIndustry = "Software Engineering";
   switch (industry) {
@@ -93,7 +85,7 @@ const ProfileHeader = ({
   return (
     <>
       <header className={headerClasses}>
-        <img src={profile_cover} alt="cover pic" />
+       <img src={profile_cover} alt="cover pic" />
 
         <div
           className={styles.ediet_cover_btn}
@@ -104,7 +96,7 @@ const ProfileHeader = ({
         </div>
         <div className={profilePictureClasses}>
           <div className={styles.cartoona}>
-            <img src={profile_pic} alt="profile pic" />
+          {pic?<img src={pic} alt="profile pic" />:type==="company"?<img src={p2} alt="profile pic" />:<UserProfilePic/>} 
             <div
               className={styles.ediet_profile_pic_btn}
               title="change profile photo"
