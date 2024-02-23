@@ -32,6 +32,7 @@ import fetchProfileData from "./Store/profileInfo-actions";
 import SuperAdminDashboard from "./Pages/Dashboards/SuperAdmin/SuperAdminDashboard";
 import CompanyAccountSetting from "./Pages/AccountSetting/CompanyAccountSetting";
 import UserAccountSetting from "./Pages/AccountSetting/UserAccountSetting";
+import UserInfo from "./Pages/UserInfo/UserInfo";
 
 
 
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       { path: "applications", element: <Applications /> },
       { path: "packages", element: <CompanyPricing /> },
       { path: "user-profile", element: <UserProfile /> },
+      { path: "user-info", element: <UserInfo /> },
       { path: "user-dashboard", element: <UserDashboard /> },
       { path: "user-account-setting", element: <UserAccountSetting /> },
       { path: "company-profile", element: <CompanyProfile /> },

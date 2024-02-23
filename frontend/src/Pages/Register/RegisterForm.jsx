@@ -26,6 +26,7 @@ const RegisterForm = () => {
       }
       else {
         alert('sorry something went wrong please try again later!');
+        console.log(response)
       }
     },
     onError(error) {

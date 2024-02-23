@@ -1,11 +1,12 @@
 .title{
-    font-size: 25px;
+    font-size: 1.5625rem;
     font-family: var(--jakarta);
     font-weight: 800;
     color: var(--font_color);
     text-align: center;
+    letter-spacing: 0.1563rem;
 }
 .cartDown_icon{
     color: var(--main_color);
-    font-size: 25px;
+    font-size: 1.5625rem;
 }

@@ -17,15 +17,14 @@ const signFormsHandler = async ({ type, formData }) => {
 
 export default signFormsHandler;
 
-export const updateFormHandler = async ({ type, formData, companyToken }) => {
-  console.log("from function",formData)
+export const updateFormHandler = async ({ type, formData, token,role }) => {
   try {
     const response = await axios.patch(
-      `${baseServerUrl}companies/profile/${type}`,
+      `${baseServerUrl}${role}/profile/${type}`,
       formData,
       {
         headers: {
-          Authorization: `Bearer ${companyToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

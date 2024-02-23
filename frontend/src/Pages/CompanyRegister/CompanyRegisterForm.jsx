@@ -42,6 +42,7 @@ const CompanyRegisterForm = () => {
       }
       else {
         alert('sorry something went wrong please try again later!');
+        console.log(error)
       }
     },
   });
@@ -51,7 +52,7 @@ const CompanyRegisterForm = () => {
     email: "",
     password: "",
     phone: "",
-    industry: "",
+    industryId: "",
   };
   const onSubmit = (values) => {
     mutate({ type: "company/signup", formData: values });
@@ -71,7 +72,7 @@ const CompanyRegisterForm = () => {
     phone: string()
       .matches(/^01[0-2,5]{1}[0-9]{8}$/, "Invalid phone number")
       .required("phone is required"),
-    industry: string()
+    industryId: string()
       .required("Industry is required"),
   });
 
@@ -107,11 +108,11 @@ const CompanyRegisterForm = () => {
         <div className="mb-4">
           <Field
             type="text"
-            name="industry"
-            id="industry"
+            name="industryId"
+            id="industryId"
             placeholder="industry"
           />
-          <ErrorMessage name="industry" component={InputErrorMessage} />
+          <ErrorMessage name="industryId" component={InputErrorMessage} />
         </div>
         {isPending ? (
           <button className={styles.register_btn}>

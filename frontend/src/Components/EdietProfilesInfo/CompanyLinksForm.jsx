@@ -107,7 +107,7 @@ const CompanyLinksForm = ({ data }) => {
     mutate({
       type: "online-presence",
       formData: updatedValues,
-      companyToken: companyToken,
+      token: companyToken,
     });
     console.log(values);
   };

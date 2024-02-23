@@ -23,12 +23,13 @@ import { userActions } from "../../Store/userInfo-slice";
 import { saveIsLoginState } from "../../Store/userInfo-actions";
 import { Link, useNavigate } from "react-router-dom";
 import LoginAlertModal from "./LoginAlertModal";
-import profile_pic from "../../images/p1.jpeg";
 import noLogo from "../../images/noLogo.jpg";
+import noAvatarMale from "../../images/noAvatarMale.jpg";
+import noAvatarFemale from "../../images/noAvatarFemal.jpg";
 
 const SideBar = ({ onClose, show }) => {
   const [modalShow, setModalShow] = useState(false);
-  const [profileLogo, setProfileLogo] = useState(null);
+  const [profilePic, setProfilePic] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -70,11 +71,18 @@ const SideBar = ({ onClose, show }) => {
   };
 
   useEffect(() => {
-    if (profileData?.logo) {
-      const profileLogoUrl = `http://127.0.0.1:3000/companies/${profileData.logo}`;
-      setProfileLogo(profileLogoUrl);
+    if (role === "company") {
+      if (profileData?.logo) {
+        const profileLogoUrl = `http://127.0.0.1:3000/companies/${profileData.logo}`;
+        setProfilePic(profileLogoUrl);
+      }
+    } else {
+      if (profileData?.avatar) {
+        const profileAvatar = `http://127.0.0.1:3000/users/${profileData.avatar}`;
+        setProfilePic([profileAvatar]);
+      }
     }
-  }, [profileData]);
+  }, [profileData, role]);
 
   return (
     <>
@@ -96,9 +104,15 @@ const SideBar = ({ onClose, show }) => {
                       title="view profile"
                     >
                       <img
-                        src={profile_pic}
+                        src={
+                          profilePic
+                            ? profilePic
+                            : profileData&&profileData.gender=== "female"
+                            ? noAvatarFemale
+                            : noAvatarMale
+                        }
                         className={styles.profile_pic}
-                        alt="profile_pic"
+                        alt="profile pic"
                       />
                       <div className="ms-3 d-flex justify-content-center flex-column">
                         <span className={styles.profile_name}>
@@ -116,7 +130,7 @@ const SideBar = ({ onClose, show }) => {
                       title="view profile"
                     >
                       <img
-                        src={profileLogo ? profileLogo : noLogo}
+                        src={profilePic ? profilePic : noLogo}
                         className={styles.profile_pic}
                         alt="company logo"
                       />
@@ -178,16 +192,18 @@ const SideBar = ({ onClose, show }) => {
                   {role === "user" ? (
                     <>
                       {/* logged in and user */}
-                      <li
-                        className={styles.contact_list_item}
-                        onClick={handleClose}
-                      >
-                        Ediet Profile
-                        <FontAwesomeIcon
-                          className={styles.list_icons}
-                          icon={faPencil}
-                        />
-                      </li>
+                      <Link to={"user-info"}>
+                        <li
+                          className={styles.contact_list_item}
+                          onClick={handleClose}
+                        >
+                          Ediet Profile
+                          <FontAwesomeIcon
+                            className={styles.list_icons}
+                            icon={faPencil}
+                          />
+                        </li>
+                      </Link>
                       <Link to={"saved"}>
                         <li
                           className={styles.contact_list_item}

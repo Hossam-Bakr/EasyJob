@@ -12,7 +12,15 @@ import Col from "react-bootstrap/Col";
 import contact_info from "../../images/contact_info.png";
 import azhar_logo from "../../images/azharlogo.jpeg";
 
-const ProfileSections = () => {
+const ProfileSections = ({
+  phone,
+  email,
+  url,
+  birthDate,
+  nationality,
+  gender,
+  about
+}) => {
   const [showContactInfo, setShowContactInfo] = useState(false);
 
   const toggleShowContactInfoDiv = () => {
@@ -34,14 +42,14 @@ const ProfileSections = () => {
             <ul>
               <li className={styles.info_header_li}>
                 <FontAwesomeIcon icon={faPhone} className={styles.list_icon} />{" "}
-                0114360092/01550922214
+                {phone}
               </li>
               <li className={styles.info_header_li}>
                 <FontAwesomeIcon
                   icon={faEnvelope}
                   className={styles.list_icon}
                 />{" "}
-                Bassam@gmail.com
+                {email}
               </li>
             </ul>
           </div>
@@ -65,18 +73,18 @@ const ProfileSections = () => {
                   <span>easy-job/profile/Bassam-Hafez-5134</span>
                 </li>
                 <li className={styles.info_tail_li}>
-                  <span className={styles.info_tail_li_title}>Birthday:</span>
-                  <span>3/1/2001</span>
+                  <span className={styles.info_tail_li_title}>Birthdate:</span>
+                  <span>{birthDate}</span>
                 </li>
                 <li className={styles.info_tail_li}>
                   <span className={styles.info_tail_li_title}>
                     Nationality:
                   </span>
-                  <span>Egypt</span>
+                  <span>{nationality}</span>
                 </li>
                 <li className={styles.info_tail_li}>
                   <span className={styles.info_tail_li_title}>Gender:</span>
-                  <span>Male</span>
+                  <span>{gender}</span>
                 </li>
                 <li className={styles.info_tail_li}>
                   <span className={styles.info_tail_li_title}>
@@ -103,17 +111,7 @@ const ProfileSections = () => {
         <EdietPenIcon />
         <h3 className={styles.sec_title}>About</h3>
         <p className={styles.about_p}>
-          I'm Bassam, a student in Faculty of Engineering, Department of
-          Computer System and Information Technology Al-Azhar University, As a
-          Frontend Developer, I'm passionate about building responsive and
-          intuitive web interfaces that engage users and drive results. With
-          expertise in modern web development technologies such as HTML5, CSS3,
-          JavaScript, jQuery and React frameworks , I'm skilled at turning
-          complex design concepts into elegant and effective code. Whether
-          collaborating with designers, stakeholders, or cross-functional teams,
-          I thrive in fast-paced environments and can deliver high-quality
-          projects on time and within budget. Let's connect to discuss how I can
-          help bring your next digital project to life.
+            {about}
         </p>
       </section>
 

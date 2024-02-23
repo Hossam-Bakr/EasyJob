@@ -219,8 +219,9 @@ const JobPost = ({
                         <span className={styles.salary_per_h}>/H</span>
                       </h6>
                     )}
-
-                    <ApplyBtn type="white" text="Apply Now" />
+                    <div className="text-end w-100">
+                      <ApplyBtn type="white" text="Apply Now" />
+                    </div>
                   </div>
                 )}
               </>

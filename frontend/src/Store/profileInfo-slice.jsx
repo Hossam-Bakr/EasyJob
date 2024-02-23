@@ -7,8 +7,7 @@ const profileSlice=createSlice({
     },
     reducers:{
         setProfileInfo(state,action){
-            state.data=action.payload 
-            state.loading = false;          
+            state.data=action.payload        
         },
     }
 
