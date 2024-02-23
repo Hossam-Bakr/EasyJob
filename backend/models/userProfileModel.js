@@ -23,7 +23,10 @@ const UserProfile = sequelize.define("UserProfile", {
   nationality: DataTypes.STRING,
   drivingLicense: DataTypes.BOOLEAN,
   about: DataTypes.TEXT,
-  openToWork: DataTypes.BOOLEAN,
+  openToWork: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
 
   // Location
   country: DataTypes.STRING,
