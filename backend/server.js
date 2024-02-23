@@ -50,8 +50,8 @@ process.on("unhandledRejection", (err) => {
 defineDBRelationships();
 
 sequelize
-  // .sync()
-  .sync({ force: true })
+  .sync()
+  // .sync({ alter: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`App running on port ${PORT}`);

@@ -2,10 +2,10 @@ const { v4: uuidv4 } = require("uuid");
 const Experience = require("../models/experienceModel");
 const Education = require("../models/educationModel");
 const Certification = require("../models/certificationModel");
+const Skill = require("../models/skillModel");
 const sharp = require("sharp");
 const { uploadMixOfImages } = require("../utils/uploadImage");
 const catchAsync = require("../utils/catchAsync");
-const User = require("../models/userModel");
 
 exports.uploadUserProfileMedia = uploadMixOfImages([
   { name: "avatar", maxCount: 1 },
@@ -24,27 +24,19 @@ exports.getUserProfile = catchAsync(async (req, res) => {
       {
         model: Certification,
       },
+      {
+        model: Skill,
+      },
     ],
   });
-  const skills = await userProfile.getSkills();
-  const skillsData = skills.map(skill => ({
-    skillName: skill.name, 
-    proficiency: skill.UserSkill.proficiency,
-    yearsOfExperience: skill.UserSkill.yearsOfExperience
-  }));
 
-  const { firstName, lastName, email } = req.user; 
+  const { firstName, lastName, email } = req.user;
 
   res.status(200).json({
     status: "success",
     data: {
-      userProfile, 
-      userInfo: {
-        firstName,
-        lastName,
-        email,
-      },
-      skillsData
+      user: { firstName, lastName, email },
+      userProfile,
     },
   });
 });
@@ -112,7 +104,7 @@ exports.updateUserProfileMedia = catchAsync(async (req, res) => {
 
 exports.updateUserInfo = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
-  
+
   const expectedFields = [
     "birthDate",
     "phone",
@@ -123,7 +115,7 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
     "city",
     "area",
     "about",
-    "openToWork" 
+    "openToWork",
   ];
 
   const requiredFields = [
@@ -149,8 +141,6 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
 
   await userProfile.save();
 
- 
-
   res.status(200).json({
     status: "success",
     data: {
@@ -161,7 +151,6 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
 
 exports.updateUserCareerInterests = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
-
 
   const expectedFields = [
     "currentCareerLevel",
