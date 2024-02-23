@@ -63,7 +63,7 @@ exports.updateUserInfoValidator = [
     .trim(),
 
   check("about")
-    .notEmpty()
+    .optional()
     .isString()
     .withMessage("about must be a string")
     .trim()
