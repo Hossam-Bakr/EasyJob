@@ -16,5 +16,6 @@ router.post(
   authController.companySignup
 );
 router.post("/login", loginValidator, authController.Login);
+router.post("/forgotPassword", authController.forgotPassword);
 
 module.exports = router;

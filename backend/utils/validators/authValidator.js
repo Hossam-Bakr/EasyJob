@@ -20,8 +20,8 @@ exports.userSignupValidator = [
     .notEmpty()
     .withMessage("Email is required")
     .isEmail()
-    .withMessage("Must be a valid email address")
-    .normalizeEmail(),
+    .withMessage("Must be a valid email address"),
+    // .normalizeEmail(),
 
   check("password")
     .notEmpty()

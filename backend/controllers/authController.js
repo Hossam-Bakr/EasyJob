@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Company = require("../models/companyModel");
@@ -5,6 +6,7 @@ const generateJWT = require("../utils/generateJWT");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
+const sendEmail = require("../utils/sendEmail");
 
 exports.userSignup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -107,6 +109,41 @@ exports.Login = catchAsync(async (req, res, next) => {
   }
 });
 
+// @desc fogot password
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  // get the user with email
+  const user = await User.findOne({ where: { email: req.body.email } });
+  if (!user) {
+    throw new Error(`there is no user with this email  ${req.body.email}`);
+  }
+  // genrate the code and hash it
+  const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+  const hashedResetCode = crypto
+    .createHash("sha256")
+    .update(resetCode)
+    .digest("hex")
+    .trim();
+
+  user.passwordResetCode = hashedResetCode;
+  user.passwordResetExpire = Date.now() + 15 * 60 * 1000;
+  user.passwordResetVerified = false;
+  await user.save();
+
+  const message = `Hi ${user.firstName} \n we recieved a request to reset your password on your easyjob account \n ${resetCode} \n Enter this code to reset your password on your easyjob account \n thank for helping us to make your account secure ☺️`;
+  // send the email for the user
+  try {
+    await sendEmail(user , resetCode);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ status: "failed", message: err.message });
+  }
+
+  res
+    .status(200)
+    .json({ status: "success", message: "password reseted successfully " });
+});
+
+
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check of it's there
   let token;
@@ -163,6 +200,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   next();
 });
+
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
