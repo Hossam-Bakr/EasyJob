@@ -15,7 +15,8 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-import p1 from "../../images/p1.jpeg";
+import noAvatarMAle from "../../images/noAvatarMale.jpg";
+import noAvatarFemal from "../../images/noAvatarFemal.jpg";
 
 import p2 from "../../images/noLogo.jpg";
 import c2 from "../../images/noCover.jpg";
@@ -25,6 +26,7 @@ import {
   faFacebook,
   faGithub,
   faLinkedin,
+  faStackOverflow,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import EdietPenIcon from "../Ui/EdietPenIcon";
@@ -47,17 +49,23 @@ const ProfileHeader = ({
   linkedin,
   behance,
   github,
+  stackOverflow,
+  gender,
 }) => {
-  let profile_cover = cover ? cover: c2;
-  let profile_pic = pic ? pic : type === "company" ? p2 : p1;
-
+  let profile_cover = cover ? cover : c2;
+  let profile_pic = pic
+    ? pic
+    : type === "company"
+    ? p2
+    : gender === "female"
+    ? noAvatarFemal
+    : noAvatarMAle;
 
   let companyIndustry = "Software Engineering";
   switch (industry) {
     case 10:
       companyIndustry = "Information and communications technology (ICT)";
       break;
-
     default:
       break;
   }
@@ -65,16 +73,19 @@ const ProfileHeader = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateToEdietProfile = (type) => {
-    dispatch(edietActions.setDefaultEdietPage(type));
-    navigate("/company-info");
+  const navigateToEdietProfile = (page) => {
+    dispatch(edietActions.setDefaultEdietPage(page));
+    if (type === "company") {
+      navigate("/company-info");
+    } else {
+      navigate("/user-info");
+    }
   };
 
-
   const headerClasses = cover
-  ? styles.header_container
-  : styles.header_container_no_cover;
-  
+    ? styles.header_container
+    : styles.header_container_no_cover;
+
   let profilePictureClasses =
     type === "company" ? styles.profile_pic_company : styles.profile_pic;
   let companyContactInfoClass = type === "company" ? styles.company_info : "";
@@ -84,11 +95,12 @@ const ProfileHeader = ({
       <header className={headerClasses}>
         <img src={profile_cover} alt="cover pic" />
 
-        <div className={styles.ediet_cover_btn} onClick={() => navigateToEdietProfile("media")} title="change cover photo">
-          <FontAwesomeIcon
-            icon={faPencil}
-            
-          />
+        <div
+          className={styles.ediet_cover_btn}
+          onClick={() => navigateToEdietProfile("media")}
+          title="change cover photo"
+        >
+          <FontAwesomeIcon icon={faPencil} />
         </div>
         <div className={profilePictureClasses}>
           <div className={styles.cartoona}>
@@ -98,9 +110,7 @@ const ProfileHeader = ({
               title="change profile photo"
               onClick={() => navigateToEdietProfile("media")}
             >
-              <FontAwesomeIcon
-                icon={faCamera}
-              />
+              <FontAwesomeIcon icon={faCamera} />
             </div>
           </div>
         </div>
@@ -192,7 +202,7 @@ const ProfileHeader = ({
               <>
                 <div className={styles.resume_div}>
                   <span>
-                    Bassam Hafez Resume{" "}
+                    {name} Resume{" "}
                     <span className="mini_word">(last update 2 days ago)</span>
                   </span>
                   <div className="d-flex justify-content-center align-items-center mt-2">
@@ -257,7 +267,11 @@ const ProfileHeader = ({
                   </>
                 ) : (
                   <>
-                    {(linkedin || github || behance || twitter) && (
+                    {(linkedin ||
+                      github ||
+                      behance ||
+                      twitter ||
+                      stackOverflow) && (
                       <div className={styles.contact_icons}>
                         {linkedin && (
                           <Link to={linkedin} target="_blank">
@@ -279,6 +293,14 @@ const ProfileHeader = ({
                           <Link to={behance} target="_blank">
                             <FontAwesomeIcon
                               icon={faBehance}
+                              className={styles.contact_icon}
+                            />
+                          </Link>
+                        )}
+                        {stackOverflow && (
+                          <Link to={stackOverflow} target="_blank">
+                            <FontAwesomeIcon
+                              icon={faStackOverflow}
                               className={styles.contact_icon}
                             />
                           </Link>

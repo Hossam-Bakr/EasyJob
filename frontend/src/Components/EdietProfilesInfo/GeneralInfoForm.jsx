@@ -14,8 +14,6 @@ import fetchProfileData from "../../Store/profileInfo-actions";
 
 const GeneralInfoForm = ({ data }) => {
 
-
-  
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
@@ -113,7 +111,8 @@ const GeneralInfoForm = ({ data }) => {
     mutate({
       type: "info",
       formData: updatedValues,
-      companyToken: companyToken,
+      token: companyToken,
+      role:'companies'
     });
   };
 
@@ -243,7 +242,7 @@ const GeneralInfoForm = ({ data }) => {
                 name="description"
                 cols="30"
                 rows="7"
-                className={data.founded ? "" : styles.empty_field}
+                className={data.description ? "" : styles.empty_field}
               />
               <ErrorMessage name="description" component={InputErrorMessage} />
             </div>
