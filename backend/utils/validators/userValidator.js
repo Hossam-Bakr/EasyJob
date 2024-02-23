@@ -3,7 +3,6 @@ const validatorError = require("./validationError");
 const bcrypt = require("bcryptjs");
 
 exports.updateUserInfoValidator = [
-
   check("birthDate")
     .notEmpty()
     .withMessage("Please provide birth date")
@@ -32,9 +31,9 @@ exports.updateUserInfoValidator = [
     .trim(),
 
   check("openToWork")
-    .optional()
+    .notEmpty()
     .isBoolean()
-    .withMessage("Please provide valid driving license")
+    .withMessage("Please provide valid open to work")
     .trim(),
 
   check("drivingLicense")
@@ -63,12 +62,13 @@ exports.updateUserInfoValidator = [
     .withMessage("Area must be a string")
     .trim(),
 
-    check("about")
-    .optional()
+  check("about")
+    .notEmpty()
     .isString()
     .withMessage("about must be a string")
     .trim()
-    .isLength({ min: 45, max: 400 }).withMessage('About description must be between 45 and 250 characters') , 
+    .isLength({ min: 45, max: 400 })
+    .withMessage("About description must be between 45 and 400 characters"),
 
   validatorError,
 ];
