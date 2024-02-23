@@ -149,21 +149,12 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
 
   await userProfile.save();
 
-  if(req.body.firstName || req.body.lastName) {
-    req.user.firstName = req.body.firstName ;  
-    req.user.lastName = req.body.lastName ;  
-    await req.user.save() ;
-  }
-const {firstName, lastName} = req.user ;
+ 
 
   res.status(200).json({
     status: "success",
     data: {
       userProfile,
-      userInfo: {
-        firstName,
-        lastName
-      },
     },
   });
 });

@@ -3,21 +3,6 @@ const validatorError = require("./validationError");
 const bcrypt = require("bcryptjs");
 
 exports.updateUserInfoValidator = [
-  check("firstName")
-    .optional()
-    .notEmpty()
-    .withMessage("First name is required")
-    .isLength({ min: 3, max: 20 })
-    .withMessage("First name must be between 3 to 20 characters")
-    .trim(),
-
-  check("lastName")
-    .optional()
-    .notEmpty()
-    .withMessage("Last name is required")
-    .isLength({ min: 3, max: 20 })
-    .withMessage("Last name must be between 3 to 20 characters")
-    .trim(),
 
   check("birthDate")
     .notEmpty()
