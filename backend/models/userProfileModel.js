@@ -37,10 +37,10 @@ const UserProfile = sequelize.define("UserProfile", {
   currentCareerLevel: {
     type: DataTypes.ENUM(
       "student",
-      "entry",
-      "experienced",
-      "manager",
-      "executive",
+      "entry level",
+      "experienced/senior",
+      "manager/lead",
+      "executive", // SEO, CTO, CEO, etc.
       "not specified"
     ),
     defaultValue: "not specified",
