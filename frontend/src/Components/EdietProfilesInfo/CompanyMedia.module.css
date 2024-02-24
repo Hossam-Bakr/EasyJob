@@ -112,6 +112,7 @@
     border-radius: 0.9375rem;
     font-weight: 700;
     transition:all .3s;
+    min-width: 9.375rem;
 }
 .save_btn:hover{
     background-color: rgb(9, 75, 161);

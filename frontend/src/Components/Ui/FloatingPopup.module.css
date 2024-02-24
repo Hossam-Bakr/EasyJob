@@ -1,4 +1,4 @@
-.popup_container{
+.popup_container,.popup_container_hidden{
     position: fixed;
     bottom:1.875rem;
     right: 0;
@@ -7,6 +7,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.popup_container_hidden{
+    z-index: -2;
 }
 .popupHeaderSuccess{
     background-color: var(--vanilla);
