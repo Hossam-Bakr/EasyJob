@@ -29,11 +29,10 @@ const defineDBRelationships = () => {
   Company.hasMany(Job, cascadeOptions);
   Job.belongsTo(Company);
 
-  Job.hasMany(Application, cascadeOptions);
-  Application.belongsTo(Job);
-
-  User.hasMany(Application, cascadeOptions);
-  Application.belongsTo(User);
+  // Job.hasMany(Application, cascadeOptions);
+  // Application.belongsTo(Job);
+  // User.hasMany(Application, cascadeOptions);
+  // Application.belongsTo(User);
 
   User.hasMany(NotificationPreference, cascadeOptions);
   NotificationPreference.belongsTo(User);
@@ -72,6 +71,9 @@ const defineDBRelationships = () => {
   Experience.belongsTo(UserProfile);
 
   // M:N
+
+  User.belongsToMany(Job, { through: Application });
+  Job.belongsToMany(User, { through: Application });
 
   UserProfile.belongsToMany(Skill, { through: UserSkill });
   Skill.belongsToMany(UserProfile, { through: UserSkill });
