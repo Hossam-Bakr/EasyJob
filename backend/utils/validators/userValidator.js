@@ -101,7 +101,6 @@ exports.updateUserCareerInterestsValidator = [
         "internship",
         "freelance/project",
         "shift-based",
-        "remote",
         "volunteering",
         "student-activity",
       ];
