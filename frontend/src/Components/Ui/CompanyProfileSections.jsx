@@ -20,10 +20,10 @@ import styles from "./CompanyProfileSections.module.css";
 import JobPost from "./JobPost";
 import MainBtnThree from "./MainBtnThree";
 import ListedEmployees from "./ListedEmployees";
-import noData from "../../images/noData.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
+import NoDataBox from "./NoDataBox";
 
 const CompanyProfileSections = ({
   city,
@@ -168,15 +168,7 @@ const CompanyProfileSections = ({
     <Tabs defaultActiveKey="overview" id="uncontrolled-tab-example" fill>
       <Tab eventKey="overview" title="Overview" >
         {!city && !country && !size && !desc && !founded ? (
-          <div className="d-flex flex-column align-items-center p-5">
-            <div className={styles.no_data}>
-              <img src={noData} alt="noData" />
-            </div>
-            <span className="mini_word">
-              Complete your Profile Information{" "}
-              <Link to={"/company-info"}>here</Link>
-            </span>
-          </div>
+         <NoDataBox text="Complete your Profile Information" path="/company-info"/>
         ) : (
           <div className={styles.main_style}>
             <EdietPenIcon onClick={()=>navigateToEdietProfile("info")}/>

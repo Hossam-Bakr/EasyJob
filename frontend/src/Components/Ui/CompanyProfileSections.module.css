@@ -73,23 +73,13 @@
 /* employee section */
 
 .employee_ul li{
-        border: 1px solid rgb(199, 199, 199);
-        border-radius: 10px;
+        border: 0.0625rem solid rgb(199, 199, 199);
+        border-radius: 0.625rem;
         display: flex;
         justify-content: space-between;
-        padding-left: 30px;
+        padding-left: 1.875rem;
 }
-.no_data{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 350px;
-    background-color: red;
-    margin: auto;
-}
-.no_data img{
-    width: 100%;
-}
+
 
 
 

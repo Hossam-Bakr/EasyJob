@@ -25,7 +25,6 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginAlertModal from "./LoginAlertModal";
 import noLogo from "../../images/noLogo.jpg";
 import noAvatarMale from "../../images/noAvatarMale.jpg";
-import noAvatarFemale from "../../images/noAvatarFemal.jpg";
 
 const SideBar = ({ onClose, show }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -107,8 +106,6 @@ const SideBar = ({ onClose, show }) => {
                         src={
                           profilePic
                             ? profilePic
-                            : profileData&&profileData.gender=== "female"
-                            ? noAvatarFemale
                             : noAvatarMale
                         }
                         className={styles.profile_pic}

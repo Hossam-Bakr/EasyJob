@@ -11,6 +11,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import contact_info from "../../images/contact_info.png";
 import azhar_logo from "../../images/azharlogo.jpeg";
+import { useDispatch } from "react-redux";
+import { edietActions } from "../../Store/defaultEdietPage-slice";
+import { useNavigate } from "react-router-dom";
+import NoDataBox from "./NoDataBox";
 
 const ProfileSections = ({
   phone,
@@ -19,100 +23,144 @@ const ProfileSections = ({
   birthDate,
   nationality,
   gender,
-  about
+  about,
 }) => {
   const [showContactInfo, setShowContactInfo] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleShowContactInfoDiv = () => {
     setShowContactInfo((showContactInfo) => !showContactInfo);
   };
 
+  const navigateToEdiet = (type) => {
+    dispatch(edietActions.setDefaultEdietPage(type));
+    navigate("/user-info");
+  };
+
   return (
     <>
       {/* contacts */}
-      <section
-        className={`${styles.main_style} ${styles.contact_info_section} ${
-          showContactInfo ? styles.main_style_spread : ""
-        }`}
-      >
-        <EdietPenIcon />
-        <h3 className={styles.sec_title}>Contact Info</h3>
-        <div className={styles.contact_info_body}>
-          <div className={styles.contact_info_body_header}>
-            <ul>
-              <li className={styles.info_header_li}>
-                <FontAwesomeIcon icon={faPhone} className={styles.list_icon} />{" "}
-                {phone}
-              </li>
-              <li className={styles.info_header_li}>
-                <FontAwesomeIcon
-                  icon={faEnvelope}
-                  className={styles.list_icon}
-                />{" "}
-                {email}
-              </li>
-            </ul>
+      {!(email && phone && url && birthDate && nationality && gender) ? (
+        <section className={`${styles.main_style}`}>
+          <EdietPenIcon onClick={() => navigateToEdiet("info")} />
+          <h3 className={styles.sec_title}>Contact Info</h3>
+          <div className={styles.contact_info_body}>
+            <div className={styles.noData_container}>
+              <NoDataBox
+                text="Complete your Profile Information"
+                path="/user-info"
+              />
+            </div>
           </div>
-          <button
-            onClick={toggleShowContactInfoDiv}
-            className={styles.show_more_btn}
-          >
-            show more <FontAwesomeIcon icon={faCaretDown} />
-          </button>
-          <Row
-            className={`${styles.contact_info_body_tail} ${
-              showContactInfo ? styles.showContactInfo : ""
+        </section>
+      ) : (
+        <>
+          <section
+            className={`${styles.main_style} ${styles.contact_info_section} ${
+              showContactInfo ? styles.main_style_spread : ""
             }`}
           >
-            <Col md={6}>
-              <ul>
-                <li className={styles.info_tail_li}>
-                  <span className={styles.info_tail_li_title}>
-                    Profile url:
-                  </span>
-                  <span>easy-job/profile/Bassam-Hafez-5134</span>
-                </li>
-                <li className={styles.info_tail_li}>
-                  <span className={styles.info_tail_li_title}>Birthdate:</span>
-                  <span>{birthDate}</span>
-                </li>
-                <li className={styles.info_tail_li}>
-                  <span className={styles.info_tail_li_title}>
-                    Nationality:
-                  </span>
-                  <span>{nationality}</span>
-                </li>
-                <li className={styles.info_tail_li}>
-                  <span className={styles.info_tail_li_title}>Gender:</span>
-                  <span>{gender}</span>
-                </li>
-                <li className={styles.info_tail_li}>
-                  <span className={styles.info_tail_li_title}>
-                    Minimum Salary:
-                  </span>
-                  <span>confidential</span>
-                </li>
-              </ul>
-            </Col>
-            <Col
-              md={6}
-              className={`${styles.contact_info_container} d-flex justify-content-center align-items-center`}
-            >
-              <div className={styles.contact_info_img}>
-                <img src={contact_info} className="w-100" alt="contact info" />
+            <EdietPenIcon onClick={() => navigateToEdiet("info")} />
+            <h3 className={styles.sec_title}>Contact Info</h3>
+            <div className={styles.contact_info_body}>
+              <div className={styles.contact_info_body_header}>
+                <ul>
+                  {phone && (
+                    <li className={styles.info_header_li}>
+                      <FontAwesomeIcon
+                        icon={faPhone}
+                        className={styles.list_icon}
+                      />
+                      {phone}
+                    </li>
+                  )}
+                  {email && (
+                    <li className={styles.info_header_li}>
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        className={styles.list_icon}
+                      />
+                      {email}
+                    </li>
+                  )}
+                </ul>
               </div>
-            </Col>
-          </Row>
-        </div>
-      </section>
+              <button
+                onClick={toggleShowContactInfoDiv}
+                className={styles.show_more_btn}
+              >
+                show more <FontAwesomeIcon icon={faCaretDown} />
+              </button>
+              <Row
+                className={`${styles.contact_info_body_tail} ${
+                  showContactInfo ? styles.showContactInfo : ""
+                }`}
+              >
+                <Col md={6}>
+                  <ul>
+                    <li className={styles.info_tail_li}>
+                      <span className={styles.info_tail_li_title}>
+                        Profile url:
+                      </span>
+                      <span>easy-job/profile/Bassam-Hafez-5134</span>
+                    </li>
+                    {birthDate && (
+                      <li className={styles.info_tail_li}>
+                        <span className={styles.info_tail_li_title}>
+                          Birthdate:
+                        </span>
+                        <span>{birthDate}</span>
+                      </li>
+                    )}
+                    {nationality && (
+                      <li className={styles.info_tail_li}>
+                        <span className={styles.info_tail_li_title}>
+                          Nationality:
+                        </span>
+                        <span>{nationality}</span>
+                      </li>
+                    )}
+                    {gender && (
+                      <li className={styles.info_tail_li}>
+                        <span className={styles.info_tail_li_title}>
+                          Gender:
+                        </span>
+                        <span>{gender}</span>
+                      </li>
+                    )}
+                  </ul>
+                </Col>
+                <Col
+                  md={6}
+                  className={`${styles.contact_info_container} d-flex justify-content-center align-items-center`}
+                >
+                  <div className={styles.contact_info_img}>
+                    <img
+                      src={contact_info}
+                      className="w-100"
+                      alt="contact info"
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </div>
+          </section>
+        </>
+      )}
 
       {/* about */}
       <section className={`${styles.main_style} ${styles.about_sec}`}>
-        <EdietPenIcon />
+        <EdietPenIcon onClick={() => navigateToEdiet("info")} />
         <h3 className={styles.sec_title}>About</h3>
-        <p className={styles.about_p}>
-            {about}
-        </p>
+        {about ? (
+          <p className={styles.about_p}>{about}</p>
+        ) : (
+          <NoDataBox
+            text="introduce yourself to get jobs faster"
+            path="/user-info"
+          />
+        )}
       </section>
 
       {/* education */}
@@ -141,21 +189,21 @@ const ProfileSections = ({
       {/* skills */}
       <section className={`${styles.main_style}`}>
         <EdietPenIcon text="+Add" />
-          <h3 className={styles.sec_title}>Skills</h3>
-          <div className={`${styles.skill_color} d-flex`}>
-              <div className="d-flex justify-content-center align-items-center mx-2">
-                <div className={styles.red_circle}></div>{" "}
-                <span className="mini_word">Entry</span>
-              </div>
-              <div className="d-flex justify-content-center align-items-center mx-2">
-                <div className={styles.yellow_circle}></div>{" "}
-                <span className="mini_word">Medium</span>
-              </div>
-              <div className="d-flex justify-content-center align-items-center mx-2">
-                <div className={styles.green_circle}></div>{" "}
-                <span className="mini_word">Expert</span>
-              </div>
+        <h3 className={styles.sec_title}>Skills</h3>
+        <div className={`${styles.skill_color} d-flex`}>
+          <div className="d-flex justify-content-center align-items-center mx-2">
+            <div className={styles.red_circle}></div>{" "}
+            <span className="mini_word">Entry</span>
           </div>
+          <div className="d-flex justify-content-center align-items-center mx-2">
+            <div className={styles.yellow_circle}></div>{" "}
+            <span className="mini_word">Medium</span>
+          </div>
+          <div className="d-flex justify-content-center align-items-center mx-2">
+            <div className={styles.green_circle}></div>{" "}
+            <span className="mini_word">Expert</span>
+          </div>
+        </div>
 
         <div className={`${styles.candidate_skills} d-flex mt-4 mb-3`}>
           <div className={`${styles.skill} ${styles.expert} mx-2`}>

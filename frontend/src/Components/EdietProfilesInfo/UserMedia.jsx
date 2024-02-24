@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./CompanyMedia.module.css";
 import SectionMainTitle from "../Ui/SectionMainTitle";
-import noAvatarMale from "../../images/noAvatarMale.jpg";
-import noAvatarFemale from "../../images/noAvatarFemal.jpg";
+import uploadImg from "../../images/uploadImg.png";
 import noCover from "../../images/noCover.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -133,9 +132,7 @@ const UserMedia = ({ gender, cover }) => {
     ? imgUrl
     : profileAvatar
     ? profileAvatar
-    : gender === "female"
-    ? noAvatarFemale
-    : noAvatarMale;
+    : uploadImg
   const edietedImgCover = coverUrl
     ? coverUrl
     : profileCover

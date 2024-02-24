@@ -55,7 +55,7 @@ const UserProfile = () => {
               birthDate={userProfileData.birthDate}
               nationality={userProfileData.nationality}
               gender={userProfileData.gender}
-              // about={userProfileData.about}
+              about={userProfileData.about}
             
             />
           </Container>

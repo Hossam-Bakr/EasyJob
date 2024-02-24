@@ -93,14 +93,15 @@
     left: 10%;
     transform: translateY(50%);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--main_color);
-    overflow: hidden;
+    border: 3px solid var(--main_color);
 }
 .profile_pic img{
     object-fit: cover;
     border-radius: 50%;
 }
-
+.noAvatar_container{
+    background-color: rgb(199, 199, 199);
+}
 /* case company */
 .profile_pic_company{
     width: 9.375rem;

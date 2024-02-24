@@ -1,0 +1,10 @@
+.no_data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    margin: auto;
+}
+.no_data img{
+    width: 100%;
+}

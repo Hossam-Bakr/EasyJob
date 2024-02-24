@@ -10,7 +10,7 @@ import UserGeneralInfoForm from "./UserGeneralInfoForm";
 const UserGeneralInfo = (props) => {
   return (
     <div>
-    <SectionMainTitle title="Company General Info" />
+    <SectionMainTitle title="Employee's General Info" />
     {props? (
       <Row className="mb-5" id="general">
         <Col md={6}>

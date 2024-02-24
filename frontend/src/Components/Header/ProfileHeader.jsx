@@ -95,7 +95,7 @@ const ProfileHeader = ({
         >
           <FontAwesomeIcon icon={faPencil} />
         </div>
-        <div className={profilePictureClasses}>
+        <div className={`${profilePictureClasses} ${!pic&&type==='user'&&styles.noAvatar_container}`}>
           <div className={styles.cartoona}>
           {pic?<img src={pic} alt="profile pic" />:type==="company"?<img src={p2} alt="profile pic" />:<UserProfilePic/>} 
             <div
