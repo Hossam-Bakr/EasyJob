@@ -12,7 +12,7 @@ exports.getJob = catchAsync(async (req, res) => {
     include: [
       {
         model: Company,
-        attributes: ["id", "name", "email", "phone", "industry"],
+        attributes: ["id", "name", "email"],
       },
       {
         model: Category,
@@ -41,14 +41,14 @@ exports.getJob = catchAsync(async (req, res) => {
 });
 
 exports.createJob = catchAsync(async (req, res) => {
-  const job = await req.company.createJob(req.body);
-
   if (!req.body.categoriesId || req.body.categoriesId.length < 1) {
     return res.status(400).json({
       success: false,
       message: "You must specify at least one category.",
     });
   }
+
+  const job = await req.company.createJob(req.body);
 
   await job.setCategories(req.body.categoriesId);
 
@@ -78,6 +78,10 @@ exports.updateJob = catchAsync(async (req, res) => {
   }
 
   await job.update(req.body);
+
+  if (req.body.categoriesId) {
+    await job.setCategories(req.body.categoriesId);
+  }
 
   res.status(200).json({
     status: "success",
