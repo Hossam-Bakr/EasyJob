@@ -2,6 +2,7 @@ const Job = require("../models/jobModel");
 const Company = require("../models/companyModel");
 const Category = require("../models/categoryModel");
 const JobCategory = require("../models/jobCategoryModel");
+const Question = require("../models/questionModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
 
@@ -21,6 +22,9 @@ exports.getJob = catchAsync(async (req, res) => {
           model: JobCategory,
           attributes: [],
         },
+      },
+      {
+        model: Question,
       },
     ],
   });
