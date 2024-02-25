@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
@@ -109,14 +110,11 @@ exports.Login = catchAsync(async (req, res, next) => {
   }
 });
 
-// @desc fogot password
 exports.forgotPassword = catchAsync(async (req, res, next) => {
-  // get the user with email
   const user = await User.findOne({ where: { email: req.body.email } });
   if (!user) {
     throw new Error(`there is no user with this email  ${req.body.email}`);
   }
-  // genrate the code and hash it
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
   const hashedResetCode = crypto
     .createHash("sha256")
@@ -130,9 +128,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   const message = `Hi ${user.firstName} \n we recieved a request to reset your password on your easyjob account \n ${resetCode} \n Enter this code to reset your password on your easyjob account \n thank for helping us to make your account secure ☺️`;
-  // send the email for the user
   try {
-    await sendEmail(user , resetCode);
+    await sendEmail(user, resetCode);
   } catch (err) {
     console.log(err);
     res.status(500).json({ status: "failed", message: err.message });
@@ -140,9 +137,53 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   res
     .status(200)
-    .json({ status: "success", message: "password reseted successfully " });
+    .json({ status: "success", message: "You have got a reset code , check your email to reset password" });
 });
 
+exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
+  const resetCode = req.body.resetCode;
+  const hashedResetCode = crypto
+    .createHash("sha256")
+    .update(resetCode)
+    .digest("hex")
+    .trim();
+  const user = await User.findOne({
+    where: {
+      passwordResetCode: hashedResetCode,
+      passwordResetExpire: { [Op.gt]: Date.now() },
+    },
+  });
+  if (!user) {
+    throw new Error(`Reset code ${req.body.resetCode} invalid or expired`);
+  }
+  user.passwordResetVerified = true;
+  user.save();
+  res.status(200).json({
+    status: "success",
+    message: "password reset code verified successfully",
+  });
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ where: { email: req.body.email } });
+  if (!user) {
+    throw new Error(`there is no user with this email  ${req.body.email}`);
+  }
+
+  if (!user.passwordResetVerified) {
+    throw new Error(`password reset code not verified`);
+  }
+
+  user.password = req.body.newPassword;
+  user.passwordResetVerified = false;
+  user.passwordResetExpire = null;
+  user.passwordResetCode = null;
+
+  const token = await generateJWT(user.id);
+
+  user.save();
+  res.status(200).json({ status: "success", token });
+});
 
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check of it's there
@@ -200,7 +241,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   next();
 });
-
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {

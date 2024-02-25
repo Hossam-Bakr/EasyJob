@@ -1,4 +1,6 @@
 const nodemailer = require("nodemailer");
+const path = require("path");
+const logoPath = path.join(__dirname, "..", "uploads", "admin", "logo.jpg");
 
 const sendEmail = async (user, resetCode) => {
   const transporter = nodemailer.createTransport({
@@ -26,7 +28,7 @@ const sendEmail = async (user, resetCode) => {
       color: #333;
     }
 .container {
-  width: 60% !important; 
+  width: 80% !important; 
   margin : 25px auto ; 
 
 }
@@ -36,11 +38,14 @@ const sendEmail = async (user, resetCode) => {
       color: white;
       padding: 20px 0;
       text-align: center;
+      padding: 40px 20px;
+
     }
     .content {
       padding: 40px 20px;
       background-color: #eee;
       text-align: left;
+      position: relative  !important;
     }
     .footer {
       text-align: center;
@@ -58,13 +63,24 @@ const sendEmail = async (user, resetCode) => {
       border-radius: 5px;
       margin-top: 20px;
     }
+    .logoImg {
+      width: 180px;
+      position: absolute;
+      top: 0px !important;
+      left: 0px  !important;
+      margin-bottom: 15px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
   </style>
   </head>
   <body>
-   <div class="container">  <div class="header">
+   <div class="container"> 
+    <div class="header">
    <h1>EasyJob Password Reset</h1>
  </div>
  <div class="content">
+  <img class="logoImg" src="cid:unique@nodemailer.com"/>
    <h2>Hello, ${user.firstName}</h2>
    <p>We received a request to reset your password for your EasyJob account. Please use the code below to proceed.</p>
    <div style=" padding: 10px; margin: 8px 0; font-weight : bold ; text-align:left ; ">
@@ -86,7 +102,14 @@ const sendEmail = async (user, resetCode) => {
     from: '"EasyJob Company" <your@verifieddomain.com>', // Ensure this is a verified sender address
     to: user.email, // Recipient email address
     subject: "Reset Your Password", // Email subject
-    html: message, // HTML body content
+    html: message,
+    attachments: [
+      {
+        filename: "logo.jpg",
+        path: logoPath,
+        cid: "unique@nodemailer.com", //same cid value as in the html img src
+      },
+    ], // HTML body content
   };
 
   try {
