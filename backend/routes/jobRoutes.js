@@ -35,4 +35,15 @@ router
     jobController.updateJob
   );
 
+// Questions
+
+router.use(authController.protect, authController.restrictTo("company"));
+
+router.route("/:jobId/questions").post(jobController.addJobQuestion);
+
+router
+  .route("/:jobId/questions/:id")
+  .put(jobController.updateJobQuestion)
+  .delete(jobController.deleteJobQuestion);
+
 module.exports = router;

@@ -133,3 +133,102 @@ exports.getLatestJob = catchAsync(async (req, res) => {
   }
   res.status(200).json({ status: "success", latestJobs });
 });
+
+// Questions
+
+exports.addJobQuestion = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to update this job",
+    });
+  }
+
+  const question = await job.createQuestion(req.body);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      question: question.dataValues,
+    },
+  });
+});
+
+exports.updateJobQuestion = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to update this job",
+    });
+  }
+
+  const question = await Question.findByPk(req.params.id);
+
+  if (!question) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No question found with that ID",
+    });
+  }
+
+  const updatedQuestion = await question.update(req.body);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      question: updatedQuestion,
+    },
+  });
+});
+
+exports.deleteJobQuestion = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to update this job",
+    });
+  }
+
+  const question = await Question.findByPk(req.params.id);
+
+  if (!question) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No question found with that ID",
+    });
+  }
+
+  await question.destroy();
+
+  res.status(204).json({
+    status: "success",
+    message: "Question deleted successfully.",
+  });
+});
