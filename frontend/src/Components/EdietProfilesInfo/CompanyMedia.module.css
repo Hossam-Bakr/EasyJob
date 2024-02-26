@@ -27,7 +27,7 @@
 }
 .company_old_logo img{
     border-radius: 10px;
-    object-fit: cover;
+    width: 100%;
     cursor: pointer;
 }
 .change_logo_btn,.delete_btn{
@@ -64,6 +64,7 @@
 .company_old_cover,.company_no_cover{
     width:90%;
     border-radius: 10px;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,7 +80,7 @@
 }
 .company_old_cover label img{
     border-radius: 10px;
-    object-fit: cover;
+    width: 100%;
 }
 .cover_section{
     padding: 20px 0;
@@ -87,10 +88,10 @@
 }
 
 .company_no_cover label{
-     margin: 0;
+    margin: 0;
     cursor: pointer;
     width: 100%;
-    height: 100%;
+    height:100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,7 +102,6 @@
 .company_no_cover label img{
     width: 18.75rem;
     border-radius: 10px;
-
 }
 
 

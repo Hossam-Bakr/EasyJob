@@ -156,19 +156,18 @@
 }
 
 /* ____________________________________contact_______________________________________________________________ */
-.contact_links_container{
-    background-color: var(--darker_main_color);
-}
+
 .contact_links{
     margin: 40px 0;
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
 .contact_links svg{
     font-size: 40px;
-    color:white;
+    margin-inline: 15px;
+    color:var(--darker_main_color);
     cursor: pointer;
     transition: all .5s;
 }

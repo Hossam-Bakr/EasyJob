@@ -48,6 +48,7 @@ a{
 button{
   outline: none;
   border: none;
+  background-color: transparent;
 }
 input{
   outline: none;
@@ -130,14 +131,7 @@ select{
   padding: 10px;
   border-radius: 10px;
 }
-/* option{
-  background-color: var(--sky);
-  padding: 10px 0 !important;
-  transition: all .5s;
-}
-option:hover{
-  
-} */
+
 
 @media screen and (max-width:768px) {
   body,html{

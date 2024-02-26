@@ -1,0 +1,59 @@
+.exp_box{
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.351);
+    padding:1.25rem;
+    border-radius: 0.625rem;
+    position: relative;
+}
+.organization_logo{
+    width:4.375rem;
+    border-radius: 0.625rem;
+    margin-right: 1.25rem;
+}
+.organization_logo img{
+    width: 100%;
+    border-radius: 0.625rem;
+}
+.caption{
+    width: 85%;
+}
+.exp_content h4{
+    font-size: 1.375rem;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 2px;
+}
+.exp_content h5{
+    font-size: 0.9375rem;
+    font-weight: 700;
+    margin: 0;
+    color: rgb(20, 20, 20);
+    margin-bottom: 5px;
+}
+.exp_content p{
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dark_white);
+}
+.type{
+    font-size: 0.9375rem;
+    font-weight: 600;
+    background-color: var(--vanilla);
+    border-radius: 0.3125rem;
+    padding: 0.3125rem 0.5rem;
+    margin-bottom: 0.625rem;
+}
+
+@media screen and (max-width:600px) {
+    .organization_logo{
+        display: none;
+    }
+    .caption{
+        width: 100% !important;
+        flex-direction: column;
+        align-items: flex-start !important;    
+}
+    .type_container{
+        margin: 0;
+        margin-top: 15px;
+    }
+}

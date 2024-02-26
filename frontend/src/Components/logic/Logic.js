@@ -989,3 +989,65 @@ export const cityChange = (val, setState) => {
       break;
   }
 };
+
+
+//conver totalYears of exp
+
+export const totalYearsConversion=(num,setState)=>{
+  switch (num) {
+    case 0:
+      setState("No Experience")
+      break;
+    // case 1:
+    //   setState("less than one year")
+    //   break;
+    case 1:
+      setState("1 year")
+      break;
+    case 2:
+      setState("2 years")
+      break;
+    case 3:
+      setState("3 years")
+      break;
+    case 4:
+      setState("4 years")
+      break;
+    case 5:
+      setState("5 years")
+      break;
+    case 6:
+      setState("6 years")
+      break;
+    case 7:
+      setState("7 years")
+      break;
+    case 8:
+      setState("8 years")
+      break;
+    case 9:
+      setState("9 years")
+      break;
+    case 10:
+      setState("10 years")
+      break;
+    case 11:
+      setState("11 years")
+      break;
+    case 12:
+      setState("12 years")
+      break;
+    case 13:
+      setState("13 years")
+      break;
+    case 14:
+      setState("14 years")
+      break;
+    case 15:
+      setState("15 years")
+      break;
+  
+    default:
+      break;
+  }
+}

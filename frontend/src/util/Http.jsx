@@ -17,17 +17,32 @@ const signFormsHandler = async ({ type, formData }) => {
 
 export default signFormsHandler;
 
-export const updateFormHandler = async ({ type, formData, token,role }) => {
+export const updateFormHandler = async ({ type, formData, token,role,method}) => {
   try {
-    const response = await axios.patch(
-      `${baseServerUrl}${role}/profile/${type}`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    let response;
+    if(method==="post"){
+      response = await axios.post(
+        `${baseServerUrl}${role}/profile/${type}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+    else{
+      response = await axios.patch(
+        `${baseServerUrl}${role}/profile/${type}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+ 
     return response;
   } catch (error) {
     if (error.response) {
