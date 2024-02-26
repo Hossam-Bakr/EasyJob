@@ -113,8 +113,9 @@ exports.Login = catchAsync(async (req, res, next) => {
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   if (!user) {
-    throw new Error(`there is no user with this email  ${req.body.email}`);
+    return next(new ApiError("User not found", 404));
   }
+
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
   const hashedResetCode = crypto
     .createHash("sha256")
@@ -127,17 +128,112 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   user.passwordResetVerified = false;
   await user.save();
 
-  const message = `Hi ${user.firstName} \n we recieved a request to reset your password on your easyjob account \n ${resetCode} \n Enter this code to reset your password on your easyjob account \n thank for helping us to make your account secure ☺️`;
+  const message = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+.container {
+  width: 80% !important; 
+  margin : 25px auto ; 
+
+}
+
+    .header {
+      background-color: #005a9c;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      padding: 40px 20px;
+
+    }
+    .content {
+      padding: 40px 20px;
+      background-color: #eee;
+      text-align: left;
+      position: relative  !important;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px 20px;
+      font-size: 0.8em;
+      color: #fff;
+      background-color: black ;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #005a9c;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .logoImg {
+      width: 180px;
+      position: absolute;
+      top: 0px !important;
+      left: 0px  !important;
+      margin-bottom: 15px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  </style>
+  </head>
+  <body>
+   <div class="container"> 
+    <div class="header">
+   <h1>EasyJob Password Reset</h1>
+ </div>
+ <div class="content">
+  <img class="logoImg" src="cid:unique@nodemailer.com"/>
+   <h2>Hello, ${user.firstName}</h2>
+   <p>We received a request to reset your password for your EasyJob account. Please use the code below to proceed.</p>
+   <div style=" padding: 10px; margin: 8px 0; font-weight : bold ; text-align:left ; ">
+     <h3 style="color: #005a9c;">Reset Code: ${resetCode}</h3>
+   </div>
+   <p>Enter this code on the password reset page to create a new password for your account.</p>
+ </div>
+ <div class="footer">
+   Thank you for helping us to keep your account secure.
+   <br>
+   If you didn't request this, please ignore this email.
+ </div>
+ </div>
+  </body>
+  </html>
+  `;
+
   try {
-    await sendEmail(user, resetCode);
+    await sendEmail(user, "Password Reset Code (valid for 15 min)", message);
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ status: "failed", message: err.message });
+    user.passwordResetCode = undefined;
+    user.passwordResetExpire = undefined;
+    user.passwordResetVerified = false;
+
+    await user.save();
+
+    return next(
+      new ApiError(
+        "There was an error sending the email. Try again later!",
+        500
+      )
+    );
   }
 
-  res
-    .status(200)
-    .json({ status: "success", message: "You have got a reset code , check your email to reset password" });
+  res.status(200).json({
+    status: "success",
+    message: "You have got a reset code , check your email to reset password",
+  });
 });
 
 exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
@@ -147,17 +243,21 @@ exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
     .update(resetCode)
     .digest("hex")
     .trim();
+
   const user = await User.findOne({
     where: {
       passwordResetCode: hashedResetCode,
       passwordResetExpire: { [Op.gt]: Date.now() },
     },
   });
+
   if (!user) {
-    throw new Error(`Reset code ${req.body.resetCode} invalid or expired`);
+    return next(new ApiError("Reset code invalid or expired", 400));
   }
+
   user.passwordResetVerified = true;
-  user.save();
+  await user.save();
+
   res.status(200).json({
     status: "success",
     message: "password reset code verified successfully",
@@ -167,21 +267,22 @@ exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   if (!user) {
-    throw new Error(`there is no user with this email  ${req.body.email}`);
+    return next(new ApiError("User not found", 404));
   }
 
   if (!user.passwordResetVerified) {
-    throw new Error(`password reset code not verified`);
+    return next(new ApiError("Reset code not verified.", 400));
   }
 
   user.password = req.body.newPassword;
   user.passwordResetVerified = false;
-  user.passwordResetExpire = null;
-  user.passwordResetCode = null;
+  user.passwordResetExpire = undefined;
+  user.passwordResetCode = undefined;
 
-  const token = await generateJWT(user.id);
+  const token = generateJWT(user.id);
 
-  user.save();
+  await user.save();
+
   res.status(200).json({ status: "success", token });
 });
 
