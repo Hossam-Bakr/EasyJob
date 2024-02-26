@@ -40,10 +40,11 @@ const UserProfile = () => {
                 country={userProfileData.country}
                 gender={userProfileData.gender}
                 jobTitles={userProfileData.jobTitles}
+                openToWork={userProfileData.openToWork }
                 github={userProfileData.github}
                 stackOverflow={userProfileData.stackOverflow}
                 twitter={userProfileData.twitter}
-                linkedin={userProfileData.linkedin}
+                linkedin={userProfileData.linkedIn}
                 behance={userProfileData.behance}
                 type="user"
               />
@@ -56,7 +57,15 @@ const UserProfile = () => {
               nationality={userProfileData.nationality}
               gender={userProfileData.gender}
               about={userProfileData.about}
-            
+              drivingLicense={userProfileData.drivingLicense}
+              facebook={userProfileData.facebook}
+              github={userProfileData.github}
+              website={userProfileData.website}
+              twitter={userProfileData.twitter}
+              linkedin={userProfileData.linkedin}
+              youtube={userProfileData.youtube}
+              behance={userProfileData.behance}
+              stackOverflow={userProfileData.stackOverflow}
             />
           </Container>
         </>

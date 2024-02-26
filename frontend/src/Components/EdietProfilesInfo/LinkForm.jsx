@@ -6,13 +6,13 @@ import { object, string } from "yup";
 import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faYinYang } from "@fortawesome/free-solid-svg-icons";
+import { faThumbTack, faYinYang } from "@fortawesome/free-solid-svg-icons";
 import Loading from "./../Ui/Loading";
 import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
-import fetchProfileData from './../../Store/profileInfo-actions';
+import fetchProfileData from "./../../Store/profileInfo-actions";
 
-const CompanyLinksForm = ({ data }) => {
+const LinkForm = ({ data }) => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
@@ -21,40 +21,50 @@ const CompanyLinksForm = ({ data }) => {
   const [successResponse, setSuccessResponse] = useState(true);
 
   const [currentFacebook, setCurrentFacebook] = useState("");
-  const [currentInstagram, setCurrentInstagram] = useState("");
   const [currentTwitter, setCurrentTwitter] = useState("");
   const [currentLinkedIn, setCurrentLinkedIn] = useState("");
   const [currentYoutube, setCurrentYoutube] = useState("");
   const [currentWebsite, setCurrentWebsite] = useState("");
   const [currentBehance, setCurrentBehance] = useState("");
+
+  // for company
+  const [currentInstagram, setCurrentInstagram] = useState("");
   const [currentVimeo, setCurrentVimeo] = useState("");
+
+  //for user
+  const [currentGithub, setCurrentGithub] = useState("");
+  const [currentStackOverflow, setCurrentStackOverflow] = useState("");
 
   const dispatch = useDispatch();
 
-  const companyToken = useSelector((state) => state.userInfo.token);
+  const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
 
   useEffect(() => {
     if (data) {
       setCurrentFacebook(data.facebook || "");
-      setCurrentInstagram(data.instagram || "");
       setCurrentTwitter(data.twitter || "");
-      setCurrentLinkedIn(data.linkedin || "");
+      setCurrentLinkedIn(data.linkedIn || "");
       setCurrentYoutube(data.youtube || "");
       setCurrentWebsite(data.website || "");
       setCurrentBehance(data.behance || "");
-      setCurrentVimeo(data.vimeo || "");
+      if (role === "company") {
+        setCurrentInstagram(data.instagram || "");
+        setCurrentVimeo(data.vimeo || "");
+      } else {
+        setCurrentGithub(data.github || "");
+        setCurrentStackOverflow(data.stackOverflow || "");
+      }
     }
-  }, [data]);
-
+  }, [data, role]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
     onSuccess: (data) => {
       if (data.data.status === "success") {
         console.log(data);
-        if(role&&companyToken){
-          dispatch(fetchProfileData(companyToken,role))
+        if (role && token) {
+          dispatch(fetchProfileData(token, role));
         }
         setResponseMessage({
           title: "Edieted Successfully",
@@ -82,34 +92,63 @@ const CompanyLinksForm = ({ data }) => {
     },
   });
 
-  const initialValues = {
-    facebook: currentFacebook,
-    instagram: currentInstagram,
-    linkedin: currentLinkedIn,
-    twitter: currentTwitter,
-    youtube: currentYoutube,
-    website: currentWebsite,
-    behance: currentBehance,
-    vimeo: currentVimeo,
-  };
+  let initialValues = {};
+  role === "company"
+    ? (initialValues = {
+        facebook: currentFacebook,
+        linkedIn: currentLinkedIn,
+        twitter: currentTwitter,
+        youtube: currentYoutube,
+        website: currentWebsite,
+        behance: currentBehance,
+        instagram: currentInstagram,
+        vimeo: currentVimeo,
+      })
+    : (initialValues = {
+        facebook: currentFacebook,
+        linkedIn: currentLinkedIn,
+        twitter: currentTwitter,
+        youtube: currentYoutube,
+        website: currentWebsite,
+        behance: currentBehance,
+        github: currentGithub,
+        stackOverflow: currentStackOverflow,
+      });
 
   const onSubmit = (values) => {
-    const updatedValues = {
-      facebook: values.facebook !== "" ? values.facebook : currentFacebook,
-      instagram: values.instagram !== "" ? values.instagram : currentInstagram,
-      twitter: values.twitter !== "" ? values.twitter : currentTwitter,
-      linkedin: values.linkedin !== "" ? values.linkedin : currentLinkedIn,
-      behance: values.behance !== "" ? values.behance : currentBehance,
-      vimeo: values.vimeo !== "" ? values.vimeo : currentVimeo,
-      website: values.website !== "" ? values.website : currentWebsite,
-      youtube: values.youtube !== "" ? values.youtube : currentYoutube,
-    };
+    let updatedValues = {};
+    role === "company"
+      ? (updatedValues = {
+          facebook: values.facebook !== "" ? values.facebook : currentFacebook,
+          instagram:
+            values.instagram !== "" ? values.instagram : currentInstagram,
+          twitter: values.twitter !== "" ? values.twitter : currentTwitter,
+          linkedIn: values.linkedIn !== "" ? values.linkedIn : currentLinkedIn,
+          behance: values.behance !== "" ? values.behance : currentBehance,
+          vimeo: values.vimeo !== "" ? values.vimeo : currentVimeo,
+          website: values.website !== "" ? values.website : currentWebsite,
+          youtube: values.youtube !== "" ? values.youtube : currentYoutube,
+        })
+      : (updatedValues = {
+          facebook: values.facebook !== "" ? values.facebook : currentFacebook,
+
+          twitter: values.twitter !== "" ? values.twitter : currentTwitter,
+          linkedIn: values.linkedIn !== "" ? values.linkedIn : currentLinkedIn,
+          behance: values.behance !== "" ? values.behance : currentBehance,
+          website: values.website !== "" ? values.website : currentWebsite,
+          youtube: values.youtube !== "" ? values.youtube : currentYoutube,
+          github: values.github !== "" ? values.github : currentGithub,
+          stackOverflow:
+            values.stackOverflow !== ""
+              ? values.stackOverflow
+              : currentStackOverflow,
+        });
     mutate({
       type: "online-presence",
       formData: updatedValues,
-      token: companyToken,
+      token: token,
+      role:role==="company"?"companies":"users"
     });
-    console.log(values);
   };
 
   const websiteRegex =
@@ -128,17 +167,26 @@ const CompanyLinksForm = ({ data }) => {
     /^(?:https?:\/\/)?(?:www\.)?behance\.net\/(?:gallery\/|([\w\-.]+))(?:\/)?$/;
   const vimeoRegex =
     /^(?:https?:\/\/)?(?:www\.)?vimeo\.com\/(?:\w+\/)*([\w\-.]+)(?:\/)?$/;
+  const stackOverflowRegex =
+    /^(https?:\/\/)?(www\.)?stackoverflow\.com\/users\/(\d+)\/([a-zA-Z0-9_-]+)$/;
+  const githubRegex =/^(https?:\/\/)?(www\.)?github\.com\/([a-zA-Z0-9_-]+)$/
 
   const validationSchema = object({
     website: string().matches(websiteRegex, "Enter correct url!"),
     facebook: string().matches(facebookRegex, "Enter correct url!"),
     instagram: string().matches(instagramRegex, "Enter correct url!"),
-    linkedin: string().matches(linkedinRegex, "Enter correct url!"),
+    linkedIn: string().matches(linkedinRegex, "Enter correct url!"),
     twitter: string().matches(twitterRegex, "Enter correct url!"),
     youtube: string().matches(youtubeRegex, "Enter correct url!"),
     behance: string().matches(behanceRegex, "Enter correct url!"),
     vimeo: string().matches(vimeoRegex, "Enter correct url!"),
+    github: string().matches(githubRegex, "Enter correct url!"),
+    stackOverflow: string().matches(stackOverflowRegex, "Enter correct url!"),
   });
+
+  const changedLinkone = role === "company" ? "instagram" : "github";
+  const changedLinktwo = role === "company" ? "vimeo" : "stackOverflow";
+
   return (
     <>
       {data ? (
@@ -155,20 +203,31 @@ const CompanyLinksForm = ({ data }) => {
                 placeholder={currentWebsite}
                 id="website"
                 name="website"
-                className={data.website ? "" : styles.empty_field}
               />
+              {!data.website && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
               <ErrorMessage name="website" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="linkedin">linkedin</label>
+              <label htmlFor="linkedIn">linkedIn</label>
               <Field
                 type="text"
                 placeholder={currentLinkedIn}
-                id="linkedin"
-                name="linkedin"
-                className={data.linkedin ? "" : styles.empty_field}
+                id="linkedIn"
+                name="linkedIn"
               />
+              {!data.linkedIn && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
+
               <ErrorMessage name="linkedin" component={InputErrorMessage} />
             </div>
 
@@ -179,8 +238,14 @@ const CompanyLinksForm = ({ data }) => {
                 placeholder={currentFacebook}
                 id="facebook"
                 name="facebook"
-                className={data.facebook ? "" : styles.empty_field}
               />
+              {!data.facebook && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
+
               <ErrorMessage name="facebook" component={InputErrorMessage} />
             </div>
 
@@ -191,21 +256,37 @@ const CompanyLinksForm = ({ data }) => {
                 placeholder={currentTwitter}
                 id="twitter"
                 name="twitter"
-                className={data.twitter ? "" : styles.empty_field}
               />
+              {!data.twitter && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
+
               <ErrorMessage name="twitter" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="instagram">instagram</label>
+              <label htmlFor={changedLinkone}>{changedLinkone}</label>
               <Field
                 type="text"
-                placeholder={currentInstagram}
-                id="instagram"
-                name="instagram"
-                className={data.instagram ? "" : styles.empty_field}
+                placeholder={
+                  role === "company" ? currentInstagram : currentGithub
+                }
+                id={changedLinkone}
+                name={changedLinkone}
               />
-              <ErrorMessage name="instagram" component={InputErrorMessage} />
+              {(role === "company" ? !data.instagram : !data.github) && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
+              <ErrorMessage
+                name={changedLinkone}
+                component={InputErrorMessage}
+              />
             </div>
 
             <div className={styles.field}>
@@ -215,8 +296,13 @@ const CompanyLinksForm = ({ data }) => {
                 placeholder={currentYoutube}
                 id="youtube"
                 name="youtube"
-                className={data.youtube ? "" : styles.empty_field}
               />
+              {!data.youtube && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
               <ErrorMessage name="youtube" component={InputErrorMessage} />
             </div>
 
@@ -227,21 +313,36 @@ const CompanyLinksForm = ({ data }) => {
                 placeholder={currentBehance}
                 id="behance"
                 name="behance"
-                className={data.behance ? "" : styles.empty_field}
               />
+              {!data.behance && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
               <ErrorMessage name="behance" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="vimeo">vimeo</label>
+              <label htmlFor={changedLinktwo}>{changedLinktwo}</label>
               <Field
                 type="text"
-                placeholder={currentVimeo}
-                id="vimeo"
-                name="vimeo"
-                className={data.vimeo ? "" : styles.empty_field}
+                placeholder={
+                  role === "company" ? currentVimeo : currentStackOverflow
+                }
+                id={changedLinktwo}
+                name={changedLinktwo}
               />
-              <ErrorMessage name="vimeo" component={InputErrorMessage} />
+              {(role === "company" ? !data.vimeo : !data.stackOverflow) && (
+                <FontAwesomeIcon
+                  className={styles.thumb_icon}
+                  icon={faThumbTack}
+                />
+              )}
+              <ErrorMessage
+                name={changedLinktwo}
+                component={InputErrorMessage}
+              />
             </div>
 
             <div className="d-flex justify-content-end align-items-center mt-3 px-2">
@@ -270,4 +371,4 @@ const CompanyLinksForm = ({ data }) => {
   );
 };
 
-export default CompanyLinksForm;
+export default LinkForm;

@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
 import { useNavigate } from "react-router-dom";
 import NoDataBox from "./NoDataBox";
+import { faBehance, faFacebook, faGithub, faLinkedin, faStackOverflow, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const ProfileSections = ({
   phone,
@@ -24,6 +25,15 @@ const ProfileSections = ({
   nationality,
   gender,
   about,
+  drivingLicense,
+  facebook,
+  stackOverflow,
+  linkedin,
+  twitter,
+  youtube,
+  website,
+  behance,
+  github,
 }) => {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const dispatch = useDispatch();
@@ -41,7 +51,7 @@ const ProfileSections = ({
   return (
     <>
       {/* contacts */}
-      {!(email && phone && url && birthDate && nationality && gender) ? (
+      {!phone && !url && !birthDate && !nationality && !gender ? (
         <section className={`${styles.main_style}`}>
           <EdietPenIcon onClick={() => navigateToEdiet("info")} />
           <h3 className={styles.sec_title}>Contact Info</h3>
@@ -90,7 +100,8 @@ const ProfileSections = ({
                 onClick={toggleShowContactInfoDiv}
                 className={styles.show_more_btn}
               >
-                show more <FontAwesomeIcon icon={faCaretDown} />
+                {showContactInfo ? "Show Less" : "Show More"}{" "}
+                <FontAwesomeIcon icon={faCaretDown} />
               </button>
               <Row
                 className={`${styles.contact_info_body_tail} ${
@@ -127,6 +138,14 @@ const ProfileSections = ({
                           Gender:
                         </span>
                         <span>{gender}</span>
+                      </li>
+                    )}
+                    {drivingLicense !== null && (
+                      <li className={styles.info_tail_li}>
+                        <span className={styles.info_tail_li_title}>
+                          Driving License:
+                        </span>
+                        <span>{drivingLicense ? "Yes" : "No"}</span>
                       </li>
                     )}
                   </ul>
@@ -234,6 +253,34 @@ const ProfileSections = ({
             <span>Java</span>
           </div>
         </div>
+      </section>
+
+      {/* contact */}
+
+      <section className={`${styles.main_style} ${styles.contact_links_container}`}>
+        <EdietPenIcon text="Ediet" />
+        {website ||
+        facebook ||
+        linkedin ||
+        twitter ||
+        stackOverflow ||
+        github ||
+        behance ||
+        youtube ? (
+          <div className={styles.contact_links}>
+            {website&&<FontAwesomeIcon icon={faEnvelope}/>}
+            {facebook&&<FontAwesomeIcon icon={faFacebook}/>}
+            {linkedin&&<FontAwesomeIcon icon={faLinkedin}/>}
+            {twitter&&<FontAwesomeIcon icon={faTwitter}/>}
+            {stackOverflow&&<FontAwesomeIcon icon={faStackOverflow}/>}
+            {github&&<FontAwesomeIcon icon={faGithub}/>}
+            {behance&&<FontAwesomeIcon icon={faBehance}/>}
+            {youtube&&<FontAwesomeIcon icon={faYoutube}/>}
+            
+          </div>
+        ) : (
+          <NoDataBox />
+        )}
       </section>
     </>
   );

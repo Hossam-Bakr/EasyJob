@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./EdietInfoForm.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { object, string } from "yup";
+import { object, string, date } from "yup";
 import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,9 +19,14 @@ const UserGeneralInfoForm = ({ data }) => {
     title: "",
     content: "",
   });
+
   const [successResponse, setSuccessResponse] = useState(true);
   const [countryCities, setCountryCities] = useState([]);
   const [cityAreas, setCityAreas] = useState([]);
+  const [newCountry, setNewCountry] = useState("");
+  const [newCity, setNewCity] = useState("");
+  const [newArea, setNewArea] = useState("");
+  const [newNationality, setNewNationality] = useState("");
 
   const [currentAbout, setcurrentAbout] = useState("");
   const [currentCountry, setCurrentCountry] = useState("");
@@ -53,6 +58,39 @@ const UserGeneralInfoForm = ({ data }) => {
       setcurrentAbout(data.about || "");
     }
   }, [data]);
+
+  useEffect(() => {
+    if (currentCountry) {
+      countryChange(currentCountry, setCountryCities);
+    }
+  }, [currentCountry]);
+
+  useEffect(() => {
+    if (currentCity) {
+      cityChange(currentCity, setCityAreas);
+    }
+  }, [currentCity]);
+
+  const handleCountryChange = (e) => {
+    const val = e.target.value;
+    setNewCountry(val);
+    setCountryCities([]);
+    countryChange(val, setCountryCities);
+  };
+  const handleCityChange = (e) => {
+    const val = e.target.value;
+    setNewCity(val);
+    setCityAreas([]);
+    cityChange(val, setCityAreas);
+  };
+  const handleAreaChange = (e) => {
+    const val = e.target.value;
+    setNewArea(val);
+  };
+  const handleNationalityChange = (e) => {
+    const val = e.target.value;
+    setNewNationality(val);
+  };
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
@@ -94,11 +132,11 @@ const UserGeneralInfoForm = ({ data }) => {
     birthDate: currentBirthDate,
     phone: currentPhone,
     gender: currentGender,
-    nationality: currentNationality,
     drivingLicense: currentDrivingLicense,
     country: currentCountry,
     city: currentCity,
     area: currentArea,
+    nationality: currentNationality,
     about: currentAbout,
     openToWork: currentOpenToWork,
   };
@@ -106,20 +144,25 @@ const UserGeneralInfoForm = ({ data }) => {
   const onSubmit = (values) => {
     const updatedValues = {
       birthDate:
-        values.birthDate !== "" ? values.birthDate.toSring() : currentBirthDate,
-
+        values.birthDate.toString() !== ""
+          ? values.birthDate.toString()
+          : currentBirthDate,
       phone: values.phone !== "" ? values.phone : currentPhone,
       gender: values.gender !== "" ? values.gender : currentGender,
-      nationality:
-        values.nationality !== "" ? values.nationality : currentNationality,
       drivingLicense:
         values.drivingLicense !== ""
           ? values.drivingLicense
           : currentDrivingLicense,
-      country: values.country !== "" ? values.country : currentCountry,
-      city: values.city !== "" ? values.city : currentCity,
-      area: values.area !== "" ? values.area : currentArea,
+      openToWork:
+        values.openToWork !== "" ? values.openToWork : currentOpenToWork,
+      country: newCountry !== "" ? newCountry : currentCountry,
+      city: newCity !== "" ? newCity : currentCity,
+      area: newArea !== "" ? newArea : currentArea,
+      nationality:
+      newNationality !== "" ? newNationality : currentNationality,
+      about: values.about !== "" ? values.about : currentAbout,
     };
+    console.log(updatedValues);
     mutate({
       type: "info",
       formData: updatedValues,
@@ -128,22 +171,29 @@ const UserGeneralInfoForm = ({ data }) => {
     });
   };
 
-  const validationSchema = object().shape({
+  const today = new Date();
+  
+  const validationSchema = object({
     country: string().required("Country is required"),
     city: string().required("City is required"),
+    nationality: string().required("Nationality is required"),
+    area: string(),
     phone: string()
       .matches(/^01[0-2,5]{1}[0-9]{8}$/, "Invalid phone number")
       .required("Phone is required"),
+    birthDate: date()
+      .test("minimumAge", "Must be at least 10 years old", function (value) {
+        const selectedDate = new Date(value);
+        const minimumAgeDate = new Date();
+        minimumAgeDate.setFullYear(minimumAgeDate.getFullYear() - 10);
+        return selectedDate <= minimumAgeDate;
+      })
+      .test("futureDate", "Future dates are not allowed", function (value) {
+        const selectedDate = new Date(value);
+        return selectedDate <= today;
+      })
+      .required("Birthdate is required"),
   });
-
-const handleCountryChange=(e)=>{
-  setCountryCities([]);
-  countryChange(e,setCountryCities)
-}
-const handleCityChange=(e)=>{
-  setCityAreas([])
-  cityChange(e,setCityAreas)
-}
 
   return (
     <>
@@ -157,6 +207,117 @@ const handleCityChange=(e)=>{
           <Form
             className={`${styles.general_info_form} ${styles.user_general_info}`}
           >
+            <div className={styles.collection}>
+              <div className={styles.field}>
+                <label htmlFor="userCountry">Country</label>
+                <select
+                  name="country"
+                  id="userCountry"
+                  className="form-select"
+                  onChange={handleCountryChange}
+                  defaultValue={currentCountry}
+                >
+                  <option
+                    className={styles.select_title}
+                    value={currentCountry}
+                    disabled={currentCountry ? false : true}
+                  >
+                    {currentCountry ? currentCountry : "Country"}
+                  </option>
+                  {currentCountry !== "Egypt" && (
+                    <option value="Egypt">Egypt</option>
+                  )}
+                  {currentCountry !== "UAE" && <option value="UAE">UAE</option>}
+                  {currentCountry !== "SaudiArabia" && (
+                    <option value="SaudiArabia">Saudi Arabia</option>
+                  )}
+                  {currentCountry !== "Kuwait" && (
+                    <option value="Kuwait">Kuwait</option>
+                  )}
+                </select>
+                <ErrorMessage name="country" component={InputErrorMessage} />
+              </div>
+
+              <div className={styles.field}>
+                <label htmlFor="userCity">City</label>
+                <select
+                  as="select"
+                  name="city"
+                  id="userCity"
+                  className="form-select"
+                  onChange={handleCityChange}
+                  defaultValue={currentCity}
+                >
+                  <option
+                    className={styles.select_title}
+                    value={currentCity}
+                    disabled={currentCity ? false : true}
+                  >
+                    {currentCity ? currentCity : "City"}{" "}
+                  </option>
+                  {countryCities.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+                <ErrorMessage name="city" component={InputErrorMessage} />
+              </div>
+            </div>
+
+            <div className={styles.collection}>
+              <div className={styles.field}>
+                <label htmlFor="nationality">Nationality</label>
+                <select
+                  name="nationality"
+                  id="nationality"
+                  className="form-select"
+                  onChange={handleNationalityChange}
+                  defaultValue={currentNationality}
+                >
+                  <option
+                    className={styles.select_title}
+                    value={currentNationality}
+                    disabled={currentNationality ? false : true}
+                  >
+                    {currentNationality ? currentNationality : "Nationality"}
+                  </option>
+                  <option value="Egypt">Egypt</option>
+                  <option value="UAE">UAE</option>
+                  <option value="SaudiArabia">Saudi Arabia</option>
+                  <option value="Kuwait">Kuwait</option>
+                </select>
+                <ErrorMessage
+                  name="nationality"
+                  component={InputErrorMessage}
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label htmlFor="area">Area</label>
+                <select
+                  name="area"
+                  id="area"
+                  className="form-select"
+                  onChange={handleAreaChange}
+                  defaultValue={currentArea}
+                >
+                  <option
+                    className={styles.select_title}
+                    value={currentArea}
+                    disabled={currentArea ? false : true}
+                  >
+                    {currentArea ? currentArea : "Area"}
+                  </option>
+                  {cityAreas.map((area) => (
+                    <option key={area} value={area}>
+                      {area}
+                    </option>
+                  ))}
+                </select>
+                <ErrorMessage name="area" component={InputErrorMessage} />
+              </div>
+            </div>
             <div className={styles.field}>
               <label htmlFor="birthDate">BirthDate</label>
               <Field
@@ -167,87 +328,6 @@ const handleCityChange=(e)=>{
                 name="birthDate"
               />
               <ErrorMessage name="birthDate" component={InputErrorMessage} />
-            </div>
-
-            <div className={styles.collection}>
-              <div className={styles.field}>
-                <label htmlFor="userCountry">Country</label>
-                <Field
-                  as="select"
-                  name="country"
-                  id="userCountry"
-                  className="form-select"
-                  onChange={handleCountryChange}
-                  value={currentCountry}
-                >
-                  <option disabled>Country</option>
-                  <option value="Egypt">Egypt</option>
-                  <option value="UAE">UAE</option>
-                  <option value="SaudiArabia">Saudi Arabia</option>
-                  <option value="Kuwait">Kuwait</option>
-                </Field>
-                <ErrorMessage name="country" component={InputErrorMessage} />
-              </div>
-
-              <div className={styles.field}>
-                <label htmlFor="userCity">City</label>
-                <Field
-                  as="select"
-                  name="city"
-                  id="userCity"
-                  className="form-select"
-                  onChange={handleCityChange}
-                  value={currentCountry}
-                >
-                  <option disabled>City</option>
-                  {countryCities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage name="city" component={InputErrorMessage} />
-              </div>
-            </div>
-
-            <div className={styles.collection}>
-            <div className={styles.field}>
-                <label htmlFor="nationality">Nationality</label>
-                <Field
-                  as="select"
-                  name="nationality"
-                  id="nationality"
-                  className="form-select"
-                >
-                  <option disabled>Nationality</option>
-                  <option value="Egypt">Egypt</option>
-                  <option value="UAE">UAE</option>
-                  <option value="SaudiArabia">Saudi Arabia</option>
-                  <option value="Kuwait">Kuwait</option>
-                </Field>
-                <ErrorMessage name="nationality" component={InputErrorMessage} />
-              </div>
-              
-
-
-
-              <div className={styles.field}>
-                <label htmlFor="area">Area</label>
-                <Field
-                  as="select"
-                  name="area"
-                  id="area"
-                  className="form-select"
-                >
-                  <option disabled>Area</option>
-                  {cityAreas.map((area) => (
-                    <option key={area} value={area}>
-                      {area}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage name="area" component={InputErrorMessage} />
-              </div>
             </div>
             <div className={styles.field}>
               <label htmlFor="userPhone">Phone</label>
@@ -266,7 +346,7 @@ const handleCityChange=(e)=>{
                 <label className="form-check-label" htmlFor="openToWork">
                   Available for immediate hiring
                 </label>
-                <input
+                <Field
                   className="form-check-input"
                   type="checkbox"
                   role="switch"
@@ -280,7 +360,7 @@ const handleCityChange=(e)=>{
                 <label className="form-check-label" htmlFor="drivingLicense">
                   Do you have a driving license?
                 </label>
-                <input
+                <Field
                   className="form-check-input"
                   type="checkbox"
                   role="switch"
@@ -319,7 +399,7 @@ const handleCityChange=(e)=>{
               <Field
                 as="textarea"
                 placeholder={currentAbout ? currentAbout : "about"}
-                id="about info"
+                id="aboutInfo"
                 name="about"
                 cols="30"
                 rows="7"

@@ -120,6 +120,25 @@
     border-radius: 50%;
     cursor: pointer;
 }
+.badge{
+    position: absolute;
+    background:linear-gradient(to top,rgba(0, 110, 255,.7) 30%,rgba(0,0,0,0) 30%);
+    color: white;
+    font-weight: 700;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: 0.625rem;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-style: italic;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
 .profile_pic_company .cartoona{
     border-radius: 0.625rem !important;
 }
@@ -139,9 +158,10 @@
     position: absolute;
     bottom:0;
     right: 0;
+    z-index: 4;
     font-size: 0.9375rem;
     background-color: var(--main_color);
-    border: 0.0625rem solid transparent;
+    border: 0.125rem solid white;
     cursor: pointer;
     transform: translate(-20%,-20%);
     opacity: 0;

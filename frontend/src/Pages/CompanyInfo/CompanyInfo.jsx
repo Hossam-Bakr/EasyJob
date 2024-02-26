@@ -5,8 +5,8 @@ import Container from "react-bootstrap/Container";
 import CompanyMedia from "../../Components/EdietProfilesInfo/CompanyMedia";
 import CompanyGeneralInfo from "../../Components/EdietProfilesInfo/CompanyGeneralInfo";
 import { useSelector } from "react-redux";
-import CompanyLinks from "../../Components/EdietProfilesInfo/CompanyLinks";
 import Loading from "../../Components/Ui/Loading";
+import { Link } from 'react-router-dom';
 
 const CompanyInfo = () => {
   const defaultPage = useSelector(
@@ -66,7 +66,7 @@ const CompanyInfo = () => {
               />
             </Tab>
             <Tab eventKey="contact" title="CONTACT LINKS">
-              <CompanyLinks
+              <Link
                 facebook={facebook}
                 instagram={instagram}
                 linkedin={linkedin}

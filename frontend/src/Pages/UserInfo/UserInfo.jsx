@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Container from "react-bootstrap/Container";
-import CompanyLinks from "../../Components/EdietProfilesInfo/CompanyLinks";
 import UserMedia from "../../Components/EdietProfilesInfo/UserMedia";
 import Loading from "../../Components/Ui/Loading";
 import { useSelector } from "react-redux";
 import UserGeneralInfo from "../../Components/EdietProfilesInfo/UserGeneralInfo";
+import Links from "../../Components/EdietProfilesInfo/Links";
 
 const UserInfo = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
@@ -37,18 +37,29 @@ const UserInfo = () => {
             </Tab>
             <Tab eventKey="info" title="GENERAL INFORMATION">
               <UserGeneralInfo
-                birthDate= {userProfileData.birthDate}
-                phone= {userProfileData.phone}
-                gender= {userProfileData.gender}
+                birthDate={userProfileData.birthDate}
+                phone={userProfileData.phone}
+                gender={userProfileData.gender}
                 nationality={userProfileData.nationality}
-                drivingLicense= {userProfileData.drivingLicense}
+                drivingLicense={userProfileData.drivingLicense}
+                openToWork={userProfileData.openToWork}
                 country={userProfileData.country}
-                city= {userProfileData.city}
-                area= {userProfileData.area}
+                city={userProfileData.city}
+                area={userProfileData.area}
+                about={userProfileData.about}
               />
             </Tab>
             <Tab eventKey="contact" title="CONTACT LINKS">
-              <CompanyLinks />
+              <Links
+                facebook={userProfileData.facebook}
+                stackOverflow={userProfileData.stackOverflow} //insta
+                linkedIn={userProfileData.linkedIn}
+                twitter={userProfileData.twitter}
+                youtube={userProfileData.youtube}
+                website={userProfileData.website}
+                behance={userProfileData.behance}
+                github={userProfileData.github} //vimeo
+              />
             </Tab>
           </Tabs>
         </Container>

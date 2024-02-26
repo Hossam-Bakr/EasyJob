@@ -42,16 +42,14 @@ const ProfileHeader = ({
   country,
   industry,
   facebook,
-  instagram,
   website,
   twitter,
   linkedin,
   behance,
   github,
   stackOverflow,
-  gender,
+  openToWork,
 }) => {
-  
   let profile_cover = cover ? cover : c2;
 
   let companyIndustry = "Software Engineering";
@@ -86,7 +84,7 @@ const ProfileHeader = ({
   return (
     <>
       <header className={headerClasses}>
-       <img src={profile_cover} alt="cover pic" />
+        <img src={profile_cover} alt="cover pic" />
 
         <div
           className={styles.ediet_cover_btn}
@@ -95,9 +93,19 @@ const ProfileHeader = ({
         >
           <FontAwesomeIcon icon={faPencil} />
         </div>
-        <div className={`${profilePictureClasses} ${!pic&&type==='user'&&styles.noAvatar_container}`}>
+        <div
+          className={`${profilePictureClasses} ${
+            !pic && type === "user" && styles.noAvatar_container
+          }`}
+        >
           <div className={styles.cartoona}>
-          {pic?<img src={pic} alt="profile pic" />:type==="company"?<img src={p2} alt="profile pic" />:<UserProfilePic/>} 
+            {pic ? (
+              <img src={pic} alt="profile pic" />
+            ) : type === "company" ? (
+              <img src={p2} alt="profile pic" />
+            ) : (
+              <UserProfilePic />
+            )}
             <div
               className={styles.ediet_profile_pic_btn}
               title="change profile photo"
@@ -105,6 +113,7 @@ const ProfileHeader = ({
             >
               <FontAwesomeIcon icon={faCamera} />
             </div>
+              {openToWork&&<div className={styles.badge}><span>open to work</span></div>}
           </div>
         </div>
         <div className={styles.header_links}>
@@ -172,7 +181,9 @@ const ProfileHeader = ({
         <EdietPenIcon onClick={() => navigateToEdietProfile("info")} />
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className=" d-flex flex-column">
-            <h3>{firstName}{" "}{lastName}</h3>
+            <h3>
+              {firstName} {lastName}
+            </h3>
             <span>{companyIndustry}</span>
             {(city || country) && (
               <span>
@@ -220,8 +231,7 @@ const ProfileHeader = ({
                     {(website ||
                       facebook ||
                       linkedin ||
-                      twitter ||
-                      instagram) && (
+                      twitter) && (
                       <div className={styles.contact_icons}>
                         {website && (
                           <Link to={website} target={"_blank"}>

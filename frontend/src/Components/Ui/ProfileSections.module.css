@@ -155,6 +155,29 @@
     padding: 0 0.625rem 0.625rem 0;
 }
 
+/* ____________________________________contact_______________________________________________________________ */
+.contact_links_container{
+    background-color: var(--darker_main_color);
+}
+.contact_links{
+    margin: 40px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.contact_links svg{
+    font-size: 40px;
+    color:white;
+    cursor: pointer;
+    transition: all .5s;
+}
+.contact_links svg:hover{
+    transform: translateY(-0.625rem);
+}
+
+
+
 
 
 @media screen and (max-width:1178px) {

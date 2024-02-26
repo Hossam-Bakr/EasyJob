@@ -44,7 +44,6 @@ const CompanyProfile = () => {
                 country={companyProfileData.country}
                 industry={companyProfileData.Companyindustry}
                 facebook={companyProfileData.facebook}
-                instagram={companyProfileData.instagram}
                 website={companyProfileData.website}
                 twitter={companyProfileData.twitter}
                 linkedin={companyProfileData.linkedin}
