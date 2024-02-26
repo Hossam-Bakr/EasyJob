@@ -25,7 +25,7 @@ const UserProfile = sequelize.define("UserProfile", {
   about: DataTypes.TEXT,
   openToWork: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
   },
 
   // Location
