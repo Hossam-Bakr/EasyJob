@@ -338,3 +338,58 @@ exports.updateJobValidator = [
 
   validatorError,
 ];
+
+exports.addJobQuestionValidator = [
+  check("jobId")
+    .notEmpty()
+    .withMessage("Please provide job id")
+    .isNumeric()
+    .withMessage("Job id must be a number")
+    .trim(),
+
+  check("questionText")
+    .notEmpty()
+    .withMessage("Please provide question text")
+    .isString()
+    .withMessage("Question text must be a string")
+    .trim(),
+
+  check("type")
+    .notEmpty()
+    .withMessage("Please provide question type")
+    .isIn(["text", "yes/no", "voice"])
+    .withMessage("Please provide valid question type")
+    .trim(),
+
+  validatorError,
+];
+
+exports.updateJobQuestionValidator = [
+  check("jobId")
+    .notEmpty()
+    .withMessage("Please provide job id")
+    .isNumeric()
+    .withMessage("Job id must be a number")
+    .trim(),
+
+  check("id")
+    .notEmpty()
+    .withMessage("Please provide question id")
+    .isNumeric()
+    .withMessage("Question id must be a number")
+    .trim(),
+
+  check("questionText")
+    .optional()
+    .isString()
+    .withMessage("Question text must be a string")
+    .trim(),
+
+  check("type")
+    .optional()
+    .isIn(["text", "yes/no", "voice"])
+    .withMessage("Please provide valid question type")
+    .trim(),
+
+  validatorError,
+];
