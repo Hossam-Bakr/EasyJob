@@ -1,6 +1,5 @@
 const { check } = require("express-validator");
 const validatorError = require("./validationError");
-// const Job = require("../../models/jobModel");
 
 exports.createJobValidator = [
   check("title")
@@ -162,8 +161,29 @@ exports.createJobValidator = [
     .notEmpty()
     .withMessage("Please provide job categories")
     .isArray({ min: 1 })
-    .withMessage("Categories must be an array of at least 1 category id")
-    .trim(),
+    .withMessage("Categories must be an array of at least 1 category id"),
+
+  check("requiredSkills")
+    .notEmpty()
+    .withMessage("Please provide job required skills")
+    .isArray({ min: 3 })
+    .withMessage("Required skills must be an array of at least 3 skills")
+    .custom((value) => {
+      if (
+        value.some(
+          (skill) =>
+            !(skill.SkillId || skill.newSkill) ||
+            !skill.minLevel ||
+            !skill.minYearsOfExperience
+        )
+      ) {
+        return Promise.reject(
+          "Please provide (SkillId | newSkill), minLevel, minYearsOfExperience for each required skill"
+        );
+      }
+
+      return true;
+    }),
 
   validatorError,
 ];
@@ -293,8 +313,28 @@ exports.updateJobValidator = [
   check("categoriesId")
     .optional()
     .isArray({ min: 1 })
-    .withMessage("Categories must be an array of at least 1 category id")
-    .trim(),
+    .withMessage("Categories must be an array of at least 1 category id"),
+
+  check("requiredSkills")
+    .optional()
+    .isArray({ min: 3 })
+    .withMessage("Required skills must be an array of at least 3 skills")
+    .custom((value) => {
+      if (
+        value.some(
+          (skill) =>
+            !(skill.SkillId || skill.newSkill) ||
+            !skill.minLevel ||
+            !skill.minYearsOfExperience
+        )
+      ) {
+        return Promise.reject(
+          "Please provide (SkillId | newSkill), minLevel, minYearsOfExperience for each required skill"
+        );
+      }
+
+      return true;
+    }),
 
   validatorError,
 ];
