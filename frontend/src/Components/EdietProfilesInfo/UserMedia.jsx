@@ -132,7 +132,7 @@ const UserMedia = ({ gender, cover }) => {
     ? imgUrl
     : profileAvatar
     ? profileAvatar
-    : uploadImg
+    : uploadImg;
   const edietedImgCover = coverUrl
     ? coverUrl
     : profileCover
@@ -160,7 +160,7 @@ const UserMedia = ({ gender, cover }) => {
               ref={inputRef}
             />
           </div>
-          <div className="d-flex mt-4">
+          <div className={` ${styles.btns} d-flex mt-4`}>
             <button className={`${styles.delete_btn}  me-4`}>
               <FontAwesomeIcon icon={faTrash} /> Delete
             </button>
@@ -171,7 +171,7 @@ const UserMedia = ({ gender, cover }) => {
               Change Avatar
             </button>
           </div>
-          <span className="mini_word mt-4">
+          <span className="mini_word mt-4 text-center">
             maximum size of 3 MB. Avatar Recommended aspect ratio of 1:1
           </span>
         </div>
@@ -194,7 +194,7 @@ const UserMedia = ({ gender, cover }) => {
               ref={coverRef}
             />
           </div>
-          <div className="d-flex mt-4">
+          <div className={` ${styles.btns} d-flex mt-4`}>
             <button className={`${styles.delete_btn}  me-4`}>
               <FontAwesomeIcon icon={faTrash} /> Delete
             </button>

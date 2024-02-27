@@ -9,8 +9,7 @@ import WorkExperienceForm from "./WorkExperienceForm";
 const UserExperience = ({ Experiences,totalYearsOfExperience,UserId }) => {
   return (
     <div>
-      <SectionMainTitle title="Company General Info" />
-
+      <SectionMainTitle title="User Experiences" />
         <Row className="mb-5" id="general">
           <Col md={6}>
             <div className={styles.seperate_form}>

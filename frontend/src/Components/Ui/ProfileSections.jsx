@@ -26,6 +26,7 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import WorkExperienceBox from "./WorkExperienceBox";
+import FloatingPopup from './FloatingPopup';
 
 
 const ProfileSections = ({
@@ -47,6 +48,12 @@ const ProfileSections = ({
   github,
   Experiences,
 }) => {
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -269,6 +276,36 @@ const ProfileSections = ({
    
       </section>
 
+
+      {/* Experiance */}
+      <section className={styles.main_style}>
+        <EdietPenIcon
+          text="+Add"
+          onClick={() => navigateToEdiet("experience")}
+        />
+        <h3 className={styles.sec_title}>Work Experience</h3>
+        {Experiences.length !== 0 ? (
+          Experiences.map((exp) => (
+            <WorkExperienceBox
+              key={exp.id}
+              expId={exp.id}
+              title={exp.title}
+              type={exp.type}
+              category={exp.category}
+              description={exp.description}
+              startDate={exp.startDate}
+              endDate={exp.endDate}
+              organization={exp.organization}
+              setSecResponseMsg={setResponseMessage}
+              setSecSuccess={setSuccessResponse}
+              setSecShowResponse={setShowResponse}
+            />
+          ))
+        ) : (
+          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
+        )}
+      </section>
+      
       {/* contact */}
       <section className={`${styles.main_style}`}>
         <EdietPenIcon text="Ediet" onClick={() => navigateToEdiet("contact")} />
@@ -328,32 +365,12 @@ const ProfileSections = ({
         )}
       </section>
 
-      {/* Experiance */}
-      <section className={`${styles.main_style}`}>
-        <EdietPenIcon
-          text="+Add"
-          onClick={() => navigateToEdiet("experience")}
-        />
-        <h3 className={styles.sec_title}>Work Experience</h3>
-        {Experiences.length !== 0 ? (
-          Experiences.map((exp) => (
-            <WorkExperienceBox
-              // UserProfileId
-              key={exp.id}
-              expId={exp.id}
-              title={exp.title}
-              type={exp.type}
-              category={exp.category}
-              description={exp.description}
-              startDate={exp.startDate}
-              endDate={exp.endDate}
-              organization={exp.organization}
-            />
-          ))
-        ) : (
-          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
-        )}
-      </section>
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };

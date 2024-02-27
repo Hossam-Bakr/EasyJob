@@ -31,6 +31,16 @@ export const updateFormHandler = async ({ type, formData, token,role,method}) =>
         }
       );
     }
+    else if(method==="delete"){
+      response = await axios.delete(
+        `${baseServerUrl}${role}/profile/${type}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
     else{
       response = await axios.patch(
         `${baseServerUrl}${role}/profile/${type}`,
@@ -80,3 +90,4 @@ export const getCategories = async ({ signal, type, formData, method }) => {
     console.error(error);
   }
 };
+

@@ -20,6 +20,10 @@ const UpdateWorkExperienceForm = ({
   endDate,
   organization,
   expId,
+  onHide,
+  setSecResponseMsg,
+  setSecSuccess,
+  setSecShowResponse,
 }) => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -27,10 +31,6 @@ const UpdateWorkExperienceForm = ({
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
-
-  const [newType, setNewType] = useState("");
-  const [newCategory, setNewCategory] = useState("");
-
   const [currentType, setCurrentType] = useState("");
   const [currentTitle, setCurrentTitle] = useState("");
   const [currentCategory, setCurrentCategory] = useState("");
@@ -73,15 +73,14 @@ const UpdateWorkExperienceForm = ({
         }
         setResponseMessage({
           title: "Saved Successfully",
-          content: "Your Work Experience Saved successfully",
+          content: "Your Work Experience Updated successfully",
         });
         setSuccessResponse(true);
         setShowResponse(true);
       } else {
         setResponseMessage({
           title: "Request Faild",
-          content:
-            "Your Work Experiences faild to be uploaded please try again",
+          content: "Your Work Experiences faild to be Updated please try again",
         });
         setSuccessResponse(false);
         setShowResponse(true);
@@ -91,19 +90,12 @@ const UpdateWorkExperienceForm = ({
       console.log(error);
       setResponseMessage({
         title: "Request Faild",
-        content: "Your Work Experiences faild to be uploaded please try again",
+        content: "Your Work Experiences faild to be Updated please try again",
       });
       setSuccessResponse(false);
       setShowResponse(true);
     },
   });
-
-  const handleCategoryChange = (e) => {
-    setNewType(e.target.value);
-  };
-  const handleTypeChange = (e) => {
-    setNewCategory(e.target.value);
-  };
 
   const initialValues = {
     type: currentType,
@@ -117,9 +109,9 @@ const UpdateWorkExperienceForm = ({
 
   const onSubmit = (values) => {
     const updatedValues = {
-      type: newType ? newType : currentType,
+      type: values.type ? values.type : currentType,
       title: values.title ? values.title : currentTitle,
-      category: newCategory ? newCategory : currentCategory,
+      category: values.category ? values.category : currentCategory,
       organization: values.organization
         ? values.organization
         : currentOrganization,
@@ -156,35 +148,59 @@ const UpdateWorkExperienceForm = ({
       .required("end date is required"),
     description: string(),
   });
-  //convert date from string to date
+
+  const handleDeleteFormData = async() => {
+    const res = await updateFormHandler({
+      type: `experience/${expId}`,
+      token: token,
+      role: "users",
+      method: "delete",
+    });
+    if (res.status === 204) {
+      setSecResponseMsg({
+        title: "Deleted Successfully",
+        content: "Your Work Experience Deleted successfully",
+      });
+      setSecSuccess(true);
+      setSecShowResponse(true);
+    } else {
+      setSecResponseMsg({
+        title: "Request Faild",
+        content: "Your Work Experiences faild to be Deleted please try again",
+      });
+      setSecSuccess(false);
+      setSecShowResponse(true);
+    }
+    if (role && token) {
+      dispatch(fetchProfileData(token, role));
+      console.log("role",role)
+      console.log("token",token)
+    }
+    onHide();
+  };
+
   return (
     <>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
+        enableReinitialize
       >
         <Form className={styles.general_info_form}>
           <div className={styles.field}>
             <label htmlFor="title">Job title</label>
-            <Field
-              type="text"
-              id="title"
-              name="title"
-              placeholder={currentTitle}
-            />
+            <Field type="text" id="title" name="title" />
             <ErrorMessage name="title" component={InputErrorMessage} />
           </div>
 
           <div className={styles.field}>
             <label htmlFor="category">Job category</label>
-            <select
+            <Field
               as="select"
               id="category"
               className="form-select"
               name="category"
-              defaultValue={currentCategory}
-              onChange={handleCategoryChange}
             >
               {/* get all categories from api */}
               <option
@@ -196,53 +212,32 @@ const UpdateWorkExperienceForm = ({
               </option>
               <option value="Banking">Banking</option>
               <option value="Software Engineering">Software Engineering</option>
-            </select>
+            </Field>
             <ErrorMessage name="category" component={InputErrorMessage} />
           </div>
 
           <div className={styles.field}>
             <label htmlFor="organization">Organization</label>
-            <Field
-              type="text"
-              id="organization"
-              name="organization"
-              placeholder={currentOrganization}
-            />
+            <Field type="text" id="organization" name="organization" />
             <ErrorMessage name="organization" component={InputErrorMessage} />
           </div>
 
           <div className={styles.collection}>
             <div className={styles.field}>
               <label htmlFor="startDate">Start Date</label>
-              <Field
-                type="date"
-                id="startDate"
-                name="startDate"
-                value={currentstartDate}
-              />
+              <Field type="date" id="startDate" name="startDate" />
               <ErrorMessage name="startDate" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
               <label htmlFor="endDate">End Date</label>
-              <Field
-                type="date"
-                id="endDate"
-                name="endDate"
-                value={currentendDate}
-              />
+              <Field type="date" id="endDate" name="endDate" />
               <ErrorMessage name="endDate" component={InputErrorMessage} />
             </div>
           </div>
           <div className={styles.field}>
             <label htmlFor="type">Experience type</label>
-            <select
-              id="type"
-              className="form-select"
-              name="type"
-              defaultValue={currentType}
-              onChange={handleTypeChange}
-            >
+            <Field as="select" id="type" className="form-select" name="type">
               <option
                 className={styles.select_title}
                 value={currentType}
@@ -252,19 +247,16 @@ const UpdateWorkExperienceForm = ({
               </option>
               <option value="full-time">Full Time</option>
               <option value="part-time">Part Time</option>
-              <option value="freelance">Freelance</option>
+              <option value="freelance/project">Freelance/Project</option>
               <option value="internship">Internship</option>
               <option value="volunteering">Volunteering</option>
               <option value="student-activity">Student Activity</option>
-            </select>
+            </Field>
             <ErrorMessage name="type" component={InputErrorMessage} />
           </div>
           <div className={`${styles.field} ${styles.text_area_desc}`}>
             <Field
               as="textarea"
-              placeholder={
-                currentDescription ? currentDescription : "description"
-              }
               id="description"
               name="description"
               cols="30"
@@ -273,14 +265,21 @@ const UpdateWorkExperienceForm = ({
             <ErrorMessage name="description" component={InputErrorMessage} />
           </div>
 
-          <div className="d-flex justify-content-end align-items-center mt-3 px-2">
+          <div className="d-flex justify-content-between align-items-center mt-3 px-2">
+            <button
+              type="button"
+              className={styles.delete_btn}
+              onClick={handleDeleteFormData}
+            >
+              Delete
+            </button>
             {isPending ? (
               <button type="submit" className={styles.save_btn}>
                 <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
               </button>
             ) : (
               <button className={styles.save_btn} type="submit">
-                Add Experiance
+                Update Now
               </button>
             )}
           </div>

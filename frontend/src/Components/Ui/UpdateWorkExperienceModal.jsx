@@ -13,7 +13,10 @@ const UpdateWorkExperienceModal = ({
   endDate,
   organization,
   expId,
-  category
+  category,
+  setSecResponseMsg,
+  setSecSuccess,
+  setSecShowResponse
 }) => {
   return (
     <Modal
@@ -39,6 +42,10 @@ const UpdateWorkExperienceModal = ({
           endDate={endDate}
           organization={organization}
           category={category}
+          onHide={onHide}
+          setSecResponseMsg={setSecResponseMsg}
+          setSecSuccess={setSecSuccess}
+          setSecShowResponse={setSecShowResponse}
         />
       </Modal.Body>
     </Modal>

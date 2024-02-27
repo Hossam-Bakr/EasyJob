@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import UserGeneralInfo from "../../Components/EdietProfilesInfo/UserGeneralInfo";
 import Links from "../../Components/EdietProfilesInfo/Links";
 import UserExperience from "../../Components/EdietProfilesInfo/UserExperience";
+import UserCareerInterests from "../../Components/EdietProfilesInfo/UserCareerInterests";
 
 const UserInfo = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
@@ -67,6 +68,14 @@ const UserInfo = () => {
                 UserId={userProfileData.UserId}
                 Experiences={userProfileData.Experiences}
                 totalYearsOfExperience={userProfileData.totalYearsOfExperience}
+              />
+            </Tab>
+            <Tab eventKey="interests" title="Career Interests">
+              <UserCareerInterests
+                currentCareerLevel={userProfileData.currentCareerLevel}
+                jobTitles={userProfileData.jobTitles}
+                jobTypes={userProfileData.jobTypes}
+                jobCategories={userProfileData.jobCategories}
               />
             </Tab>
           </Tabs>

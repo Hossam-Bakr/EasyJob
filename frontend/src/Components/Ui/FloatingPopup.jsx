@@ -13,10 +13,6 @@ const FloatingPopup = ({ showResponse, setShowResponse, message, success }) => {
   const [toastVisible, setToastVisible] = useState(false);
 
   useEffect(() => {
-    setToastVisible(false);
-  }, []);
-
-  useEffect(() => {
     setToastVisible(showResponse);
   }, [showResponse]); 
 

@@ -12,8 +12,12 @@ const WorkExperienceBox = ({
   endDate,
   organization,
   expId,
-  category
+  category,
+  setSecResponseMsg,
+  setSecSuccess,
+  setSecShowResponse
 }) => {
+
   const [modalShow, setModalShow] = useState(false);
 
   const formatDate = (dateString) => {
@@ -34,7 +38,7 @@ const WorkExperienceBox = ({
             <img src={organizationLogo} alt="organization Logo" />
           </div>
           <div
-            className={`${styles.caption} d-flex justify-content-between pe-5 align-items-center`}
+            className={`${styles.caption} d-flex justify-content-between  align-items-center`}
           >
             <div className={styles.exp_content}>
               <h4>{title}</h4>
@@ -64,6 +68,9 @@ const WorkExperienceBox = ({
         endDate={endDate}
         organization={organization}
         category={category}
+        setSecResponseMsg={setSecResponseMsg}
+        setSecSuccess={setSecSuccess}
+        setSecShowResponse={setSecShowResponse}
       />
     </>
   );

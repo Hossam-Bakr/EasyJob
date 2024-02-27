@@ -34,7 +34,7 @@ const CompanyMedia = ({ logo, cover }) => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const coverRef = useRef(null);
-  
+
   const companyToken = useSelector((state) => state.userInfo.token);
   const companyProfileData = useSelector((state) => state.profileInfo.data);
   const role = useSelector((state) => state.userInfo.role);
@@ -82,8 +82,6 @@ const CompanyMedia = ({ logo, cover }) => {
       setProfileLogo(profileLogoUrl);
     }
   }, [companyProfileData]);
-
-
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -155,7 +153,7 @@ const CompanyMedia = ({ logo, cover }) => {
               ref={inputRef}
             />
           </div>
-          <div className="d-flex mt-4">
+          <div className={` ${styles.btns} d-flex mt-4`}>
             <button className={`${styles.delete_btn}  me-4`}>
               <FontAwesomeIcon icon={faTrash} /> Delete
             </button>
@@ -166,7 +164,7 @@ const CompanyMedia = ({ logo, cover }) => {
               Changes Logo
             </button>
           </div>
-          <span className="mini_word mt-4">
+          <span className="mini_word mt-4 text-center">
             maximum size of 3 MB. Logo Recommended aspect ratio of 1:1
           </span>
         </div>
@@ -189,7 +187,7 @@ const CompanyMedia = ({ logo, cover }) => {
               ref={coverRef}
             />
           </div>
-          <div className="d-flex mt-4">
+          <div className={` ${styles.btns} d-flex mt-4`}>
             <button className={`${styles.delete_btn}  me-4`}>
               <FontAwesomeIcon icon={faTrash} /> Delete
             </button>

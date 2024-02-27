@@ -64,8 +64,8 @@ const WorkExperienceForm = ({ Experiences, UserId }) => {
     title: "",
     category: "",
     organization: "",
-    startDate: "",
-    endDate: "",
+    startDate: "2000-01-01",
+    endDate: "2001-01-01",
     description: "",
   };
 
@@ -169,7 +169,7 @@ const WorkExperienceForm = ({ Experiences, UserId }) => {
             <Field as="select" id="type" className="form-select" name="type">
               <option value="full-time">Full Time</option>
               <option value="part-time">Part Time</option>
-              <option value="freelance">Freelance</option>
+              <option value="freelance/project">freelance/project</option>
               <option value="internship">Internship</option>
               <option value="volunteering">Volunteering</option>
               <option value="student-activity">Student Activity</option>
