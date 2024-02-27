@@ -170,7 +170,7 @@ exports.addExperienceValidator = [
       "internship",
       "freelance/project",
       "volunteering",
-      "student Activity",
+      "student-activity",
     ])
     .withMessage("Please provide valid type")
     .trim(),
@@ -234,7 +234,7 @@ exports.updateExperienceValidator = [
       "internship",
       "freelance/project",
       "volunteering",
-      "student Activity",
+      "student-activity",
     ])
     .withMessage("Please provide valid type")
     .trim(),
