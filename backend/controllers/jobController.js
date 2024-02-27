@@ -2,9 +2,42 @@ const Job = require("../models/jobModel");
 const Company = require("../models/companyModel");
 const Category = require("../models/categoryModel");
 const JobCategory = require("../models/jobCategoryModel");
+const Skill = require("../models/skillModel");
+const RequiredSkill = require("../models/requiredSkillModel");
 const Question = require("../models/questionModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
+
+const processRequiredSkills = async (requiredSkills, jobId) => {
+  const newSkills = requiredSkills
+    .filter((skill) => skill.newSkill !== undefined)
+    .map((skill) => ({ name: skill.newSkill }));
+
+  if (newSkills.length) {
+    // add new skills to the database
+    const createdSkills = await Skill.bulkCreate(newSkills, {
+      ignoreDuplicates: true,
+    });
+
+    // replace newSkill with SkillId
+    requiredSkills.forEach((skill) => {
+      if (skill.newSkill !== undefined) {
+        const newSkill = createdSkills.find(
+          (createdSkill) => createdSkill.name === skill.newSkill
+        );
+        skill.SkillId = newSkill.id;
+        delete skill.newSkill;
+      }
+    });
+  }
+
+  const skills = requiredSkills.map((skill) => ({
+    ...skill,
+    JobId: jobId,
+  }));
+
+  return skills;
+};
 
 exports.getAllJobs = factory.getAll(Job);
 
@@ -26,6 +59,15 @@ exports.getJob = catchAsync(async (req, res) => {
       {
         model: Question,
       },
+      {
+        model: Skill,
+        // as: "requiredSkills",
+        attributes: ["id", "name"],
+        through: {
+          model: RequiredSkill,
+          attributes: ["minLevel", "minYearsOfExperience"],
+        },
+      },
     ],
   });
 
@@ -36,10 +78,21 @@ exports.getJob = catchAsync(async (req, res) => {
     });
   }
 
+  const jobData = job.toJSON();
+
+  jobData.RequiredSkills = job.Skills.map((skill) => ({
+    id: skill.id,
+    name: skill.name,
+    minLevel: skill.RequiredSkill.minLevel,
+    minYearsOfExperience: skill.RequiredSkill.minYearsOfExperience,
+  }));
+
+  delete jobData.Skills;
+
   res.status(200).json({
     status: "success",
     data: {
-      job,
+      job: jobData,
     },
   });
 });
@@ -55,6 +108,9 @@ exports.createJob = catchAsync(async (req, res) => {
   const job = await req.company.createJob(req.body);
 
   await job.setCategories(req.body.categoriesId);
+
+  const skills = await processRequiredSkills(req.body.requiredSkills, job.id);
+  await RequiredSkill.bulkCreate(skills);
 
   res.status(201).json({
     status: "success",
@@ -85,6 +141,13 @@ exports.updateJob = catchAsync(async (req, res) => {
 
   if (req.body.categoriesId) {
     await job.setCategories(req.body.categoriesId);
+  }
+
+  if (req.body.requiredSkills) {
+    const skills = await processRequiredSkills(req.body.requiredSkills, job.id);
+
+    await RequiredSkill.destroy({ where: { JobId: job.id } });
+    await RequiredSkill.bulkCreate(skills);
   }
 
   res.status(200).json({
