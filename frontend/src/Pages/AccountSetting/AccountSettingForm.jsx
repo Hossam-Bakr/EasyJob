@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { object, string } from "yup";
+import { object, ref, string } from "yup";
 import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import FloatingPopup from "../../Components/Ui/FloatingPopup";
-import styles from "./CompanyAccountSettingForm.module.css";
+import styles from "./AccountSettingForm.module.css";
+import { accountSettingHanlder } from "../../util/Http";
+import { useSelector } from "react-redux";
 
-const CompanyAccountSettingForm = () => {
+const AccountSettingForm = () => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
+  const [currentPasswordError,setCurrentPasswordError]=useState(false);
+  const [currentPasswordErrorMsg,setCurrentPasswordErrorMsg]=useState("");
 
-  // mutate,
-  const { isPending } = useMutation({
-    // mutationFn: signFormsHandler,
+  const token = useSelector((state) => state.userInfo.token);
+  const role = useSelector((state) => state.userInfo.role);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: accountSettingHanlder,
     onSuccess: (response) => {
+      console.log(response)
       let res = response.data;
       if (res.status === "success") {
         setResponseMessage({
@@ -38,24 +45,44 @@ const CompanyAccountSettingForm = () => {
       }
     },
     onError: (error) => {
-      console.error(error);
-      setResponseMessage({
-        title: "Request Faild",
-        content: "your changes didnot save please try again",
-      });
-      setSuccessResponse(false);
-      setShowResponse(true);
+      console.log(error);
+      if(error.status===400){
+        setResponseMessage({
+          title: "Request Faild",
+          content:error.data.message,
+        });
+        
+        setSuccessResponse(false);
+        setShowResponse(true);
+        setCurrentPasswordError(true)
+        setCurrentPasswordErrorMsg("the current password is incorrect")
+      }
+      else{
+        setResponseMessage({
+          title: "Request Faild",
+          content: "your changes did not save please try again",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
+      }
+
     },
   });
-
+  
   const initialValues = {
     currentPassword: "",
     newPassword: "",
-    confirmPassword: "",
+    confirmNewPassword: "",
   };
 
+  const myRole=role==="company"?"companies":"users";
   const onSubmit = (values) => {
-    // mutate({ type: "login", formData: values });
+    mutate({
+      type: "changePassword",
+      formData: values,
+      role: myRole,
+      token: token,
+    });
     console.log(values);
   };
   const validationSchema = object({
@@ -71,12 +98,9 @@ const CompanyAccountSettingForm = () => {
       .matches(/[A-Z]+/, "Must contain at least one uppercase character")
       .matches(/[a-z]+/, "Must contain at least one lowercase character")
       .matches(/[0-9]+/, "Must contain at least one number"),
-    confirmPassword: string()
-      .min(5, "Min 5 characters")
-      .required("Password is required")
-      .matches(/[A-Z]+/, "Must contain at least one uppercase character")
-      .matches(/[a-z]+/, "Must contain at least one lowercase character")
-      .matches(/[0-9]+/, "Must contain at least one number"),
+    confirmNewPassword: string()
+      .oneOf([ref("newPassword"), null], "Passwords must match")
+      .required("Password confirmation is required"),
   });
 
   return (
@@ -99,26 +123,29 @@ const CompanyAccountSettingForm = () => {
               name="currentPassword"
               component={InputErrorMessage}
             />
+           {currentPasswordError&&<InputErrorMessage text={currentPasswordErrorMsg}/>}      
           </div>
-
-          <div className={styles.input_faild}>
-            <label htmlFor="newPassword">Change Password</label>
+    <div className={styles.collection}>
+    <div className={styles.input_faild}>
+            <label htmlFor="newPassword">New Password</label>
             <Field type="password" id="newPassword" name="newPassword" />
             <ErrorMessage name="newPassword" component={InputErrorMessage} />
           </div>
 
           <div className={styles.input_faild}>
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="confirmNewPassword">Confirm Password</label>
             <Field
               type="password"
-              id="confirmPassword"
-              name="confirmPassword"
+              id="confirmNewPassword"
+              name="confirmNewPassword"
             />
             <ErrorMessage
-              name="confirmPassword"
+              name="confirmNewPassword"
               component={InputErrorMessage}
             />
           </div>
+    </div>
+
           <div className="text-end">
             {isPending ? (
               <button type="submit" className={styles.save_btn}>
@@ -126,7 +153,7 @@ const CompanyAccountSettingForm = () => {
               </button>
             ) : (
               <button type="submit" className={styles.save_btn}>
-                Savge Changes
+                Update Passowrd
               </button>
             )}
           </div>
@@ -143,4 +170,4 @@ const CompanyAccountSettingForm = () => {
   );
 };
 
-export default CompanyAccountSettingForm;
+export default AccountSettingForm;

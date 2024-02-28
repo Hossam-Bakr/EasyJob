@@ -21,7 +21,7 @@ const ContactUs = () => {
                             </div>
                             <div className="d-flex flex-column">
                                 <h6 className={styles.data_link_h6}>Phone :</h6>
-                                <p className={styles.data_link_p}>+20 010 251 789 18 , 251 789 18</p>
+                                <p className={styles.data_link_p}>+20 010 251 789 18 , 371 789 18</p>
                             </div>
                         </div>
 
@@ -32,7 +32,7 @@ const ContactUs = () => {
                             </div>
                             <div className="d-flex flex-column">
                                 <h6 className={styles.data_link_h6}>Email :</h6>
-                                <p className={styles.data_link_p}>Aqua_support@website.com</p>
+                                <p className={styles.data_link_p}>EasyJob_support@website.com</p>
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@ const ContactUs = () => {
                             </div>
                             <div className="d-flex flex-column">
                                 <h6 className={styles.data_link_h6}>Address :</h6>
-                                <p className={styles.data_link_p}>4655 Carter Street, Olney, Illinois <br/>4961 Wescam Court, Reno, Nevada</p>
+                                <p className={styles.data_link_p}>4655 Elwehda Street, Imbaba, Illinois <br/>4961 Wescam Court, Reno, Nevada</p>
                             </div>
                         </div>
 

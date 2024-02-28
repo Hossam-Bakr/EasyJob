@@ -9,6 +9,7 @@
     font-weight: 700;
     margin-bottom: 0.3125rem;
 }
+
 .disabled_faild{
     color: var(--dark_white);
     opacity: .7;
@@ -18,10 +19,13 @@
     justify-content: space-between;
     align-items: center;
 }
-.collection div{
+.collection .field{
     width: 49%;
 }
-
+.founded {
+    border-radius: 5px;
+    padding: 6px 5px;
+}
 .save_btn{
     background-color: var(--main_color);
     color: white;
@@ -122,6 +126,7 @@
 .select_category{
     width: 90%;
 }
+
 @media screen and (max-width:37.5rem) {
     .field h4{
         margin: 0;

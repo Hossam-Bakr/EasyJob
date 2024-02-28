@@ -12,9 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import SelectField from "../logic/SelectField";
+import MultiSelect from "../logic/SelectField";
 // import { colourOptions } from "../data";
-
 
 const UserCareerInterestsForm = ({
   currentCareerLevel,
@@ -85,9 +84,9 @@ const UserCareerInterestsForm = ({
     jobTypes: currentJobTypes,
     jobCategories: currentJobCategories,
   };
-  
+
   const onSubmit = (values) => {
-    console.log(values)
+    console.log(values);
     let updatedValues = {
       currentCareerLevel:
         values.currentCareerLevel !== ""
@@ -98,7 +97,7 @@ const UserCareerInterestsForm = ({
       jobTypes:
         values.jobTypes.length !== 0 ? values.jobTypes : currentJobTypes,
       jobCategories:
-        values.jobCategories.length !== 0 
+        values.jobCategories.length !== 0
           ? values.jobCategories
           : currentJobCategories,
     };
@@ -112,28 +111,40 @@ const UserCareerInterestsForm = ({
 
   const validationSchema = object({
     currentCareerLevel: string(),
-    jobTitles:array()
+    jobTitles: array()
       .min(1, "You can't leave this blank.")
-      .required("You can't leave this blank.").nullable(),
-    jobCategories: array().min(1, "You can't leave this blank.").required("job category is required").nullable(),
-    jobTypes: array().nullable(),
+      .required("You can't leave this blank."),
+    jobCategories: array()
+      .min(1, "You can't leave this blank.")
+      .required("job category is required"),
+    jobTypes: array(),
   });
 
   const titleOptions = [
     //get titles from backend here
-    { value: "frontend developer", label: "frontend developer" },
-    { value: "backend developer", label: "backend developer" },
+    { value: "frontend-developer", label: "frontend developer" },
+    { value: "backend-developer", label: "backend developer" },
     { value: "accountant", label: "accountant" },
-    { value: "fullstack developer", label: "fullstack developer" },
+    { value: "fullstack-developer", label: "fullstack developer" },
   ];
   const categoryOptions = [
+
+    
     //get category from backend here
     { value: "software Engineering", label: "software Engineering" },
     { value: "Banking", label: "Banking" },
     { value: "Accounting", label: "Accounting" },
     { value: "Sports", label: "Sports" },
   ];
-
+  const typsOptions = [
+    //get category from backend here
+    { value: "full-time", label: "full-time" },
+    { value: "part-time", label: "part-time" },
+    { value: "internship", label: "internship" },
+    { value: "freelance/project", label: "freelance/project" },
+    { value: "volunteering", label: "volunteering" },
+    { value: "student-activity", label: "student-activity" },
+  ];
   return (
     <>
       <Formik
@@ -258,144 +269,48 @@ const UserCareerInterestsForm = ({
             />
           </div>
 
-          <div className={`${styles.field} ${styles.checks_group}`}>
-            <h4 className="my-4">Types of Job You Are Open to</h4>
-            <Row
-              className={`${styles.select_group} gy-2`}
-              role="group"
-              aria-label="Basic checkbox toggle button group"
-            >
-              <Col className="d-flex justify-content-center" sm={6} md={4}>
-                <Field
-                  type="checkbox"
-                  className="btn-check"
-                  name="jobTypes"
-                  id="jobTypes1"
-                  value="full-time"
-                  autoComplete="off"
-                />
-                <label
-                  className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="jobTypes1"
-                >
-                  Full Time
-                </label>
-              </Col>
-
-              <Col className="d-flex justify-content-center" sm={6} md={4}>
-                <Field
-                  type="checkbox"
-                  className="btn-check"
-                  name="jobTypes"
-                  id="jobTypes2"
-                  value="part-time"
-                  autoComplete="off"
-                />
-
-                <label
-                  className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="jobTypes2"
-                >
-                  Part Time
-                </label>
-              </Col>
-              <Col className="d-flex justify-content-center" sm={6} md={4}>
-                <Field
-                  type="checkbox"
-                  className="btn-check"
-                  name="jobTypes"
-                  id="jobTypes3"
-                  autoComplete="off"
-                  value="internship"
-                />
-
-                <label
-                  className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="jobTypes3"
-                >
-                  Internship
-                </label>
-              </Col>
-              <Col className="d-flex justify-content-center" sm={6} md={4}>
-                <Field
-                  type="checkbox"
-                  className="btn-check"
-                  name="jobTypes"
-                  id="jobTypes4"
-                  autoComplete="off"
-                  value="freelance/project"
-                />
-
-                <label
-                  className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="jobTypes4"
-                >
-                  Freelance/Project
-                </label>
-              </Col>
-              <Col className="d-flex justify-content-center" sm={6} md={4}>
-                <Field
-                  type="checkbox"
-                  className="btn-check"
-                  name="jobTypes"
-                  id="jobTypes5"
-                  autoComplete="off"
-                  value="volunteering"
-                />
-                <label
-                  className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="jobTypes5"
-                >
-                  Volunteering
-                </label>
-              </Col>
-
-              <Col className="d-flex justify-content-center" sm={6} md={4}>
-                <Field
-                  type="checkbox"
-                  className="btn-check"
-                  name="jobTypes"
-                  id="jobTypes6"
-                  autoComplete="off"
-                  value="student-activity"
-                />
-                <label
-                  className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="jobTypes6"
-                >
-                  Student Activity
-                </label>
-              </Col>
-            </Row>
-            <ErrorMessage name="jobTypes" component={InputErrorMessage} />
-          </div>
-
           <div className={styles.checks_group}>
+            <div className={styles.field}>
+              <h4 className="my-4">Typs of Job you are open to</h4>
+              <div className={`${styles.select_category}`}>
+                <Field
+                  name="jobTypes"
+                  isMulti={true}
+                  component={MultiSelect}
+                  options={typsOptions}
+                />
+              </div>
+
+              <ErrorMessage name="jobTypes" component={InputErrorMessage} />
+            </div>
             <div className={styles.field}>
               <h4 className="my-4">
                 Job Titles that Describe What You Are Looking for
               </h4>
               <div className={`${styles.select_category}`}>
                 <Field
-                  component={SelectField}
+                  name="jobTitles"
+                  isMulti={true}
+                  component={MultiSelect}
                   options={titleOptions}
-                  name={"jobTitles"}
                 />
               </div>
-              <ErrorMessage name={"jobTitles"} component={InputErrorMessage} />
+
+              <ErrorMessage name="jobTitles" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
               <h4 className="my-4">Job Categories You Are Interested in</h4>
               <div className={`${styles.select_category}`}>
                 <Field
-                  component={SelectField}
+                  name="jobCategories"
+                  isMulti={true}
+                  component={MultiSelect}
                   options={categoryOptions}
-                  name={"jobCategories"}
                 />
               </div>
               <ErrorMessage
-                name={"jobCategories"}
+                name="jobCategories"
                 component={InputErrorMessage}
               />
             </div>

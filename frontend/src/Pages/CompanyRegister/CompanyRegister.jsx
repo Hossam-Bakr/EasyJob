@@ -4,6 +4,8 @@ import CompanyRegisterForm from './CompanyRegisterForm';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch} from 'react-redux';
+import { companyActions } from "../../Store/companyNav-slice";
 
 const CompanyRegister = () => {
 
@@ -11,6 +13,23 @@ const CompanyRegister = () => {
     window.scrollTo(0,0)
   },[])
 
+  const dispatch=useDispatch();
+ 
+
+  useEffect(() => {
+      dispatch(companyActions.changeNavState({
+        changeCompany:false,
+        changeNav:true
+      }));
+      return () => {
+        dispatch(companyActions.changeNavState({
+          changeCompany:false,
+          changeNav:false
+        }));
+      };
+   
+ 
+  }, [dispatch]);
   return (
     <div className={styles.company_register_container}>
         <div className={styles.company_register_caption}> 

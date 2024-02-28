@@ -11,16 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Ui/Loading";
 import FloatingPopup from "../Ui/FloatingPopup";
 import fetchProfileData from "../../Store/profileInfo-actions";
+import MultiSelect from "../logic/SelectField";
+import { countryChange } from "../logic/Logic";
+import Select from 'react-select';
 
 const GeneralInfoForm = ({ data }) => {
-
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
     content: "",
   });
+  const [newCityOptions,setNewCityOptions]=useState([])
+  const [formatedCityOptions,setFormatedCityOptions]=useState([])
   const [successResponse, setSuccessResponse] = useState(true);
-
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [currentSize, setCurrentSize] = useState("");
@@ -52,14 +55,26 @@ const GeneralInfoForm = ({ data }) => {
     }
   }, [data]);
 
+  const handleCountryChange=(e)=>{
+    let val=e.value
+    countryChange(val,setNewCityOptions)
+  }
+
+  useEffect(()=>{
+   const cityOptions=newCityOptions.map((city)=>({
+      value:city,label:city
+    }))
+    setFormatedCityOptions(cityOptions)
+  },[newCityOptions])
+  
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
     onSuccess: (data) => {
       if (data.data.status === "success") {
         console.log(data);
-        
-        if(role&&companyToken){
-          dispatch(fetchProfileData(companyToken,role))
+
+        if (role && companyToken) {
+          dispatch(fetchProfileData(companyToken, role));
         }
 
         setResponseMessage({
@@ -112,7 +127,7 @@ const GeneralInfoForm = ({ data }) => {
       type: "info",
       formData: updatedValues,
       token: companyToken,
-      role:'companies'
+      role: "companies",
     });
   };
 
@@ -135,6 +150,20 @@ const GeneralInfoForm = ({ data }) => {
 
     description: string().required("description is required"),
   });
+
+  const countryOptions = [
+    { value: "Egypt", label: "Egypt" },
+    { value: "UAE", label: "UAE" },
+    { value: "KSA", label: "KSA" },
+    { value: "Kuwait", label: "Kuwait" },
+  ];
+  const sizeOptions = [
+    { value: "1-10", label: "1-10" },
+    { value: "11-50", label: "11-50" },
+    { value: "51-200", label: "51-200" },
+    { value: "201-500", label: "201-500" },
+    { value: "500+", label: "500+" },
+  ];
 
   return (
     <>
@@ -168,25 +197,17 @@ const GeneralInfoForm = ({ data }) => {
               />
             </div>
 
-            <div className={styles.field}>
-              <label htmlFor="companyIndustry">Industry</label>
-              <Field
-                type="text"
-                value={data.industry || ""}
-                disabled
-                className={styles.disabled_faild}
-                id="companyIndustry"
-              />
-            </div>
-
             <div className={styles.collection}>
               <div className={styles.field}>
                 <label htmlFor="companyCountry">Country</label>
-                <Field
+                <Select
                   type="text"
+                  placeholder={currentCountry}
                   id="companyCountry"
                   name="country"
-                  placeholder={currentCountry}
+                  isMulti={false}
+                  options={countryOptions}
+                  onChange={(value)=>handleCountryChange(value)}
                   className={data.country ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="country" component={InputErrorMessage} />
@@ -199,6 +220,9 @@ const GeneralInfoForm = ({ data }) => {
                   placeholder={currentCity}
                   id="companyCity"
                   name="city"
+                  isMulti={false}
+                  component={MultiSelect}
+                  options={formatedCityOptions}
                   className={data.city ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="city" component={InputErrorMessage} />
@@ -213,19 +237,24 @@ const GeneralInfoForm = ({ data }) => {
                   placeholder={currentSize}
                   id="companySize"
                   name="size"
+                  isMulti={false}
+                  component={MultiSelect}
+                  options={sizeOptions}
                   className={data.size ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="size" component={InputErrorMessage} />
               </div>
 
-              <div className={styles.field}>
+              <div className={`${styles.field}`}>
                 <label htmlFor="companyFounded">Founded</label>
                 <Field
                   type="text"
                   placeholder={currentFounded}
                   id="companyFounded"
                   name="foundedYear"
-                  className={data.founded ? "" : styles.empty_field}
+                  className={`${data.founded ? "" : styles.empty_field} ${
+                    styles.founded
+                  } `}
                 />
                 <ErrorMessage
                   name="foundedYear"

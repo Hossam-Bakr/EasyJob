@@ -7,7 +7,7 @@ import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import FloatingPopup from "../../Components/Ui/FloatingPopup";
-import styles from "./CompanyAccountSettingForm.module.css";
+import styles from "./AccountSettingForm.module.css";
 const CompanyAccountSettingFormTwo = () => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -73,6 +73,7 @@ const CompanyAccountSettingFormTwo = () => {
       >
         <Form className={styles.setting_form_container}>
           <h3 className={styles.title}>Change Current Email</h3>
+          <div className={styles.collection}>
           <div className={styles.input_faild}>
             <label htmlFor="newEmail">New Email</label>
             <Field
@@ -88,6 +89,8 @@ const CompanyAccountSettingFormTwo = () => {
             <Field type="email" id="confirmEmail" name="confirmEmail" />
             <ErrorMessage name="confirmEmail" component={InputErrorMessage} />
           </div>
+          </div>
+
 
           <div className="text-end">
             {isPending ? (
@@ -96,7 +99,7 @@ const CompanyAccountSettingFormTwo = () => {
               </button>
             ) : (
               <button type="submit" className={styles.save_btn}>
-                Savge Changes
+                Update Email
               </button>
             )}
           </div>

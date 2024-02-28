@@ -6,7 +6,7 @@ import CompanyMedia from "../../Components/EdietProfilesInfo/CompanyMedia";
 import CompanyGeneralInfo from "../../Components/EdietProfilesInfo/CompanyGeneralInfo";
 import { useSelector } from "react-redux";
 import Loading from "../../Components/Ui/Loading";
-import { Link } from 'react-router-dom';
+import Links from './../../Components/EdietProfilesInfo/Links';
 
 const CompanyInfo = () => {
   const defaultPage = useSelector(
@@ -17,26 +17,6 @@ const CompanyInfo = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const { name, industry, phone, email } = companyProfileData.Company || {};
-  const {
-    logo,
-    coverPhoto,
-    city,
-    country,
-    description,
-    foundedYear,
-    location,
-    size,
-    facebook,
-    instagram,
-    linkedin,
-    twitter,
-    youtube,
-    website,
-    behance,
-    vimeo,
-  } = companyProfileData || {};
 
   return (
     <>
@@ -49,32 +29,32 @@ const CompanyInfo = () => {
             fill
           >
             <Tab eventKey="media" title="COMPANY MEDIA">
-              <CompanyMedia logo={logo} cover={coverPhoto} />
+              <CompanyMedia logo={companyProfileData.logo} cover={companyProfileData.coverPhoto} />
             </Tab>
             <Tab eventKey="info" title="GENERAL INFORMATION">
               <CompanyGeneralInfo
-                name={name}
-                industry={industry}
-                phone={phone}
-                email={email}
-                city={city}
-                country={country}
-                desc={description}
-                founded={foundedYear}
-                size={size}
-                location={location}
+                name={companyProfileData.Company.name}
+                industry={companyProfileData.Company.industry}
+                phone={companyProfileData.Company.phone}
+                email={companyProfileData.Company.email}
+                city={companyProfileData.city}
+                country={companyProfileData.country}
+                desc={companyProfileData.description}
+                founded={companyProfileData.foundedYear}
+                size={companyProfileData.size}
+                location={companyProfileData.location}
               />
             </Tab>
             <Tab eventKey="contact" title="CONTACT LINKS">
-              <Link
-                facebook={facebook}
-                instagram={instagram}
-                linkedin={linkedin}
-                twitter={twitter}
-                youtube={youtube}
-                website={website}
-                behance={behance}
-                vimeo={vimeo}
+              <Links
+                facebook={companyProfileData.facebook}
+                instagram={companyProfileData.instagram}
+                linkedin={companyProfileData.linkedin}
+                twitter={companyProfileData.twitter}
+                youtube={companyProfileData.youtube}
+                website={companyProfileData.website}
+                behance={companyProfileData.behance}
+                vimeo={companyProfileData.vimeo}
               />
             </Tab>
           </Tabs>
