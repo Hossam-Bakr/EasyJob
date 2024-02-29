@@ -18,13 +18,6 @@ const sendEmail = async (user, subject, message) => {
     to: user.email, // Recipient email address
     subject,
     html: message,
-    attachments: [
-      {
-        filename: "logo.jpg",
-        path: logoPath,
-        cid: "unique@nodemailer.com", //same cid value as in the html img src
-      },
-    ], // HTML body content
   };
 
   try {

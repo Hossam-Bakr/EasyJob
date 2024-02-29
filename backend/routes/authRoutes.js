@@ -5,7 +5,7 @@ const {
   userSignupValidator,
   companySignupValidator,
   loginValidator,
-  userResetPassValidator,
+  ResetPassValidator,
 } = require("../utils/validators/authValidator");
 
 const router = express.Router();
@@ -16,13 +16,19 @@ router.post(
   companySignupValidator,
   authController.companySignup
 );
+
+
 router.post("/login", loginValidator, authController.Login);
-router.post("/forgotPassword", authController.forgotPassword);
-router.post("/verifyPassResetCode", authController.verifyPassResetCode);
-router.put(
-  "/resetPassword",
-  userResetPassValidator,
-  authController.resetPassword
-);
+
+
+router.post("/user/forgotPassword", authController.forgotPassword('User'));
+router.post("/company/forgotPassword", authController.forgotPassword('Company'));
+
+router.post("/user/verifyPassResetCode", authController.verifyPassResetCode('User'));
+router.post("/company/verifyPassResetCode", authController.verifyPassResetCode('Company'));
+
+router.put("/user/resetPassword", ResetPassValidator , authController.resetPassword('User')); 
+router.put("/company/resetPassword",ResetPassValidator, authController.resetPassword('Company')); // companyResetPassValidator, 
+
 
 module.exports = router;

@@ -8,6 +8,7 @@ const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
 const sendEmail = require("../utils/sendEmail");
+const createResetCodeMessage = require("../utils/createResetCodeMessage");
 
 exports.userSignup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -110,10 +111,12 @@ exports.Login = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.forgotPassword = catchAsync(async (req, res, next) => {
-  const user = await User.findOne({ where: { email: req.body.email } });
-  if (!user) {
-    return next(new ApiError("User not found", 404));
+
+exports.forgotPassword = (entityType = 'User') => catchAsync(async (req, res, next) => {
+  const Model = entityType === 'Company' ? Company : User; 
+  const entity = await Model.findOne({ where: { email: req.body.email } });
+  if (!entity) {
+    return next(new ApiError(`${entityType} not found`, 404));
   }
 
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
@@ -123,104 +126,21 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     .digest("hex")
     .trim();
 
-  user.passwordResetCode = hashedResetCode;
-  user.passwordResetExpire = Date.now() + 15 * 60 * 1000;
-  user.passwordResetVerified = false;
-  await user.save();
+  entity.passwordResetCode = hashedResetCode;
+  entity.passwordResetExpire = Date.now() + 15 * 60 * 1000;
+  entity.passwordResetVerified = false;
+  await entity.save();
 
-  const message = `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-.container {
-  width: 80% !important; 
-  margin : 25px auto ; 
-
-}
-
-    .header {
-      background-color: #005a9c;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-      padding: 40px 20px;
-
-    }
-    .content {
-      padding: 40px 20px;
-      background-color: #eee;
-      text-align: left;
-      position: relative  !important;
-    }
-    .footer {
-      text-align: center;
-      padding: 20px 20px;
-      font-size: 0.8em;
-      color: #fff;
-      background-color: black ;
-    }
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #005a9c;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-top: 20px;
-    }
-    .logoImg {
-      width: 180px;
-      position: absolute;
-      top: 0px !important;
-      left: 0px  !important;
-      margin-bottom: 15px;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-    }
-  </style>
-  </head>
-  <body>
-   <div class="container"> 
-    <div class="header">
-   <h1>EasyJob Password Reset</h1>
- </div>
- <div class="content">
-  <img class="logoImg" src="cid:unique@nodemailer.com"/>
-   <h2>Hello, ${user.firstName}</h2>
-   <p>We received a request to reset your password for your EasyJob account. Please use the code below to proceed.</p>
-   <div style=" padding: 10px; margin: 8px 0; font-weight : bold ; text-align:left ; ">
-     <h3 style="color: #005a9c;">Reset Code: ${resetCode}</h3>
-   </div>
-   <p>Enter this code on the password reset page to create a new password for your account.</p>
- </div>
- <div class="footer">
-   Thank you for helping us to keep your account secure.
-   <br>
-   If you didn't request this, please ignore this email.
- </div>
- </div>
-  </body>
-  </html>
-  `;
+  const message = createResetCodeMessage(entity.firstName || entity.name, resetCode); 
 
   try {
-    await sendEmail(user, "Password Reset Code (valid for 15 min)", message);
+    await sendEmail(entity, "Password Reset Code (valid for 15 min)", message);
   } catch (err) {
-    user.passwordResetCode = undefined;
-    user.passwordResetExpire = undefined;
-    user.passwordResetVerified = false;
+    entity.passwordResetCode = undefined;
+    entity.passwordResetExpire = undefined;
+    entity.passwordResetVerified = false;
 
-    await user.save();
+    await entity.save();
 
     return next(
       new ApiError(
@@ -232,11 +152,12 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message: "You have got a reset code , check your email to reset password",
+    message: `You have got a reset code, check your email to reset password`,
   });
 });
 
-exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
+exports.verifyPassResetCode = (entityType = 'User') => catchAsync(async (req, res, next) => {
+  const Model = entityType === 'Company' ? Company : User; 
   const resetCode = req.body.resetCode;
   const hashedResetCode = crypto
     .createHash("sha256")
@@ -244,7 +165,7 @@ exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
     .digest("hex")
     .trim();
 
-  const user = await User.findOne({
+  const user = await Model.findOne({
     where: {
       passwordResetCode: hashedResetCode,
       passwordResetExpire: { [Op.gt]: Date.now() },
@@ -264,27 +185,29 @@ exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.resetPassword = catchAsync(async (req, res, next) => {
-  const user = await User.findOne({ where: { email: req.body.email } });
-  if (!user) {
-    return next(new ApiError("User not found", 404));
+exports.resetPassword = (entityType = 'User') => catchAsync(async (req, res, next) => {
+  const Model = entityType === 'Company' ? Company : User; 
+  const entity = await Model.findOne({ where: { email: req.body.email } });
+  if (!entity) {
+    return next(new ApiError(`${entityType} not found`, 404));
   }
 
-  if (!user.passwordResetVerified) {
+  if (!entity.passwordResetVerified) {
     return next(new ApiError("Reset code not verified.", 400));
   }
 
-  user.password = req.body.newPassword;
-  user.passwordResetVerified = false;
-  user.passwordResetExpire = undefined;
-  user.passwordResetCode = undefined;
+  entity.password = req.body.newPassword;
+  entity.passwordResetVerified = false;
+  entity.passwordResetExpire = undefined;
+  entity.passwordResetCode = undefined;
 
-  const token = generateJWT(user.id);
+  const token = generateJWT(entity.id); 
 
-  await user.save();
+  await entity.save();
 
   res.status(200).json({ status: "success", token });
 });
+
 
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check of it's there

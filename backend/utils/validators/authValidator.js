@@ -39,7 +39,7 @@ exports.userSignupValidator = [
   validatorError,
 ];
 
-exports.userResetPassValidator = [
+exports.ResetPassValidator = [
   check("email")
     .notEmpty()
     .withMessage("Email is required")
