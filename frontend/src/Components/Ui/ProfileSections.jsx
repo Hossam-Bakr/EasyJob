@@ -11,7 +11,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import contact_info from "../../images/contact_info.png";
-import azhar_logo from "../../images/azharlogo.jpeg";
 import { useDispatch } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,6 +26,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import WorkExperienceBox from "./WorkExperienceBox";
 import FloatingPopup from './FloatingPopup';
+import EducationBox from "./EducationBox";
 
 
 const ProfileSections = ({
@@ -47,6 +47,7 @@ const ProfileSections = ({
   behance,
   github,
   Experiences,
+  Education
 }) => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -195,7 +196,7 @@ const ProfileSections = ({
           <p className={styles.about_p}>{about}</p>
         ) : (
           <NoDataBox
-            text="introduce yourself to get jobs faster"
+            text="Introduce Yourself to get Jobs faster"
             path="/user-info"
           />
         )}
@@ -203,24 +204,29 @@ const ProfileSections = ({
 
       {/* education */}
       <section className={`${styles.main_style} ${styles.education_sec}`}>
-        <EdietPenIcon />
+        <EdietPenIcon text="+Add" onClick={()=>navigateToEdiet("education")} />
         <h3 className={styles.sec_title}>Education</h3>
         <ul>
-          <li>
-            <div className={styles.education_logo}>
-              <img src={azhar_logo} alt="azhar logo" className="w-100" />
-            </div>
-            <div className={styles.education_caption}>
-              <h3>Al-Azhar University</h3>
-              <span className="mini_word">
-                Bachelor of Engineer, Faculty of Engineering Department of
-                System & Information Technology Bachelor of Engineer, Faculty of
-                Engineering Department of System & Information Technology
-              </span>
-              <span className="mini_word">Jul 2019 - Jul 2024</span>
-              <span className={styles.education_grade}>Grade: very good</span>
-            </div>
-          </li>
+        {Education.length !== 0 ? (
+          Education.map((item) => (
+            <EducationBox
+              key={item.id}
+              itemId={item.id}
+              grade={item.grade}
+              school={item.school}
+              degree={item.degree}
+              fieldsOfStudy={item.fieldsOfStudy}
+              startDate={item.startDate}
+              endDate={item.endDate}
+              description={item.description}
+              setSecResponseMsg={setResponseMessage}
+              setSecSuccess={setSuccessResponse}
+              setSecShowResponse={setShowResponse}
+            />
+          ))
+        ) : (
+          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
+        )}
         </ul>
       </section>
 

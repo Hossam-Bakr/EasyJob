@@ -2,23 +2,21 @@ import React from "react";
 import SectionMainTitle from "../Ui/SectionMainTitle";
 import { Col, Row } from "react-bootstrap";
 import styles from "./EdietInfo.module.css";
-import workExperiance from "../../images/workExperiance.png";
-import YearsExperienceForm from "./YearsExperienceForm";
-import WorkExperienceForm from "./WorkExperienceForm";
+import workExperiance from "../../images/education.png";
+import UserEducationForm from "./UserEducationForm";
+import EducationLevel from "./EducationLevel";
 
-const UserExperience = ({totalYearsOfExperience }) => {
+const UserEducation = ({ educationLevel }) => {
   return (
     <div>
-      <SectionMainTitle title="User Experiences" />
+      <SectionMainTitle title="User Education" />
       <Row className="mb-5" id="general">
         <Col md={6}>
           <div className={styles.seperate_form}>
-            <YearsExperienceForm
-              totalYearsOfExperience={totalYearsOfExperience}
-            />
+            <EducationLevel educationLevel={educationLevel} />
           </div>
           <div className={styles.seperate_form}>
-            <WorkExperienceForm />
+            <UserEducationForm />
           </div>
         </Col>
         <Col md={6} className={styles.general_info_vector_container}>
@@ -31,4 +29,4 @@ const UserExperience = ({totalYearsOfExperience }) => {
   );
 };
 
-export default UserExperience;
+export default UserEducation;

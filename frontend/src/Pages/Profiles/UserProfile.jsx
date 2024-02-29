@@ -67,6 +67,7 @@ const UserProfile = () => {
               behance={userProfileData.behance}
               stackOverflow={userProfileData.stackOverflow}
               Experiences={userProfileData.Experiences}
+              Education={userProfileData.Education}
             />
           </Container>
         </>

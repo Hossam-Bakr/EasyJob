@@ -92,25 +92,7 @@
 .education_sec ul{
     margin-top: 1.875rem;
 }
-.education_sec ul li{
-    display: flex;
-}
-.education_logo{
-    width: 4.375rem;
-    margin-right: 0.625rem;
-}
-.education_caption h3{
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0;
-}
-.education_caption span{
-    display: block;
-}
-.education_grade{
-    font-weight: 700;
-    font-size: 0.9375rem;
-}
+
 
 /* ____________________________________skills________________________________________________________________ */
 

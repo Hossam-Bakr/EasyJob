@@ -10,6 +10,7 @@ import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import { ErrorMessage, Form, Formik, Field } from "formik";
+import MultiSelect from "../logic/SelectField";
 
 const UpdateWorkExperienceForm = ({
   title,
@@ -30,6 +31,8 @@ const UpdateWorkExperienceForm = ({
     title: "",
     content: "",
   });
+  const [myCategories,setMyCategories]=useState([])
+
   const [successResponse, setSuccessResponse] = useState(true);
   const [currentType, setCurrentType] = useState("");
   const [currentTitle, setCurrentTitle] = useState("");
@@ -62,6 +65,19 @@ const UpdateWorkExperienceForm = ({
     organization,
     expId,
   ]);
+
+  const currentCategories = useSelector((state) => state.category.categories);
+
+  useEffect(() => {
+    if (currentCategories) {
+      let categoryOptions = currentCategories.map((cat) => ({
+        value: cat.name,
+        label: cat.name
+      }));
+      setMyCategories(categoryOptions);
+      console.log(categoryOptions)
+    }
+  }, [currentCategories]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
@@ -178,7 +194,15 @@ const UpdateWorkExperienceForm = ({
     }
     onHide();
   };
-
+  
+  const experianceOptions = [
+    { value: "full-time", label: "full-time" },
+    { value: "part-time", label: "part-time" },
+    { value: "freelance/project", label: "freelance/project" },
+    { value: "internship", label: "internship" },
+    { value: "volunteering", label: "volunteering" },
+    { value: "student-activity", label: "student-activity" },
+  ];
   return (
     <>
       <Formik
@@ -195,24 +219,14 @@ const UpdateWorkExperienceForm = ({
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="category">Job category</label>
+          <label htmlFor="category">Job category</label>
             <Field
-              as="select"
               id="category"
-              className="form-select"
               name="category"
-            >
-              {/* get all categories from api */}
-              <option
-                className={styles.select_title}
-                value={currentCategory}
-                disabled={currentCategory ? false : true}
-              >
-                {currentCategory ? currentCategory : "Category"}
-              </option>
-              <option value="Banking">Banking</option>
-              <option value="Software Engineering">Software Engineering</option>
-            </Field>
+              isMulti={false}
+              component={MultiSelect}
+              options={myCategories}
+            />
             <ErrorMessage name="category" component={InputErrorMessage} />
           </div>
 
@@ -237,21 +251,13 @@ const UpdateWorkExperienceForm = ({
           </div>
           <div className={styles.field}>
             <label htmlFor="type">Experience type</label>
-            <Field as="select" id="type" className="form-select" name="type">
-              <option
-                className={styles.select_title}
-                value={currentType}
-                disabled={currentType ? false : true}
-              >
-                {currentType ? currentType : "Experience type"}
-              </option>
-              <option value="full-time">Full Time</option>
-              <option value="part-time">Part Time</option>
-              <option value="freelance/project">Freelance/Project</option>
-              <option value="internship">Internship</option>
-              <option value="volunteering">Volunteering</option>
-              <option value="student-activity">Student Activity</option>
-            </Field>
+            <Field
+              id="type"
+              name="type"
+              isMulti={false}
+              component={MultiSelect}
+              options={experianceOptions}
+            />
             <ErrorMessage name="type" component={InputErrorMessage} />
           </div>
           <div className={`${styles.field} ${styles.text_area_desc}`}>

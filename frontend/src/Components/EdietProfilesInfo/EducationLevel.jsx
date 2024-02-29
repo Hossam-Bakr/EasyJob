@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./EdietInfoForm.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { number, object } from "yup";
+import { object, string } from "yup";
 import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,10 +10,11 @@ import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
-import { totalYearsConversion } from "../logic/Logic";
 import MultiSelect from "../logic/SelectField";
+import { degreeLevelOptions } from "../logic/Logic";
 
-const YearsExperienceForm = ({ totalYearsOfExperience }) => {
+
+const EducationLevel = ({ educationLevel }) => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
@@ -21,9 +22,8 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
   });
   const [successResponse, setSuccessResponse] = useState(true);
 
-  const [currentTotalYearsOfExperience, setCurrentTotalYearsOfExperience] =
-    useState(0);
-  const [convertingOfTotalYears, setConvertingOfTotalYears] = useState("");
+  const [educationLevelState, setEducationLevelState] =
+    useState("");
 
   const dispatch = useDispatch();
 
@@ -31,19 +31,10 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
   const role = useSelector((state) => state.userInfo.role);
 
   useEffect(() => {
-    if (totalYearsOfExperience) {
-      setCurrentTotalYearsOfExperience(totalYearsOfExperience || 0);
+    if (educationLevel) {
+        setEducationLevelState(educationLevel || "Bachelor's Degree");
     }
-  }, [totalYearsOfExperience]);
-
-  useEffect(() => {
-    if (totalYearsOfExperience) {
-      totalYearsConversion(
-        currentTotalYearsOfExperience,
-        setConvertingOfTotalYears
-      );
-    }
-  }, [totalYearsOfExperience, currentTotalYearsOfExperience]);
+  }, [educationLevel]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
@@ -55,14 +46,14 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
         }
         setResponseMessage({
           title: "Saved Successfully",
-          content: "your Experience Saved successfully",
+          content: "your Education Level Saved successfully",
         });
         setSuccessResponse(true);
         setShowResponse(true);
       } else {
         setResponseMessage({
           title: "Request Faild",
-          content: "your Experiences faild to be uploaded please try again",
+          content: "your Education Level faild to be uploaded please try again",
         });
         setSuccessResponse(false);
         setShowResponse(true);
@@ -72,7 +63,7 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
       console.log(error);
       setResponseMessage({
         title: "Request Faild",
-        content: "your Experiences faild to be uploaded please try again",
+        content: "your Education Level faild to be uploaded please try again",
       });
       setSuccessResponse(false);
       setShowResponse(true);
@@ -80,16 +71,19 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
   });
 
   const initialValues = {
-    totalYearsOfExperience: convertingOfTotalYears,
+    educationLevel: educationLevelState,
   };
 
   const onSubmit = (values) => {
+    console.log(values)
     const updatedValues = {
-      totalYearsOfExperience: values.totalYearsOfExperience?  values.totalYearsOfExperience: currentTotalYearsOfExperience,
+      educationLevel: values.educationLevel
+        ? values.educationLevel
+        : educationLevelState,
     };
 
     mutate({
-      type: "experience/total",
+      type: "education/level",
       formData: updatedValues,
       token: token,
       role: "users",
@@ -97,31 +91,8 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
   };
 
   const validationSchema = object({
-    totalYearsOfExperience: number().required(
-      "total years Of experience is required"
-    ),
+    educationLevel: string()
   });
-
-  const yearsOptions = [
-    { value: 0, label: "No Experience" },
-    { value: 0.5, label: "less than year" },
-    { value: 1, label: "1 year" },
-    { value: 2, label: "2 years" },
-    { value: 3, label: "3 years" },
-    { value: 4, label: "4 years" },
-    { value: 5, label: "5 years" },
-    { value: 6, label: "6 years" },
-    { value: 7, label: "7 years" },
-    { value: 8, label: "8 years" },
-    { value: 9, label: "9 years" },
-    { value: 10, label: "10 years" },
-    { value: 11, label: "11 years" },
-    { value: 12, label: "12 years" },
-    { value: 13, label: "13 years" },
-    { value: 14, label: "14 years" },
-    { value: 15, label: "15 years" },
-    { value: 16, label: "+15 years" },
-  ];
 
   return (
     <>
@@ -132,18 +103,18 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
       >
         <Form className={styles.general_info_form}>
           <div className={styles.field}>
-            <label htmlFor="totalYears">Years of Experience</label>
+            <label htmlFor="educationLevel">Current Education Level</label>
             <Field
-              id="totalYears"
-              name="totalYearsOfExperience"
+              id="educationLevel"
+              name="educationLevel"
               isMulti={false}
               component={MultiSelect}
-              placeholder={convertingOfTotalYears}
-              options={yearsOptions}
+              placeholder={educationLevel}
+              options={degreeLevelOptions}
             />
 
             <ErrorMessage
-              name="totalYearsOfExperience"
+              name="educationLevel"
               component={InputErrorMessage}
             />
           </div>
@@ -171,4 +142,4 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
   );
 };
 
-export default YearsExperienceForm;
+export default EducationLevel;

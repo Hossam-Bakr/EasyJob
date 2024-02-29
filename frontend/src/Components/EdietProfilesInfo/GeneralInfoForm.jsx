@@ -12,7 +12,7 @@ import Loading from "../Ui/Loading";
 import FloatingPopup from "../Ui/FloatingPopup";
 import fetchProfileData from "../../Store/profileInfo-actions";
 import MultiSelect from "../logic/SelectField";
-import { countryChange } from "../logic/Logic";
+import { countryChange, countryOptions, sizeOptions } from "../logic/Logic";
 import Select from 'react-select';
 
 const GeneralInfoForm = ({ data }) => {
@@ -23,6 +23,7 @@ const GeneralInfoForm = ({ data }) => {
   });
   const [newCityOptions,setNewCityOptions]=useState([])
   const [formatedCityOptions,setFormatedCityOptions]=useState([])
+  const [chosenCountry,setChosenCountry]=useState("")
   const [successResponse, setSuccessResponse] = useState(true);
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentCity, setCurrentCity] = useState("");
@@ -57,6 +58,7 @@ const GeneralInfoForm = ({ data }) => {
 
   const handleCountryChange=(e)=>{
     let val=e.value
+    setChosenCountry(val)
     countryChange(val,setNewCityOptions)
   }
 
@@ -104,7 +106,7 @@ const GeneralInfoForm = ({ data }) => {
   });
 
   const initialValues = {
-    country: currentCountry,
+    country: currentCountry||chosenCountry,
     city: currentCity,
     size: currentSize,
     foundedYear: currentFounded,
@@ -113,8 +115,9 @@ const GeneralInfoForm = ({ data }) => {
   };
 
   const onSubmit = (values) => {
+    console.log(values)
     const updatedValues = {
-      country: values.country !== "" ? values.country : currentCountry,
+      country: chosenCountry!== "" ? chosenCountry: currentCountry,
       city: values.city !== "" ? values.city : currentCity,
       size: values.size !== "" ? values.size : currentSize,
       foundedYear:
@@ -136,8 +139,8 @@ const GeneralInfoForm = ({ data }) => {
       .matches(/^[A-Z]+/, "Country Start With Capital letter")
       .required("country is required"),
     city: string()
-      .matches(/^[A-Z]+/, "Country Start With Capital letter")
-      .required("country is required"),
+      .matches(/^[A-Z]+/, "City Start With Capital letter")
+      .required("City is required"),
     foundedYear: string()
       .matches(/^[1-9][0-9]{3}$/, "Invalid year format")
       .test("future-year", "Future year not allowed", function (value) {
@@ -150,20 +153,6 @@ const GeneralInfoForm = ({ data }) => {
 
     description: string().required("description is required"),
   });
-
-  const countryOptions = [
-    { value: "Egypt", label: "Egypt" },
-    { value: "UAE", label: "UAE" },
-    { value: "KSA", label: "KSA" },
-    { value: "Kuwait", label: "Kuwait" },
-  ];
-  const sizeOptions = [
-    { value: "1-10", label: "1-10" },
-    { value: "11-50", label: "11-50" },
-    { value: "51-200", label: "51-200" },
-    { value: "201-500", label: "201-500" },
-    { value: "500+", label: "500+" },
-  ];
 
   return (
     <>
@@ -234,7 +223,6 @@ const GeneralInfoForm = ({ data }) => {
                 <label htmlFor="companySize">Size</label>
                 <Field
                   type="text"
-                  placeholder={currentSize}
                   id="companySize"
                   name="size"
                   isMulti={false}
@@ -249,7 +237,6 @@ const GeneralInfoForm = ({ data }) => {
                 <label htmlFor="companyFounded">Founded</label>
                 <Field
                   type="text"
-                  placeholder={currentFounded}
                   id="companyFounded"
                   name="foundedYear"
                   className={`${data.founded ? "" : styles.empty_field} ${
@@ -266,7 +253,6 @@ const GeneralInfoForm = ({ data }) => {
             <div className={`${styles.field} ${styles.text_area_desc}`}>
               <Field
                 as="textarea"
-                placeholder={currentDescription}
                 id="description"
                 name="description"
                 cols="30"

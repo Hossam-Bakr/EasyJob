@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./EdietInfoForm.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Form, Formik, Field } from "formik";
-import { date, object, string } from "yup";
+import { array, date, object, string } from "yup";
 import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,31 +11,20 @@ import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import MultiSelect from "../logic/SelectField";
+import { degreeLevelOptions, fieldsOfStudy, gradeOptions, universities } from "../logic/Logic";
 
-const WorkExperienceForm = () => {
+const UserEducationForm = () => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
-  const [myCategories,setMyCategories]=useState([])
 
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
-  const currentCategories = useSelector((state) => state.category.categories);
-
-  useEffect(() => {
-    if (currentCategories) {
-      let categoryOptions = currentCategories.map((cat) => ({
-        value: cat.name,
-        label: cat.name
-      }));
-      setMyCategories(categoryOptions);
-    }
-  }, [currentCategories]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
@@ -47,15 +36,14 @@ const WorkExperienceForm = () => {
         }
         setResponseMessage({
           title: "Saved Successfully",
-          content: "Your Work Experience Saved successfully",
+          content: "Your Education Saved successfully",
         });
         setSuccessResponse(true);
         setShowResponse(true);
       } else {
         setResponseMessage({
           title: "Request Faild",
-          content:
-            "Your Work Experiences faild to be uploaded please try again",
+          content: "Your Education faild to be uploaded please try again",
         });
         setSuccessResponse(false);
         setShowResponse(true);
@@ -65,7 +53,7 @@ const WorkExperienceForm = () => {
       console.log(error);
       setResponseMessage({
         title: "Request Faild",
-        content: "Your Work Experiences faild to be uploaded please try again",
+        content: "Your Education faild to be uploaded please try again",
       });
       setSuccessResponse(false);
       setShowResponse(true);
@@ -73,10 +61,10 @@ const WorkExperienceForm = () => {
   });
 
   const initialValues = {
-    type: "",
-    title: "",
-    category: "",
-    organization: "",
+    school: "",
+    degree: "",
+    fieldsOfStudy: [],
+    grade: "",
     startDate: "2000-01-01",
     endDate: "2001-01-01",
     description: "",
@@ -85,7 +73,7 @@ const WorkExperienceForm = () => {
   const onSubmit = (values) => {
     console.log(values);
     mutate({
-      type: "experience",
+      type: "education",
       formData: values,
       token: token,
       role: "users",
@@ -96,10 +84,12 @@ const WorkExperienceForm = () => {
   const today = new Date();
 
   const validationSchema = object({
-    type: string().required("Experience type is required"),
-    title: string().required("Job title is required"),
-    category: string().required("Job category is required"),
-    organization: string().required("organization name is required"),
+    school: string().required("University Name is required"),
+    degree: string().required("Jyour degree is required"),
+    fieldsOfStudy: array()
+      .min(1, "You can't leave this blank.")
+      .required("You can't leave this blank."),
+    grade: string().required("your grade name is required"),
     startDate: date()
       .test("futureDate", "Future dates are not allowed", function (value) {
         const selectedDate = new Date(value);
@@ -116,15 +106,6 @@ const WorkExperienceForm = () => {
     description: string(),
   });
 
-  const experianceOptions = [
-    { value: "full-time", label: "full-time" },
-    { value: "part-time", label: "part-time" },
-    { value: "freelance/project", label: "freelance/project" },
-    { value: "internship", label: "internship" },
-    { value: "volunteering", label: "volunteering" },
-    { value: "student-activity", label: "student-activity" },
-  ];
-
   return (
     <>
       <Formik
@@ -134,37 +115,39 @@ const WorkExperienceForm = () => {
       >
         <Form className={styles.general_info_form}>
           <div className={styles.field}>
-            <label htmlFor="title">Job title</label>
+            <label htmlFor="degree">Degree Level </label>
             <Field
-              type="text"
-              id="title"
-              name="title"
-              placeholder="ex: Accountant"
-            />
-            <ErrorMessage name="title" component={InputErrorMessage} />
-          </div>
-
-          <div className={styles.field}>
-            <label htmlFor="category">Job category</label>
-            <Field
-              id="category"
-              name="category"
+              id="degree"
+              name="degree"
               isMulti={false}
               component={MultiSelect}
-              options={myCategories}
+              options={degreeLevelOptions}
             />
-            <ErrorMessage name="category" component={InputErrorMessage} />
+            <ErrorMessage name="degree" component={InputErrorMessage} />
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="organization">Organization</label>
+            <label htmlFor="school">University</label>
             <Field
-              type="text"
-              id="organization"
-              name="organization"
-              placeholder="ex: Microsoft"
+              id="school"
+              name="school"
+              isClearable={true}
+              component={MultiSelect}
+              options={universities}
             />
-            <ErrorMessage name="organization" component={InputErrorMessage} />
+            <ErrorMessage name="school" component={InputErrorMessage} />
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="fieldsOfStudy">Fields of Study</label>
+            <Field
+              id="fieldsOfStudy"
+              name="fieldsOfStudy"
+              isCreatable={true}
+              component={MultiSelect}
+              options={fieldsOfStudy}
+            />
+            <ErrorMessage name="fieldsOfStudy" component={InputErrorMessage} />
           </div>
 
           <div className={styles.collection}>
@@ -180,17 +163,19 @@ const WorkExperienceForm = () => {
               <ErrorMessage name="endDate" component={InputErrorMessage} />
             </div>
           </div>
-          <div className={styles.field}>
-            <label htmlFor="type">Experience type</label>
+
+          <div className={`${styles.field} mb-4`}>
+            <label htmlFor="grade">Your Grade</label>
             <Field
-              id="type"
-              name="type"
+              id="grade"
+              name="grade"
               isMulti={false}
               component={MultiSelect}
-              options={experianceOptions}
+              options={gradeOptions}
             />
-            <ErrorMessage name="type" component={InputErrorMessage} />
+            <ErrorMessage name="grade" component={InputErrorMessage} />
           </div>
+
           <div className={`${styles.field} ${styles.text_area_desc}`}>
             <Field
               as="textarea"
@@ -210,7 +195,7 @@ const WorkExperienceForm = () => {
               </button>
             ) : (
               <button className={styles.save_btn} type="submit">
-                Add Experiance
+                Add Education
               </button>
             )}
           </div>
@@ -226,4 +211,4 @@ const WorkExperienceForm = () => {
   );
 };
 
-export default WorkExperienceForm;
+export default UserEducationForm;

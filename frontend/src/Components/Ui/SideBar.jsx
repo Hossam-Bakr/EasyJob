@@ -70,6 +70,7 @@ const SideBar = ({ onClose, show }) => {
   };
 
   useEffect(() => {
+    setProfilePic(null)
     if (role === "company") {
       if (profileData?.logo) {
         const profileLogoUrl = `http://127.0.0.1:3000/companies/${profileData.logo}`;

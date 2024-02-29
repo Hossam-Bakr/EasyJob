@@ -26,7 +26,6 @@ const CompanyRegisterForm = () => {
         label: indust.name
       }));
       setMyIndustry(industryOptions);
-      console.log(industryOptions);
     }
   }, [currentIndustries]);
 

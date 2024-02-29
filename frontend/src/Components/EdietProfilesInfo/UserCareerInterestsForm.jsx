@@ -27,6 +27,7 @@ const UserCareerInterestsForm = ({
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
+  const [myCategories,setMyCategories]=useState([])
 
   const [currentCareerLevelState, setCurrentCareerLevelState] = useState("");
   const [currentJobTypes, setCurrenJobTypes] = useState([]);
@@ -36,7 +37,17 @@ const UserCareerInterestsForm = ({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
+  const currentCategories = useSelector((state) => state.category.categories);
 
+  useEffect(() => {
+    if (currentCategories) {
+      let categoryOptions = currentCategories.map((cat) => ({
+        value: cat.name,
+        label: cat.name
+      }));
+      setMyCategories(categoryOptions);
+    }
+  }, [currentCategories]);
   useEffect(() => {
     setCurrentCareerLevelState(currentCareerLevel || "not specified");
     setCurrenJobTypes(jobTitles || []);
@@ -126,15 +137,6 @@ const UserCareerInterestsForm = ({
     { value: "backend-developer", label: "backend developer" },
     { value: "accountant", label: "accountant" },
     { value: "fullstack-developer", label: "fullstack developer" },
-  ];
-  const categoryOptions = [
-
-    
-    //get category from backend here
-    { value: "software Engineering", label: "software Engineering" },
-    { value: "Banking", label: "Banking" },
-    { value: "Accounting", label: "Accounting" },
-    { value: "Sports", label: "Sports" },
   ];
   const typsOptions = [
     //get category from backend here
@@ -306,7 +308,7 @@ const UserCareerInterestsForm = ({
                   name="jobCategories"
                   isMulti={true}
                   component={MultiSelect}
-                  options={categoryOptions}
+                  options={myCategories}
                 />
               </div>
               <ErrorMessage
