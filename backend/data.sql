@@ -477,13 +477,3 @@ INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('202
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:19', '2024-02-29 14:18:16', 9, 35);
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:55', '2024-02-29 14:18:53', 10, 49);
 
-
-
-
-
-
-
-
-
-
-

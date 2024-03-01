@@ -19,6 +19,8 @@ router.route("/").get(jobController.getAllJobs).post(
 );
 router.get("/latest/:limit", jobController.getLatestJob);
 
+router.get('/saved', authController.protect, jobController.getAllSavedJobs);
+
 router
   .route("/:id")
   .get(
@@ -37,5 +39,8 @@ router
     // updateJobValidator,
     jobController.updateJob
   );
+
+
+
 
 module.exports = router;

@@ -4,6 +4,9 @@ const Category = require("../models/categoryModel");
 const JobCategory = require("../models/jobCategoryModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
+const User = require("../models/userModel")
+
+
 
 exports.getAllJobs = factory.getAll(Job);
 
@@ -12,7 +15,7 @@ exports.getJob = catchAsync(async (req, res) => {
     include: [
       {
         model: Company,
-        attributes: ["id", "name", "email", "phone", "industry"],
+        attributes: ["id", "name", "email", "phone"],
       },
       {
         model: Category,
@@ -124,4 +127,37 @@ exports.getLatestJob = catchAsync(async (req, res) => {
       .json({ message: "there is no jobs yet", latestJobs });
   }
   res.status(200).json({ status: "success", latestJobs });
+});
+
+
+
+exports.getAllSavedJobs = catchAsync(async (req, res, next) => {
+  const userId = req.user.id;
+
+  const userWithSavedJobs = await User.findByPk(userId, {
+    include: [{
+      model: Job,
+      as: 'Jobs',
+      through: { attributes: ['createdAt'] }, 
+      include: [
+        { model: Company, attributes: ['name'] },
+        { model: Category, attributes: ['name'], through: { attributes: [] } }
+      ]
+    }]
+  });
+
+  if (!userWithSavedJobs) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'User not found'
+    });
+  }
+
+  const jobs = userWithSavedJobs.Jobs ; 
+
+  res.status(200).json({
+    status: 'success',
+    results: jobs.length,
+    data: { jobs }
+  });
 });
