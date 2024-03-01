@@ -20,8 +20,7 @@ exports.userSignupValidator = [
     .notEmpty()
     .withMessage("Email is required")
     .isEmail()
-    .withMessage("Must be a valid email address")
-    .normalizeEmail(),
+    .withMessage("Must be a valid email address"),
 
   check("password")
     .notEmpty()
@@ -36,6 +35,28 @@ exports.userSignupValidator = [
     .withMessage("Password must contain an uppercase letter"),
 
   check("role").isEmpty().withMessage("Role is not allowed"),
+
+  validatorError,
+];
+
+exports.ResetPassValidator = [
+  check("email")
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Must be a valid email address"),
+
+  check("newPassword")
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 5 })
+    .withMessage("Password must be at least 5 characters")
+    .matches(/\d/)
+    .withMessage("Password must contain a number")
+    .matches(/[a-z]/)
+    .withMessage("Password must contain a lowercase letter")
+    .matches(/[A-Z]/)
+    .withMessage("Password must contain an uppercase letter"),
 
   validatorError,
 ];

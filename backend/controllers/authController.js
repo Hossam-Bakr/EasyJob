@@ -1,3 +1,5 @@
+const { Op } = require("sequelize");
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Company = require("../models/companyModel");
@@ -5,6 +7,8 @@ const generateJWT = require("../utils/generateJWT");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
+const sendEmail = require("../utils/sendEmail");
+const createResetCodeMessage = require("../utils/createResetCodeMessage");
 
 exports.userSignup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -106,6 +110,104 @@ exports.Login = catchAsync(async (req, res, next) => {
     });
   }
 });
+
+
+exports.forgotPassword = (entityType = 'User') => catchAsync(async (req, res, next) => {
+  const Model = entityType === 'Company' ? Company : User; 
+  const entity = await Model.findOne({ where: { email: req.body.email } });
+  if (!entity) {
+    return next(new ApiError(`${entityType} not found`, 404));
+  }
+
+  const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+  const hashedResetCode = crypto
+    .createHash("sha256")
+    .update(resetCode)
+    .digest("hex")
+    .trim();
+
+  entity.passwordResetCode = hashedResetCode;
+  entity.passwordResetExpire = Date.now() + 15 * 60 * 1000;
+  entity.passwordResetVerified = false;
+  await entity.save();
+
+  const message = createResetCodeMessage(entity.firstName || entity.name, resetCode); 
+
+  try {
+    await sendEmail(entity, "Password Reset Code (valid for 15 min)", message);
+  } catch (err) {
+    entity.passwordResetCode = undefined;
+    entity.passwordResetExpire = undefined;
+    entity.passwordResetVerified = false;
+
+    await entity.save();
+
+    return next(
+      new ApiError(
+        "There was an error sending the email. Try again later!",
+        500
+      )
+    );
+  }
+
+  res.status(200).json({
+    status: "success",
+    message: `You have got a reset code, check your email to reset password`,
+  });
+});
+
+exports.verifyPassResetCode = (entityType = 'User') => catchAsync(async (req, res, next) => {
+  const Model = entityType === 'Company' ? Company : User; 
+  const resetCode = req.body.resetCode;
+  const hashedResetCode = crypto
+    .createHash("sha256")
+    .update(resetCode)
+    .digest("hex")
+    .trim();
+
+  const user = await Model.findOne({
+    where: {
+      passwordResetCode: hashedResetCode,
+      passwordResetExpire: { [Op.gt]: Date.now() },
+    },
+  });
+
+  if (!user) {
+    return next(new ApiError("Reset code invalid or expired", 400));
+  }
+
+  user.passwordResetVerified = true;
+  await user.save();
+
+  res.status(200).json({
+    status: "success",
+    message: "password reset code verified successfully",
+  });
+});
+
+exports.resetPassword = (entityType = 'User') => catchAsync(async (req, res, next) => {
+  const Model = entityType === 'Company' ? Company : User; 
+  const entity = await Model.findOne({ where: { email: req.body.email } });
+  if (!entity) {
+    return next(new ApiError(`${entityType} not found`, 404));
+  }
+
+  if (!entity.passwordResetVerified) {
+    return next(new ApiError("Reset code not verified.", 400));
+  }
+
+  entity.password = req.body.newPassword;
+  entity.passwordResetVerified = false;
+  entity.passwordResetExpire = undefined;
+  entity.passwordResetCode = undefined;
+
+  const token = generateJWT(entity.id); 
+
+  await entity.save();
+
+  res.status(200).json({ status: "success", token });
+});
+
 
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check of it's there
