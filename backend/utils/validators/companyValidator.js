@@ -210,3 +210,13 @@ exports.changePasswordValidator = [
     }),
   validatorError,
 ];
+
+
+exports.validateEmailChange = [
+  check("newEmail")
+  .notEmpty()
+  .withMessage("Email is required")
+  .isEmail()
+  .withMessage("Must be a valid email address"),
+  validatorError
+]

@@ -11,6 +11,7 @@ const {
   updateCompanyLinksValidator,
   updateSpecializationsValidator,
   changePasswordValidator,
+  validateEmailChange
 } = require("../utils/validators/companyValidator");
 
 router.use(authController.protect, authController.restrictTo("company"));
@@ -46,6 +47,8 @@ router.patch(
   changePasswordValidator,
   companyController.changePassword
 );
-router.delete("/delete-account", companyController.deleteUserAccount);
+router.delete("/delete-account", companyController.deleteCompanyAccount);
+
+router.patch('/changeEmail', authController.protect, validateEmailChange, companyController.changeCompanyEmail);
 
 module.exports = router;
