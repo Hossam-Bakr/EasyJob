@@ -28,6 +28,7 @@
     height: 100%;
     background-color: var(--vanilla);
     box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.274);
+    width: 100%;
 }
 .desc_title{
     font-weight: 600;
@@ -47,7 +48,6 @@
 .general_info_list li span{
     font-size:1rem;
     font-weight: 600;
-    margin-left: 0.625rem;
 }
 .info_title{
     color: var(--dark_white);
@@ -78,6 +78,24 @@
         display: flex;
         justify-content: space-between;
         padding-left: 1.875rem;
+}
+
+.contact_links{
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+.contact_links svg{
+    font-size: 40px;
+    margin-inline: 15px;
+    color:var(--darker_main_color);
+    cursor: pointer;
+    transition: all .5s;
+}
+.contact_links svg:hover{
+    transform: translateY(-0.625rem);
 }
 
 

@@ -11,16 +11,20 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Ui/Loading";
 import FloatingPopup from "../Ui/FloatingPopup";
 import fetchProfileData from "../../Store/profileInfo-actions";
+import MultiSelect from "../logic/SelectField";
+import { countryChange, countryOptions, sizeOptions } from "../logic/Logic";
+import Select from 'react-select';
 
 const GeneralInfoForm = ({ data }) => {
-
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
     content: "",
   });
+  const [newCityOptions,setNewCityOptions]=useState([])
+  const [formatedCityOptions,setFormatedCityOptions]=useState([])
+  const [chosenCountry,setChosenCountry]=useState("")
   const [successResponse, setSuccessResponse] = useState(true);
-
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [currentSize, setCurrentSize] = useState("");
@@ -52,14 +56,27 @@ const GeneralInfoForm = ({ data }) => {
     }
   }, [data]);
 
+  const handleCountryChange=(e)=>{
+    let val=e.value
+    setChosenCountry(val)
+    countryChange(val,setNewCityOptions)
+  }
+
+  useEffect(()=>{
+   const cityOptions=newCityOptions.map((city)=>({
+      value:city,label:city
+    }))
+    setFormatedCityOptions(cityOptions)
+  },[newCityOptions])
+  
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
     onSuccess: (data) => {
       if (data.data.status === "success") {
         console.log(data);
-        
-        if(role&&companyToken){
-          dispatch(fetchProfileData(companyToken,role))
+
+        if (role && companyToken) {
+          dispatch(fetchProfileData(companyToken, role));
         }
 
         setResponseMessage({
@@ -89,7 +106,7 @@ const GeneralInfoForm = ({ data }) => {
   });
 
   const initialValues = {
-    country: currentCountry,
+    country: currentCountry||chosenCountry,
     city: currentCity,
     size: currentSize,
     foundedYear: currentFounded,
@@ -98,8 +115,9 @@ const GeneralInfoForm = ({ data }) => {
   };
 
   const onSubmit = (values) => {
+    console.log(values)
     const updatedValues = {
-      country: values.country !== "" ? values.country : currentCountry,
+      country: chosenCountry!== "" ? chosenCountry: currentCountry,
       city: values.city !== "" ? values.city : currentCity,
       size: values.size !== "" ? values.size : currentSize,
       foundedYear:
@@ -112,7 +130,7 @@ const GeneralInfoForm = ({ data }) => {
       type: "info",
       formData: updatedValues,
       token: companyToken,
-      role:'companies'
+      role: "companies",
     });
   };
 
@@ -121,8 +139,8 @@ const GeneralInfoForm = ({ data }) => {
       .matches(/^[A-Z]+/, "Country Start With Capital letter")
       .required("country is required"),
     city: string()
-      .matches(/^[A-Z]+/, "Country Start With Capital letter")
-      .required("country is required"),
+      .matches(/^[A-Z]+/, "City Start With Capital letter")
+      .required("City is required"),
     foundedYear: string()
       .matches(/^[1-9][0-9]{3}$/, "Invalid year format")
       .test("future-year", "Future year not allowed", function (value) {
@@ -168,25 +186,17 @@ const GeneralInfoForm = ({ data }) => {
               />
             </div>
 
-            <div className={styles.field}>
-              <label htmlFor="companyIndustry">Industry</label>
-              <Field
-                type="text"
-                value={data.industry || ""}
-                disabled
-                className={styles.disabled_faild}
-                id="companyIndustry"
-              />
-            </div>
-
             <div className={styles.collection}>
               <div className={styles.field}>
                 <label htmlFor="companyCountry">Country</label>
-                <Field
+                <Select
                   type="text"
+                  placeholder={currentCountry}
                   id="companyCountry"
                   name="country"
-                  placeholder={currentCountry}
+                  isMulti={false}
+                  options={countryOptions}
+                  onChange={(value)=>handleCountryChange(value)}
                   className={data.country ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="country" component={InputErrorMessage} />
@@ -199,6 +209,9 @@ const GeneralInfoForm = ({ data }) => {
                   placeholder={currentCity}
                   id="companyCity"
                   name="city"
+                  isMulti={false}
+                  component={MultiSelect}
+                  options={formatedCityOptions}
                   className={data.city ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="city" component={InputErrorMessage} />
@@ -210,22 +223,25 @@ const GeneralInfoForm = ({ data }) => {
                 <label htmlFor="companySize">Size</label>
                 <Field
                   type="text"
-                  placeholder={currentSize}
                   id="companySize"
                   name="size"
+                  isMulti={false}
+                  component={MultiSelect}
+                  options={sizeOptions}
                   className={data.size ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="size" component={InputErrorMessage} />
               </div>
 
-              <div className={styles.field}>
+              <div className={`${styles.field}`}>
                 <label htmlFor="companyFounded">Founded</label>
                 <Field
                   type="text"
-                  placeholder={currentFounded}
                   id="companyFounded"
                   name="foundedYear"
-                  className={data.founded ? "" : styles.empty_field}
+                  className={`${data.founded ? "" : styles.empty_field} ${
+                    styles.founded
+                  } `}
                 />
                 <ErrorMessage
                   name="foundedYear"
@@ -237,7 +253,6 @@ const GeneralInfoForm = ({ data }) => {
             <div className={`${styles.field} ${styles.text_area_desc}`}>
               <Field
                 as="textarea"
-                placeholder={currentDescription}
                 id="description"
                 name="description"
                 cols="30"

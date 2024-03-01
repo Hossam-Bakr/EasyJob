@@ -17,17 +17,42 @@ const signFormsHandler = async ({ type, formData }) => {
 
 export default signFormsHandler;
 
-export const updateFormHandler = async ({ type, formData, token,role }) => {
+export const updateFormHandler = async ({ type, formData, token,role,method}) => {
   try {
-    const response = await axios.patch(
-      `${baseServerUrl}${role}/profile/${type}`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    let response;
+    if(method==="post"){
+      response = await axios.post(
+        `${baseServerUrl}${role}/profile/${type}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+    else if(method==="delete"){
+      response = await axios.delete(
+        `${baseServerUrl}${role}/profile/${type}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+    else{
+      response = await axios.patch(
+        `${baseServerUrl}${role}/profile/${type}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+ 
     return response;
   } catch (error) {
     if (error.response) {
@@ -39,6 +64,32 @@ export const updateFormHandler = async ({ type, formData, token,role }) => {
   }
 };
 
+export const getIndustries = async ({ signal, type, formData, method }) => {
+  try {
+    let response = null;
+    if (type) {
+      if (method === "post") {
+        response = await axios.post(
+          `${baseServerUrl}industries${type}`,
+          formData
+        );
+      } else if (method === "put") {
+        response = await axios.put(
+          `${baseServerUrl}industries${type}${formData}`
+        );
+      } else if (method === "delete") {
+        response = await axios.delete(
+          `${baseServerUrl}industries${type}${formData}`
+        );
+      }
+    } else {
+      response = await axios(`${baseServerUrl}industries`, { signal });
+    }
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
 export const getCategories = async ({ signal, type, formData, method }) => {
   try {
     let response = null;
@@ -65,3 +116,41 @@ export const getCategories = async ({ signal, type, formData, method }) => {
     console.error(error);
   }
 };
+
+
+export const accountSettingHanlder=async({ type, formData, token,role,method})=>{
+  try {
+    let response;
+     if(method==="delete"){
+      response = await axios.delete(
+        `${baseServerUrl}${role}/${type}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+    else{
+      response = await axios.patch(
+        `${baseServerUrl}${role}/${type}/`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+    
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response;
+    } else if (error.request) {
+      throw error.request;
+    }
+    throw error.message;
+  }
+}
+

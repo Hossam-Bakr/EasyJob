@@ -92,25 +92,7 @@
 .education_sec ul{
     margin-top: 1.875rem;
 }
-.education_sec ul li{
-    display: flex;
-}
-.education_logo{
-    width: 4.375rem;
-    margin-right: 0.625rem;
-}
-.education_caption h3{
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0;
-}
-.education_caption span{
-    display: block;
-}
-.education_grade{
-    font-weight: 700;
-    font-size: 0.9375rem;
-}
+
 
 /* ____________________________________skills________________________________________________________________ */
 
@@ -156,19 +138,18 @@
 }
 
 /* ____________________________________contact_______________________________________________________________ */
-.contact_links_container{
-    background-color: var(--darker_main_color);
-}
+
 .contact_links{
     margin: 40px 0;
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
 .contact_links svg{
     font-size: 40px;
-    color:white;
+    margin-inline: 15px;
+    color:var(--darker_main_color);
     cursor: pointer;
     transition: all .5s;
 }

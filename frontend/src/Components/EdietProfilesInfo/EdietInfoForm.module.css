@@ -9,6 +9,7 @@
     font-weight: 700;
     margin-bottom: 0.3125rem;
 }
+
 .disabled_faild{
     color: var(--dark_white);
     opacity: .7;
@@ -18,10 +19,13 @@
     justify-content: space-between;
     align-items: center;
 }
-.collection div{
+.collection .field{
     width: 49%;
 }
-
+.founded {
+    border-radius: 5px;
+    padding: 6px 5px;
+}
 .save_btn{
     background-color: var(--main_color);
     color: white;
@@ -76,11 +80,69 @@
     font-weight: 700;
 }
 
-@media screen and (max-width:15.625rem) {
+.delete_btn{
+    min-width: 120px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--font_color);
+    color: var(--font_color);
+    opacity: .7;
+    transition: all .3s;
+
+}
+.delete_btn:hover{
+    color: red;
+    border: 1px solid red;
+    opacity: 1;
+    transform: translateX(-5px);
+}
+/* -----------------------------career--------------------------------------- */
+.career_label{
+    color: var(--dark_white);
+    font-size: 1rem;
+    font-weight: 600 !important;
+    padding: 0.625rem;
+    border-radius: 0.625rem;
+    border: 0.0625rem solid rgb(201, 201, 201);
+    color: var(--font_color);
+    min-width:12.5rem;
+    text-align: center;
+    cursor: pointer;
+}
+.select_group{
+    width: 100%;
+}
+.field h4{
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+.checks_group{
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.263);
+    padding: 1.25rem;
+    border-radius: 0.625rem;
+    margin: 1.875rem 0;
+}
+.select_category{
+    width: 90%;
+}
+
+@media screen and (max-width:37.5rem) {
+    .field h4{
+        margin: 0;
+        text-align: center;
+    }
+}
+
+
+@media screen and (max-width:250px) {
     .collection{
         flex-wrap: wrap;
     } 
     .collection div{
         width: 100%;
+    }
+    .career_label{
+        min-width:100%;
     }
 }

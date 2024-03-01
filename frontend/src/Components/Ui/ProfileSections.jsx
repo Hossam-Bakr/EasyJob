@@ -9,13 +9,25 @@ import {
 import EdietPenIcon from "./EdietPenIcon";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 import contact_info from "../../images/contact_info.png";
-import azhar_logo from "../../images/azharlogo.jpeg";
 import { useDispatch } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NoDataBox from "./NoDataBox";
-import { faBehance, faFacebook, faGithub, faLinkedin, faStackOverflow, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import {
+  faBehance,
+  faFacebook,
+  faGithub,
+  faLinkedin,
+  faStackOverflow,
+  faXTwitter,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+import WorkExperienceBox from "./WorkExperienceBox";
+import FloatingPopup from './FloatingPopup';
+import EducationBox from "./EducationBox";
+
 
 const ProfileSections = ({
   phone,
@@ -34,11 +46,19 @@ const ProfileSections = ({
   website,
   behance,
   github,
+  Experiences,
+  Education
 }) => {
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log(Experiences);
   const toggleShowContactInfoDiv = () => {
     setShowContactInfo((showContactInfo) => !showContactInfo);
   };
@@ -176,7 +196,7 @@ const ProfileSections = ({
           <p className={styles.about_p}>{about}</p>
         ) : (
           <NoDataBox
-            text="introduce yourself to get jobs faster"
+            text="Introduce Yourself to get Jobs faster"
             path="/user-info"
           />
         )}
@@ -184,24 +204,29 @@ const ProfileSections = ({
 
       {/* education */}
       <section className={`${styles.main_style} ${styles.education_sec}`}>
-        <EdietPenIcon />
+        <EdietPenIcon text="+Add" onClick={()=>navigateToEdiet("education")} />
         <h3 className={styles.sec_title}>Education</h3>
         <ul>
-          <li>
-            <div className={styles.education_logo}>
-              <img src={azhar_logo} alt="azhar logo" className="w-100" />
-            </div>
-            <div className={styles.education_caption}>
-              <h3>Al-Azhar University</h3>
-              <span className="mini_word">
-                Bachelor of Engineer, Faculty of Engineering Department of
-                System & Information Technology Bachelor of Engineer, Faculty of
-                Engineering Department of System & Information Technology
-              </span>
-              <span className="mini_word">Jul 2019 - Jul 2024</span>
-              <span className={styles.education_grade}>Grade: very good</span>
-            </div>
-          </li>
+        {Education.length !== 0 ? (
+          Education.map((item) => (
+            <EducationBox
+              key={item.id}
+              itemId={item.id}
+              grade={item.grade}
+              school={item.school}
+              degree={item.degree}
+              fieldsOfStudy={item.fieldsOfStudy}
+              startDate={item.startDate}
+              endDate={item.endDate}
+              description={item.description}
+              setSecResponseMsg={setResponseMessage}
+              setSecSuccess={setSuccessResponse}
+              setSecShowResponse={setShowResponse}
+            />
+          ))
+        ) : (
+          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
+        )}
         </ul>
       </section>
 
@@ -223,42 +248,74 @@ const ProfileSections = ({
             <span className="mini_word">Expert</span>
           </div>
         </div>
-
-        <div className={`${styles.candidate_skills} d-flex mt-4 mb-3`}>
-          <div className={`${styles.skill} ${styles.expert} mx-2`}>
-            <span>HTML</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.expert} mx-2`}>
-            <span>CSS</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.medium} mx-2`}>
-            <span>JS</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.medium} mx-2`}>
-            <span>JQuery</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.medium} mx-2`}>
-            <span>React Js</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.expert} mx-2`}>
-            <span>TypeScript</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.low} mx-2`}>
-            <span>SQL</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.expert} mx-2`}>
-            <span>Office</span>
-          </div>
-          <div className={`${styles.skill}  ${styles.low} mx-2`}>
-            <span>Java</span>
-          </div>
-        </div>
+        <Container className="my-4 ">
+          <Row className={`${styles.candidate_skills} gy-2 w-100`}>
+            <Col sm={2} className={`${styles.skill} ${styles.expert} mx-2`}>
+              <span>HTML</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.expert} mx-2`}>
+              <span>CSS</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.medium} mx-2`}>
+              <span>JS</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.medium} mx-2`}>
+              <span>JQuery</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.medium} mx-2`}>
+              <span>React Js</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.expert} mx-2`}>
+              <span>TypeScript</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.low} mx-2`}>
+              <span>SQL</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.expert} mx-2`}>
+              <span>Office</span>
+            </Col>
+            <Col sm={2} className={`${styles.skill}  ${styles.low} mx-2`}>
+              <span>Java</span>
+            </Col>
+          </Row>
+        </Container>
+   
       </section>
 
-      {/* contact */}
 
-      <section className={`${styles.main_style} ${styles.contact_links_container}`}>
-        <EdietPenIcon text="Ediet" />
+      {/* Experiance */}
+      <section className={styles.main_style}>
+        <EdietPenIcon
+          text="+Add"
+          onClick={() => navigateToEdiet("experience")}
+        />
+        <h3 className={styles.sec_title}>Work Experience</h3>
+        {Experiences.length !== 0 ? (
+          Experiences.map((exp) => (
+            <WorkExperienceBox
+              key={exp.id}
+              expId={exp.id}
+              title={exp.title}
+              type={exp.type}
+              category={exp.category}
+              description={exp.description}
+              startDate={exp.startDate}
+              endDate={exp.endDate}
+              organization={exp.organization}
+              setSecResponseMsg={setResponseMessage}
+              setSecSuccess={setSuccessResponse}
+              setSecShowResponse={setShowResponse}
+            />
+          ))
+        ) : (
+          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
+        )}
+      </section>
+      
+      {/* contact */}
+      <section className={`${styles.main_style}`}>
+        <EdietPenIcon text="Ediet" onClick={() => navigateToEdiet("contact")} />
+        <h3 className={styles.sec_title}>Contact Links</h3>
         {website ||
         facebook ||
         linkedin ||
@@ -268,20 +325,58 @@ const ProfileSections = ({
         behance ||
         youtube ? (
           <div className={styles.contact_links}>
-            {website&&<FontAwesomeIcon icon={faEnvelope}/>}
-            {facebook&&<FontAwesomeIcon icon={faFacebook}/>}
-            {linkedin&&<FontAwesomeIcon icon={faLinkedin}/>}
-            {twitter&&<FontAwesomeIcon icon={faTwitter}/>}
-            {stackOverflow&&<FontAwesomeIcon icon={faStackOverflow}/>}
-            {github&&<FontAwesomeIcon icon={faGithub}/>}
-            {behance&&<FontAwesomeIcon icon={faBehance}/>}
-            {youtube&&<FontAwesomeIcon icon={faYoutube}/>}
-            
+            {website && (
+              <Link to={website} target="_blank">
+                <FontAwesomeIcon icon={faEnvelope} />
+              </Link>
+            )}
+            {facebook && (
+              <Link to={facebook} target="_blank">
+                <FontAwesomeIcon icon={faFacebook} />
+              </Link>
+            )}
+            {linkedin && (
+              <Link to={linkedin} target="_blank">
+                <FontAwesomeIcon icon={faLinkedin} />
+              </Link>
+            )}
+            {twitter && (
+              <Link to={twitter} target="_blank">
+                <FontAwesomeIcon icon={faXTwitter} />
+              </Link>
+            )}
+            {stackOverflow && (
+              <Link to={stackOverflow} target="_blank">
+                <FontAwesomeIcon icon={faStackOverflow} />
+              </Link>
+            )}
+            {github && (
+              <Link to={github} target="_blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </Link>
+            )}
+            {behance && (
+              <Link to={behance} target="_blank">
+                <FontAwesomeIcon icon={faBehance} />
+              </Link>
+            )}
+            {youtube && (
+              <Link to={youtube} target="_blank">
+                <FontAwesomeIcon icon={faYoutube} />
+              </Link>
+            )}
           </div>
         ) : (
-          <NoDataBox />
+          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
         )}
       </section>
+
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };

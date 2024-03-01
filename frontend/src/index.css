@@ -48,6 +48,7 @@ a{
 button{
   outline: none;
   border: none;
+  background-color: transparent;
 }
 input{
   outline: none;
@@ -116,8 +117,9 @@ ul li{
   font-weight: 700;
 }
 .nav-tabs li .active{
-  background-color: var(--main_color) !important;
-  color: white !important;
+  background-color: transparent !important;
+  color: var(--font_color) !important;
+  border-top: 4px solid var(--main_color)  !important;
 }
 
 .mini_word{
@@ -130,14 +132,13 @@ select{
   padding: 10px;
   border-radius: 10px;
 }
-/* option{
-  background-color: var(--sky);
-  padding: 10px 0 !important;
-  transition: all .5s;
+.css-12a83d4-MultiValueRemove{
+  color: var(--main_color);
+  transition: all .3s;
 }
-option:hover{
-  
-} */
+.css-12a83d4-MultiValueRemove:hover{
+  background-color: var(--vanilla) !important;
+}
 
 @media screen and (max-width:768px) {
   body,html{

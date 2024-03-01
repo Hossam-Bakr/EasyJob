@@ -7,6 +7,9 @@ import Loading from "../../Components/Ui/Loading";
 import { useSelector } from "react-redux";
 import UserGeneralInfo from "../../Components/EdietProfilesInfo/UserGeneralInfo";
 import Links from "../../Components/EdietProfilesInfo/Links";
+import UserExperience from "../../Components/EdietProfilesInfo/UserExperience";
+import UserCareerInterests from "../../Components/EdietProfilesInfo/UserCareerInterests";
+import UserEducation from "../../Components/EdietProfilesInfo/UserEducation";
 
 const UserInfo = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
@@ -29,13 +32,13 @@ const UserInfo = () => {
             className="mb-5 mt-5"
             fill
           >
-            <Tab eventKey="media" title="COMPANY MEDIA">
+            <Tab eventKey="media" title="Media">
               <UserMedia
                 gender={userProfileData.gender}
                 cover={userProfileData.coverPhoto}
               />
             </Tab>
-            <Tab eventKey="info" title="GENERAL INFORMATION">
+            <Tab eventKey="info" title="General Info">
               <UserGeneralInfo
                 birthDate={userProfileData.birthDate}
                 phone={userProfileData.phone}
@@ -49,7 +52,7 @@ const UserInfo = () => {
                 about={userProfileData.about}
               />
             </Tab>
-            <Tab eventKey="contact" title="CONTACT LINKS">
+            <Tab eventKey="contact" title="Contact Links">
               <Links
                 facebook={userProfileData.facebook}
                 stackOverflow={userProfileData.stackOverflow} //insta
@@ -59,6 +62,24 @@ const UserInfo = () => {
                 website={userProfileData.website}
                 behance={userProfileData.behance}
                 github={userProfileData.github} //vimeo
+              />
+            </Tab>
+            <Tab eventKey="experience" title="Experience">
+              <UserExperience
+                totalYearsOfExperience={userProfileData.totalYearsOfExperience}
+              />
+            </Tab>
+            <Tab eventKey="interests" title="Career Interests">
+              <UserCareerInterests
+                currentCareerLevel={userProfileData.currentCareerLevel}
+                jobTitles={userProfileData.jobTitles}
+                jobTypes={userProfileData.jobTypes}
+                jobCategories={userProfileData.jobCategories}
+              />
+            </Tab>
+            <Tab eventKey="education" title="Education">
+              <UserEducation 
+              educationLevel={userProfileData.educationLevel}
               />
             </Tab>
           </Tabs>

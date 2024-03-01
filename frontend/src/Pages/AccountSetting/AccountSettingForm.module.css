@@ -1,0 +1,62 @@
+.setting_form_container{
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+.title{
+    font-size: 25px;
+    color: var(--font_color);
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.input_faild{
+margin-bottom: 30px;
+display: flex;
+flex-direction: column;
+position: relative;
+}
+
+.input_faild label{
+    margin-bottom: 10px;
+    color: var(--font_color);
+    font-weight: 700;
+}
+
+.save_btn{
+    background-color: var(--main_color);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    transition: all .4s;
+    min-width: 150px;
+}
+
+.save_btn:hover{
+    scale: 1.02;
+    background-color: var(--darker_main_color);
+}
+.delete_btn{
+    background-color: red;
+    border: 1px solid transparent;
+}
+.delete_btn:hover{
+    background-color: transparent;
+    color: red;
+    border: 1px solid red;
+}
+.collection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.collection div{
+    width: 49%;
+}
+.setting_form_container p{
+    color: var(--dark_white);
+    font-size: 14px;
+    font-weight: 700;
+}

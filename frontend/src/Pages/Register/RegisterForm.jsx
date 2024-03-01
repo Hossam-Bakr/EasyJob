@@ -30,6 +30,7 @@ const RegisterForm = () => {
       }
     },
     onError(error) {
+      console.log(error)
       if (error.status === 500) {
         if (error.data.message === 'connection <monitor> to 15.185.166.107:27017 timed out') {
           setIsEmailError(false);

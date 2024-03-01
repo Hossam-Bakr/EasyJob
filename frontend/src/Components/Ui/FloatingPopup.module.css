@@ -9,7 +9,7 @@
     align-items: center;
 }
 .popup_container_hidden{
-    z-index: -2;
+    z-index: -1;
 }
 .popupHeaderSuccess{
     background-color: var(--vanilla);

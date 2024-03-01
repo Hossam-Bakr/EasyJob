@@ -94,9 +94,6 @@ const CropEasyModal = ({ onHide, show, imgUrl, setImgUrl, setImgFile }) => {
           >
             Cancel
           </Button>
-          <Button className="mx-2" variant="outline-primary" size="sm">
-            Change Photo
-          </Button>
           <Button
             className="mx-2"
             variant="primary"
