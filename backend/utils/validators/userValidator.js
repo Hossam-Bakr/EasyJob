@@ -318,6 +318,13 @@ exports.addEducationValidator = [
     .withMessage("School must be a string")
     .trim(),
 
+  check("displayName")
+    .notEmpty()
+    .withMessage("Please provide degree display name")
+    .isString()
+    .withMessage("Degree display name must be a string")
+    .trim(),
+
   check("degree")
     .notEmpty()
     .withMessage("Please provide degree")
@@ -385,6 +392,12 @@ exports.updateEducationValidator = [
     .optional()
     .isString()
     .withMessage("School must be a string")
+    .trim(),
+
+  check("displayName")
+    .optional()
+    .isString()
+    .withMessage("Degree display name must be a string")
     .trim(),
 
   check("degree")
