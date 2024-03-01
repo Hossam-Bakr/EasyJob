@@ -1,3 +1,4 @@
+
 INSERT INTO Industries (name, createdAt, updatedAt)
 VALUES
     ('Accounting/Finance', NOW(), NOW()),
@@ -433,7 +434,7 @@ INSERT INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 ('Strategic Sourcing', NOW(), NOW(), 30);
 
 
-INSERT INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
+INSERT INTO  Categories (name, createdAt, updatedAt, IndustryId) VALUES
 ('Business Strategy', NOW(), NOW(), 31),
 ('Management Consulting', NOW(), NOW(), 31),
 ('Financial Advisory', NOW(), NOW(), 31),
@@ -442,6 +443,9 @@ INSERT INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 ('Operations Consulting', NOW(), NOW(), 31),
 ('Strategy Consulting', NOW(), NOW(), 31),
 ('Marketing Consulting', NOW(), NOW(), 31);
+
+
+
 
 INSERT INTO Companies (id, name, email, password, phone, role, passwordResetCode, passwordResetExpire, passwordResetVerified, createdAt, updatedAt, deletedAt, IndustryId, PricingPlanId)
 VALUES (1, 'easyJob', 'bakr.hossam.255@gmail.com', '$2a$12$nQGTG7Dh3jeEDbLsUqvzmuGElbwZJWQmo.IM0MwaN4qjD/0esR68G', '0123456789', 'company', null, null, null, '2024-02-29 11:31:37', '2024-02-29 11:31:37', null, 1, null)
@@ -472,10 +476,6 @@ INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('202
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:00', '2024-02-29 14:17:58', 8, 121);
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:19', '2024-02-29 14:18:16', 9, 35);
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:55', '2024-02-29 14:18:53', 10, 49);
-
-
-
-
 
 
 
