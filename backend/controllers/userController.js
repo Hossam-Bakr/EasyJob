@@ -1,4 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
+const User = require("../models/userModel");
 const Experience = require("../models/experienceModel");
 const Education = require("../models/educationModel");
 const Certification = require("../models/certificationModel");
@@ -31,6 +32,44 @@ exports.getUserProfile = catchAsync(async (req, res) => {
   });
 
   const { firstName, lastName, email } = req.user;
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: { firstName, lastName, email },
+      userProfile,
+    },
+  });
+});
+
+exports.getUserProfileById = catchAsync(async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+
+  if (!user) {
+    return res.status(404).json({
+      status: "fail",
+      message: "User not found",
+    });
+  }
+
+  const userProfile = await user.getUserProfile({
+    include: [
+      {
+        model: Experience,
+      },
+      {
+        model: Education,
+      },
+      {
+        model: Certification,
+      },
+      {
+        model: Skill,
+      },
+    ],
+  });
+
+  const { firstName, lastName, email } = user;
 
   res.status(200).json({
     status: "success",
