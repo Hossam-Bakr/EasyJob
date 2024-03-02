@@ -339,6 +339,8 @@ exports.updateJobValidator = [
   validatorError,
 ];
 
+// Job Questions
+
 exports.addJobQuestionValidator = [
   check("jobId")
     .notEmpty()
@@ -390,6 +392,52 @@ exports.updateJobQuestionValidator = [
     .isIn(["text", "yes/no", "voice"])
     .withMessage("Please provide valid question type")
     .trim(),
+
+  validatorError,
+];
+
+// Job Applications
+
+exports.applyForJobValidator = [
+  check("jobId")
+    .notEmpty()
+    .withMessage("Please provide job id")
+    .isNumeric()
+    .withMessage("Job id must be a number")
+    .trim(),
+
+  check("answers")
+    .optional()
+    .isArray()
+    .withMessage("Answers must be an array")
+    .custom((value) => {
+      if (
+        value.some(
+          (answer) =>
+            !answer.QuestionId || !(answer.answerText || answer.yesNoAnswer)
+        )
+      ) {
+        return Promise.reject(
+          "Please provide QuestionId and (answerText | yesNoAnswer) for each answer"
+        );
+      }
+
+      return true;
+    }),
+
+  check("voices")
+    .optional()
+    .isArray()
+    .withMessage("Voices must be an array")
+    .custom((value) => {
+      if (value.some((voice) => !voice.QuestionId || !voice.voiceAnswer)) {
+        return Promise.reject(
+          "Please provide QuestionId and voiceAnswer for each voice"
+        );
+      }
+
+      return true;
+    }),
 
   validatorError,
 ];

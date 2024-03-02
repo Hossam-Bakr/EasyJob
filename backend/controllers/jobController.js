@@ -1,12 +1,22 @@
 const Job = require("../models/jobModel");
 const Company = require("../models/companyModel");
+const User = require("../models/userModel");
 const Category = require("../models/categoryModel");
 const JobCategory = require("../models/jobCategoryModel");
 const Skill = require("../models/skillModel");
 const RequiredSkill = require("../models/requiredSkillModel");
 const Question = require("../models/questionModel");
+const Answer = require("../models/answerModel");
+const Application = require("../models/applicationModel");
 const factory = require("./handlerFactory");
+const { uploadMixOfAudios } = require("../utils/uploadAudio");
 const catchAsync = require("../utils/catchAsync");
+
+const fieldsArr = new Array(11)
+  .fill(0)
+  .map((_, i) => ({ name: `voiceAnswer${i}`, maxCount: 1 }));
+
+exports.uploadVoiceAnswers = uploadMixOfAudios(fieldsArr);
 
 const processRequiredSkills = async (requiredSkills, jobId) => {
   const newSkills = requiredSkills
@@ -293,5 +303,132 @@ exports.deleteJobQuestion = catchAsync(async (req, res) => {
   res.status(204).json({
     status: "success",
     message: "Question deleted successfully.",
+  });
+});
+
+// Applications
+
+exports.applyForJob = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  const application = await Application.create({
+    UserId: req.user.id,
+    JobId: job.id,
+  });
+
+  if (req.body.answers) {
+    await Promise.all(
+      req.body.answers.map((answer) => application.createAnswer(answer))
+    );
+  }
+
+  if (req.body.voices && req.files) {
+    await Promise.all(
+      req.body.voices.map((voice) => {
+        voice.voiceAnswer =
+          req.files[`voiceAnswer${voice.voiceAnswer}`][0].buffer;
+        application.createAnswer(voice);
+      })
+    );
+  }
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      application,
+    },
+  });
+});
+
+exports.getJobApplications = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId, {
+    include: [
+      {
+        model: Question,
+      },
+    ],
+  });
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to view this job's applications",
+    });
+  }
+
+  const applications = await Application.findAll({
+    where: { JobId: job.id },
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      job,
+      applications,
+    },
+  });
+});
+
+exports.getJobApplication = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId, {
+    include: [
+      {
+        model: Question,
+      },
+    ],
+  });
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to view this job's applications",
+    });
+  }
+
+  const application = await Application.findByPk(req.params.id, {
+    include: [
+      {
+        model: Answer,
+      },
+    ],
+  });
+
+  if (!application) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No application found with that ID",
+    });
+  }
+
+  const user = await User.findByPk(application.UserId);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      job,
+      application,
+      user,
+    },
   });
 });

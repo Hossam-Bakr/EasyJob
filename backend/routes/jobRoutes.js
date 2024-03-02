@@ -7,6 +7,7 @@ const {
   updateJobValidator,
   addJobQuestionValidator,
   updateJobQuestionValidator,
+  applyForJobValidator,
 } = require("../utils/validators/jobValidator");
 
 const router = express.Router();
@@ -37,6 +38,17 @@ router
     jobController.updateJob
   );
 
+// Apply for job
+
+router.post(
+  "/:jobId/apply",
+  authController.protect,
+  authController.restrictTo("user"),
+  applyForJobValidator,
+  jobController.uploadVoiceAnswers,
+  jobController.applyForJob
+);
+
 // Questions
 
 router.use(authController.protect, authController.restrictTo("company"));
@@ -49,5 +61,12 @@ router
   .route("/:jobId/questions/:id")
   .put(updateJobQuestionValidator, jobController.updateJobQuestion)
   .delete(jobController.deleteJobQuestion);
+
+// Applications
+
+router.route("/:jobId/applications").get(jobController.getJobApplications);
+
+router.route("/:jobId/applications/:id").get(jobController.getJobApplication);
+// .delete(jobController.deleteJobApplication);
 
 module.exports = router;
