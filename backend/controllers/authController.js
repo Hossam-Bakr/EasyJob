@@ -112,12 +112,17 @@ exports.Login = catchAsync(async (req, res, next) => {
 });
 
 
-exports.forgotPassword = (entityType = 'User') => catchAsync(async (req, res, next) => {
-  const Model = entityType === 'Company' ? Company : User; 
-  const entity = await Model.findOne({ where: { email: req.body.email } });
-  if (!entity) {
-    return next(new ApiError(`${entityType} not found`, 404));
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+
+  const user = await User.findOne({ where: { email: req.body.email } });
+  const company  = await Company.findOne({ where: { email: req.body.email } });
+
+  entity = user ? user : company ; 
+
+  if (!user &&!company) {
+    return next(new ApiError("account with this email not found", 404));
   }
+
 
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
   const hashedResetCode = crypto
@@ -156,9 +161,14 @@ exports.forgotPassword = (entityType = 'User') => catchAsync(async (req, res, ne
   });
 });
 
-exports.verifyPassResetCode = (entityType = 'User') => catchAsync(async (req, res, next) => {
+
+
+
+
+exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
+  const { entityType, resetCode } = req.body;
   const Model = entityType === 'Company' ? Company : User; 
-  const resetCode = req.body.resetCode;
+  
   const hashedResetCode = crypto
     .createHash("sha256")
     .update(resetCode)
@@ -185,9 +195,10 @@ exports.verifyPassResetCode = (entityType = 'User') => catchAsync(async (req, re
   });
 });
 
-exports.resetPassword = (entityType = 'User') => catchAsync(async (req, res, next) => {
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const { email, newPassword, entityType } = req.body;
   const Model = entityType === 'Company' ? Company : User; 
-  const entity = await Model.findOne({ where: { email: req.body.email } });
+  const entity = await Model.findOne({ where: { email: email} });
   if (!entity) {
     return next(new ApiError(`${entityType} not found`, 404));
   }
@@ -196,7 +207,7 @@ exports.resetPassword = (entityType = 'User') => catchAsync(async (req, res, nex
     return next(new ApiError("Reset code not verified.", 400));
   }
 
-  entity.password = req.body.newPassword;
+  entity.password = newPassword;
   entity.passwordResetVerified = false;
   entity.passwordResetExpire = undefined;
   entity.passwordResetCode = undefined;

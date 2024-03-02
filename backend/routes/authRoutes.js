@@ -21,14 +21,17 @@ router.post(
 router.post("/login", loginValidator, authController.Login);
 
 
-router.post("/user/forgotPassword", authController.forgotPassword('User'));
-router.post("/company/forgotPassword", authController.forgotPassword('Company'));
+router.post("/forgotPassword", authController.forgotPassword);
 
-router.post("/user/verifyPassResetCode", authController.verifyPassResetCode('User'));
-router.post("/company/verifyPassResetCode", authController.verifyPassResetCode('Company'));
+router.post("/verifyPassResetCode", authController.verifyPassResetCode);
+router.put("/resetPassword", ResetPassValidator , authController.resetPassword); 
 
-router.put("/user/resetPassword", ResetPassValidator , authController.resetPassword('User')); 
-router.put("/company/resetPassword",ResetPassValidator, authController.resetPassword('Company')); // companyResetPassValidator, 
+
+// router.post("/company/forgotPassword", authController.forgotPassword('Company'));
+
+// router.post("/company/verifyPassResetCode", authController.verifyPassResetCode('Company'));
+
+// router.put("/company/resetPassword",ResetPassValidator, authController.resetPassword('Company')); 
 
 
 module.exports = router;

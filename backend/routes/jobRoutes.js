@@ -19,7 +19,9 @@ router.route("/").get(jobController.getAllJobs).post(
 );
 router.get("/latest/:limit", jobController.getLatestJob);
 
+
 router.get('/saved', authController.protect, jobController.getAllSavedJobs);
+router.delete('/saved/:savedJobId', authController.protect, jobController.deleteSavedJob);
 
 router
   .route("/:id")

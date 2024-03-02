@@ -5,7 +5,7 @@ const JobCategory = require("../models/jobCategoryModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel")
-
+const SavedJob = require("../models/savedJobModel")
 
 
 exports.getAllJobs = factory.getAll(Job);
@@ -159,5 +159,32 @@ exports.getAllSavedJobs = catchAsync(async (req, res, next) => {
     status: 'success',
     results: jobs.length,
     data: { jobs }
+  });
+});
+
+
+exports.deleteSavedJob = catchAsync(async (req, res, next) => {
+  const { savedJobId } = req.params; 
+  const userId = req.user.id;
+
+  const savedJob = await SavedJob.findOne({
+    where: {
+      id: savedJobId,
+      UserId: userId 
+    }
+  });
+
+  if (!savedJob) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'No saved job found with that ID for the current user'
+    });
+  }
+
+  await savedJob.destroy();
+
+  res.status(200).json({
+    status: 'success',
+    data: null 
   });
 });
