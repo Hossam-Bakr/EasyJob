@@ -209,7 +209,7 @@ exports.getLatestJob = catchAsync(async (req, res) => {
 
 // Questions
 
-exports.addJobQuestion = catchAsync(async (req, res) => {
+exports.addJobQuestions = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
@@ -226,12 +226,14 @@ exports.addJobQuestion = catchAsync(async (req, res) => {
     });
   }
 
-  const question = await job.createQuestion(req.body);
+  const questions = await Promise.all(
+    req.body.questions.map((question) => job.createQuestion(question))
+  );
 
   res.status(200).json({
     status: "success",
     data: {
-      question: question.dataValues,
+      questions,
     },
   });
 });

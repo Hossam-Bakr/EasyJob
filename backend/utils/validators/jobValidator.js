@@ -341,7 +341,7 @@ exports.updateJobValidator = [
 
 // Job Questions
 
-exports.addJobQuestionValidator = [
+exports.addJobQuestionsValidator = [
   check("jobId")
     .notEmpty()
     .withMessage("Please provide job id")
@@ -349,19 +349,30 @@ exports.addJobQuestionValidator = [
     .withMessage("Job id must be a number")
     .trim(),
 
-  check("questionText")
+  check("questions")
     .notEmpty()
-    .withMessage("Please provide question text")
-    .isString()
-    .withMessage("Question text must be a string")
-    .trim(),
+    .withMessage("Please provide questions")
+    .isArray({ min: 1 })
+    .withMessage("Questions must be an array of at least 1 question")
+    .custom((value) => {
+      if (value.some((question) => !question.questionText || !question.type)) {
+        return Promise.reject(
+          "Please provide questionText and type for each question"
+        );
+      }
 
-  check("type")
-    .notEmpty()
-    .withMessage("Please provide question type")
-    .isIn(["text", "yes/no", "voice"])
-    .withMessage("Please provide valid question type")
-    .trim(),
+      if (
+        value.some(
+          (question) => !["text", "yes/no", "voice"].includes(question.type)
+        )
+      ) {
+        return Promise.reject(
+          "Please provide valid question type for each question"
+        );
+      }
+
+      return true;
+    }),
 
   validatorError,
 ];

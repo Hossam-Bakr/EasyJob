@@ -5,7 +5,7 @@ const jobController = require("../controllers/jobController");
 const {
   createJobValidator,
   updateJobValidator,
-  addJobQuestionValidator,
+  addJobQuestionsValidator,
   updateJobQuestionValidator,
   applyForJobValidator,
 } = require("../utils/validators/jobValidator");
@@ -55,7 +55,7 @@ router.use(authController.protect, authController.restrictTo("company"));
 
 router
   .route("/:jobId/questions")
-  .post(addJobQuestionValidator, jobController.addJobQuestion);
+  .post(addJobQuestionsValidator, jobController.addJobQuestions);
 
 router
   .route("/:jobId/questions/:id")
