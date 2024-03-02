@@ -5,6 +5,8 @@ const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
 const userValidator = require("../utils/validators/userValidator");
 
+router.get("/profile/:id", userController.getUserProfileById);
+
 router.use(authController.protect, authController.restrictTo("user"));
 
 router.route("/profile").get(userController.getUserProfile);
@@ -96,8 +98,11 @@ router.patch(
   userController.updateOnlinePresence
 );
 
-router.patch('/changePassword' ,   userValidator.changePasswordValidator , userController.changePassword )
-router.delete('/delete-account' , userController.deleteUserAccount )
-
+router.patch(
+  "/changePassword",
+  userValidator.changePasswordValidator,
+  userController.changePassword
+);
+router.delete("/delete-account", userController.deleteUserAccount);
 
 module.exports = router;

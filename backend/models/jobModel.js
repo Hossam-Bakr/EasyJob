@@ -33,29 +33,33 @@ const Job = sequelize.define("Job", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  hideSalary: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
   minExperience: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   careerLevel: {
     type: DataTypes.ENUM(
-      "Student",
-      "Entry",
-      "Junior",
-      "Mid-level",
-      "Experienced/Senior",
-      "Manager/Lead"
+      "student",
+      "entry level",
+      "experienced/senior",
+      "manager/lead",
+      "executive"
     ),
     allowNull: false,
   },
   type: {
     type: DataTypes.ENUM(
-      "Full time",
-      "Part time",
-      "Internship",
-      "Volunteering",
-      "Freelance project",
-      "Shift based"
+      "full-time",
+      "part-time",
+      "internship",
+      "freelance/project",
+      "shift-based",
+      "volunteering",
+      "student-activity"
     ),
     allowNull: false,
   },
@@ -71,6 +75,9 @@ const Job = sequelize.define("Job", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  deadline: DataTypes.DATE,
+  keywords: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 module.exports = Job;
