@@ -52,6 +52,9 @@ const defineDBRelationships = () => {
   Application.hasMany(Answer, cascadeOptions);
   Answer.belongsTo(Application);
 
+  Question.hasMany(Answer, cascadeOptions);
+  Answer.belongsTo(Question);
+
   Industry.hasMany(Category, cascadeOptions);
   Category.belongsTo(Industry);
 
