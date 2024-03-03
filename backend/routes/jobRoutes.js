@@ -23,14 +23,14 @@ router
   );
 router.get("/latest/:limit", jobController.getLatestJob);
 
-router.route("/saved").get( authController.protect, jobController.getAllSavedJobs)
-.post(authController.protect, jobController.saveJob)
-router.delete(
-  "/saved/:savedJobId",
-  authController.protect,
-  jobController.deleteSavedJob
-);
+// Saved Jobs
+router.use("/saved", authController.protect, authController.restrictTo("user"));
 
+router
+  .route("/saved")
+  .get(jobController.getAllSavedJobs)
+  .post(jobController.saveJob);
+router.delete("/saved/:savedJobId", jobController.deleteSavedJob);
 
 router
   .route("/:id")

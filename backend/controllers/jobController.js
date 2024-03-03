@@ -208,6 +208,33 @@ exports.getLatestJob = catchAsync(async (req, res) => {
   res.status(200).json({ status: "success", latestJobs });
 });
 
+// Saved Jobs
+
+exports.saveJob = catchAsync(async (req, res, next) => {
+  const userId = req.user.id;
+  const { jobId } = req.body;
+
+  const existingSavedJob = await SavedJob.findOne({
+    where: { UserId: userId, JobId: jobId },
+  });
+
+  if (existingSavedJob) {
+    return res.status(409).json({
+      status: "fail",
+      message: "Job already saved",
+    });
+  }
+
+  const savedJob = await SavedJob.create({ UserId: userId, JobId: jobId });
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      savedJob,
+    },
+  });
+});
+
 exports.getAllSavedJobs = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
 
@@ -215,8 +242,6 @@ exports.getAllSavedJobs = catchAsync(async (req, res, next) => {
     include: [
       {
         model: Job,
-        as: "Jobs",
-        through: { attributes: ["createdAt"] },
         include: [
           { model: Company, attributes: ["name"] },
           {
@@ -495,32 +520,6 @@ exports.getJobApplication = catchAsync(async (req, res) => {
       job,
       application,
       user,
-    },
-  });
-});
-
-
-exports.saveJob = catchAsync(async (req, res, next) => {
-  const userId = req.user.id; 
-  const { jobId } = req.body; 
-
-  const existingSavedJob = await SavedJob.findOne({
-    where: { UserId: userId, JobId: jobId }
-  });
-
-  if (existingSavedJob) {
-    return res.status(409).json({
-      status: 'fail',
-      message: 'Job already saved',
-    });
-  }
-
-  const savedJob = await SavedJob.create({ UserId: userId, JobId: jobId });
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      savedJob,
     },
   });
 });
