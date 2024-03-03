@@ -27,7 +27,7 @@ const UserCareerInterestsForm = ({
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
-  const [myCategories,setMyCategories]=useState([])
+  const [myCategories, setMyCategories] = useState([]);
 
   const [currentCareerLevelState, setCurrentCareerLevelState] = useState("");
   const [currentJobTypes, setCurrenJobTypes] = useState([]);
@@ -43,11 +43,12 @@ const UserCareerInterestsForm = ({
     if (currentCategories) {
       let categoryOptions = currentCategories.map((cat) => ({
         value: cat.name,
-        label: cat.name
+        label: cat.name,
       }));
       setMyCategories(categoryOptions);
     }
   }, [currentCategories]);
+
   useEffect(() => {
     setCurrentCareerLevelState(currentCareerLevel || "not specified");
     setCurrenJobTypes(jobTitles || []);
@@ -138,15 +139,11 @@ const UserCareerInterestsForm = ({
     { value: "accountant", label: "accountant" },
     { value: "fullstack-developer", label: "fullstack developer" },
   ];
-  const typsOptions = [
-    //get category from backend here
-    { value: "full-time", label: "full-time" },
-    { value: "part-time", label: "part-time" },
-    { value: "internship", label: "internship" },
-    { value: "freelance/project", label: "freelance/project" },
-    { value: "volunteering", label: "volunteering" },
-    { value: "student-activity", label: "student-activity" },
-  ];
+
+  let mycurrentVal = currentJobTitles.map((val) => {
+    return { value: val, label: val };
+  });
+
   return (
     <>
       <Formik
@@ -295,6 +292,8 @@ const UserCareerInterestsForm = ({
                   isMulti={true}
                   component={MultiSelect}
                   options={titleOptions}
+                  defaultValue={mycurrentVal}
+                  // type="update"
                 />
               </div>
 

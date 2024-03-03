@@ -12,6 +12,7 @@ const MultiSelect = ({
   isCreatable = false,
   isClearable,
   placeholder = "Select",
+  defaultValue
 }) => {
   function onChange(option) {
     form.setFieldValue(
@@ -19,7 +20,6 @@ const MultiSelect = ({
       option ? option.map((item) => item.value) : []
     );
   }
-
   const getValue = () => {
     if (options) {
       return isMulti
@@ -40,6 +40,7 @@ const MultiSelect = ({
         value={
           options ? options.find((option) => option.value === field.value):""
         }
+        isMulti={false}
         onChange={(option) =>form.setFieldValue(field.name, option?option.value:"")}
         onBlur={field.onBlur}
         placeholder={placeholder}
@@ -70,6 +71,7 @@ const MultiSelect = ({
         onChange={(option) => form.setFieldValue(field.name, option.value)}
         onBlur={field.onBlur}
         placeholder={placeholder}
+        defaultValue={defaultValue}
       />
     );
   } else {

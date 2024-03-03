@@ -10,7 +10,6 @@ import Loading from "../../Components/Ui/Loading";
 
 const CompanyProfile = () => {
 
-
   const companyProfileData = useSelector((state) => state.profileInfo.data);
   const [profileCover, setProfileCover] = useState(null);
   const [profileLogo, setProfileLogo] = useState(null);
@@ -71,7 +70,7 @@ const CompanyProfile = () => {
                 />
               </div>
             </div>
-          </Container>{" "}
+          </Container>
         </>
       ) : (
         <Loading />

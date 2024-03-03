@@ -1565,7 +1565,6 @@ export const fieldsOfStudy = [
 
 
 //company
-
 export const sizeOptions = [
   { value: "1-10", label: "1-10" },
   { value: "11-50", label: "11-50" },

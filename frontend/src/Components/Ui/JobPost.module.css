@@ -3,15 +3,12 @@
     border-radius: 1.25rem;
     padding: 1.25rem;
     margin-bottom: 3.125rem;
-    cursor: pointer;
     position: relative;
     transition: all .5s;
     box-shadow:0 0 3px rgba(0, 0, 0, 0.26);
 }
 .job:hover{
     border: 0.0625rem solid var(--main_color);
-    scale: 1.02;
-
 }
 .header_container{
     display: flex;
@@ -98,6 +95,7 @@
 .delete_post{
     color: red !important;
     font-weight: 600;
+    cursor: pointer;
 }
 
 @media screen and (min-width:1200px) and (max-width:1300px) {
