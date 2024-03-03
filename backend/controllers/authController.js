@@ -13,6 +13,7 @@ const passport = require('passport');
 require('../utils/googleAuth');
 
 const {asyncPassportAuthenticate} = require('../utils/asyncPassportAuthenticate');
+const signToken = require("../utils/generateJWT");
 
 
 exports.userSignup = catchAsync(async (req, res, next) => {
@@ -222,35 +223,55 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.loginWithGoogle = catchAsync(async (req, res, next) => {
-  const { user, info } = await asyncPassportAuthenticate('google', req, res);
+  const { user , info} = await asyncPassportAuthenticate('google', req, res);
   if (!user) {
     return res.status(401).json({ message: "Authentication failed" });
   }
-
-  const [dbUser, created] = await User.findOrCreate({
+  const [dbUser] = await User.findOrCreate({
     where: { email: user.emails[0].value },
     defaults: {
       firstName: user.name.givenName,
       lastName: user.name.familyName,
       email: user.emails[0].value,
+      password: 'google_123', 
       googleId: user.id,
-      password: 'google_123', // this is a fake password 
       createdAt: new Date(),
       updatedAt: new Date()
     }
   });
-
+  const token = signToken(user.emails[0].value);
   res.status(200).json({
     status: "success",
-    message: "User authenticated successfully",
-    user: {
-      id: dbUser.id,
-      firstName: dbUser.firstName ,
-      lastName: dbUser.lastName  ,
-      email: dbUser.email
+    token, 
+    data: {
+      user: {
+        id: dbUser.id,
+        firstName: dbUser.firstName,
+        lastName: dbUser.lastName,
+        email: dbUser.email,
+        role: "user", 
+        passwordResetCode: null,
+        passwordResetExpire: null,
+        passwordResetVerified: null,
+        googleId: dbUser.googleId,
+        createdAt: dbUser.createdAt.toISOString(),
+        updatedAt: dbUser.updatedAt.toISOString(),
+        deletedAt: null 
+      }
     }
   });
 });
+
+
+
+
+
+
+
+
+
+
+
 
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check of it's there
