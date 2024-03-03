@@ -1,4 +1,7 @@
 const express = require("express");
+const passport = require('passport');
+
+
 
 const authController = require("../controllers/authController");
 const {
@@ -10,12 +13,22 @@ const {
 
 const router = express.Router();
 
+
+
+
 router.post("/user/signup", userSignupValidator, authController.userSignup);
 router.post(
   "/company/signup",
   companySignupValidator,
   authController.companySignup
 );
+
+
+
+
+// google auth routes
+router.get('/google', passport.authenticate('google', { scope: [ 'email', 'profile' ] }));
+router.get('/google/callback',  authController.loginWithGoogle);
 
 
 

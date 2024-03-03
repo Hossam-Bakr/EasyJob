@@ -9,6 +9,10 @@ const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
 const sendEmail = require("../utils/sendEmail");
 const createResetCodeMessage = require("../utils/createResetCodeMessage");
+const passport = require('passport');
+require('../utils/googleAuth');
+
+
 
 exports.userSignup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -296,3 +300,43 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
+
+
+exports.loginWithGoogle = (req, res, next) => {
+  passport.authenticate('google', async (err, profile, info) => {
+    if (err) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+    if (!profile) {
+      return res.status(401).json({ message: "Authentication failed" });
+    }
+
+    try {
+      console.log(profile);
+      const [user, created] = await User.findOrCreate({
+        where: { email: profile.emails[0].value },
+        defaults: {
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          email: profile.emails[0].value,
+          googleId: profile.id, 
+          password: 'google_123',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      });
+      res.status(200).json({
+        status: "success",
+        message: "User authenticated successfully",
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.firstName + ' ' + user.lastName
+        }
+      });
+    } catch (error) {
+      console.error('Error saving the user to the database:', error);
+      return res.status(500).json({ message: "Failed to save user information" });
+    }
+
+  }) (req, res, next) }; 
