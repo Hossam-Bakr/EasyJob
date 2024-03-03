@@ -63,6 +63,7 @@ const UserEducationForm = () => {
   const initialValues = {
     school: "",
     degree: "",
+    displayName:"",
     fieldsOfStudy: [],
     grade: "",
     startDate: "2000-01-01",
@@ -85,7 +86,8 @@ const UserEducationForm = () => {
 
   const validationSchema = object({
     school: string().required("University Name is required"),
-    degree: string().required("Jyour degree is required"),
+    degree: string().required("your degree is required"),
+    displayName: string().required("your displayName is required"),
     fieldsOfStudy: array()
       .min(1, "You can't leave this blank.")
       .required("You can't leave this blank."),
@@ -100,9 +102,9 @@ const UserEducationForm = () => {
       .when(
         "startDate",
         (startDate, schema) =>
-          startDate && schema.min(startDate, "end date greater than Start !")
+          startDate && schema.min(startDate, "End date greater than Start !")
       )
-      .required("end date is required"),
+      .required("End date is required"),
     description: string(),
   });
 
@@ -125,9 +127,20 @@ const UserEducationForm = () => {
             />
             <ErrorMessage name="degree" component={InputErrorMessage} />
           </div>
+          <div className={styles.field}>
+            <label htmlFor="displayName">Degree Display Name </label>
+            <Field
+              id="displayName"
+              name="displayName"
+              isMulti={false}
+              component={MultiSelect}
+              options={degreeLevelOptions}
+            />
+            <ErrorMessage name="displayName" component={InputErrorMessage} />
+          </div>
 
           <div className={styles.field}>
-            <label htmlFor="school">University</label>
+            <label htmlFor="school">School</label>
             <Field
               id="school"
               name="school"

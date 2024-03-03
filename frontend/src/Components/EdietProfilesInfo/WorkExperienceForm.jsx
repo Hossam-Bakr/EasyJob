@@ -11,6 +11,7 @@ import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import MultiSelect from "../logic/SelectField";
+import { experianceOptions } from "../logic/Logic";
 
 const WorkExperienceForm = () => {
   const [showResponse, setShowResponse] = useState(false);
@@ -116,14 +117,7 @@ const WorkExperienceForm = () => {
     description: string(),
   });
 
-  const experianceOptions = [
-    { value: "full-time", label: "full-time" },
-    { value: "part-time", label: "part-time" },
-    { value: "freelance/project", label: "freelance/project" },
-    { value: "internship", label: "internship" },
-    { value: "volunteering", label: "volunteering" },
-    { value: "student-activity", label: "student-activity" },
-  ];
+
 
   return (
     <>

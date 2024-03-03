@@ -12,7 +12,7 @@ import Loading from "../Ui/Loading";
 import FloatingPopup from "../Ui/FloatingPopup";
 import fetchProfileData from "../../Store/profileInfo-actions";
 import { cityChange, countryChange, countryOptions } from "../logic/Logic";
-import Select from 'react-select';
+import Select from "react-select";
 import MultiSelect from "../logic/SelectField";
 
 const UserGeneralInfoForm = ({ data }) => {
@@ -31,7 +31,7 @@ const UserGeneralInfoForm = ({ data }) => {
 
   const [formatedCityOptions, setFormatedCityOptions] = useState([]);
   const [formatedAreaOptions, setFormatedAreaOptions] = useState([]);
-  
+
   const [currentAbout, setcurrentAbout] = useState("");
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentCity, setCurrentCity] = useState("");
@@ -64,17 +64,18 @@ const UserGeneralInfoForm = ({ data }) => {
   }, [data]);
 
   const handleCountryChange = (e) => {
-    let val=e.value
-    setNewCountry(val)
-    countryChange(val,setNewCityOptions)
+    let val = e.value;
+    setNewCountry(val);
+    countryChange(val, setNewCityOptions);
   };
 
-  useEffect(()=>{
-    const cityOptions=newCityOptions.map((city)=>({
-       value:city,label:city
-     }))
-     setFormatedCityOptions(cityOptions)
-   },[newCityOptions])
+  useEffect(() => {
+    const cityOptions = newCityOptions.map((city) => ({
+      value: city,
+      label: city,
+    }));
+    setFormatedCityOptions(cityOptions);
+  }, [newCityOptions]);
 
   const handleCityChange = (e) => {
     const val = e.value;
@@ -82,12 +83,13 @@ const UserGeneralInfoForm = ({ data }) => {
     cityChange(val, setAreasOptions);
   };
 
-  useEffect(()=>{
-    const myAreasOptions=areasOptions.map((area)=>({
-       value:area,label:area
-     }))
-     setFormatedAreaOptions(myAreasOptions)
-   },[areasOptions])
+  useEffect(() => {
+    const myAreasOptions = areasOptions.map((area) => ({
+      value: area,
+      label: area,
+    }));
+    setFormatedAreaOptions(myAreasOptions);
+  }, [areasOptions]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
@@ -130,8 +132,8 @@ const UserGeneralInfoForm = ({ data }) => {
     phone: currentPhone,
     gender: currentGender,
     drivingLicense: currentDrivingLicense,
-    country: currentCountry||newCountry,
-    city: currentCity||newCity,
+    country: currentCountry || newCountry,
+    city: currentCity || newCity,
     area: currentArea,
     nationality: currentNationality,
     about: currentAbout,
@@ -156,7 +158,7 @@ const UserGeneralInfoForm = ({ data }) => {
       city: newCity !== "" ? newCity : currentCity,
       area: values.area !== "" ? values.area : currentArea,
       nationality:
-      values.nationality !== "" ? values.nationality : currentNationality,
+        values.nationality !== "" ? values.nationality : currentNationality,
       about: values.about !== "" ? values.about : currentAbout,
     };
     console.log(updatedValues);
@@ -169,7 +171,7 @@ const UserGeneralInfoForm = ({ data }) => {
   };
 
   const today = new Date();
-  
+
   const validationSchema = object({
     country: string().required("Country is required"),
     city: string().required("City is required"),
@@ -190,7 +192,10 @@ const UserGeneralInfoForm = ({ data }) => {
         return selectedDate <= today;
       })
       .required("Birthdate is required"),
-      about:string().min(45, 'At least 45 characters').max(400, 'About must be less than 400 characters')
+    about: string()
+      .min(45, "At least 45 characters")
+      .max(400, "About must be less than 400 characters")
+      .required("About is required"),
   });
 
   return (
@@ -214,7 +219,7 @@ const UserGeneralInfoForm = ({ data }) => {
                   placeholder={currentCountry}
                   isMulti={false}
                   options={countryOptions}
-                  onChange={(value)=>handleCountryChange(value)}
+                  onChange={(value) => handleCountryChange(value)}
                 />
                 <ErrorMessage name="country" component={InputErrorMessage} />
               </div>
@@ -227,7 +232,7 @@ const UserGeneralInfoForm = ({ data }) => {
                   placeholder={currentCity}
                   isMulti={false}
                   options={formatedCityOptions}
-                  onChange={(value)=>handleCityChange(value)}
+                  onChange={(value) => handleCityChange(value)}
                 />
                 <ErrorMessage name="city" component={InputErrorMessage} />
               </div>

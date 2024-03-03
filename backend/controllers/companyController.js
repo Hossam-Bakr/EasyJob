@@ -171,7 +171,7 @@ exports.changePassword = catchAsync(async (req, res) => {
   res.status(200).json({ status: "success", companyData: company });
 });
 
-exports.deleteUserAccount = catchAsync(async (req, res) => {
+exports.deleteCompanyAccount = catchAsync(async (req, res) => {
   if (!req.company) {
     throw new Error("company not found");
   }
@@ -181,4 +181,20 @@ exports.deleteUserAccount = catchAsync(async (req, res) => {
       .status(401)
       .json({ status: "success", message: "company account deactivated" });
   }
+});
+
+
+
+exports.changeCompanyEmail = catchAsync(async (req, res) => {
+  const { newEmail } = req.body; 
+
+  const company = req.company;
+
+  if (!company) {
+    return res.status(404).send({ status: "failed" ,message: 'Company not found' });
+  }
+  company.email = newEmail;
+  await company.save();
+
+  res.status(200).send({ status: "success" ,  message: 'Email updated successfully', companyData: company });
 });

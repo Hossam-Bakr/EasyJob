@@ -14,7 +14,7 @@ const Experience = sequelize.define("Experience", {
       "internship",
       "freelance/project",
       "volunteering",
-      "student Activity"
+      "student-activity"
     ),
     allowNull: false,
   },

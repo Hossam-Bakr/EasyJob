@@ -1072,12 +1072,30 @@ export const totalYearsConversion = (num, setState) => {
   }
 };
 
+//experience & career
+export const experianceOptions = [
+  { value: "full-time", label: "full-time" },
+  { value: "part-time", label: "part-time" },
+  { value: "freelance/project", label: "freelance/project" },
+  { value: "internship", label: "internship" },
+  { value: "volunteering", label: "volunteering" },
+  { value: "student-activity", label: "student-activity" },
+];
+
+export const titleOptions = [
+  //get titles from backend here
+  { value: "frontend-developer", label: "frontend developer" },
+  { value: "backend-developer", label: "backend developer" },
+  { value: "accountant", label: "accountant" },
+  { value: "fullstack-developer", label: "fullstack developer" },
+];
+
 //education
 export const degreeLevelOptions = [
   { value: "high school", label: "High School" },
   { value: "bachelor's degree", label: "Bachelor's Degree" },
   { value: "master's degree", label: "Master's Degree" },
-  { value: "mba", label: "MBA" },
+  { value: "MBA", label: "MBA" },
   { value: "doctorate", label: "Doctorate Degree" },
   { value: "vocational", label: "Vocational" },
   { value: "diploma", label: "College Diploma" },

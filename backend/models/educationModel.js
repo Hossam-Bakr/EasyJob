@@ -11,6 +11,10 @@ const Education = sequelize.define("Education", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  displayName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   degree: {
     type: DataTypes.ENUM(
       "high school",

@@ -36,6 +36,13 @@ const Company = sequelize.define(
       values: ["company"],
       defaultValue: "company",
     },
+
+
+    passwordResetCode : DataTypes.STRING , 
+    passwordResetExpire : DataTypes.DATE , 
+    passwordResetVerified : DataTypes.BOOLEAN , 
+
+
   },
   {
     hooks: {

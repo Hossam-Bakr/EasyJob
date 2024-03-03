@@ -12,6 +12,7 @@ const Application = sequelize.define("Application", {
     type: DataTypes.STRING,
     allowNull: false,
     isIn: [["Pending", "Accepted", "Closed"]],
+    defaultValue: "Pending",
   },
 });
 

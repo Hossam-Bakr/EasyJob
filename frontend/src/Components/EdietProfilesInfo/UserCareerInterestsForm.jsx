@@ -13,7 +13,7 @@ import fetchProfileData from "./../../Store/profileInfo-actions";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import MultiSelect from "../logic/SelectField";
-// import { colourOptions } from "../data";
+import { experianceOptions, titleOptions } from "../logic/Logic";
 
 const UserCareerInterestsForm = ({
   currentCareerLevel,
@@ -96,7 +96,7 @@ const UserCareerInterestsForm = ({
     jobTypes: currentJobTypes,
     jobCategories: currentJobCategories,
   };
-
+  console.log(currentJobCategories)
   const onSubmit = (values) => {
     console.log(values);
     let updatedValues = {
@@ -130,18 +130,6 @@ const UserCareerInterestsForm = ({
       .min(1, "You can't leave this blank.")
       .required("job category is required"),
     jobTypes: array(),
-  });
-
-  const titleOptions = [
-    //get titles from backend here
-    { value: "frontend-developer", label: "frontend developer" },
-    { value: "backend-developer", label: "backend developer" },
-    { value: "accountant", label: "accountant" },
-    { value: "fullstack-developer", label: "fullstack developer" },
-  ];
-
-  let mycurrentVal = currentJobTitles.map((val) => {
-    return { value: val, label: val };
   });
 
   return (
@@ -183,7 +171,7 @@ const UserCareerInterestsForm = ({
                   className="btn-check"
                   name="currentCareerLevel"
                   id="currentCareerLevel2"
-                  value="entry"
+                  value="entry level"
                   autoComplete="off"
                 />
 
@@ -201,14 +189,14 @@ const UserCareerInterestsForm = ({
                   name="currentCareerLevel"
                   id="currentCareerLevel3"
                   autoComplete="off"
-                  value="experienced"
+                  value="experienced/senior"
                 />
 
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
                   htmlFor="currentCareerLevel3"
                 >
-                  Experienced
+                  Experienced/Senior
                 </label>
               </Col>
               <Col className="d-flex justify-content-center" sm={6} md={4}>
@@ -218,14 +206,14 @@ const UserCareerInterestsForm = ({
                   name="currentCareerLevel"
                   id="currentCareerLevel4"
                   autoComplete="off"
-                  value="manager"
+                  value="manager/lead"
                 />
 
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
                   htmlFor="currentCareerLevel4"
                 >
-                  Manager
+                  Manager/Lead
                 </label>
               </Col>
               <Col className="d-flex justify-content-center" sm={6} md={4}>
@@ -235,13 +223,13 @@ const UserCareerInterestsForm = ({
                   name="currentCareerLevel"
                   id="currentCareerLevel5"
                   autoComplete="off"
-                  value="senior"
+                  value="executive"
                 />
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
                   htmlFor="currentCareerLevel5"
                 >
-                  Senior Management
+                  Executive
                 </label>
               </Col>
 
@@ -276,7 +264,8 @@ const UserCareerInterestsForm = ({
                   name="jobTypes"
                   isMulti={true}
                   component={MultiSelect}
-                  options={typsOptions}
+                  options={experianceOptions}
+                  value={currentJobTypes}
                 />
               </div>
 
