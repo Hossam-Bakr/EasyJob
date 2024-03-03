@@ -12,6 +12,7 @@ const createResetCodeMessage = require("../utils/createResetCodeMessage");
 const passport = require('passport');
 require('../utils/googleAuth');
 
+const {asyncPassportAuthenticate} = require('../utils/asyncPassportAuthenticate');
 
 
 exports.userSignup = catchAsync(async (req, res, next) => {
@@ -166,9 +167,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 });
 
 
-
-
-
 exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
   const { entityType, resetCode } = req.body;
   const Model = entityType === 'Company' ? Company : User; 
@@ -223,6 +221,36 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   res.status(200).json({ status: "success", token });
 });
 
+exports.loginWithGoogle = catchAsync(async (req, res, next) => {
+  const { user, info } = await asyncPassportAuthenticate('google', req, res);
+  if (!user) {
+    return res.status(401).json({ message: "Authentication failed" });
+  }
+
+  const [dbUser, created] = await User.findOrCreate({
+    where: { email: user.emails[0].value },
+    defaults: {
+      firstName: user.name.givenName,
+      lastName: user.name.familyName,
+      email: user.emails[0].value,
+      googleId: user.id,
+      password: 'google_123', // this is a fake password 
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "User authenticated successfully",
+    user: {
+      id: dbUser.id,
+      firstName: dbUser.firstName ,
+      lastName: dbUser.lastName  ,
+      email: dbUser.email
+    }
+  });
+});
 
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check of it's there
@@ -302,41 +330,3 @@ exports.restrictTo = (...roles) => {
 };
 
 
-exports.loginWithGoogle = (req, res, next) => {
-  passport.authenticate('google', async (err, profile, info) => {
-    if (err) {
-      return res.status(500).json({ message: "Internal server error" });
-    }
-    if (!profile) {
-      return res.status(401).json({ message: "Authentication failed" });
-    }
-
-    try {
-      console.log(profile);
-      const [user, created] = await User.findOrCreate({
-        where: { email: profile.emails[0].value },
-        defaults: {
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-          email: profile.emails[0].value,
-          googleId: profile.id, 
-          password: 'google_123',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      });
-      res.status(200).json({
-        status: "success",
-        message: "User authenticated successfully",
-        user: {
-          id: user.id,
-          email: user.email,
-          name: user.firstName + ' ' + user.lastName
-        }
-      });
-    } catch (error) {
-      console.error('Error saving the user to the database:', error);
-      return res.status(500).json({ message: "Failed to save user information" });
-    }
-
-  }) (req, res, next) }; 

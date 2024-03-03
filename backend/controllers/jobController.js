@@ -208,68 +208,6 @@ exports.getLatestJob = catchAsync(async (req, res) => {
   res.status(200).json({ status: "success", latestJobs });
 });
 
-exports.getAllSavedJobs = catchAsync(async (req, res, next) => {
-  const userId = req.user.id;
-
-  const userWithSavedJobs = await User.findByPk(userId, {
-    include: [
-      {
-        model: Job,
-        as: "Jobs",
-        through: { attributes: ["createdAt"] },
-        include: [
-          { model: Company, attributes: ["name"] },
-          {
-            model: Category,
-            attributes: ["name"],
-            through: { attributes: [] },
-          },
-        ],
-      },
-    ],
-  });
-
-  if (!userWithSavedJobs) {
-    return res.status(404).json({
-      status: "fail",
-      message: "User not found",
-    });
-  }
-
-  const jobs = userWithSavedJobs.Jobs;
-
-  res.status(200).json({
-    status: "success",
-    results: jobs.length,
-    data: { jobs },
-  });
-});
-
-exports.deleteSavedJob = catchAsync(async (req, res, next) => {
-  const { savedJobId } = req.params;
-  const userId = req.user.id;
-
-  const savedJob = await SavedJob.findOne({
-    where: {
-      id: savedJobId,
-      UserId: userId,
-    },
-  });
-
-  if (!savedJob) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No saved job found with that ID for the current user",
-    });
-  }
-
-  await savedJob.destroy();
-
-  res.status(200).json({
-    status: "success",
-    data: null,
-  });
-});
 
 // Questions
 
@@ -499,7 +437,6 @@ exports.getJobApplication = catchAsync(async (req, res) => {
   });
 });
 
-
 exports.saveJob = catchAsync(async (req, res, next) => {
   const userId = req.user.id; 
   const { jobId } = req.body; 
@@ -522,5 +459,68 @@ exports.saveJob = catchAsync(async (req, res, next) => {
     data: {
       savedJob,
     },
+  });
+});
+
+exports.getAllSavedJobs = catchAsync(async (req, res, next) => {
+  const userId = req.user.id;
+
+  const userWithSavedJobs = await User.findByPk(userId, {
+    include: [
+      {
+        model: Job,
+        as: "Jobs",
+        through: { attributes: ["createdAt"] },
+        include: [
+          { model: Company, attributes: ["name"] },
+          {
+            model: Category,
+            attributes: ["name"],
+            through: { attributes: [] },
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!userWithSavedJobs) {
+    return res.status(404).json({
+      status: "fail",
+      message: "User not found",
+    });
+  }
+
+  const jobs = userWithSavedJobs.Jobs;
+
+  res.status(200).json({
+    status: "success",
+    results: jobs.length,
+    data: { jobs },
+  });
+});
+
+exports.deleteSavedJob = catchAsync(async (req, res, next) => {
+  const { savedJobId } = req.params;
+  const userId = req.user.id;
+
+  const savedJob = await SavedJob.findOne({
+    where: {
+      id: savedJobId,
+      UserId: userId,
+    },
+  });
+
+  if (!savedJob) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No saved job found with that ID for the current user",
+    });
+  }
+
+  await savedJob.destroy();
+
+  res.status(200).json({
+    status: "success",
+    data: null,
   });
 });
