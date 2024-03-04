@@ -569,6 +569,13 @@ exports.updateApplicationStatus = catchAsync(async (req, res) => {
     });
   }
 
+  if (application.status === "Closed" || application.status === "Accepted") {
+    return res.status(400).json({
+      status: "fail",
+      message: `You can't change the status of an application that is already ${application.status}`,
+    });
+  }
+
   await application.update({ status: req.body.status });
 
   res.status(200).json({
