@@ -472,8 +472,16 @@ exports.getJobApplications = catchAsync(async (req, res) => {
     });
   }
 
+  let filter = { JobId: job.id };
+  if (req.query.status) {
+    filter.status = req.query.status;
+  }
+  if (req.query.stage) {
+    filter.stage = req.query.stage;
+  }
+
   const applications = await Application.findAll({
-    where: { JobId: job.id },
+    where: filter,
   });
 
   res.status(200).json({
