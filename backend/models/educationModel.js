@@ -20,7 +20,7 @@ const Education = sequelize.define("Education", {
       "high school",
       "bachelor's degree",
       "master's degree",
-      "mba",
+      "MBA",
       "doctorate",
       "diploma",
       "vocational"
