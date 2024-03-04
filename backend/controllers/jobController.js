@@ -409,6 +409,17 @@ exports.applyForJob = catchAsync(async (req, res) => {
     });
   }
 
+  const applicationExists = await Application.findOne({
+    where: { UserId: req.user.id, JobId: job.id },
+  });
+
+  if (applicationExists) {
+    return res.status(409).json({
+      status: "fail",
+      message: "You have already applied for this job",
+    });
+  }
+
   const application = await Application.create({
     UserId: req.user.id,
     JobId: job.id,
