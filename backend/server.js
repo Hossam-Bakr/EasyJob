@@ -51,7 +51,7 @@ defineDBRelationships();
 
 sequelize
   .sync()
-  // .sync({ force: true })
+  // .sync({ alter: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`App running on port ${PORT}`);
