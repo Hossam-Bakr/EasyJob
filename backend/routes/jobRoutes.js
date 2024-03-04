@@ -8,6 +8,8 @@ const {
   addJobQuestionsValidator,
   updateJobQuestionValidator,
   applyForJobValidator,
+  updateApplicationStatusValidator,
+  changeApplicationStageValidator,
 } = require("../utils/validators/jobValidator");
 
 const router = express.Router();
@@ -77,5 +79,17 @@ router.route("/:jobId/applications").get(jobController.getJobApplications);
 
 router.route("/:jobId/applications/:id").get(jobController.getJobApplication);
 // .delete(jobController.deleteJobApplication);
+
+router.patch(
+  "/:jobId/applications/:id/status",
+  updateApplicationStatusValidator,
+  jobController.updateApplicationStatus
+);
+
+router.patch(
+  "/:jobId/applications/:id/stage",
+  changeApplicationStageValidator,
+  jobController.changeApplicationStage
+);
 
 module.exports = router;

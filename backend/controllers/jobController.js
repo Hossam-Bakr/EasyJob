@@ -542,3 +542,75 @@ exports.getJobApplication = catchAsync(async (req, res) => {
     },
   });
 });
+
+exports.updateApplicationStatus = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to view this job's applications",
+    });
+  }
+
+  const application = await Application.findByPk(req.params.id);
+
+  if (!application) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No application found with that ID",
+    });
+  }
+
+  await application.update({ status: req.body.status });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      application,
+    },
+  });
+});
+
+exports.changeApplicationStage = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to view this job's applications",
+    });
+  }
+
+  const application = await Application.findByPk(req.params.id);
+
+  if (!application) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No application found with that ID",
+    });
+  }
+
+  await application.update({ stage: req.body.stage });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      application,
+    },
+  });
+});
