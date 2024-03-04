@@ -79,10 +79,10 @@ exports.updateUserCareerInterestsValidator = [
     .withMessage("Please provide current career level")
     .isIn([
       "student",
-      "entry",
-      "experienced",
-      "manager",
-      "executive",
+      "entry level",
+      "experienced/senior",
+      "manager/lead",
+      "executive", // SEO, CTO, CEO, etc.
       "not specified",
     ])
     .withMessage("Please provide valid career level")
