@@ -8,7 +8,6 @@ const Job = sequelize.define("Job", {
     autoIncrement: true,
     allowNull: false,
   },
-  logo : DataTypes.STRING , 
   title: {
     type: DataTypes.STRING,
     allowNull: false,
