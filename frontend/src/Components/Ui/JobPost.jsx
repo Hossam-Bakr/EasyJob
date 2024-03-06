@@ -17,8 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 import LoginAlertModal from "./LoginAlertModal";
 import { formatedTimeHandler } from "../logic/Logic";
 import noLogo from "../../images/noLogo.jpg";
-import { savedJobActions } from "../../Store/savedJobs-slice";
 import FloatingPopup from "./FloatingPopup";
+import {getSavedJobsHandler} from "../../Store/savedJobs-actions";
+import { saveJobsHandler } from "../../util/Http";
 
 const JobPost = ({
   id,
@@ -51,6 +52,7 @@ const JobPost = ({
 
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const dispatch=useDispatch();
+  const token=useSelector((state)=>state.userInfo.token);
 
   const checkToNavigateJobDetails = () => {
     if (isLogin) {
@@ -60,20 +62,22 @@ const JobPost = ({
     }
   };
 
-const savedJobHandler=()=>{
-  if(isLogin){
-    dispatch(savedJobActions.setJobData({
-      id,
-      logo,
-      name,
-      jobTitle,
-      req,
-      country,
-      city,
-      type,
-      workplace,
-      time,
-    }))
+const saveJobPost=()=>{
+  if(token){
+    // dispatch(savedJobActions.setJobData({
+    //   id,
+    //   logo,
+    //   name,
+    //   jobTitle,
+    //   req,
+    //   country,
+    //   city,
+    //   type,
+    //   workplace,
+    //   time,
+    // }))
+    saveJobsHandler(id,token)
+    dispatch(getSavedJobsHandler(token))
     setResponseMessage({
       title: "Saved Successfully",
       content: "Your Job Added To Saved Jobs successfully",
@@ -132,7 +136,7 @@ const savedJobHandler=()=>{
               ) : (
                 <>
                   <FontAwesomeIcon
-                    onClick={savedJobHandler}
+                    onClick={saveJobPost}
                     icon={faBookmark}
                     title="save job"
                     className={`${styles.bookmark_icon} mx-2`}

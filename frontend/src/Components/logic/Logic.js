@@ -1602,35 +1602,39 @@ export const convertCategoriesIntoList=(currentCategories,setState)=>{
 
 
 //functions
-export const formatedTimeHandler=(time,setState)=>{
+export const formatedTimeHandler = (time, setState) => {
   const currentTimestamp = new Date();
+
   const givenTimestamp = new Date(time);
-  const timeDifference = currentTimestamp - givenTimestamp;
 
-  const millisecondsInMinute = 60 * 1000;
-  const millisecondsInHour = 60 * millisecondsInMinute;
-  const millisecondsInDay = 24 * millisecondsInHour;
-  const millisecondsInMonth = 30 * millisecondsInDay;
-  const millisecondsInYear = 365 * millisecondsInDay;
+  const timeDifference = currentTimestamp.getTime() - givenTimestamp.getTime();
 
-  if (timeDifference > millisecondsInYear) {
-    const years = Math.floor(timeDifference / millisecondsInYear);
-    setState(`${years} year${years > 1 ? "s" : ""} ago`);
-  } else if (timeDifference > millisecondsInMonth) {
-    const months = Math.floor(timeDifference / millisecondsInMonth);
-    setState(`${months} month${months > 1 ? "s" : ""} ago`);
-  } else if (timeDifference > millisecondsInDay) {
-    const days = Math.floor(timeDifference / millisecondsInDay);
-    setState(`${days} day${days > 1 ? "s" : ""} ago`);
-  } else if (timeDifference > millisecondsInHour) {
-    const hours = Math.floor(timeDifference / millisecondsInHour);
-    setState(`${hours}hr${hours > 1 ? "s" : ""} ago`);
-  } else {
-    const minutes = Math.abs(Math.floor(timeDifference / millisecondsInMinute));
-    setState(`${minutes}m ago`);
-  }
+  let seconds = Math.floor(timeDifference / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+  let days = Math.floor(hours / 24);
+  let months = Math.floor(days / 30);
+  let years = Math.floor(months / 12);
+
+  if (years > 0) {
+    setState(years + 'y ago');
+} else if (months > 0) {
+    setState(months + 'month' + (months > 1 ? 's' : '') + ' ago');
+} else if (days > 0) {
+    setState(days + 'd ago');
+} else if (hours > 0) {
+    while(minutes>60){
+      minutes=minutes-60;
+      hours++
+    }
+    setState(hours + 'h ago');
+} else if(minutes>1) {
+    setState(minutes + 'm ago');
 }
-
+else{
+  setState('Just Now');
+}
+};
 
 
 

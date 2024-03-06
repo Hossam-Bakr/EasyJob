@@ -261,7 +261,6 @@ const Posts = () => {
     queryFn: () => getJobs({type: "" }),
   });
 
-  console.log(data);
   const role = useSelector((state) => state.userInfo.role);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
 

@@ -1,6 +1,6 @@
 .job{
     border: 0.0625rem solid rgba(100, 100, 100, 0.151);
-    border-radius: 1.25rem;
+    border-radius: 0.625rem;
     padding: 1.25rem;
     position: relative;
     transition: all .5s;
@@ -13,7 +13,6 @@
 .header_container{
     display: flex;
     align-items: center;
-    min-height: 5rem;
 }
 .logo_div{
     display: flex;
@@ -21,7 +20,7 @@
     justify-content: center;
 }
 .company_logo{
-    width: 5rem;
+    width: 4.375rem;
     border-radius: 0.3125rem;
 }
 .job_icons{
@@ -59,15 +58,13 @@
     font-size:1.125rem;
     font-weight: 600;
     font-family: var(--jakarta);
-    margin: 0.625rem 0 0.125rem 0;
-    min-height: 3.125rem;
+    margin:0.3125rem 0;
 }
 .job p{
     font-size: 0.875rem;
     color: var(--dark_white);
     font-weight: 600;
     margin-bottom: 1.25rem;
-    min-height: 3.4375rem;
 }
 .location_icon{
     margin-right:0.125rem;
@@ -100,12 +97,6 @@
     cursor: pointer;
 }
 
-@media screen and (min-width:1200px) and (max-width:1366px) {
-    .header_container{
-        margin-top: 0.625rem;
-    }
-    
- }
 @media screen and (max-width:260px) {
     .job_icons{
        display:none;

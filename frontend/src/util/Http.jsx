@@ -189,3 +189,16 @@ export const getJobs = async ({ signal, type, formData, method }) => {
     console.error(error);
   }
 };
+
+export const saveJobsHandler=async(id,token)=>{
+  try {
+      const res=await axios.post(`${baseServerUrl}jobs/saved/`,id,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      console.log("all saved jobs",res.data)
+    } catch (error) {
+    console.error(error)
+  }
+}

@@ -39,6 +39,7 @@ import CompanyAccountSetting from "./Pages/AccountSetting/CompanyAccountSetting"
 import UserAccountSetting from "./Pages/AccountSetting/UserAccountSetting";
 import UserInfo from "./Pages/UserInfo/UserInfo";
 import getAllCategories, { getAllIndustries } from "./Store/category-actions";
+import { getSavedJobsHandler } from "./Store/savedJobs-actions";
 
 //pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
 
@@ -99,6 +100,14 @@ function App() {
   useEffect(() => {
       dispatch(getAllIndustries());
   }, [dispatch]);
+
+  // get saved jobs data from database
+  useEffect(() => {
+    if(token){
+      dispatch(getSavedJobsHandler(token));
+    }
+  
+  }, [dispatch,token]);
 
 
 

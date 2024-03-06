@@ -11,12 +11,11 @@ import Col from "react-bootstrap/Col";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ApplyBtn from "./ApplyBtn";
-import styles from "./JobPost.module.css";
+import styles from "./JobItem.module.css";
 import noLogo from "../../images/noLogo.jpg";
 import { formatedTimeHandler } from "../logic/Logic";
-import { useDispatch } from "react-redux";
-import { savedJobActions } from "../../Store/savedJobs-slice";
-import FloatingPopup from "./FloatingPopup";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteSavedJobHandler, getSavedJobsHandler } from "../../Store/savedJobs-actions";
 
 const JobItem = ({
   id,
@@ -37,7 +36,7 @@ const JobItem = ({
 }) => {
   const [formatedTime,setFormatedTime]=useState("");
   const [jobCompanyLogo, setJobCompanyLogo] = useState(null);
-
+  const token=useSelector((state)=>state.userInfo.token);
   const dispatch=useDispatch();
 
   useEffect(() => {
@@ -50,18 +49,17 @@ const JobItem = ({
     }
   }, [time]);
 
-
   useEffect(() => {
     setJobCompanyLogo(null)
       if (logo) {
         const compLogo = `http://127.0.0.1:3000/companies/${logo}`;
         setJobCompanyLogo(compLogo);
       }
-
   }, [logo]);
 
   const deleteJob=()=>{
-    dispatch(savedJobActions.deleteJob(id))
+    dispatch(deleteSavedJobHandler(id,token))
+    dispatch(getSavedJobsHandler(token))
     setResponseMessage({
       title: "Deleted Successfully",
       content: "Your Job Deleted From Saved Jobs successfully",
@@ -69,7 +67,7 @@ const JobItem = ({
     setSuccessResponse(true);
     setShowResponse(true);
   }
-
+  console.log("my tok",token)
 
   return (
     <>

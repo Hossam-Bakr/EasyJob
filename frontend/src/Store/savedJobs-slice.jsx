@@ -9,6 +9,10 @@ const savedJobsSLice=createSlice({
   reducers:{
     setJobData(state,action){
         const newJob=action.payload
+        if(newJob.length===0){
+          state.jobData=[...state.jobData]
+          return;
+        }
         const exisitJob=state.jobData.find((job)=>job.id===newJob.id)
         if(exisitJob){
           state.jobData=[...state.jobData]
@@ -24,7 +28,6 @@ const savedJobsSLice=createSlice({
       const exisitJob=state.jobData.filter((job)=>job.id!==id)
       state.jobData=[...exisitJob]
     }
-
   }
 })
 
