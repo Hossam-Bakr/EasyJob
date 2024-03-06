@@ -551,7 +551,9 @@ exports.getJobApplication = catchAsync(async (req, res) => {
     });
   }
 
-  const user = await User.findByPk(application.UserId);
+  const user = await User.findByPk(application.UserId, {
+    attributes: ["id", "firstName", "lastName"],
+  });
 
   res.status(200).json({
     status: "success",
