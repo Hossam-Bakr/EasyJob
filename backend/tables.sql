@@ -241,6 +241,7 @@ create table Users
     createdAt             datetime                              not null,
     updatedAt             datetime                              not null,
     deletedAt             datetime                              null,
+    googleId              varchar(255)                          null,
     constraint email
         unique (email)
 );
