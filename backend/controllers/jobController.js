@@ -1,5 +1,6 @@
 const Job = require("../models/jobModel");
 const Company = require("../models/companyModel");
+const CompanyProfile = require("../models/companyProfileModel");
 const User = require("../models/userModel");
 const Category = require("../models/categoryModel");
 const JobCategory = require("../models/jobCategoryModel");
@@ -50,7 +51,26 @@ const processRequiredSkills = async (requiredSkills, jobId) => {
   return skills;
 };
 
-exports.getAllJobs = factory.getAll(Job);
+const allJobsInclude = [
+  {
+    model: Company,
+    attributes: ["id", "name"],
+    include: {
+      model: CompanyProfile,
+      attributes: ["logo", "country", "city"],
+    },
+  },
+  {
+    model: Category,
+    attributes: ["id", "name"],
+    through: {
+      model: JobCategory,
+      attributes: [],
+    },
+  },
+];
+
+exports.getAllJobs = factory.getAll(Job, allJobsInclude);
 
 exports.getJob = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.id, {
