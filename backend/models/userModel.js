@@ -46,6 +46,7 @@ const User = sequelize.define(
     passwordResetExpire : DataTypes.DATE , 
     passwordResetVerified : DataTypes.BOOLEAN , 
 
+    googleId :  DataTypes.STRING 
   },
   {
     hooks: {
