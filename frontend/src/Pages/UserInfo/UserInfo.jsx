@@ -74,7 +74,7 @@ const UserInfo = () => {
                 currentCareerLevel={userProfileData.currentCareerLevel}
                 jobTitles={userProfileData.jobTitles}
                 jobTypes={userProfileData.jobTypes}
-                jobCategories={userProfileData.jobCategories}
+                jobCategories={userProfileData.jobCategories} 
               />
             </Tab>
             <Tab eventKey="education" title="Education">

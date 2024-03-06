@@ -997,19 +997,6 @@ export const cityChange = (val, setState) => {
   }
 };
 
-// const cityOptions = [];
-
-// for (const country in Cities) {
-
-//   const cities = Cities[country];
-
-//   cities.forEach((city) => {
-//     cityOptions.push({ value: city, label: city });
-//   });
-// }
-// export default cityOptions;
-
-//conver totalYears of exp
 export const totalYearsConversion = (num, setState) => {
   switch (num) {
     case 0:
@@ -1097,6 +1084,17 @@ export const degreeLevelOptions = [
   { value: "master's degree", label: "Master's Degree" },
   { value: "MBA", label: "MBA" },
   { value: "doctorate", label: "Doctorate Degree" },
+  { value: "vocational", label: "Vocational" },
+  { value: "diploma", label: "College Diploma" },
+];
+
+export const educationLevelOptions = [
+  { value: "high school", label: "High School" },
+  { value: "bachelor's degree", label: "Bachelor's Degree" },
+  { value: "master's degree", label: "Master's Degree" },
+  { value: "doctorate", label: "Doctorate Degree" },
+  { value: "diploma", label: "Diploma" },
+  { value: "vocational", label: "Vocational" },
   { value: "vocational", label: "Vocational" },
   { value: "diploma", label: "College Diploma" },
 ];
@@ -1590,3 +1588,63 @@ export const sizeOptions = [
   { value: "201-500", label: "201-500" },
   { value: "500+", label: "500+" },
 ];
+
+export const convertCategoriesIntoList=(currentCategories,setState)=>{
+  console.log(currentCategories)
+  if(currentCategories.length!==0){
+    let categoryOptions = currentCategories.map((cat) => ({
+      value: cat.name,
+      label: cat.name
+    }));
+    setState(categoryOptions)
+  }
+}
+
+
+//functions
+export const formatedTimeHandler=(time,setState)=>{
+  const currentTimestamp = new Date();
+  const givenTimestamp = new Date(time);
+  const timeDifference = currentTimestamp - givenTimestamp;
+
+  const millisecondsInMinute = 60 * 1000;
+  const millisecondsInHour = 60 * millisecondsInMinute;
+  const millisecondsInDay = 24 * millisecondsInHour;
+  const millisecondsInMonth = 30 * millisecondsInDay;
+  const millisecondsInYear = 365 * millisecondsInDay;
+
+  if (timeDifference > millisecondsInYear) {
+    const years = Math.floor(timeDifference / millisecondsInYear);
+    setState(`${years} year${years > 1 ? "s" : ""} ago`);
+  } else if (timeDifference > millisecondsInMonth) {
+    const months = Math.floor(timeDifference / millisecondsInMonth);
+    setState(`${months} month${months > 1 ? "s" : ""} ago`);
+  } else if (timeDifference > millisecondsInDay) {
+    const days = Math.floor(timeDifference / millisecondsInDay);
+    setState(`${days} day${days > 1 ? "s" : ""} ago`);
+  } else if (timeDifference > millisecondsInHour) {
+    const hours = Math.floor(timeDifference / millisecondsInHour);
+    setState(`${hours}hr${hours > 1 ? "s" : ""} ago`);
+  } else {
+    const minutes = Math.abs(Math.floor(timeDifference / millisecondsInMinute));
+    setState(`${minutes}m ago`);
+  }
+}
+
+
+
+
+
+// const cityOptions = [];
+
+// for (const country in Cities) {
+
+//   const cities = Cities[country];
+
+//   cities.forEach((city) => {
+//     cityOptions.push({ value: city, label: city });
+//   });
+// }
+// export default cityOptions;
+
+//conver totalYears of exp

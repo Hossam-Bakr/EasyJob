@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./SideBar.module.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import ContactsIcon from "./ContactsIcon";
+import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
@@ -40,6 +41,7 @@ const SideBar = ({ onClose, show }) => {
     (state) => state.companyNav.changeNavContent
   );
   const profileData = useSelector((state) => state.profileInfo.data);
+  const savedJobsQuantinty = useSelector((state) => state.savedJobs.totalQuantity);
 
   const handleClose = () => {
     onClose();
@@ -207,7 +209,7 @@ const SideBar = ({ onClose, show }) => {
                           className={styles.contact_list_item}
                           onClick={handleClose}
                         >
-                          Saved Jobs
+                          <span>Saved Jobs <Badge bg="primary">{savedJobsQuantinty}</Badge></span>
                           <FontAwesomeIcon
                             className={styles.list_icons}
                             icon={faBookmark}

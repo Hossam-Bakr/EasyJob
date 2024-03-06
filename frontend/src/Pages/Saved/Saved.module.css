@@ -1,0 +1,21 @@
+.emptyCart_container{
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.emptyCart{
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.emptyCart img{
+    width: 100%;
+}
+.emptyCart span{
+    text-align: center;
+}

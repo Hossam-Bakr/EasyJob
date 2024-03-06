@@ -13,7 +13,7 @@ import fetchProfileData from "./../../Store/profileInfo-actions";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import MultiSelect from "../logic/SelectField";
-import { experianceOptions, titleOptions } from "../logic/Logic";
+import { convertCategoriesIntoList, experianceOptions, titleOptions } from "../logic/Logic";
 
 const UserCareerInterestsForm = ({
   currentCareerLevel,
@@ -27,7 +27,7 @@ const UserCareerInterestsForm = ({
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
-  const [myCategories, setMyCategories] = useState([]);
+  const [myCategories,setMyCategories]=useState([])
 
   const [currentCareerLevelState, setCurrentCareerLevelState] = useState("");
   const [currentJobTypes, setCurrenJobTypes] = useState([]);
@@ -39,21 +39,16 @@ const UserCareerInterestsForm = ({
   const role = useSelector((state) => state.userInfo.role);
   const currentCategories = useSelector((state) => state.category.categories);
 
-  useEffect(() => {
-    if (currentCategories) {
-      let categoryOptions = currentCategories.map((cat) => ({
-        value: cat.name,
-        label: cat.name,
-      }));
-      setMyCategories(categoryOptions);
-    }
-  }, [currentCategories]);
+  useEffect(()=>{
+    convertCategoriesIntoList(currentCategories,setMyCategories)
+  },[currentCategories])
 
   useEffect(() => {
     setCurrentCareerLevelState(currentCareerLevel || "not specified");
-    setCurrenJobTypes(jobTitles || []);
-    setCurrentJobTitles(jobTypes || []);
+    setCurrenJobTypes(jobTypes || []);
+    setCurrentJobTitles(jobTitles || []);
     setCurrentJobCategories(jobCategories || []);
+
   }, [currentCareerLevel, jobTitles, jobTypes, jobCategories]);
 
   const { mutate, isPending } = useMutation({
@@ -96,9 +91,9 @@ const UserCareerInterestsForm = ({
     jobTypes: currentJobTypes,
     jobCategories: currentJobCategories,
   };
-  console.log(currentJobCategories)
+
+
   const onSubmit = (values) => {
-    console.log(values);
     let updatedValues = {
       currentCareerLevel:
         values.currentCareerLevel !== ""
@@ -107,7 +102,7 @@ const UserCareerInterestsForm = ({
       jobTitles:
         values.jobTitles.length !== 0 ? values.jobTitles : currentJobTitles,
       jobTypes:
-        values.jobTypes.length !== 0 ? values.jobTypes : currentJobTypes,
+      values.jobTypes !== 0 ? values.jobTypes : currentJobTypes,
       jobCategories:
         values.jobCategories.length !== 0
           ? values.jobCategories
@@ -129,7 +124,8 @@ const UserCareerInterestsForm = ({
     jobCategories: array()
       .min(1, "You can't leave this blank.")
       .required("job category is required"),
-    jobTypes: array(),
+    jobTypes: array().min(1, "You can't leave this blank.")
+    .required("You can't leave this blank."),
   });
 
   return (
@@ -258,19 +254,23 @@ const UserCareerInterestsForm = ({
 
           <div className={styles.checks_group}>
             <div className={styles.field}>
-              <h4 className="my-4">Typs of Job you are open to</h4>
+              <h4 className="my-4">
+                Job Types you are open to
+              </h4>
               <div className={`${styles.select_category}`}>
                 <Field
                   name="jobTypes"
+                  id="jobTypes"
                   isMulti={true}
                   component={MultiSelect}
                   options={experianceOptions}
-                  value={currentJobTypes}
+                  // defaultValue={currentJobTypes.map((title) => ({ value: title, label: title }))}
                 />
               </div>
 
-              <ErrorMessage name="jobTypes" component={InputErrorMessage} />
+              <ErrorMessage name="jobTitles" component={InputErrorMessage} />
             </div>
+
             <div className={styles.field}>
               <h4 className="my-4">
                 Job Titles that Describe What You Are Looking for
@@ -278,11 +278,11 @@ const UserCareerInterestsForm = ({
               <div className={`${styles.select_category}`}>
                 <Field
                   name="jobTitles"
+                  id="jobTitles"
                   isMulti={true}
                   component={MultiSelect}
                   options={titleOptions}
-                  defaultValue={mycurrentVal}
-                  // type="update"
+                  // defaultValue={currentJobTitles.map((title) => ({ value: title, label: title }))}
                 />
               </div>
 
@@ -298,7 +298,7 @@ const UserCareerInterestsForm = ({
                   component={MultiSelect}
                   options={myCategories}
                 />
-              </div>
+              </div>  
               <ErrorMessage
                 name="jobCategories"
                 component={InputErrorMessage}

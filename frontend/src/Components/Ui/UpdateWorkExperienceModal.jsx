@@ -21,6 +21,7 @@ const UpdateWorkExperienceModal = ({
   school,
   degree,
   fieldsOfStudy,
+  displayName,
 
   setSecResponseMsg,
   setSecSuccess,
@@ -48,6 +49,7 @@ const UpdateWorkExperienceModal = ({
             grade={grade}
             school={school}
             degree={degree}
+            displayName={displayName}
             fieldsOfStudy={fieldsOfStudy}
             startDate={startDate}
             endDate={endDate}

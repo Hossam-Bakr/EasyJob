@@ -17,10 +17,16 @@ const signFormsHandler = async ({ type, formData }) => {
 
 export default signFormsHandler;
 
-export const updateFormHandler = async ({ type, formData, token,role,method}) => {
+export const updateFormHandler = async ({
+  type,
+  formData,
+  token,
+  role,
+  method,
+}) => {
   try {
     let response;
-    if(method==="post"){
+    if (method === "post") {
       response = await axios.post(
         `${baseServerUrl}${role}/profile/${type}`,
         formData,
@@ -30,18 +36,13 @@ export const updateFormHandler = async ({ type, formData, token,role,method}) =>
           },
         }
       );
-    }
-    else if(method==="delete"){
-      response = await axios.delete(
-        `${baseServerUrl}${role}/profile/${type}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-    }
-    else{
+    } else if (method === "delete") {
+      response = await axios.delete(`${baseServerUrl}${role}/profile/${type}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
       response = await axios.patch(
         `${baseServerUrl}${role}/profile/${type}`,
         formData,
@@ -52,7 +53,7 @@ export const updateFormHandler = async ({ type, formData, token,role,method}) =>
         }
       );
     }
- 
+
     return response;
   } catch (error) {
     if (error.response) {
@@ -64,7 +65,13 @@ export const updateFormHandler = async ({ type, formData, token,role,method}) =>
   }
 };
 
-export const getIndustries = async ({ signal, type, formData, method }) => {
+export const getIndustries = async ({
+  signal,
+  type,
+  formData,
+  method,
+  pageNum,
+}) => {
   try {
     let response = null;
     if (type) {
@@ -83,14 +90,21 @@ export const getIndustries = async ({ signal, type, formData, method }) => {
         );
       }
     } else {
-      response = await axios(`${baseServerUrl}industries`, { signal });
+      response = await axios(
+        `${baseServerUrl}industries`,
+        {
+          params: {
+            page: pageNum,
+          },
+        }
+      );
     }
     return response;
   } catch (error) {
     console.error(error);
   }
 };
-export const getCategories = async ({ signal, type, formData, method }) => {
+export const getCategories = async ({type, formData, method }) => {
   try {
     let response = null;
     if (type) {
@@ -109,29 +123,31 @@ export const getCategories = async ({ signal, type, formData, method }) => {
         );
       }
     } else {
-      response = await axios(`${baseServerUrl}categories`, { signal });
+      console.log("hey");
+      response = await axios(`${baseServerUrl}categories?limit=400`);
     }
+    console.log(response)
     return response;
   } catch (error) {
     console.error(error);
   }
 };
-
-
-export const accountSettingHanlder=async({ type, formData, token,role,method})=>{
+export const accountSettingHanlder = async ({
+  type,
+  formData,
+  token,
+  role,
+  method,
+}) => {
   try {
     let response;
-     if(method==="delete"){
-      response = await axios.delete(
-        `${baseServerUrl}${role}/${type}/`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-    }
-    else{
+    if (method === "delete") {
+      response = await axios.delete(`${baseServerUrl}${role}/${type}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
       response = await axios.patch(
         `${baseServerUrl}${role}/${type}/`,
         formData,
@@ -142,7 +158,7 @@ export const accountSettingHanlder=async({ type, formData, token,role,method})=>
         }
       );
     }
-    
+
     return response;
   } catch (error) {
     if (error.response) {
@@ -152,5 +168,24 @@ export const accountSettingHanlder=async({ type, formData, token,role,method})=>
     }
     throw error.message;
   }
-}
+};
 
+export const getJobs = async ({ signal, type, formData, method }) => {
+  try {
+    let response = null;
+    if (type) {
+      if (method === "post") {
+        response = await axios.post(`${baseServerUrl}jobs${type}`, formData);
+      } else if (method === "put") {
+        response = await axios.put(`${baseServerUrl}jobs${type}${formData}`);
+      } else if (method === "delete") {
+        response = await axios.delete(`${baseServerUrl}jobs${type}${formData}`);
+      }
+    } else {
+      response = await axios(`${baseServerUrl}jobs/`, { signal });
+    }
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

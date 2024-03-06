@@ -14,6 +14,7 @@ const EducationBox = ({
   grade,
   school,
   degree,
+  displayName,
   startDate,
   endDate,
   fieldsOfStudy,
@@ -26,7 +27,7 @@ const EducationBox = ({
   const [modalShow, setModalShow] = useState(false);
   const [universityLogo, setUniversityLogo] = useState(no_logo);
   const [formatedSchoolName, setFormatedSchoolName] = useState("");
-  const [formatedDegreeName, setFormatedDegreeName] = useState("");
+  const [formatedField, setFormatedField] = useState("");
   const [formatedGradeName, setFormatedGradeName] = useState("");
 
   const formatDate = (dateString) => {
@@ -37,6 +38,13 @@ const EducationBox = ({
 
   const formattedStartDate = formatDate(startDate);
   const formattedEndDate = formatDate(endDate);
+
+  const convertWordToCapital=(word)=>{
+    let capitalizedWord= word.split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+    return capitalizedWord;
+  }
 
   useEffect(() => {
     if (school) {
@@ -69,14 +77,11 @@ const EducationBox = ({
   }, [school]);
 
   useEffect(() => {
-    if (degree) {
-      let capitalizedDegree = degree
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-      setFormatedDegreeName(capitalizedDegree);
+    if (fieldsOfStudy) {
+     let formatedFieldName= convertWordToCapital(fieldsOfStudy[0])
+     setFormatedField(formatedFieldName)
     }
-  }, [degree]);
+  }, [fieldsOfStudy]);
 
   useEffect(() => {
     if (grade) {
@@ -99,6 +104,7 @@ const EducationBox = ({
       }
     }
   }, [grade]);
+
   return (
     <>
       <li className={styles.edu_item}>
@@ -109,7 +115,7 @@ const EducationBox = ({
         <div className={styles.education_caption}>
           <h3>{formatedSchoolName}</h3>
           <span className="mini_word">
-            {formatedDegreeName} in {fieldsOfStudy[0]}
+            {displayName}, At Field of {formatedField}
           </span>
           <span className="mini_word">
             {formattedStartDate} - {formattedEndDate}
@@ -128,6 +134,7 @@ const EducationBox = ({
         grade={grade}
         school={school}
         degree={degree}
+        displayName={displayName}
         fieldsOfStudy={fieldsOfStudy}
         startDate={startDate}
         endDate={endDate}

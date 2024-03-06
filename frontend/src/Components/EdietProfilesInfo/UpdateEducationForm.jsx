@@ -28,6 +28,7 @@ const UpdateEducationForm = ({
   endDate,
   fieldsOfStudy,
   description,
+  displayName,
   setSecResponseMsg,
   setSecSuccess,
   setSecShowResponse,
@@ -46,7 +47,7 @@ const UpdateEducationForm = ({
   const [currentstartDate, setCurrentstartDate] = useState("");
   const [currentendDate, setCurrentendDate] = useState("");
   const [currentDescription, setCurrentDescription] = useState("");
-  // const [myNew, setNew] = useState("");
+  const [currentDisplayName, setCurrentDisplayName] = useState("");
 
   const dispatch = useDispatch();
 
@@ -61,11 +62,9 @@ const UpdateEducationForm = ({
     setCurrentstartDate(startDate || "");
     setCurrentendDate(endDate || "");
     setCurrentDescription(description || "");
-  }, [school, degree, grade, fieldsOfStudy, startDate, endDate, description]);
+    setCurrentDisplayName(displayName || "");
 
-  // const cha=(v)=>{
-  //   setNew(v.value)
-  // }
+  }, [school, degree, grade, fieldsOfStudy, startDate, endDate, description,displayName]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
@@ -104,9 +103,8 @@ const UpdateEducationForm = ({
   const initialValues = {
     school: currentSchool,
     degree: currentDegree,
-    fieldsOfStudy: currentFieldsOfStudy.map((v) => {
-      return { label: v, value: v };
-    }),
+    displayName:currentDisplayName,
+    fieldsOfStudy: currentFieldsOfStudy,
     grade: currentGrade,
     startDate: currentstartDate,
     endDate: currentendDate,
@@ -117,6 +115,7 @@ const UpdateEducationForm = ({
     const updatedValues = {
       school: values.school ? values.school : currentSchool,
       degree: values.degree ? values.degree : currentDegree,
+      displayName: values.displayName ? values.displayName : currentDisplayName,
       grade: values.grade ? values.grade : currentGrade,
       fieldsOfStudy: values.fieldsOfStudy
         ? values.fieldsOfStudy
@@ -177,9 +176,18 @@ const UpdateEducationForm = ({
             />
             <ErrorMessage name="degree" component={InputErrorMessage} />
           </div>
-
           <div className={styles.field}>
-            <label htmlFor="school">University</label>
+            <label htmlFor="displayName">Degree Display Name </label>
+            <Field
+              type="text"
+              id="displayName"
+              name="displayName"
+              placeholder="ex: Bachelor of Science in Civil Engineering "
+            />
+            <ErrorMessage name="displayName" component={InputErrorMessage} />
+          </div>
+          <div className={styles.field}>
+            <label htmlFor="school">School</label>
             <Field
               id="school"
               name="school"
@@ -187,6 +195,7 @@ const UpdateEducationForm = ({
               isClearable={true}
               component={MultiSelect}
               options={universities}
+              val={{value:currentSchool,label:currentSchool}}
             />
             <ErrorMessage name="school" component={InputErrorMessage} />
           </div>
@@ -199,16 +208,9 @@ const UpdateEducationForm = ({
               isCreatable={true}
               component={MultiSelect}
               options={myFields}
-              value={currentFieldsOfStudy.map((v)=>{return{label:v,value:v}})}
+              val={currentFieldsOfStudy.map((filed)=>{return{value:filed,label:filed}})}
+              update={true}
             />
-
-            {/* <CreatableSelect
-              isMulti
-              options={myFields}
-              id="fieldsOfStudy"
-              name="fieldsOfStudy"
-              onChange={cha}
-            /> */}
             <ErrorMessage name="fieldsOfStudy" component={InputErrorMessage} />
           </div>
 

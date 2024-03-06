@@ -62,10 +62,12 @@ const LoginForm = () => {
         }
         }
       else{
+        console.log(res)
         alert('sorry something went wrong please try again later!');
       }
     },
     onError:(error)=>{
+      console.log(error)
       if(error.status===404){
         setIsEmailError(true);
         setIsPasswordError(false)
@@ -75,6 +77,7 @@ const LoginForm = () => {
         setIsPasswordError(true)
       }
       else{
+        console.log(error)
         alert('sorry something went wrong please try again later!');
       }
     }
@@ -149,10 +152,10 @@ const LoginForm = () => {
           </span>
         </div>
         <span className='or_span'>or</span>
-        <a href="google.com">
+        <a href="http://localhost:3000/api/v1/auth/google"  rel="noreferrer" target="_blank">
           <SignWithGoogle text='Sign in with google'/>
         </a>
-        {/* note there is fake link */}
+       
       </Form>
     </Formik>
     </>

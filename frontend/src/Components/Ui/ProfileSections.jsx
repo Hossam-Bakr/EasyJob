@@ -215,6 +215,7 @@ const ProfileSections = ({
               grade={item.grade}
               school={item.school}
               degree={item.degree}
+              displayName={item.displayName}
               fieldsOfStudy={item.fieldsOfStudy}
               startDate={item.startDate}
               endDate={item.endDate}
@@ -281,7 +282,6 @@ const ProfileSections = ({
         </Container>
    
       </section>
-
 
       {/* Experiance */}
       <section className={styles.main_style}>

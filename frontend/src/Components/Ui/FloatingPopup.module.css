@@ -5,7 +5,7 @@
     min-width:30%;
     min-height: 100px !important;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 }
 .popup_container_hidden{
