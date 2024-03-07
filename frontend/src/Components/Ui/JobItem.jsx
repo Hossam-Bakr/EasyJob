@@ -57,17 +57,27 @@ const JobItem = ({
       }
   }, [logo]);
 
-  const deleteJob=()=>{
-    dispatch(deleteSavedJobHandler(id,token))
-    dispatch(getSavedJobsHandler(token))
+  const deleteJob=async()=>{
+   const res=await dispatch(deleteSavedJobHandler(id,token))
+   if(res.status==="success"){
     setResponseMessage({
       title: "Deleted Successfully",
       content: "Your Job Deleted From Saved Jobs successfully",
     });
     setSuccessResponse(true);
     setShowResponse(true);
+   }
+   else{
+    setResponseMessage({
+      title: "Faild to Delete Job",
+      content: "Your Job Faild to be Deleted From Saved Jobs please try again later!",
+    });
+    setSuccessResponse(false);
+    setShowResponse(true);
+   }
+    dispatch(getSavedJobsHandler(token))
+
   }
-  console.log("my tok",token)
 
   return (
     <>

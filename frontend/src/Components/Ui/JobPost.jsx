@@ -62,7 +62,7 @@ const JobPost = ({
     }
   };
 
-const saveJobPost=()=>{
+const saveJobPost=async()=>{
   if(token){
     // dispatch(savedJobActions.setJobData({
     //   id,
@@ -76,14 +76,34 @@ const saveJobPost=()=>{
     //   workplace,
     //   time,
     // }))
-    saveJobsHandler(id,token)
+    const res=await saveJobsHandler({jobId:id,token:token})
+
+    if(res.status==="success"){
+      setResponseMessage({
+        title: "Saved Successfully",
+        content: "Your Job Added To Saved Jobs successfully",
+      });
+      setSuccessResponse(true);
+      setShowResponse(true);
+    }
+    else if(res==="Job already saved"){
+      setResponseMessage({
+        title: "Job Already Saved",
+        content: "Your Job Already Added To Saved Jobs",
+      });
+      setSuccessResponse(false);
+      setShowResponse(true);
+    }
+    else{
+      setResponseMessage({
+        title: "Faild to Save job",
+        content: "Your Job Did not Add To Saved Jobs Please try again later",
+      });
+      setSuccessResponse(false);
+      setShowResponse(true);
+    }
     dispatch(getSavedJobsHandler(token))
-    setResponseMessage({
-      title: "Saved Successfully",
-      content: "Your Job Added To Saved Jobs successfully",
-    });
-    setSuccessResponse(true);
-    setShowResponse(true);
+ 
   } else {
     setModalShow(true);
   }

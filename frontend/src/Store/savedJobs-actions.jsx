@@ -10,26 +10,31 @@ export const getSavedJobsHandler = (token) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("respone from get saved jobs",res.data.data.jobs);
-      dispatch(savedJobActions.setJobData(res.data.data.jobs));
+      // console.log("respone from get saved jobs",res.data);
+      const jobData=res.data.data.jobs
+      const totalQuantity=res.data.results
+      dispatch(savedJobActions.replaceJobsData({jobData:jobData,totalQuantity:totalQuantity}));
     } catch (error) {
       console.error(error);
     }
   };
 };
 
-export const deleteSavedJobHandler=async(id,token)=>{ 
+export const deleteSavedJobHandler=(id,token)=>{ 
+
     return async(dispatch)=>{
         try {   
-            const  res=await axios.delete(`${baseServerUrl}jobs/saved/`,id,{
+            const  res=await axios.delete(`${baseServerUrl}jobs/saved/${id}`,{
                headers: {
                  Authorization: `Bearer ${token}`,
                }
              })
-           console.log("response from delete saved jobs",res)
+          //  console.log("response from delete saved jobs",res.data)
            dispatch (savedJobActions.deleteJob(id));
+           return res.data
+
          } catch (error) {
-         console.error(error)
+         console.log(error)
        }
     }
   }

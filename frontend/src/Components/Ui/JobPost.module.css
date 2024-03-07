@@ -106,8 +106,15 @@
     }
     
  }
+ @media screen and (max-width:280px) {
+    .info{
+        flex-wrap: wrap;
+        margin: 0.625rem 0;
+    }
+ }
 @media screen and (max-width:260px) {
     .job_icons{
        display:none;
     }
+    
  }

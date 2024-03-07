@@ -103,11 +103,11 @@ function App() {
 
   // get saved jobs data from database
   useEffect(() => {
-    if(token){
+    if(token&&role==="user"){
       dispatch(getSavedJobsHandler(token));
     }
   
-  }, [dispatch,token]);
+  }, [dispatch,token,role]);
 
 
 

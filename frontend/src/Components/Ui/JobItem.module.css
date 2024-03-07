@@ -102,3 +102,10 @@
        display:none;
     }
  }
+
+ @media screen and (max-width:280px) {
+    .info{
+        flex-wrap: wrap;
+        margin: 10px 0;
+    }
+ }

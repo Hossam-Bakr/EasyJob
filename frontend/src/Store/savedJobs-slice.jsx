@@ -7,6 +7,11 @@ const savedJobsSLice=createSlice({
     totalQuantity:0
   },
   reducers:{
+
+    replaceJobsData(state,action){
+      state.jobData=action.payload.jobData
+      state.totalQuantity=action.payload.totalQuantity
+    },
     setJobData(state,action){
         const newJob=action.payload
         if(newJob.length===0){
@@ -23,8 +28,8 @@ const savedJobsSLice=createSlice({
     },
     deleteJob(state,action){
       state.totalQuantity--
-      const id=action.payload.id
-      console.log(id)
+      const id=action.payload
+      console.log("at slice id",id)
       const exisitJob=state.jobData.filter((job)=>job.id!==id)
       state.jobData=[...exisitJob]
     }

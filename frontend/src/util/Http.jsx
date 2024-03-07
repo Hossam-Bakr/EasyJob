@@ -90,21 +90,18 @@ export const getIndustries = async ({
         );
       }
     } else {
-      response = await axios(
-        `${baseServerUrl}industries`,
-        {
-          params: {
-            page: pageNum,
-          },
-        }
-      );
+      response = await axios(`${baseServerUrl}industries`, {
+        params: {
+          page: pageNum,
+        },
+      });
     }
     return response;
   } catch (error) {
     console.error(error);
   }
 };
-export const getCategories = async ({type, formData, method }) => {
+export const getCategories = async ({ type, formData, method }) => {
   try {
     let response = null;
     if (type) {
@@ -126,7 +123,7 @@ export const getCategories = async ({type, formData, method }) => {
       console.log("hey");
       response = await axios(`${baseServerUrl}categories?limit=400`);
     }
-    console.log(response)
+    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
@@ -190,15 +187,24 @@ export const getJobs = async ({ signal, type, formData, method }) => {
   }
 };
 
-export const saveJobsHandler=async(id,token)=>{
+export const saveJobsHandler = async ({ jobId, token }) => {
   try {
-      const res=await axios.post(`${baseServerUrl}jobs/saved/`,id,{
+    const res = await axios.post(
+      `${baseServerUrl}jobs/saved/`,
+      { jobId: jobId },
+      {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
-      })
-      console.log("all saved jobs",res.data)
-    } catch (error) {
-    console.error(error)
+        }, 
+      }
+    );
+    // console.log("all saved jobs", res.data);
+    return res.data
+  } catch (error) {
+    console.error(error);
+    if(error.response.data.message==="Job already saved"){
+      return "Job already saved"
+    }
+
   }
-}
+};
