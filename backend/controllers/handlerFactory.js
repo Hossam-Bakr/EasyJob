@@ -84,10 +84,19 @@ exports.getAll = (Model, include = null) =>
       }
     }
 
+    if (sort) {
+      sort
+        .split(",")
+        .map((item) =>
+          item[0] === "-" ? [item.slice(1), "ASC"] : [item, "DESC"]
+        );
+    } else {
+      sort = [["createdAt", "DESC"]];
+    }
+
     const docs = await Model.findAll({
       where: filter,
-      // order: sort ? sort.split(",").map((item) => item.split(":")) : [["createdAt", "DESC"]],
-      order: sort ? [sort.split(",")] : [["createdAt", "DESC"]],
+      order: sort,
       attributes: fields ? fields.split(",") : undefined,
       limit,
       offset: (page - 1) * limit,
