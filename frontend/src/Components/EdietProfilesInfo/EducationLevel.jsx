@@ -11,7 +11,7 @@ import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import MultiSelect from "../logic/SelectField";
-import { degreeLevelOptions } from "../logic/Logic";
+import { educationLevelOptions } from "../logic/Logic";
 
 
 const EducationLevel = ({ educationLevel }) => {
@@ -110,7 +110,7 @@ const EducationLevel = ({ educationLevel }) => {
               isMulti={false}
               component={MultiSelect}
               placeholder={educationLevel}
-              options={degreeLevelOptions}
+              options={educationLevelOptions}
             />
 
             <ErrorMessage

@@ -5,16 +5,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Accordion from "react-bootstrap/Accordion";
 import FilterAccordion from "../../Components/Ui/FilterAccordion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
+
 import CandidatePost from "../../Components/Ui/CandidatePost";
 import { useDispatch, useSelector } from "react-redux";
 import { companyActions } from "../../Store/companyNav-slice";
 import SearchField from "../../Components/Ui/SearchField";
 import GridButtons from "../../Components/Ui/GridButtons";
+import Pagination from "../../Components/Ui/Pagination";
 
 
 const candidatePosts = [
@@ -827,32 +824,7 @@ const Candidates = () => {
              
               </Row>
             </Container>
-            <div
-              className={`${styles.pages} m-auto d-flex justify-content-evenly align-items-center mt-1 w-75 px-2`}
-            >
-              <div className={`${styles.page_arrow} ${styles.arrow_left}`}>
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </div>
-              <div className={styles.page_num}>
-                <h5>1</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>2</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>3</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>4</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>5</h5>
-              </div>
-
-              <div className={`${styles.page_arrow} ${styles.arrow_right}`}>
-                <FontAwesomeIcon icon={faArrowRight} />
-              </div>
-            </div>
+              <Pagination/>
           </section>
         </Col>
       </Row>

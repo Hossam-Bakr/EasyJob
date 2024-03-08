@@ -997,19 +997,6 @@ export const cityChange = (val, setState) => {
   }
 };
 
-// const cityOptions = [];
-
-// for (const country in Cities) {
-
-//   const cities = Cities[country];
-
-//   cities.forEach((city) => {
-//     cityOptions.push({ value: city, label: city });
-//   });
-// }
-// export default cityOptions;
-
-//conver totalYears of exp
 export const totalYearsConversion = (num, setState) => {
   switch (num) {
     case 0:
@@ -1101,6 +1088,17 @@ export const degreeLevelOptions = [
   { value: "diploma", label: "College Diploma" },
 ];
 
+export const educationLevelOptions = [
+  { value: "high school", label: "High School" },
+  { value: "bachelor's degree", label: "Bachelor's Degree" },
+  { value: "master's degree", label: "Master's Degree" },
+  { value: "doctorate", label: "Doctorate Degree" },
+  { value: "diploma", label: "Diploma" },
+  { value: "vocational", label: "Vocational" },
+  { value: "vocational", label: "Vocational" },
+  { value: "diploma", label: "College Diploma" },
+];
+
 export const gradeOptions = [
   { value: "A / 100-85", label: "A / 85-100" },
   { value: "B / 84-75", label: "B / 75-84" },
@@ -1108,16 +1106,21 @@ export const gradeOptions = [
   { value: "D / 64-50", label: "D / 50-64" },
 ];
 
-
 export const universities = [
   //Egypt
   { value: "al-Azhar University", label: "Al-Azhar University" },
   { value: "alexandria University", label: "Alexandria University" },
   { value: "cairo University", label: "Cairo University" },
   { value: "ain shams University", label: "Ain Shams University" },
-  { value: "american University in cairo", label: "American University in Cairo" },
+  {
+    value: "american University in cairo",
+    label: "American University in Cairo",
+  },
   { value: "assuit University", label: "Assiut University" },
-  { value: "cairo University of technology", label: "Cairo University of Technology" },
+  {
+    value: "cairo University of technology",
+    label: "Cairo University of Technology",
+  },
   { value: "mansoura University", label: "Mansoura University" },
   { value: "helwan University", label: "Helwan University" },
   { value: "suez canal University", label: "Suez Canal University" },
@@ -1125,139 +1128,317 @@ export const universities = [
   { value: "luxor University", label: "Luxor University" },
   { value: "sohag University", label: "Sohag University" },
   { value: "minia University", label: "Minia University" },
-  { value: "cairo University of architecture", label: "Cairo University of Architecture" },
+  {
+    value: "cairo University of architecture",
+    label: "Cairo University of Architecture",
+  },
   { value: "benha University", label: "Benha University" },
   { value: "port said University", label: "Port Said University" },
   { value: "banha University", label: "Banha University" },
   { value: "kafr el sheikh University", label: "Kafr El Sheikh University" },
-  { value: "assuit University of technology", label: "Assiut University of Technology" },
+  {
+    value: "assuit University of technology",
+    label: "Assiut University of Technology",
+  },
   { value: "fayoum University", label: "Fayoum University" },
   { value: "south valley University", label: "South Valley University" },
   { value: "aswan University", label: "Aswan University" },
   { value: "tanta University", label: "Tanta University" },
-  { value: "port said University of technology", label: "Port Said University of Technology" },
+  {
+    value: "port said University of technology",
+    label: "Port Said University of Technology",
+  },
   { value: "damietta University", label: "Damietta University" },
   { value: "menoufia University", label: "Menoufia University" },
   { value: "qena University", label: "Qena University" },
   { value: "damanhur University", label: "Damanhur University" },
   { value: "matrouh University", label: "Matrouh University" },
   { value: "red sea University", label: "Red Sea University" },
-  { value: "aswan University of technology", label: "Aswan University of Technology" },
-  { value: "luxor University of science", label: "Luxor University of Science" },
+  {
+    value: "aswan University of technology",
+    label: "Aswan University of Technology",
+  },
+  {
+    value: "luxor University of science",
+    label: "Luxor University of Science",
+  },
   { value: "new valley University", label: "New Valley University" },
   { value: "monofia University", label: "Monofia University" },
-  { value: "cairo University of medicine", label: "Cairo University of Medicine" },
+  {
+    value: "cairo University of medicine",
+    label: "Cairo University of Medicine",
+  },
   { value: "sinai University", label: "Sinai University" },
-  { value: "sohag University of technology", label: "Sohag University of Technology" },
+  {
+    value: "sohag University of technology",
+    label: "Sohag University of Technology",
+  },
   { value: "eastern desert University", label: "Eastern Desert University" },
-  { value: "kafr el sheikh University of science", label: "Kafr El Sheikh University of Science" },
+  {
+    value: "kafr el sheikh University of science",
+    label: "Kafr El Sheikh University of Science",
+  },
   { value: "beni suef University", label: "Beni Suef University" },
 
   //UAE
-  { value: "united arab emirates University", label: "United Arab Emirates University" },
+  {
+    value: "united arab emirates University",
+    label: "United Arab Emirates University",
+  },
   { value: "zayed University", label: "Zayed University" },
   { value: "abu dhabi University", label: "Abu Dhabi University" },
-  { value: "american University of sharjah", label: "American University of Sharjah" },
+  {
+    value: "american University of sharjah",
+    label: "American University of Sharjah",
+  },
   { value: "University of dubai", label: "University of Dubai" },
-  { value: "hult international business school", label: "Hult International Business School" },
-  { value: "heriot watt University dubai", label: "Heriot-Watt University Dubai" },
+  {
+    value: "hult international business school",
+    label: "Hult International Business School",
+  },
+  {
+    value: "heriot watt University dubai",
+    label: "Heriot-Watt University Dubai",
+  },
   { value: "middlesex University dubai", label: "Middlesex University Dubai" },
-  { value: "bits pilani dubai", label: "Birla Institute of Technology and Science, Pilani - Dubai" },
+  {
+    value: "bits pilani dubai",
+    label: "Birla Institute of Technology and Science, Pilani - Dubai",
+  },
   { value: "University of sharjah", label: "University of Sharjah" },
   { value: "ajman University", label: "Ajman University" },
-  { value: "american University in dubai", label: "American University in Dubai" },
-  { value: "manipal academy of higher education dubai", label: "Manipal Academy of Higher Education, Dubai" },
+  {
+    value: "american University in dubai",
+    label: "American University in Dubai",
+  },
+  {
+    value: "manipal academy of higher education dubai",
+    label: "Manipal Academy of Higher Education, Dubai",
+  },
   { value: "canadian University dubai", label: "Canadian University Dubai" },
   { value: "synergy University dubai", label: "Synergy University Dubai" },
   { value: "murdoch University dubai", label: "Murdoch University Dubai" },
   { value: "uae University al ain", label: "UAE University, Al Ain" },
-  { value: "rak medical and health sciences University", label: "RAK Medical and Health Sciences University" },
-  { value: "sharjah University of science and technology", label: "Sharjah University of Science and Technology" },
-  { value: "al ain University of science and technology", label: "Al Ain University of Science and Technology" },
+  {
+    value: "rak medical and health sciences University",
+    label: "RAK Medical and Health Sciences University",
+  },
+  {
+    value: "sharjah University of science and technology",
+    label: "Sharjah University of Science and Technology",
+  },
+  {
+    value: "al ain University of science and technology",
+    label: "Al Ain University of Science and Technology",
+  },
   { value: "khalifa University", label: "Khalifa University" },
-  { value: "american University of ras al khaimah", label: "American University of Ras Al Khaimah" },
+  {
+    value: "american University of ras al khaimah",
+    label: "American University of Ras Al Khaimah",
+  },
   { value: "al falah University", label: "Al Falah University" },
   { value: "alhosn University", label: "Alhosn University" },
   { value: "University of fujairah", label: "University of Fujairah" },
-  { value: "ras al khaimah medical and health sciences University", label: "Ras Al Khaimah Medical and Health Sciences University" },
-  { value: "city University college of ajman", label: "City University College of Ajman" },
-  { value: "emirates college of technology", label: "Emirates College of Technology" },
-  { value: "gulf medical University ajman", label: "Gulf Medical University, Ajman" },
-  { value: "australian University of wollongong in dubai", label: "Australian University of Wollongong in Dubai" },
-  { value: "new york University abu dhabi", label: "New York University Abu Dhabi" },
+  {
+    value: "ras al khaimah medical and health sciences University",
+    label: "Ras Al Khaimah Medical and Health Sciences University",
+  },
+  {
+    value: "city University college of ajman",
+    label: "City University College of Ajman",
+  },
+  {
+    value: "emirates college of technology",
+    label: "Emirates College of Technology",
+  },
+  {
+    value: "gulf medical University ajman",
+    label: "Gulf Medical University, Ajman",
+  },
+  {
+    value: "australian University of wollongong in dubai",
+    label: "Australian University of Wollongong in Dubai",
+  },
+  {
+    value: "new york University abu dhabi",
+    label: "New York University Abu Dhabi",
+  },
   { value: "ritz carlton University", label: "Ritz-Carlton University" },
-  { value: "syrian private University in uae", label: "Syrian Private University in UAE" },
+  {
+    value: "syrian private University in uae",
+    label: "Syrian Private University in UAE",
+  },
   { value: "isra University in uae", label: "Isra University in UAE" },
-  { value: "british University in dubai", label: "British University in Dubai" },
+  {
+    value: "british University in dubai",
+    label: "British University in Dubai",
+  },
   { value: "gulf college uae", label: "Gulf College UAE" },
-  { value: "modern University for business and science uae", label: "Modern University for Business and Science UAE" },
-  { value: "University of westminster dubai", label: "University of Westminster Dubai" },
-  { value: "sorbonne University abu dhabi", label: "Sorbonne University Abu Dhabi" },
+  {
+    value: "modern University for business and science uae",
+    label: "Modern University for Business and Science UAE",
+  },
+  {
+    value: "University of westminster dubai",
+    label: "University of Westminster Dubai",
+  },
+  {
+    value: "sorbonne University abu dhabi",
+    label: "Sorbonne University Abu Dhabi",
+  },
 
   //KSA
   { value: "king saud University", label: "King Saud University" },
   { value: "king abdulaziz University", label: "King Abdulaziz University" },
   { value: "king faisal University", label: "King Faisal University" },
   { value: "king khalid University", label: "King Khalid University" },
-  { value: "king abdullah University of science and technology", label: "King Abdullah University of Science and Technology (KAUST)" },
-  { value: "princess nourah bint abdulrahman University", label: "Princess Nourah bint Abdulrahman University" },
-  { value: "imam abdulrahman bin faisal University", label: "Imam Abdulrahman bin Faisal University" },
+  {
+    value: "king abdullah University of science and technology",
+    label: "King Abdullah University of Science and Technology (KAUST)",
+  },
+  {
+    value: "princess nourah bint abdulrahman University",
+    label: "Princess Nourah bint Abdulrahman University",
+  },
+  {
+    value: "imam abdulrahman bin faisal University",
+    label: "Imam Abdulrahman bin Faisal University",
+  },
   { value: "um al-qura University", label: "Umm Al-Qura University" },
   { value: "najran University", label: "Najran University" },
   { value: "tabuk University", label: "Tabuk University" },
   { value: "jazan University", label: "Jazan University" },
-  { value: "king saud bin abdulaziz University for health sciences", label: "King Saud bin Abdulaziz University for Health Sciences" },
+  {
+    value: "king saud bin abdulaziz University for health sciences",
+    label: "King Saud bin Abdulaziz University for Health Sciences",
+  },
   { value: "taif University", label: "Taif University" },
   { value: "jeddah University", label: "Jeddah University" },
   { value: "al-baha University", label: "Al-Baha University" },
-  { value: "king fahd University of petroleum and minerals", label: "King Fahd University of Petroleum and Minerals" },
+  {
+    value: "king fahd University of petroleum and minerals",
+    label: "King Fahd University of Petroleum and Minerals",
+  },
   { value: "shaqra University", label: "Shaqra University" },
   { value: "almajmaah University", label: "Almajmaah University" },
-  { value: "saudi electronic University", label: "Saudi Electronic University" },
+  {
+    value: "saudi electronic University",
+    label: "Saudi Electronic University",
+  },
   { value: "majmaah University", label: "Majmaah University" },
-  { value: "king saud bin abdulaziz University for islamic studies", label: "King Saud bin Abdulaziz University for Islamic Studies" },
-  { value: "al-imam muhammad ibn saud islamic University", label: "Al-Imam Muhammad Ibn Saud Islamic University" },
-  { value: "king abdulaziz airbase University", label: "King Abdulaziz Airbase University" },
-  { value: "psu prince sultan University", label: "PSU - Prince Sultan University" },
+  {
+    value: "king saud bin abdulaziz University for islamic studies",
+    label: "King Saud bin Abdulaziz University for Islamic Studies",
+  },
+  {
+    value: "al-imam muhammad ibn saud islamic University",
+    label: "Al-Imam Muhammad Ibn Saud Islamic University",
+  },
+  {
+    value: "king abdulaziz airbase University",
+    label: "King Abdulaziz Airbase University",
+  },
+  {
+    value: "psu prince sultan University",
+    label: "PSU - Prince Sultan University",
+  },
   { value: "alfaisal University", label: "Alfaisal University" },
-  { value: "saudi arabian mining company University", label: "Saudi Arabian Mining Company University (Ma'aden)" },
-  { value: "ibn sina national college for medical studies", label: "Ibn Sina National College for Medical Studies" },
+  {
+    value: "saudi arabian mining company University",
+    label: "Saudi Arabian Mining Company University (Ma'aden)",
+  },
+  {
+    value: "ibn sina national college for medical studies",
+    label: "Ibn Sina National College for Medical Studies",
+  },
   { value: "dammam community college", label: "Dammam Community College" },
-  { value: "prince sultan college for tourism and hotel sciences", label: "Prince Sultan College for Tourism and Hotel Sciences" },
+  {
+    value: "prince sultan college for tourism and hotel sciences",
+    label: "Prince Sultan College for Tourism and Hotel Sciences",
+  },
   { value: "jubail University college", label: "Jubail University College" },
-  { value: "al-ahsa college of technology", label: "Al-Ahsa College of Technology" },
-  { value: "king saud University for health sciences", label: "King Saud University for Health Sciences" },
+  {
+    value: "al-ahsa college of technology",
+    label: "Al-Ahsa College of Technology",
+  },
+  {
+    value: "king saud University for health sciences",
+    label: "King Saud University for Health Sciences",
+  },
   { value: "king faisal air University", label: "King Faisal Air University" },
-  { value: "naif arab University for security sciences", label: "Naif Arab University for Security Sciences" },
+  {
+    value: "naif arab University for security sciences",
+    label: "Naif Arab University for Security Sciences",
+  },
   { value: "dar al uloom University", label: "Dar Al Uloom University" },
   { value: "taibah University", label: "Taibah University" },
-  { value: "king abdulaziz city for science and technology", label: "King Abdulaziz City for Science and Technology" },
-  { value: "college of telecommunications and information", label: "College of Telecommunications and Information" },
+  {
+    value: "king abdulaziz city for science and technology",
+    label: "King Abdulaziz City for Science and Technology",
+  },
+  {
+    value: "college of telecommunications and information",
+    label: "College of Telecommunications and Information",
+  },
 
   //Kuwait
   { value: "kuwait University", label: "Kuwait University" },
-  { value: "american University of kuwait", label: "American University of Kuwait" },
-  { value: "gulf University for science and technology", label: "Gulf University for Science and Technology" },
-  { value: "kuwait international law school", label: "Kuwait International Law School" },
-  { value: "australian college of kuwait", label: "Australian College of Kuwait" },
+  {
+    value: "american University of kuwait",
+    label: "American University of Kuwait",
+  },
+  {
+    value: "gulf University for science and technology",
+    label: "Gulf University for Science and Technology",
+  },
+  {
+    value: "kuwait international law school",
+    label: "Kuwait International Law School",
+  },
+  {
+    value: "australian college of kuwait",
+    label: "Australian College of Kuwait",
+  },
   { value: "ack kuwait", label: "ACK - Australian College of Kuwait" },
-  { value: "arab open University kuwait", label: "Arab Open University - Kuwait" },
+  {
+    value: "arab open University kuwait",
+    label: "Arab Open University - Kuwait",
+  },
   { value: "kipco tower University", label: "KIPCO Tower University" },
   { value: "kazma University", label: "Kazma University" },
-  { value: "gulf medical University kuwait", label: "Gulf Medical University Kuwait" },
+  {
+    value: "gulf medical University kuwait",
+    label: "Gulf Medical University Kuwait",
+  },
   { value: "american german University", label: "American-German University" },
   { value: "algonquin college kuwait", label: "Algonquin College Kuwait" },
-  { value: "kuwait college of science and technology", label: "Kuwait College of Science and Technology" },
-  { value: "universal college of learning kuwait", label: "Universal College of Learning Kuwait" },
-  { value: "kuwait University of science and technology", label: "Kuwait University of Science and Technology" },
-  { value: "alrai media training institute", label: "Alrai Media Training Institute" },
+  {
+    value: "kuwait college of science and technology",
+    label: "Kuwait College of Science and Technology",
+  },
+  {
+    value: "universal college of learning kuwait",
+    label: "Universal College of Learning Kuwait",
+  },
+  {
+    value: "kuwait University of science and technology",
+    label: "Kuwait University of Science and Technology",
+  },
+  {
+    value: "alrai media training institute",
+    label: "Alrai Media Training Institute",
+  },
   { value: "arabian gulf University", label: "Arabian Gulf University" },
-  { value: "international educational institute kuwait", label: "International Educational Institute Kuwait" },
-  { value: "kuwait college of management and science", label: "Kuwait College of Management and Science" },
+  {
+    value: "international educational institute kuwait",
+    label: "International Educational Institute Kuwait",
+  },
+  {
+    value: "kuwait college of management and science",
+    label: "Kuwait College of Management and Science",
+  },
   { value: "ahlia University kuwait", label: "Ahlia University Kuwait" },
-
 ];
-
 
 export const fieldsOfStudy = [
   { value: "artificial intelligence", label: "Artificial Intelligence" },
@@ -1581,9 +1762,7 @@ export const fieldsOfStudy = [
   { value: "wildlife management", label: "Wildlife Management" },
 ];
 
-
 //company
-
 export const sizeOptions = [
   { value: "1-10", label: "1-10" },
   { value: "11-50", label: "11-50" },
@@ -1591,3 +1770,87 @@ export const sizeOptions = [
   { value: "201-500", label: "201-500" },
   { value: "500+", label: "500+" },
 ];
+
+export const convertCategoriesIntoList = (currentCategories, setState) => {
+  console.log(currentCategories);
+  if (currentCategories.length !== 0) {
+    let categoryOptions = currentCategories.map((cat) => ({
+      value: cat.name,
+      label: cat.name,
+    }));
+    setState(categoryOptions);
+  }
+};
+
+//functions
+export const formatedTimeHandler = (time, setState) => {
+  const currentTimestamp = new Date();
+  const givenTimestamp = new Date(time);
+  const timeDifference = currentTimestamp.getTime() - givenTimestamp.getTime();
+
+  let seconds = Math.floor(timeDifference / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+  let days = Math.floor(hours / 24);
+  let months = Math.floor(days / 30);
+  let years = Math.floor(months / 12);
+
+  if (years > 0) {
+    while (months > 12) {
+      months = months - 12;
+      years++;
+    }
+    setState(years + "y ago");
+  } else if (months > 0) {
+    while (days > 30) {
+      days = days - 30;
+      months++;
+    }
+    setState(months + "month" + (months > 1 ? "s" : "") + " ago");
+  } else if (days > 0) {
+    while (hours > 24) {
+      hours = hours - 24;
+      days++;
+    }
+    setState(days + "d ago");
+  } else if (hours > 0) {
+    while (minutes > 60) {
+      minutes = minutes - 60;
+      hours++;
+    }
+    while (hours > 24) {
+      hours = hours - 24;
+      days++;
+    }
+    if (days > 0) {
+      setState(days + "d ago");
+    } else {
+      setState(hours + "h ago");
+    }
+  } else if (minutes > 1) {
+    setState(minutes + "m ago");
+  } else {
+    setState("Just Now");
+  }
+};
+
+
+export const getIndustryName=(currentIndustries,industryId,setCompanyIndustryName)=>{
+  let myIndustry={};
+  myIndustry= currentIndustries.find((industry)=>industry.id===industryId)
+  setCompanyIndustryName(myIndustry.name)
+ }
+
+// const cityOptions = [];
+
+// for (const country in Cities) {
+
+//   const cities = Cities[country];
+
+//   cities.forEach((city) => {
+//     cityOptions.push({ value: city, label: city });
+//   });
+// }
+// export default cityOptions;
+
+//conver totalYears of exp

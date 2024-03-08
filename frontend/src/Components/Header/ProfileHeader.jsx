@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./ProfileHeader.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,6 +6,7 @@ import {
   faBook,
   faBookmark,
   faCamera,
+  faCopy,
   faEnvelope,
   faEye,
   faFileContract,
@@ -31,13 +32,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
 import UserProfilePic from "../Ui/UserProfilePic";
+import CustomDropDownItem from "../Ui/CustomDropDownItem";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const ProfileHeader = ({
   cover,
   pic,
   type,
+  url,
   firstName,
   lastName,
+  name,
   city,
   country,
   industry,
@@ -50,16 +55,9 @@ const ProfileHeader = ({
   stackOverflow,
   openToWork,
 }) => {
-  let profile_cover = cover ? cover : c2;
+  const textRef = useRef(null);
 
-  let companyIndustry = "Software Engineering";
-  switch (industry) {
-    case 10:
-      companyIndustry = "Information and communications technology (ICT)";
-      break;
-    default:
-      break;
-  }
+  let profile_cover = cover ? cover : c2;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -80,6 +78,12 @@ const ProfileHeader = ({
   let profilePictureClasses =
     type === "company" ? styles.profile_pic_company : styles.profile_pic;
   let companyContactInfoClass = type === "company" ? styles.company_info : "";
+
+  const handleCopy = () => {
+    const textToCopy = textRef.current.innerText;
+    navigator.clipboard.writeText(textToCopy)
+      .catch((error) => console.error('Failed to copy:', error));
+  };
 
   return (
     <>
@@ -113,37 +117,56 @@ const ProfileHeader = ({
             >
               <FontAwesomeIcon icon={faCamera} />
             </div>
-              {openToWork&&<div className={styles.badge}><span>open to work</span></div>}
+            {openToWork && (
+              <div className={styles.badge}>
+                <span>open to work</span>
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.header_links}>
           <ul className="d-flex align-items-center">
             {type === "company" ? (
               <>
-                <Link>
-                  <li>
-                    <FontAwesomeIcon icon={faBookmark} />
-                    Draft
-                  </li>
-                </Link>
-                <Link>
-                  <li>
-                    <FontAwesomeIcon icon={faShare} />
-                    Share
-                  </li>
-                </Link>
-                <Link>
-                  <li>
-                    <FontAwesomeIcon icon={faBook} />
-                    Activity
-                  </li>
-                </Link>
-                <Link>
-                  <li>
-                    <FontAwesomeIcon icon={faAdd} />
-                    New Post
-                  </li>
-                </Link>
+                <li className={styles.headers_link_item}>
+                  <FontAwesomeIcon icon={faBookmark} />
+                  Draft
+                </li>
+                <li className={styles.headers_link_item}>
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      as={CustomDropDownItem}
+                      id="dropdown-custom-components"
+                    >
+                      <FontAwesomeIcon icon={faShare} />
+                      <span>Share</span>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={handleCopy}>
+                        <div className="d-flex align-items-center"  title="copy url">
+                          <FontAwesomeIcon
+                            icon={faCopy}
+                            className={styles.copy_icon}
+                           
+                          />
+                          <span  className="mini_word">
+                            <p className="m-0" ref={textRef}>http://localhost:3001/company-profile/{url}</p>
+                          </span>
+                        </div>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </li>
+
+                <li className={styles.headers_link_item}>
+                  <FontAwesomeIcon icon={faBook} />
+                  Activity
+                </li>
+                <li className={styles.headers_link_item}>
+                  <FontAwesomeIcon icon={faAdd} />
+                  New Post
+                </li>
               </>
             ) : (
               <>
@@ -182,9 +205,9 @@ const ProfileHeader = ({
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className=" d-flex flex-column">
             <h3>
-              {firstName} {lastName}
+              {type==="company"?name: firstName +" "+ lastName}
             </h3>
-            <span>{companyIndustry}</span>
+            <span>{industry}</span>
             {(city || country) && (
               <span>
                 <FontAwesomeIcon
@@ -228,10 +251,7 @@ const ProfileHeader = ({
                 </div>
                 {type === "company" ? (
                   <>
-                    {(website ||
-                      facebook ||
-                      linkedin ||
-                      twitter) && (
+                    {(website || facebook || linkedin || twitter) && (
                       <div className={styles.contact_icons}>
                         {website && (
                           <Link to={website} target={"_blank"}>

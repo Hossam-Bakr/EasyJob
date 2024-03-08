@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./UpdateWorkExperienceModal.module.css";
 import Modal from "react-bootstrap/Modal";
 import UpdateWorkExperienceForm from "../EdietProfilesInfo/UpdateWorkExperienceForm";
+import UpdateEducationForm from "../EdietProfilesInfo/UpdateEducationForm";
 
 const UpdateWorkExperienceModal = ({
   onHide,
@@ -14,9 +15,17 @@ const UpdateWorkExperienceModal = ({
   organization,
   expId,
   category,
+
+  itemId,
+  grade,
+  school,
+  degree,
+  fieldsOfStudy,
+  displayName,
+
   setSecResponseMsg,
   setSecSuccess,
-  setSecShowResponse
+  setSecShowResponse,
 }) => {
   return (
     <Modal
@@ -29,24 +38,43 @@ const UpdateWorkExperienceModal = ({
     >
       <Modal.Header closeButton className={styles.modal_header}>
         <Modal.Title id="contained-modal-title-vcenter">
-          Update Work Experience
+          Update{" "}{school ? "Education" : "Work Experience"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={styles.modal_body}>
-        <UpdateWorkExperienceForm
-          expId={expId}
-          title={title}
-          type={type}
-          description={description}
-          startDate={startDate}
-          endDate={endDate}
-          organization={organization}
-          category={category}
-          onHide={onHide}
-          setSecResponseMsg={setSecResponseMsg}
-          setSecSuccess={setSecSuccess}
-          setSecShowResponse={setSecShowResponse}
-        />
+        {school ? (
+          <UpdateEducationForm
+            key={itemId}
+            itemId={itemId}
+            grade={grade}
+            school={school}
+            degree={degree}
+            displayName={displayName}
+            fieldsOfStudy={fieldsOfStudy}
+            startDate={startDate}
+            endDate={endDate}
+            description={description}
+            setSecResponseMsg={setSecResponseMsg}
+            setSecSuccess={setSecSuccess}
+            setSecShowResponse={setSecShowResponse}
+          />
+        ) : (
+          <UpdateWorkExperienceForm
+            key={itemId}
+            expId={expId}
+            title={title}
+            type={type}
+            description={description}
+            startDate={startDate}
+            endDate={endDate}
+            organization={organization}
+            category={category}
+            onHide={onHide}
+            setSecResponseMsg={setSecResponseMsg}
+            setSecSuccess={setSecSuccess}
+            setSecShowResponse={setSecShowResponse}
+          />
+        )}
       </Modal.Body>
     </Modal>
   );

@@ -1,0 +1,14 @@
+
+.dropDownBtn{
+    font-size: 0px;
+    color: var(--vanilla);
+}
+.dropDownBtn span{
+    font-weight: 600;
+    font-size: 16px;
+    color: black;
+}
+.dropDownBtn svg{
+    color:var(--main_color);
+    font-size: 16px;
+}

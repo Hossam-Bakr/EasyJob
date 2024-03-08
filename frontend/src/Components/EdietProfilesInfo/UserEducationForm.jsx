@@ -130,11 +130,10 @@ const UserEducationForm = () => {
           <div className={styles.field}>
             <label htmlFor="displayName">Degree Display Name </label>
             <Field
+              type="text"
               id="displayName"
               name="displayName"
-              isMulti={false}
-              component={MultiSelect}
-              options={degreeLevelOptions}
+              placeholder="ex: Bachelor of Science in Civil Engineering "
             />
             <ErrorMessage name="displayName" component={InputErrorMessage} />
           </div>

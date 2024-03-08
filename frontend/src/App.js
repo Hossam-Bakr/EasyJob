@@ -39,6 +39,7 @@ import CompanyAccountSetting from "./Pages/AccountSetting/CompanyAccountSetting"
 import UserAccountSetting from "./Pages/AccountSetting/UserAccountSetting";
 import UserInfo from "./Pages/UserInfo/UserInfo";
 import getAllCategories, { getAllIndustries } from "./Store/category-actions";
+import { getSavedJobsHandler } from "./Store/savedJobs-actions";
 
 //pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
 
@@ -59,11 +60,11 @@ const router = createBrowserRouter([
       { path: "saved", element: <Saved /> },
       { path: "applications", element: <Applications /> },
       { path: "packages", element: <CompanyPricing /> },
-      { path: "user-profile", element: <UserProfile /> },
+      { path: "user-profile/:userId", element: <UserProfile /> },
       { path: "user-info", element: <UserInfo /> },
       { path: "user-dashboard", element: <UserDashboard /> },
       { path: "user-account-setting", element: <UserAccountSetting /> },
-      { path: "company-profile", element: <CompanyProfile /> },
+      { path: "company-profile/:companyId", element: <CompanyProfile /> },
       { path: "company-info", element: <CompanyInfo /> },
       { path: "company-admins", element: <CompanyAdmins /> },
       { path: "company-dashboard", element: <CompanyDashboard /> },
@@ -99,6 +100,14 @@ function App() {
   useEffect(() => {
       dispatch(getAllIndustries());
   }, [dispatch]);
+
+  // get saved jobs data from database
+  useEffect(() => {
+    if(token&&role==="user"){
+      dispatch(getSavedJobsHandler(token));
+    }
+  
+  }, [dispatch,token,role]);
 
 
 

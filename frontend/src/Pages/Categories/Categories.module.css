@@ -1,45 +1,60 @@
 
 .category_item{
-    border: 0.0625rem solid var(--main_color);
     padding:5px; 
     border-radius: 0.5rem;
     color: var(--font_color);
-    text-align: center;
+    text-align: start;
+    cursor: pointer;
+    transition: all .4s;
+}
+.category_item:hover{
+    color: var(--main_color);
+    scale: 1.05;
+}
+.categories_list{
+    padding: 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(180, 180, 180);
 }
 .category_container{
     min-height: 50vh;
 }
 .category_container h4{
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 700;
+    padding: 10px 0 0 10px;
 }
 .filter_indusrty{
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.227);
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.227);
 }
 .filter_indusrty h4{
-    font-size: 25px;
+    font-size: 1.5625rem;
     font-weight: 600;
 }
 .filter_indusrty ul{
     padding: 0;
 }
 .industry_list_item{
-    padding: 20px 5px;
+    padding: 1.25rem 0.3125rem;
     margin: 0;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
+    word-wrap: break-word; 
     transition: all .3s;
 }
+
 .industry_list_item:hover{
     scale: 1.02;
     background-color: var(--vanilla);
 }
 .industry_name{
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 1.5625rem;
+    word-wrap: break-word;
 }
+

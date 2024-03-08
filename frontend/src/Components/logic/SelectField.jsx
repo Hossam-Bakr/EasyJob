@@ -12,24 +12,35 @@ const MultiSelect = ({
   isCreatable = false,
   isClearable,
   placeholder = "Select",
+  val,
+  update=false
 }) => {
-  function onChange(option) {
-    form.setFieldValue(
-      field.name,
-      option ? option.map((item) => item.value) : []
-    );
-  }
 
+    function onChange(option) {
+      form.setFieldValue(
+        field.name,
+        option ? option.map((item) => item.value) : []
+      );
+    }
   const getValue = () => {
     if (options) {
       return isMulti
         ? options.filter((option) => field.value.indexOf(option.value) >= 0)
         : options.find((option) => option.value === field.value);
     } else {
-      return isMulti ? [] : "";
-    }
+        return isMulti ?[] : "";
+      }
   };
-
+  const getUpdatedValue = () => {
+    if (options) {
+      return isMulti
+        ? options.filter((option) => field.value.indexOf(option.value) >= 0)
+        : options.find((option) => option.value === field.value)||options ?options.filter((option) => field.value.includes(option.value)) : [];
+    } else {
+        return isMulti ?[] : "";
+      }
+  };
+  
   if (isClearable) {
     return (
       <CreatableSelect
@@ -38,24 +49,28 @@ const MultiSelect = ({
         options={options}
         name={field.name}
         value={
-          options ? options.find((option) => option.value === field.value):""
+          options ? options.find((option) => option.value === field.value)||val:""
         }
+        isMulti={false}
         onChange={(option) =>form.setFieldValue(field.name, option?option.value:"")}
         onBlur={field.onBlur}
         placeholder={placeholder}
+        defaultValue={val}
       />
     );
   } else if (isCreatable) {
+    //the problem here
     return (
       <CreatableSelect
         className="react-select-container"
         classNamePrefix="react-select"
         name={field.name}
-        value={getValue()}
+        value={update?getUpdatedValue():getValue()}
         onChange={onChange}
         options={options}
         isMulti={true}
         placeholder={placeholder}
+        defaultValue={val}
       />
     );
   } else if (!isMulti) {
