@@ -159,6 +159,7 @@ const companiesPosts = [
     city: "Cairo",
   },
 ];
+
 const Companies = () => {
 
   const [gridView,setGridView]=useState(true);
@@ -170,7 +171,6 @@ const Companies = () => {
     setGridView(false)
   }
   
-
   return (
     <Container fluid className="mb-5">
       <Row>

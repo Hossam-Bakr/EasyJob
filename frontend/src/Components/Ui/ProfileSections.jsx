@@ -71,7 +71,7 @@ const ProfileSections = ({
   return (
     <>
       {/* contacts */}
-      {!phone && !url && !birthDate && !nationality && !gender ? (
+      {!phone && !birthDate && !nationality && !gender ? (
         <section className={`${styles.main_style}`}>
           <EdietPenIcon onClick={() => navigateToEdiet("info")} />
           <h3 className={styles.sec_title}>Contact Info</h3>
@@ -134,7 +134,7 @@ const ProfileSections = ({
                       <span className={styles.info_tail_li_title}>
                         Profile url:
                       </span>
-                      <span>easy-job/profile/Bassam-Hafez-5134</span>
+                      <span>http://localhost:3001/user-profile/{url}</span>
                     </li>
                     {birthDate && (
                       <li className={styles.info_tail_li}>

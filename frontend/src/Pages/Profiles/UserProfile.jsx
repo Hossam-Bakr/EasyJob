@@ -5,12 +5,14 @@ import styles from "./UserProfile.module.css";
 import ProfileSections from "../../Components/Ui/ProfileSections";
 import { useSelector } from "react-redux";
 import Loading from "../../Components/Ui/Loading";
+import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
   const userProfileMainData = useSelector((state) => state.profileInfo.mainData);
   const [profileCover, setProfileCover] = useState(null);
   const [profileAvatar, setProfileAvatar] = useState(null);
+  const params=useParams();
 
   useEffect(() => {
     if (userProfileData?.coverPhoto) {
@@ -52,7 +54,7 @@ const UserProfile = () => {
             <ProfileSections
               phone={userProfileData.phone}
               email={userProfileMainData.email}
-              // url={userProfileData.}
+              url={params.userId}
               birthDate={userProfileData.birthDate}
               nationality={userProfileData.nationality}
               gender={userProfileData.gender}

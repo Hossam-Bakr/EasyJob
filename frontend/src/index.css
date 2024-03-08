@@ -139,6 +139,9 @@ select{
 .css-12a83d4-MultiValueRemove:hover{
   background-color: var(--vanilla) !important;
 }
+.dropdown-toggle::after {
+  display: none !important; 
+}
 
 @media screen and (max-width:768px) {
   body,html{

@@ -1,3 +1,4 @@
+
 .header_container,.header_container_no_cover{
     width: 100%;
     min-height: 50vh;
@@ -50,12 +51,12 @@
     border: 0.0625rem solid rgb(215, 214, 214);
 }
 .header_links{
-    margin-left: auto;
     position: absolute;
     bottom: 0;
     right: 5%;
     padding:0.625rem;
     padding-top: 0;
+    z-index: 3;
     transform: translateY(100%);
 }
 .header_links ul{
@@ -66,20 +67,20 @@
     padding: 0.625rem;
     background-color: var(--vanilla);
 }
-.header_links ul a li{
+.headers_link_item{
     margin-inline:2.5rem;
     font-size: 1rem;
     font-weight: 600;
-    display: flex;
-    align-items: center;
     color: var(--font_color);
+    cursor: pointer;
     transition: all .3s;
+    overflow: visible;
 }
-.header_links ul li svg{
+.headers_link_item svg{
     margin-right: 0.5rem;
     color: var(--main_color);
 }
-.header_links ul a li:hover{
+.headers_link_item:hover{
     transform: translateY(-0.125rem);  
 }
 
@@ -112,6 +113,9 @@
     border-radius: 0.625rem;
     transform: translateY(50%);
     box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.5);
+}
+.profile_pic_company img{
+    width: 100%;
 }
 .cartoona{
     position: relative;
@@ -255,7 +259,7 @@
   .header_links ul{
     padding: 0.3125rem;
 }
-.header_links ul a li{
+.headers_link_item{
     margin-inline:0.9375rem;
 }
 }

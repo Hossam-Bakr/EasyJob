@@ -1834,6 +1834,13 @@ export const formatedTimeHandler = (time, setState) => {
   }
 };
 
+
+export const getIndustryName=(currentIndustries,industryId,setCompanyIndustryName)=>{
+  let myIndustry={};
+  myIndustry= currentIndustries.find((industry)=>industry.id===industryId)
+  setCompanyIndustryName(myIndustry.name)
+ }
+
 // const cityOptions = [];
 
 // for (const country in Cities) {

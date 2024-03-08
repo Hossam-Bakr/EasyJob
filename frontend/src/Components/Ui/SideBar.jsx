@@ -49,12 +49,12 @@ const SideBar = ({ onClose, show }) => {
 
   const navigateToProfilePage = () => {
     handleClose();
-    navigate("user-profile");
+    navigate(`user-profile/${profileData.id}`);
   };
 
   const navigateTocompanyProfile = () => {
     handleClose();
-    navigate("company-profile");
+    navigate(`company-profile/${profileData.id}`);
   };
 
   const signOutHandler = () => {
