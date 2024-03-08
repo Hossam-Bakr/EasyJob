@@ -9,13 +9,12 @@ const UserProfile = sequelize.define("UserProfile", {
     autoIncrement: true,
   },
 
-  tagline : DataTypes.STRING  , 
-
   // Media
   avatar: DataTypes.STRING,
   coverPhoto: DataTypes.STRING,
 
   // Personal Information
+  tagline: DataTypes.STRING,
   birthDate: DataTypes.DATEONLY,
   phone: DataTypes.STRING,
   gender: {

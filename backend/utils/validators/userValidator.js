@@ -3,6 +3,13 @@ const validatorError = require("./validationError");
 const bcrypt = require("bcryptjs");
 
 exports.updateUserInfoValidator = [
+  check("tagline")
+    .notEmpty()
+    .withMessage("Please provide tagline")
+    .isString()
+    .withMessage("Tagline must be a string")
+    .trim(),
+
   check("birthDate")
     .notEmpty()
     .withMessage("Please provide birth date")

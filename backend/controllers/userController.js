@@ -145,6 +145,7 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
 
   const expectedFields = [
+    "tagline",
     "birthDate",
     "phone",
     "gender",
@@ -158,6 +159,7 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
   ];
 
   const requiredFields = [
+    "tagline",
     "birthDate",
     "phone",
     "nationality",
