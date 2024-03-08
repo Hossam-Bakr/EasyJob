@@ -9,12 +9,13 @@ const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
 const sendEmail = require("../utils/sendEmail");
 const createResetCodeMessage = require("../utils/createResetCodeMessage");
-const passport = require('passport');
-require('../utils/googleAuth');
+const passport = require("passport");
+require("../utils/Passport");
 
-const {asyncPassportAuthenticate} = require('../utils/asyncPassportAuthenticate');
+const {
+  asyncPassportAuthenticate,
+} = require("../utils/asyncPassportAuthenticate");
 const signToken = require("../utils/generateJWT");
-
 
 exports.userSignup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -117,18 +118,15 @@ exports.Login = catchAsync(async (req, res, next) => {
   }
 });
 
-
 exports.forgotPassword = catchAsync(async (req, res, next) => {
-
   const user = await User.findOne({ where: { email: req.body.email } });
-  const company  = await Company.findOne({ where: { email: req.body.email } });
+  const company = await Company.findOne({ where: { email: req.body.email } });
 
-  entity = user ? user : company ; 
+  entity = user ? user : company;
 
-  if (!user &&!company) {
+  if (!user && !company) {
     return next(new ApiError("account with this email not found", 404));
   }
-
 
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
   const hashedResetCode = crypto
@@ -142,7 +140,10 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   entity.passwordResetVerified = false;
   await entity.save();
 
-  const message = createResetCodeMessage(entity.firstName || entity.name, resetCode); 
+  const message = createResetCodeMessage(
+    entity.firstName || entity.name,
+    resetCode
+  );
 
   try {
     await sendEmail(entity, "Password Reset Code (valid for 15 min)", message);
@@ -167,11 +168,10 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   });
 });
 
-
 exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
   const { entityType, resetCode } = req.body;
-  const Model = entityType === 'Company' ? Company : User; 
-  
+  const Model = entityType === "Company" ? Company : User;
+
   const hashedResetCode = crypto
     .createHash("sha256")
     .update(resetCode)
@@ -200,8 +200,8 @@ exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const { email, newPassword, entityType } = req.body;
-  const Model = entityType === 'Company' ? Company : User; 
-  const entity = await Model.findOne({ where: { email: email} });
+  const Model = entityType === "Company" ? Company : User;
+  const entity = await Model.findOne({ where: { email: email } });
   if (!entity) {
     return next(new ApiError(`${entityType} not found`, 404));
   }
@@ -215,62 +215,12 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   entity.passwordResetExpire = undefined;
   entity.passwordResetCode = undefined;
 
-  const token = generateJWT(entity.id); 
+  const token = generateJWT(entity.id);
 
   await entity.save();
 
   res.status(200).json({ status: "success", token });
 });
-
-exports.loginWithGoogle = catchAsync(async (req, res, next) => {
-  const { user , info} = await asyncPassportAuthenticate('google', req, res);
-  if (!user) {
-    return res.status(401).json({ message: "Authentication failed" });
-  }
-  const [dbUser] = await User.findOrCreate({
-    where: { email: user.emails[0].value },
-    defaults: {
-      firstName: user.name.givenName,
-      lastName: user.name.familyName,
-      email: user.emails[0].value,
-      password: 'google_123', 
-      googleId: user.id,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
-  });
-  const token = signToken(user.emails[0].value);
-  res.status(200).json({
-    status: "success",
-    token, 
-    data: {
-      user: {
-        id: dbUser.id,
-        firstName: dbUser.firstName,
-        lastName: dbUser.lastName,
-        email: dbUser.email,
-        role: "user", 
-        passwordResetCode: null,
-        passwordResetExpire: null,
-        passwordResetVerified: null,
-        googleId: dbUser.googleId,
-        createdAt: dbUser.createdAt.toISOString(),
-        updatedAt: dbUser.updatedAt.toISOString(),
-        deletedAt: null 
-      }
-    }
-  });
-});
-
-
-
-
-
-
-
-
-
-
 
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -349,5 +299,3 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
-
-

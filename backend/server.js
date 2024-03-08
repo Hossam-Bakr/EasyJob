@@ -9,10 +9,24 @@ const globalErrorHandler = require("./controllers/errorController");
 const sequelize = require("./config/database");
 const mountRoutes = require("./routes");
 const defineDBRelationships = require("./models/modelsRelationships");
+const session = require('express-session');
+const passport = require('passport');
+// const cookieSession = require("cookie-session");
+require("./utils/Passport");
 
-const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+
+app.use(session({
+  secret: 'cyberwolve',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 24 *60*60*1000 } // Session expires after 1 day of inactivity
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(cors());
 app.options("*", cors());
@@ -47,6 +61,10 @@ process.on("unhandledRejection", (err) => {
 });
 
 defineDBRelationships();
+
+
+//------------ port  --------------- 
+const PORT = process.env.PORT || 3000;
 
 sequelize
   .sync()
