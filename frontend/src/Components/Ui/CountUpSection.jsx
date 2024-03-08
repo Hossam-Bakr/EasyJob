@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import styles from "./CountUp.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,9 +11,37 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CountUp  from 'react-countup';
 import ScrollTrigger from 'react-scroll-trigger';
+import { useSelector } from "react-redux";
+
+
 
 const CountUpSection = () => {
+
   const [startCounter,setStartCounter]=useState(false);
+  const [categoriesNum,setCategoriesNum]=useState(0);
+  // const [companyNum,setCompanyNum]=useState(0);
+  // const [usersNum,setUsersNum]=useState(0);
+  // const [JobsNum,setJobsNum]=useState(0);
+
+  const Categories=useSelector((state)=>state.category.categories)
+
+  useEffect(()=>{
+    if(Categories){
+      setCategoriesNum(Categories.length)
+    }
+  },[Categories])
+  
+  // useEffect(()=>{
+  //   if(Categories){
+  //     setCategoriesNum(Categories.length)
+  //   }
+  // },[Categories])
+  // useEffect(()=>{
+  //   if(Categories){
+  //     setCategoriesNum(Categories.length)
+  //   }
+  // },[Categories])
+
   return (
     <>  
     <ScrollTrigger onEnter={()=>setStartCounter(true)} onExit={()=>setStartCounter(false)}>
@@ -22,8 +50,8 @@ const CountUpSection = () => {
           <Col  sm={6} md={3}>
             <div className="d-flex justify-content-between align-items-center p-4 flex-column">
               <FontAwesomeIcon icon={faUsers} className={styles.countUp_icon} />
-              <h3>{startCounter&&<CountUp start={0} end={717} duration={3} delay={0}/>}</h3>
-              <p>Users</p>
+              <h3>{startCounter&&<CountUp start={0} end={categoriesNum} duration={3} delay={0}/>}</h3>
+              <p>Category</p>
             </div>
           </Col>
           <Col sm={6} md={3}>

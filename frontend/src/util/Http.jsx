@@ -186,6 +186,15 @@ export const getJobs = async ({ signal, type, formData, method }) => {
     console.error(error);
   }
 };
+export const getJobsDetails = async (id) => {
+  try {
+    const response = await axios(`${baseServerUrl}jobs/${id}`);
+
+    return response.data.data.job;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const saveJobsHandler = async ({ jobId, token }) => {
   try {
@@ -195,16 +204,24 @@ export const saveJobsHandler = async ({ jobId, token }) => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-        }, 
+        },
       }
     );
     // console.log("all saved jobs", res.data);
-    return res.data
+    return res.data;
   } catch (error) {
     console.error(error);
-    if(error.response.data.message==="Job already saved"){
-      return "Job already saved"
+    if (error.response.data.message === "Job already saved") {
+      return "Job already saved";
     }
+  }
+};
 
+export const getLatestJobs = async ({ signal, num }) => {
+  try {
+    const response = await axios(`${baseServerUrl}jobs/latest/${num}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
 };

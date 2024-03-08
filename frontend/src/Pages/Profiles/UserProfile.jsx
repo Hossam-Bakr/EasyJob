@@ -38,6 +38,7 @@ const UserProfile = () => {
                 pic={profileAvatar}
                 firstName={userProfileMainData.firstName}
                 lastName={userProfileMainData.lastName}
+                tagline={userProfileData.tagline}
                 city={userProfileData.city}
                 country={userProfileData.country}
                 gender={userProfileData.gender}

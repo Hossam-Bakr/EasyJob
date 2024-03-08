@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import styles from "./HomeMainBody.module.css";
 import { useSelector } from "react-redux";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
-import Container from "react-bootstrap/esm/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,10 +24,10 @@ import HomeCitiesSliders from "../../Components/Ui/HomeCitiesSliders";
 import sec2_img from "../../images/sec2.jpg";
 
 import HomeTestimonalsSlider from "../../Components/Ui/HomeTestimonalsSlider";
-import JobPost from "../../Components/Ui/JobPost";
 import VerticalSlider from "../../Components/Ui/VerticalSlider";
 import CountUpSection from './../../Components/Ui/CountUpSection';
 import { useNavigate } from "react-router-dom";
+import HomeLatestJobs from "../../Components/Ui/HomeLatestJobs";
 
 const HomeMainBody = () => {
   const darkMode = useSelector((state) => state.mode.darkMode);
@@ -121,86 +120,8 @@ const HomeMainBody = () => {
 
       {/* featured job section------------------------------------------------------------------- */}
       <section className={styles.fearured_job}>
-        <SectionMainTitle title="Featured Job Offers" />
-        <Container fluid="lg" className="pb-5">
-          <Row>
-            <JobPost
-              name="LG"
-              jobTitle="Nuclear Power Engineer"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L1"
-              city="Cairo"
-              grid={true}
-            />
-
-            <JobPost
-              name="Huwawei"
-              jobTitle="Technical Writer"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L2"
-              city="Giza"
-              grid={true}
-            />
-
-            <JobPost
-              name="Amazon"
-              jobTitle="Frontend React Developer"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L3"
-              city="Alex"
-              grid={true}
-
-            />
-
-            <JobPost
-              name="WE"
-              jobTitle="Financial Advisor"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L4"
-              city="Cairo"
-              grid={true}
-
-            />
-
-            <JobPost
-              name="Etisalat"
-              jobTitle="Node Js| php developer"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L5"
-              city="Tanta"
-              grid={true}
-
-            />
-            <JobPost
-              name="Etoile"
-              jobTitle="Node Js| php developer"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L6"
-              city="Tanta"
-              grid={true}
-
-            />
-            <JobPost
-              name="Msary"
-              jobTitle="GIS Technical Architect"
-              desc=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim
-                  laudantium eaque harum expedita error autem soluta."
-              logo="L7"
-              city="Cairo"
-              grid={true}
-
-            />
-          </Row>
-          <div className="text-center">
-            <MainButtonTwo onClick={navigateToExplore} text="View All Listing" />
-          </div>
-        </Container>
+        <SectionMainTitle title="Latest Jobs" />
+        <HomeLatestJobs/>
       </section>
 
       {/* caption section------------------------------------------------------------------- */}

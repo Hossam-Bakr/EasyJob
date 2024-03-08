@@ -820,7 +820,7 @@ const Posts = () => {
                               part={job.part}
                               time={job.createdAt}
                               maxSalary={job.salaryRangeMin}
-                              minSalary={job.salaryRangeMax}
+                              // minSalary={job.salaryRangeMax}
                               hideSalary={job.hideSalary}
                               grid={gridView}
                             />

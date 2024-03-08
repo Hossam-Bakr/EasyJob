@@ -42,6 +42,7 @@ const ProfileHeader = ({
   url,
   firstName,
   lastName,
+  tagline,
   name,
   city,
   country,
@@ -81,8 +82,9 @@ const ProfileHeader = ({
 
   const handleCopy = () => {
     const textToCopy = textRef.current.innerText;
-    navigator.clipboard.writeText(textToCopy)
-      .catch((error) => console.error('Failed to copy:', error));
+    navigator.clipboard
+      .writeText(textToCopy)
+      .catch((error) => console.error("Failed to copy:", error));
   };
 
   return (
@@ -144,14 +146,18 @@ const ProfileHeader = ({
 
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={handleCopy}>
-                        <div className="d-flex align-items-center"  title="copy url">
+                        <div
+                          className="d-flex align-items-center"
+                          title="copy url"
+                        >
                           <FontAwesomeIcon
                             icon={faCopy}
                             className={styles.copy_icon}
-                           
                           />
-                          <span  className="mini_word">
-                            <p className="m-0" ref={textRef}>http://localhost:3001/company-profile/{url}</p>
+                          <span className="mini_word">
+                            <p className="m-0" ref={textRef}>
+                              http://localhost:3001/company-profile/{url}
+                            </p>
                           </span>
                         </div>
                       </Dropdown.Item>
@@ -170,30 +176,29 @@ const ProfileHeader = ({
               </>
             ) : (
               <>
-                <Link to={"/saved"}>
-                  <li>
+                <li className={styles.headers_link_item}>
+                  <Link to={"/saved"}>
                     <FontAwesomeIcon icon={faBookmark} />
                     saved
-                  </li>
-                </Link>
-                <Link to={"/applications"}>
-                  <li>
+                  </Link>
+                </li>
+
+                <li className={styles.headers_link_item}>
+                  <Link to={"/applications"}>
                     <FontAwesomeIcon icon={faFileContract} />
                     Applications
-                  </li>
-                </Link>
-                <Link>
-                  <li>
-                    <FontAwesomeIcon icon={faBook} />
-                    Activity
-                  </li>
-                </Link>
-                <Link>
-                  <li>
-                    <FontAwesomeIcon icon={faAdd} />
-                    New Section
-                  </li>
-                </Link>
+                  </Link>
+                </li>
+
+                <li className={styles.headers_link_item}>
+                  <FontAwesomeIcon icon={faBook} />
+                  Activity
+                </li>
+
+                <li className={styles.headers_link_item}>
+                  <FontAwesomeIcon icon={faAdd} />
+                  New Section
+                </li>
               </>
             )}
           </ul>
@@ -203,11 +208,9 @@ const ProfileHeader = ({
       <div className={styles.sub_header}>
         <EdietPenIcon onClick={() => navigateToEdietProfile("info")} />
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
-          <div className=" d-flex flex-column">
-            <h3>
-              {type==="company"?name: firstName +" "+ lastName}
-            </h3>
-            <span>{industry}</span>
+          <div className={`${styles.contact_caption} d-flex flex-column`}>
+            <h3>{type === "company" ? name : firstName + " " + lastName}</h3>
+            <span className={styles.tagline}>{tagline?tagline:industry}</span>
             {(city || country) && (
               <span>
                 <FontAwesomeIcon

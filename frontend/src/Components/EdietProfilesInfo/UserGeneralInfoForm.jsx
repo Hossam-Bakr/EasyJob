@@ -42,6 +42,7 @@ const UserGeneralInfoForm = ({ data }) => {
   const [currentGender, setCurrentGender] = useState("male");
   const [currentDrivingLicense, setCurrentDrivingLicense] = useState(false);
   const [currentOpenToWork, setCurrentOpenToWork] = useState(false);
+  const [currentTagline, setCurrentTagline] = useState("");
 
   const dispatch = useDispatch();
 
@@ -60,6 +61,7 @@ const UserGeneralInfoForm = ({ data }) => {
       setCurrentDrivingLicense(data.drivingLicense || false);
       setCurrentOpenToWork(data.openToWork || false);
       setcurrentAbout(data.about || "");
+      setCurrentTagline(data.tagline || "");
     }
   }, [data]);
 
@@ -138,6 +140,7 @@ const UserGeneralInfoForm = ({ data }) => {
     nationality: currentNationality,
     about: currentAbout,
     openToWork: currentOpenToWork,
+    tagline:currentTagline
   };
 
   const onSubmit = (values) => {
@@ -160,6 +163,7 @@ const UserGeneralInfoForm = ({ data }) => {
       nationality:
         values.nationality !== "" ? values.nationality : currentNationality,
       about: values.about !== "" ? values.about : currentAbout,
+      tagline: values.tagline !== "" ? values.tagline : currentTagline,
     };
     console.log(updatedValues);
     mutate({
@@ -278,6 +282,16 @@ const UserGeneralInfoForm = ({ data }) => {
                 name="birthDate"
               />
               <ErrorMessage name="birthDate" component={InputErrorMessage} />
+            </div>
+            <div className={styles.field}>
+              <label htmlFor="tagline">TagLine</label>
+              <Field
+                type="text"
+                id="tagline"
+                name="tagline"
+                className={data.tagline ? "" : styles.empty_field}
+              />
+              <ErrorMessage name="phone" component={InputErrorMessage} />
             </div>
             <div className={styles.field}>
               <label htmlFor="userPhone">Phone</label>

@@ -83,7 +83,9 @@
 .headers_link_item:hover{
     transform: translateY(-0.125rem);  
 }
-
+.headers_link_item a{
+    color: inherit;
+}
 /* case user */
 .profile_pic{
     width: 8.125rem;
@@ -177,23 +179,23 @@
 }
 
 .sub_header{
-    padding: 1.25rem 0.625rem;
+    padding: 1.25rem 3.125rem;
     position: relative;
 }
 .contact_info{
-    margin-left:3.125rem;
-    padding-left:0.625rem
+    padding-inline:1.25rem;
+    font-size: 1rem;
+    color: var(--dark_white);
+    font-weight: 700;
 }
-.sub_header div h3{
+.contact_caption h3{
     font-size: 2.1875rem;
     font-weight: 700;
     color: var(--font_color);
     margin: 0;
 }
-.sub_header div{
-    font-size: 1rem;
-    color: var(--dark_white);
-    font-weight: 700;
+.contact_caption{
+    margin-left: 2.5rem;
 }
 .company_info{
    align-items:space-around;
@@ -267,6 +269,10 @@
 @media screen and (max-width:957px) {
     .contact_info{
         margin: 0 !important;
+        padding: 0;
+    }
+    .contact_caption{
+        margin-left:0.3125rem;
     }
 }
 
@@ -306,4 +312,15 @@
     margin-left: auto;
     margin-top:0.625rem;
 }
+}
+
+@media screen and (max-width:300px) {
+    .sub_header{
+        padding-inline: 0.3125rem;
+    }
+    .contact_caption{
+       width: 100%;
+       text-align: center;
+    }
+    
 }

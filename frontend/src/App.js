@@ -40,6 +40,7 @@ import UserAccountSetting from "./Pages/AccountSetting/UserAccountSetting";
 import UserInfo from "./Pages/UserInfo/UserInfo";
 import getAllCategories, { getAllIndustries } from "./Store/category-actions";
 import { getSavedJobsHandler } from "./Store/savedJobs-actions";
+import JobDetails from "./Pages/JobDetails/JobDetails";
 
 //pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
 
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "company-home", element: <CompanyHome /> },
       { path: "jobs", element: <Posts /> },
+      { path: "job-details/:jobId", element: <JobDetails /> },
       { path: "candidates", element: <Candidates /> },
       { path: "about", element: <About /> },
       { path: "categories", element: <Categories /> },

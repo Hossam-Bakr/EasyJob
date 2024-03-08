@@ -1,0 +1,124 @@
+.profile_layer{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom:0;
+    z-index: -1;
+    background-color: #F1F1F1;
+}
+.main_container{
+    margin: auto;
+    width: 70%;
+    margin-top: 0.625rem;
+    margin-bottom: 0.625rem;
+    min-height: 100vh;
+    background-color: white;
+    padding: 1.875rem 1.25rem;
+    border-radius: 0.625rem;
+}
+.job_header{
+    display: flex;
+}
+.company_logo{
+    width: 100px;
+    margin-right: 1.25rem;
+    border-radius: 0.625rem;
+}
+.company_logo img{
+    width: 100%;
+    border-radius: 0.625rem;
+}
+.header_caption h1{
+    font-size: 2.1875rem;
+    font-weight: 700;
+    margin: 0;
+}
+.header_caption h4{
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin: 0;
+}
+.header_caption span{
+    font-size: 0.875rem;
+    color: var(--dark_white);
+    font-weight: 600;
+    margin: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.general_info{
+    margin-top: 1.875rem;
+    padding: 0.625rem;
+}
+.general_info ul,.company_details ul{
+    padding: 0;
+}
+.general_info ul li,.company_details ul li{
+    font-size: 1rem;
+    margin: 0.625rem 0;
+    font-weight: 600;
+}
+.bookmark_icon{
+    margin-inline: 0.625rem;
+    background-color: var(--vanilla);
+    font-size: 1.25rem;
+    padding: 0.625rem 0.9375rem;
+    border-radius: 0.625rem;
+    color: var(--main_color);
+    cursor: pointer;
+    transition: all .4s;
+}
+.bookmark_icon:hover{
+    transform: translateY(0.625rem);
+}
+.det_section{
+    margin: 3.125rem 0;
+}
+.det_section p{
+    color: var(--dark_white);
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+.sec_title{
+    font-size: 1.375rem;
+    font-weight: 600;
+}
+.skill{
+    background-color: var(--vanilla);
+    padding: 5px 10px;
+    border-radius: 5px;
+    min-width: 80px;
+    text-align: center;
+    position: relative;
+}
+.company_details{
+    padding: 2.5rem 0;
+}
+
+@media screen and (max-width:670px) {
+    .main_container{
+        width: 90%;
+    }
+}
+@media screen and (max-width:435px) {
+    .main_container{
+        width: 96%;
+    }
+    .header_caption h1{
+        font-size: 1.25rem;
+    }
+    .header_caption h4{
+        font-size: 1rem;
+    }
+    .company_logo{
+        width: 9.375rem;
+    }
+}   
+
+@media screen and (max-width:360px) {
+    .name{
+        flex-direction: column;
+        align-items: start !important;
+    }
+}

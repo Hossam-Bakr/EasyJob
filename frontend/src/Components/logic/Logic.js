@@ -1772,7 +1772,6 @@ export const sizeOptions = [
 ];
 
 export const convertCategoriesIntoList = (currentCategories, setState) => {
-  console.log(currentCategories);
   if (currentCategories.length !== 0) {
     let categoryOptions = currentCategories.map((cat) => ({
       value: cat.name,

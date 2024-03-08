@@ -20,13 +20,13 @@ import noLogo from "../../images/noLogo.jpg";
 import FloatingPopup from "./FloatingPopup";
 import {getSavedJobsHandler} from "../../Store/savedJobs-actions";
 import { saveJobsHandler } from "../../util/Http";
+import { useNavigate } from "react-router-dom";
 
 const JobPost = ({
   id,
   logo,
   name,
   jobTitle,
-  desc,
   req,
   country,
   city,
@@ -34,7 +34,6 @@ const JobPost = ({
   workplace,
   time,
   maxSalary,
-  minSalary,
   hideSalary,
   grid,
   profile,
@@ -53,10 +52,11 @@ const JobPost = ({
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const dispatch=useDispatch();
   const token=useSelector((state)=>state.userInfo.token);
+  const navigate=useNavigate();
 
   const checkToNavigateJobDetails = () => {
     if (isLogin) {
-      console.log("logged")
+      navigate(`/job-details/${id}`)
     } else {
       setModalShow(true);
     }
@@ -64,18 +64,6 @@ const JobPost = ({
 
 const saveJobPost=async()=>{
   if(token){
-    // dispatch(savedJobActions.setJobData({
-    //   id,
-    //   logo,
-    //   name,
-    //   jobTitle,
-    //   req,
-    //   country,
-    //   city,
-    //   type,
-    //   workplace,
-    //   time,
-    // }))
     const res=await saveJobsHandler({jobId:id,token:token})
 
     if(res.status==="success"){
@@ -132,6 +120,7 @@ const saveJobPost=async()=>{
   let xlSize = grid ? 4 : 12;
   let lgSize = grid ? 6 : 12;
 
+
   return (
     <>
       <Col lg={lgSize} xl={xlSize} className={styles.job_container}>
@@ -141,7 +130,7 @@ const saveJobPost=async()=>{
               {profile ? (
                 <>
                   <FontAwesomeIcon
-                    onClick={checkToNavigateJobDetails}
+                    // onClick={checkToNavigateJobDetails}
                     icon={faEdit}
                     title="ediet post"
                     className={`${styles.bookmark_icon} mx-2`}
