@@ -63,7 +63,7 @@ exports.getAll = (Model, include = null) =>
     let filter = {};
     if (req.params.industryId) filter = { industryId: req.params.industryId };
 
-    const { page = 1, limit = 100, sort, fields, keyword } = req.query;
+    let { page = 1, limit = 100, sort, fields, keyword } = req.query;
 
     if (keyword && Model.rawAttributes.title) {
       filter = {
