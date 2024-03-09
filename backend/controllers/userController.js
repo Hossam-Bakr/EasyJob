@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const User = require("../models/userModel");
+const Company = require("../models/companyModel");
+const Job = require("../models/jobModel");
 const Experience = require("../models/experienceModel");
 const Education = require("../models/educationModel");
 const Certification = require("../models/certificationModel");
@@ -553,6 +555,31 @@ exports.updateOnlinePresence = catchAsync(async (req, res) => {
     },
   });
 });
+
+// Interviews
+
+exports.getUserInterviews = catchAsync(async (req, res) => {
+  const interviews = await req.user.getInterviews({
+    include: [
+      {
+        model: Company,
+        attributes: ["id", "name", "email", "phone"],
+      },
+      {
+        model: Job,
+      },
+    ],
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      interviews,
+    },
+  });
+});
+
+// Account
 
 // change password Of user
 exports.changePassword = catchAsync(async (req, res) => {
