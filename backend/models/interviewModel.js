@@ -9,17 +9,22 @@ const Interview = sequelize.define("Interview", {
     autoIncrement: true,
   },
   interviewDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
-  location: {
-    type: DataTypes.GEOMETRY("POINT"),
+  interviewTime: {
+    type: DataTypes.TIME,
+    allowNull: false,
+  },
+  address: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   status: {
     type: DataTypes.STRING,
     allowNull: false,
     isIn: [["Scheduled", "Completed", "Canceled"]],
+    defaultValue: "Scheduled",
   },
   notes: {
     type: DataTypes.TEXT,

@@ -452,3 +452,23 @@ exports.applyForJobValidator = [
 
   validatorError,
 ];
+
+exports.updateApplicationStatusValidator = [
+  check("status")
+    .notEmpty()
+    .withMessage("Please provide application status")
+    .isIn(["Accepted", "Closed"])
+    .withMessage("Please provide valid application status"),
+
+  validatorError,
+];
+
+exports.changeApplicationStageValidator = [
+  check("stage")
+    .notEmpty()
+    .withMessage("Please provide application stage")
+    .isIn(["Submitted", "Reviewed", "Marked"])
+    .withMessage("Please provide valid application stage"),
+
+  validatorError,
+];

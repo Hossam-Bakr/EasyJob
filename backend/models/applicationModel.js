@@ -14,6 +14,12 @@ const Application = sequelize.define("Application", {
     isIn: [["Pending", "Accepted", "Closed"]],
     defaultValue: "Pending",
   },
+  stage: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    isIn: [["Submitted", "Reviewed", "Marked"]],
+    defaultValue: "Submitted",
+  },
 });
 
 module.exports = Application;

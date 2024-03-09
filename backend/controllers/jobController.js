@@ -1,5 +1,6 @@
 const Job = require("../models/jobModel");
 const Company = require("../models/companyModel");
+const CompanyProfile = require("../models/companyProfileModel");
 const User = require("../models/userModel");
 const Category = require("../models/categoryModel");
 const JobCategory = require("../models/jobCategoryModel");
@@ -50,7 +51,26 @@ const processRequiredSkills = async (requiredSkills, jobId) => {
   return skills;
 };
 
-exports.getAllJobs = factory.getAll(Job);
+const allJobsInclude = [
+  {
+    model: Company,
+    attributes: ["id", "name"],
+    include: {
+      model: CompanyProfile,
+      attributes: ["logo", "country", "city"],
+    },
+  },
+  {
+    model: Category,
+    attributes: ["id", "name"],
+    through: {
+      model: JobCategory,
+      attributes: [],
+    },
+  },
+];
+
+exports.getAllJobs = factory.getAll(Job, allJobsInclude);
 
 exports.getJob = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.id, {
@@ -58,6 +78,10 @@ exports.getJob = catchAsync(async (req, res) => {
       {
         model: Company,
         attributes: ["id", "name", "email", "phone"],
+        include: {
+          model: CompanyProfile,
+          attributes: ["logo", "country", "city"],
+        },
       },
       {
         model: Category,
@@ -384,8 +408,16 @@ exports.getJobApplications = catchAsync(async (req, res) => {
     });
   }
 
+  let filter = { JobId: job.id };
+  if (req.query.status) {
+    filter.status = req.query.status;
+  }
+  if (req.query.stage) {
+    filter.stage = req.query.stage;
+  }
+
   const applications = await Application.findAll({
-    where: { JobId: job.id },
+    where: filter,
   });
 
   res.status(200).json({
@@ -435,7 +467,9 @@ exports.getJobApplication = catchAsync(async (req, res) => {
     });
   }
 
-  const user = await User.findByPk(application.UserId);
+  const user = await User.findByPk(application.UserId, {
+    attributes: ["id", "firstName", "lastName"],
+  });
 
   res.status(200).json({
     status: "success",
@@ -443,6 +477,85 @@ exports.getJobApplication = catchAsync(async (req, res) => {
       job,
       application,
       user,
+    },
+  });
+});
+
+exports.updateApplicationStatus = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to view this job's applications",
+    });
+  }
+
+  const application = await Application.findByPk(req.params.id);
+
+  if (!application) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No application found with that ID",
+    });
+  }
+
+  if (application.status === "Closed" || application.status === "Accepted") {
+    return res.status(400).json({
+      status: "fail",
+      message: `You can't change the status of an application that is already ${application.status}`,
+    });
+  }
+
+  await application.update({ status: req.body.status });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      application,
+    },
+  });
+});
+
+exports.changeApplicationStage = catchAsync(async (req, res) => {
+  const job = await Job.findByPk(req.params.jobId);
+
+  if (!job) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No job found with that ID",
+    });
+  }
+
+  if (job.CompanyId !== req.company.id) {
+    return res.status(401).json({
+      status: "fail",
+      message: "You are not authorized to view this job's applications",
+    });
+  }
+
+  const application = await Application.findByPk(req.params.id);
+
+  if (!application) {
+    return res.status(404).json({
+      status: "fail",
+      message: "No application found with that ID",
+    });
+  }
+
+  await application.update({ stage: req.body.stage });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      application,
     },
   });
 });

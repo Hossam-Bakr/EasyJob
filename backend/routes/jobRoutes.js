@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 
 const authController = require("../controllers/authController");
 const jobController = require("../controllers/jobController");
@@ -8,9 +9,12 @@ const {
   addJobQuestionsValidator,
   updateJobQuestionValidator,
   applyForJobValidator,
+  updateApplicationStatusValidator,
+  changeApplicationStageValidator,
 } = require("../utils/validators/jobValidator");
+const interviewRoutes = require("./interviewRoutes");
 
-const router = express.Router();
+router.use("/:jobId/interviews", interviewRoutes);
 
 router
   .route("/")
@@ -77,5 +81,17 @@ router.route("/:jobId/applications").get(jobController.getJobApplications);
 
 router.route("/:jobId/applications/:id").get(jobController.getJobApplication);
 // .delete(jobController.deleteJobApplication);
+
+router.patch(
+  "/:jobId/applications/:id/status",
+  updateApplicationStatusValidator,
+  jobController.updateApplicationStatus
+);
+
+router.patch(
+  "/:jobId/applications/:id/stage",
+  changeApplicationStageValidator,
+  jobController.changeApplicationStage
+);
 
 module.exports = router;
