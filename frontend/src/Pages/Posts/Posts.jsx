@@ -18,6 +18,7 @@ import { getJobs } from "../../util/Http";
 import PlacholderComponent from "../../Components/Ui/PlacholderComponent";
 import MainError from "./../Error/MainError";
 import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
+import NoDataBox from "./../../Components/Ui/NoDataBox";
 
 // const jobs = [
 //   {
@@ -259,7 +260,7 @@ const Posts = () => {
 
   const { data, isFetching, isError } = useQuery({
     queryKey: ["jobs"],
-    queryFn: () => getJobs({type: "" }),
+    queryFn: () => getJobs({ type: "" }),
   });
 
   const role = useSelector((state) => state.userInfo.role);
@@ -273,6 +274,7 @@ const Posts = () => {
     }
     window.scrollTo(0, 0);
   }, [navigate, role, isLogin]);
+
 
   return (
     <>
@@ -775,32 +777,38 @@ const Posts = () => {
                     <GridButtons setGrid={setGrid} setList={setList} />
                     {isFetching ? (
                       <>
-                        <LoadingPlaceholders page="jobs"/>
+                        <LoadingPlaceholders page="jobs" />
                       </>
                     ) : (
                       <>
-                        {data.data.map((job) => {
-                          return (
-                            <JobPost
-                              key={job.id}
-                              // name={job.name}
-                              id={job.id}
-                              jobTitle={job.title}
-                              req={job.requirements}
-                              logo={job.logo}
-                              country={job.country}
-                              city={job.city}
-                              type={job.type}
-                              workplace={job.workplace}
-                              part={job.part}
-                              time={job.createdAt}
-                              maxSalary={job.salaryRangeMin}
-                              // minSalary={job.salaryRangeMax}
-                              hideSalary={job.hideSalary}
-                              grid={gridView}
-                            />
-                          );
-                        })}
+                        {data ? (
+                          <>
+                            {data.data.map((job) => {
+                              return (
+                                <JobPost
+                                  key={job.id}
+                                  name={job.Company.name}
+                                  id={job.id}
+                                  jobTitle={job.title}
+                                  req={job.requirements}
+                                  // logo={job.Company?job.Company.CompanyProfile.logo:null}
+                                  country={job.country}
+                                  city={job.city}
+                                  type={job.type}
+                                  workplace={job.workplace}
+                                  part={job.part}
+                                  time={job.createdAt}
+                                  maxSalary={job.salaryRangeMin}
+                                  // minSalary={job.salaryRangeMax}
+                                  hideSalary={job.hideSalary}
+                                  grid={gridView}
+                                />
+                              );
+                            })}
+                          </>
+                        ) : (
+                          <NoDataBox />
+                        )}
                       </>
                     )}
                     {/* {jobs.map((job) => {
@@ -829,7 +837,7 @@ const Posts = () => {
               </section>
             </Col>
           </Row>
-        </Container>  
+        </Container>
       )}
     </>
   );
