@@ -59,7 +59,37 @@
     cursor: pointer;
 }
 
-
+.select_type{
+    margin-inline: 0.625rem;
+    background-color: var(--vanilla);
+    font-size: 0.75rem;
+    padding: 0.4375rem 0.6875rem;
+    border-radius: 0.625rem;
+    color: var(--main_color);
+    cursor: pointer;
+    transition: all .4s;
+}
+.select_type:hover{
+    scale: 1.1;
+}
+.active_type{
+    background-color: var(--main_color);
+    color:white;
+}
+.login_google{
+    transform: translateY(0);
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all .5s;
+}
+.hidden_google_login{
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all .5s;
+}
 
 @media screen and (max-width:855px) {
     .form_options{
