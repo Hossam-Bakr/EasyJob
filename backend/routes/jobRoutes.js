@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 
 const authController = require("../controllers/authController");
 const jobController = require("../controllers/jobController");
@@ -11,8 +12,9 @@ const {
   updateApplicationStatusValidator,
   changeApplicationStageValidator,
 } = require("../utils/validators/jobValidator");
+const interviewRoutes = require("./interviewRoutes");
 
-const router = express.Router();
+router.use("/:jobId/interviews", interviewRoutes);
 
 router
   .route("/")
