@@ -78,6 +78,10 @@ exports.getJob = catchAsync(async (req, res) => {
       {
         model: Company,
         attributes: ["id", "name", "email", "phone"],
+        include: {
+          model: CompanyProfile,
+          attributes: ["logo", "country", "city"],
+        },
       },
       {
         model: Category,
