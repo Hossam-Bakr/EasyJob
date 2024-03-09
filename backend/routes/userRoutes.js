@@ -98,6 +98,11 @@ router.patch(
   userController.updateOnlinePresence
 );
 
+// Interviews
+router.get("/interviews", userController.getUserInterviews);
+
+// Account
+
 router.patch(
   "/changePassword",
   userValidator.changePasswordValidator,
