@@ -9,13 +9,8 @@ const ApiError = require("../utils/ApiError");
 const httpStatusText = require("../utils/httpStatusText");
 const sendEmail = require("../utils/sendEmail");
 const createResetCodeMessage = require("../utils/createResetCodeMessage");
-const passport = require("passport");
-require("../utils/Passport");
-
-const {
-  asyncPassportAuthenticate,
-} = require("../utils/asyncPassportAuthenticate");
 const signToken = require("../utils/generateJWT");
+
 
 exports.userSignup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -221,6 +216,38 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   res.status(200).json({ status: "success", token });
 });
+
+exports.loginSuccess =  catchAsync(async (req, res, next) => {
+  const user = req.user ; 
+  if (user) {
+  const [dbUser] = await User.findOrCreate({
+      where: { email: user.emails[0].value },
+      defaults: {
+        firstName: user.name.givenName,
+        lastName: user.name.familyName,
+        email: user.emails[0].value,
+        password: "google_123",
+        googleId: user.id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
+    dbUser.save();
+
+    const token = signToken(user.emails[0].value);
+    res.status(200).json({
+      status: "success",
+      message: "Successfully Loged In",
+      token,
+      data: {
+        user:dbUser,
+      },
+    });
+  } else {
+    res.status(403).json({ error: true, message: "Not Authorized" });
+  }
+})
+
 
 
 exports.protect = catchAsync(async (req, res, next) => {

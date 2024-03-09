@@ -32,35 +32,7 @@ router.put("/resetPassword", ResetPassValidator, authController.resetPassword);
 
 //--------------------google auth routes ------------------------
 
-router.get("/login/success",  catchAsync(async (req, res, next) => {
-  const user = req.user ; 
-  if (user) {
-  const [dbUser] = await User.findOrCreate({
-      where: { email: user.emails[0].value },
-      defaults: {
-        firstName: user.name.givenName,
-        lastName: user.name.familyName,
-        email: user.emails[0].value,
-        password: "google_123",
-        googleId: user.id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    });
-
-    const token = signToken(user.emails[0].value);
-    res.status(200).json({
-      status: "success",
-      message: "Successfully Loged In",
-      token,
-      data: {
-        user:dbUser,
-      },
-    });
-  } else {
-    res.status(403).json({ error: true, message: "Not Authorized" });
-  }
-}));
+router.get("/login/success", authController.loginSuccess);
 
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
@@ -89,8 +61,8 @@ router.get("/logout", (req, res, next) => {
       return next(err);
     }
     req.session.destroy(() => {
-      res.clearCookie("connect.sid"); // Replace 'connect.sid' with your session cookie name if different
-      res.redirect("http://localhost:3001/login"); // Redirect to your desired log-out destination
+      res.clearCookie("connect.sid"); 
+      res.redirect("http://localhost:3001/login"); 
     });
   });
 });
