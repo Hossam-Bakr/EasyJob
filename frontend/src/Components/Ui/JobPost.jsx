@@ -63,9 +63,8 @@ const JobPost = ({
   };
 
 const saveJobPost=async()=>{
-  if(token){
+  if(token&&isLogin){
     const res=await saveJobsHandler({jobId:id,token:token})
-
     if(res.status==="success"){
       setResponseMessage({
         title: "Saved Successfully",

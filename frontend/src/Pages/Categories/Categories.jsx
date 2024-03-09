@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./Categories.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { getIndustries } from "../../util/Http";
-import LoadingTwo from "./../../Components/Ui/LoadingTwo";
 import SearchField from "./../../Components/Ui/SearchField";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -11,41 +10,70 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import NoDataBox from "./../../Components/Ui/NoDataBox";
 import Pagination from "../../Components/Ui/Pagination";
+import PlacholderComponent from "../../Components/Ui/PlacholderComponent";
+import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
 
 const Categories = () => {
-
-  const [myData,setMyData]=useState([]);
-  const [pageNumber,setPageNumber]=useState(1);
+  const [myData, setMyData] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [activeLink, setActiveLink] = useState(0);
+  const [filteredData, setFilteredData] = useState([]);
+  const [isDataFiltered, setIsDataFiltered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { data, isPending } = useQuery({
     queryKey: ["categories"],
-    queryFn: ({ signal }) => getIndustries({ signal, type: "",pageNum:pageNumber }),
+    queryFn: ({ signal }) =>
+      getIndustries({ signal, type: "", pageNum: pageNumber }),
   });
 
-
-
-  useEffect(()=>{
-    if(data){
-      setMyData(data.data)
+  useEffect(() => {
+    if (data) {
+      setMyData(data.data);
     }
-  },[data])
+  }, [data]);
 
   const pageNavigator = (pageNum) => {
-    console.log(pageNum);
-    if (myData.length!==0) {
-      console.log(myData.paginationResults.numberOfPages)
-          if (myData.paginationResults.numberOfPages > setPageNumber&&pageNum>0) {
-            setPageNumber(setPageNumber)
-          } else {
-            alert("No More Data");
-          }      
+    if (myData.length !== 0) {
+      console.log(myData.paginationResults.numberOfPages);
+      if (
+        myData.paginationResults.numberOfPages > setPageNumber &&
+        pageNum > 0
+      ) {
+        setPageNumber(setPageNumber);
+      } else {
+        alert("No More Data");
+      }
     }
   };
 
+  const filterResult = (linkID) => {
+    if (linkID === 0) {
+      setIsDataFiltered(false);
+      setIsLoading(false);
+      return;
+    }
+    if (data) {
+      window.scrollTo(0, 0);
+      const filteredData = data.data.data.filter(
+        (industry) => industry.id === linkID
+      );
+      setIsDataFiltered(true);
+      setFilteredData(filteredData);
+      setIsLoading(false);
+    }
+  };
+  const chooseActiveLink = (linkID) => {
+    setIsLoading(true);
+    setActiveLink(linkID);
+    filterResult(linkID);
+  };
   return (
     <>
       {isPending ? (
-        <LoadingTwo />
+        <>
+          <LoadingPlaceholders page="category"/>
+        </>
       ) : (
         <>
           {data ? (
@@ -64,10 +92,25 @@ const Categories = () => {
                   <div className={styles.filter_indusrty}>
                     <h4>filter by Indusry</h4>
                     <ul>
+                      <li
+                        className={`${styles.industry_list_item} ${
+                          activeLink === 0 ? styles.active_link : ""
+                        }`}
+                        onClick={() => chooseActiveLink(0)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faLayerGroup}
+                          className="special_main_color me-3"
+                        />
+                        ALL Industries
+                      </li>
                       {data.data.data.map((industry) => (
                         <li
                           key={industry.id}
-                          className={styles.industry_list_item}
+                          className={`${styles.industry_list_item} ${
+                            activeLink === industry.id ? styles.active_link : ""
+                          }`}
+                          onClick={() => chooseActiveLink(industry.id)}
                         >
                           <FontAwesomeIcon
                             icon={faLayerGroup}
@@ -80,25 +123,147 @@ const Categories = () => {
                   </div>
                 </Col>
                 <Col sm={9}>
-                  {data.data.data.map((industry) => (
-                    <div className="mb-5" key={industry.id}>
-                      <h3 className={styles.industry_name}>{industry.name}</h3>
-                      <Row className={`${styles.categories_list} gy-3`}>
-                        {industry.Categories.map((category) => (
-                          <Col sm={6} md={4} key={category.id}>
-                            <div className={styles.category_item}>
-                              <FontAwesomeIcon
-                                icon={faCaretRight}
-                                className="special_main_color me-3"
-                              />
-                              {category.name}
-                            </div>
-                          </Col>
-                        ))}
+                  <>
+                    {!isLoading ? (
+                      <>
+                        {" "}
+                        {isDataFiltered ? (
+                          <>
+                            {filteredData.map((industry) => (
+                              <div className="mb-5" key={industry.id}>
+                                <h3 className={styles.industry_name}>
+                                  {industry.name}
+                                </h3>
+                                <Row
+                                  className={`${styles.categories_list} gy-3`}
+                                >
+                                  {industry.Categories.length === 0 ? (
+                                    <div
+                                      className={`${styles.noCat} alert alert-warning`}
+                                    >
+                                      <span>
+                                        No Categories Related to that Industry
+                                        yet !
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <>
+                                      {industry.Categories.map((category) => (
+                                        <Col sm={6} md={4} key={category.id}>
+                                          <div className={styles.category_item}>
+                                            <FontAwesomeIcon
+                                              icon={faCaretRight}
+                                              className="special_main_color me-3"
+                                            />
+                                            {category.name}
+                                          </div>
+                                        </Col>
+                                      ))}
+                                    </>
+                                  )}
+                                </Row>
+                              </div>
+                            ))}
+                          </>
+                        ) : (
+                          <>
+                            {data.data.data.map((industry) => (
+                              <div className="mb-5" key={industry.id}>
+                                <h3 className={styles.industry_name}>
+                                  {industry.name}
+                                </h3>
+                                <Row
+                                  className={`${styles.categories_list} gy-3`}
+                                >
+                                  {industry.Categories.length === 0 ? (
+                                    <div
+                                      className={`${styles.noCat} alert alert-warning`}
+                                    >
+                                      <span>
+                                        No Categories related to that Industry
+                                        yet !
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <>
+                                      {industry.Categories.map((category) => (
+                                        <Col sm={6} md={4} key={category.id}>
+                                          <div className={styles.category_item}>
+                                            <FontAwesomeIcon
+                                              icon={faCaretRight}
+                                              className="special_main_color me-3"
+                                            />
+                                            {category.name}
+                                          </div>
+                                        </Col>
+                                      ))}
+                                    </>
+                                  )}
+                                </Row>
+                              </div>
+                            ))}
+                            <Pagination
+                              active={1}
+                              pageNavigator={pageNavigator}
+                            />
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <Row>
+                        <Col sm={12}>
+                          <PlacholderComponent
+                            type="p"
+                            mySize="lg"
+                            myWidth="50%"
+                            myAnimation="glow"
+                          />
+                        </Col>
+                        <Col sm={6} md={3}>
+                          <PlacholderComponent
+                            type="p"
+                            mySize="md"
+                            myWidth="100%"
+                          />
+                        </Col>
+                        <Col sm={6} md={3}>
+                          <PlacholderComponent
+                            type="p"
+                            mySize="md"
+                            myWidth="100%"
+                          />
+                        </Col>
+                        <Col sm={6} md={3}>
+                          <PlacholderComponent
+                            type="p"
+                            mySize="md"
+                            myWidth="100%"
+                          />
+                        </Col>
+                        <Col sm={6} md={3}>
+                          <PlacholderComponent
+                            type="p"
+                            mySize="md"
+                            myWidth="100%"
+                          />
+                        </Col>
+                        <Col sm={6} md={3}>
+                          <PlacholderComponent
+                            type="p"
+                            mySize="md"
+                            myWidth="100%"
+                          />
+                        </Col>
+                        <Col sm={6} md={3}>
+                          <PlacholderComponent
+                            type="p"
+                            mySize="md"
+                            myWidth="100%"
+                          />
+                        </Col>
                       </Row>
-                    </div>
-                  ))}
-                  <Pagination active={1} pageNavigator={pageNavigator} />
+                    )}
+                  </>
                 </Col>
               </Row>
             </Container>

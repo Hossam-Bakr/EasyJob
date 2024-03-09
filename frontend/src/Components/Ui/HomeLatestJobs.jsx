@@ -1,18 +1,17 @@
 import React from "react";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import JobPost from "./JobPost";
 import MainButton from "./MainButton";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestJobs } from "../../util/Http";
-import PlacholderComponent from "./PlacholderComponent";
+import LoadingPlaceholders from "./LoadingPlaceholders";
 
 const HomeLatestJobs = () => {
   const { data, isFetching } = useQuery({
     queryKey: ["latestJobs"],
-    queryFn: () => getLatestJobs({ num: "4" }),
+    queryFn: () => getLatestJobs("4"),
   });
 
   const navigate = useNavigate();
@@ -23,39 +22,15 @@ const HomeLatestJobs = () => {
 
   return (
     <Container fluid="lg" className="pb-5">
-      <Row>
-        {isFetching ? (
-          <>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-            <Col lg={6} xl={4}>
-              <PlacholderComponent />
-            </Col>
-          </>
-        ) : (
-          <>
+      {isFetching ? (
+        <>
+          <Row className="gy-2">
+            <LoadingPlaceholders page="latestJobs"/>
+          </Row>
+        </>
+      ) : (
+        <>
+          <Row className="gy-2">
             {data &&
               data.latestJobs.map((job) => (
                 <JobPost
@@ -73,10 +48,11 @@ const HomeLatestJobs = () => {
                   //   salaryRangeMax={job.salaryRangeMax}
                   grid={true}
                 />
-              ))}
-          </>
-        )}
-      </Row>
+              ))}{" "}
+          </Row>
+        </>
+      )}
+
       <div className="text-center">
         <MainButton onClick={navigateToExplore} text="View All Listing" />
       </div>

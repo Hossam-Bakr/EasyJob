@@ -58,3 +58,6 @@
     word-wrap: break-word;
 }
 
+.active_link{
+    background-color: var(--vanilla);
+}

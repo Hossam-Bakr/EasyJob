@@ -46,48 +46,42 @@ const CompanyProfileSections = ({
       key: 1,
       name: "huwawei",
       jobTitle: "Call Center",
-      desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+      req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
       logo: "L2",
-      full: true,
-      remote: true,
-      part: false,
-      freelance: false,
+      type: "full-time",
+      workplace: "remote",
       time: "5 min",
     },
     {
       key: 2,
       name: "Huwawei",
       jobTitle: "Electrical Engineer",
-      desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+      req: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
       logo: "L2",
-      full: true,
-      remote: true,
-      part: false,
-      freelance: false,
+      type: "full-time",
+      workplace: "remote",
+      
+     
       time: "2 days",
     },
     {
       key: 3,
       name: "huwawei",
       jobTitle: "Frontend React Developer",
-      desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+      req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
       logo: "L2",
-      freelance: true,
-      full: true,
-      part: false,
-      remote: false,
+      type: "full-time",
+      workplace: "remote",
       time: "5 months",
     },
     {
       key: 4,
       name: "huwawei",
       jobTitle: "Financial Advisor",
-      desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
+      req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
       logo: "L2",
-      part: true,
-      freelance: true,
-      remote: false,
-      full: false,
+      workplace: "remote",
+      type: "full-time",
       time: "2 years",
     },
   ];
@@ -116,6 +110,8 @@ const CompanyProfileSections = ({
       country: "Egypt",
       city: "Cairo",
       photo: "p3",
+      type: "part-time",
+      workplace: "on site",
     },
     {
       id: "e4",
@@ -309,12 +305,10 @@ const CompanyProfileSections = ({
                   key={job.key}
                   name={job.name}
                   jobTitle={job.jobTitle}
-                  desc={job.desc}
+                  req={job.req}
                   logo={job.logo}
-                  full={job.full}
-                  remote={job.remote}
-                  part={job.part}
-                  freelance={job.freelance}
+                  type={job.type}
+                  workplace={job.workplace}
                   time={job.time}
                   grid={false}
                   profile={true}

@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getJobs } from "../../util/Http";
 import PlacholderComponent from "../../Components/Ui/PlacholderComponent";
 import MainError from "./../Error/MainError";
+import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
 
 // const jobs = [
 //   {
@@ -774,33 +775,7 @@ const Posts = () => {
                     <GridButtons setGrid={setGrid} setList={setList} />
                     {isFetching ? (
                       <>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
-                        <Col lg={6} xl={4}>
-                          <PlacholderComponent />
-                        </Col>
+                        <LoadingPlaceholders page="jobs"/>
                       </>
                     ) : (
                       <>

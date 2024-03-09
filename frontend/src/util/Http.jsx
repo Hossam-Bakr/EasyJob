@@ -217,9 +217,18 @@ export const saveJobsHandler = async ({ jobId, token }) => {
   }
 };
 
-export const getLatestJobs = async ({ signal, num }) => {
+export const getLatestJobs = async (num) => {
   try {
-    const response = await axios(`${baseServerUrl}jobs/latest/${num}`);
+    const response = await axios.get(`${baseServerUrl}jobs/latest/${num}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCountUpNumbers = async () => {
+  try {
+    const response = await axios.get(`${baseServerUrl}specificTasks/display-counts`);
     return response.data;
   } catch (error) {
     console.error(error);

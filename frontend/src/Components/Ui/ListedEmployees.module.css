@@ -3,7 +3,7 @@
     border-radius:50%;
 }
 .photo_container img{   
-    object-fit: cover;
+    width: 100%;
     border-radius: 50%;
 }
 
