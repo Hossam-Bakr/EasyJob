@@ -11,13 +11,8 @@ const UserSkill = sequelize.define("UserSkill", {
   proficiency: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    isIn: [[1, 2, 3, 4, 5]],
-  },
-  yearsOfExperience: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    isIn: [["0-1", "1-3", "3-5", "5-8", "10+"]],
-  },
+    isIn: [[1, 2, 3]],
+  }
 });
 
 module.exports = UserSkill;
