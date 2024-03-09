@@ -11,7 +11,6 @@ const sendEmail = require("../utils/sendEmail");
 const createResetCodeMessage = require("../utils/createResetCodeMessage");
 const signToken = require("../utils/generateJWT");
 
-
 exports.userSignup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     firstName: req.body.firstName,
@@ -217,36 +216,47 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   res.status(200).json({ status: "success", token });
 });
 
-exports.loginSuccess =  catchAsync(async (req, res, next) => {
-  const user = req.user ; 
-  if (user) {
-  const [dbUser] = await User.findOrCreate({
-      where: { email: user.emails[0].value },
-      defaults: {
-        firstName: user.name.givenName,
-        lastName: user.name.familyName,
-        email: user.emails[0].value,
-        password: "google_123",
-        googleId: user.id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    });
-    dbUser.save();
-
-    const token = signToken(user.emails[0].value);
+// ------ google auth --------------
+exports.loginSuccessWithGoogle = catchAsync(async (req, res, next) => {
+  if (req.user) {
+    const user = req.user;
+    const token = signToken(user.email);
     res.status(200).json({
       status: "success",
-      message: "Successfully Loged In",
       token,
       data: {
-        user:dbUser,
+        user: {
+          ...user.toJSON(),
+          password: undefined,
+        },
       },
     });
   } else {
-    res.status(403).json({ error: true, message: "Not Authorized" });
+    return next(new ApiError("Not Authorized", 403));
   }
-})
+});
+
+exports.loginFailedWithGoogle = catchAsync(async (req, res, next) => {
+  return next(new ApiError("failed to login with google", 401));
+});
+
+exports.logout = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy(() => {
+      res.clearCookie("connect.sid", {
+        path: "/",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      }); 
+      res.redirect(
+        process.env.LOGOUT_REDIRECT_URL || "http://localhost:3001/login"
+      ); 
+    });
+  });
+};
 
 
 

@@ -11,7 +11,6 @@ const mountRoutes = require("./routes");
 const defineDBRelationships = require("./models/modelsRelationships");
 const session = require('express-session');
 const passport = require('passport');
-// const cookieSession = require("cookie-session");
 require("./utils/Passport");
 
 
@@ -19,10 +18,10 @@ const app = express();
 
 
 app.use(session({
-  secret: 'cyberwolve',
+  secret: 'easyJob',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 24 *60*60*1000 } // Session expires after 1 day of inactivity
+  cookie: { maxAge: 24 *60*60*1000 }
 }));
 
 app.use(passport.initialize());
@@ -63,7 +62,6 @@ process.on("unhandledRejection", (err) => {
 defineDBRelationships();
 
 
-//------------ port  --------------- 
 const PORT = process.env.PORT || 3000;
 
 sequelize
