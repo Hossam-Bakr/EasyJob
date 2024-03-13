@@ -110,4 +110,11 @@ router.patch(
 );
 router.delete("/delete-account", userController.deleteUserAccount);
 
+// -------------------- user skills routes --------------------
+router.post('/addUserSkill', userValidator.validateUserSkill, userController.addUserSkill); 
+router.get('/skills' , userController.getAllUserSkills);
+router.delete('/skills/:skillId', userController.deleteUserSkill); 
+router.put('/skills/:userSkillId',userValidator.validateUpdateUserSkill , userController.updateUserSkill);
+
+
 module.exports = router;
