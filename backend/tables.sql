@@ -128,7 +128,6 @@ create table Jobs
 (
     id             int auto_increment
         primary key,
-    logo           varchar(255)                                                                                                          null,
     title          varchar(255)                                                                                                          not null,
     description    text                                                                                                                  not null,
     requirements   text                                                                                                                  not null,
@@ -238,10 +237,10 @@ create table Users
     passwordResetCode     varchar(255)                          null,
     passwordResetExpire   datetime                              null,
     passwordResetVerified tinyint(1)                            null,
+    googleId              varchar(255)                          null,
     createdAt             datetime                              not null,
     updatedAt             datetime                              not null,
     deletedAt             datetime                              null,
-    googleId              varchar(255)                          null,
     constraint email
         unique (email)
 );
@@ -250,11 +249,12 @@ create table Applications
 (
     id        int auto_increment
         primary key,
-    status    varchar(255) default 'Pending' not null,
-    createdAt datetime                       not null,
-    updatedAt datetime                       not null,
-    UserId    int                            null,
-    JobId     int                            null,
+    status    varchar(255) default 'Pending'   not null,
+    stage     varchar(255) default 'Submitted' not null,
+    createdAt datetime                         not null,
+    updatedAt datetime                         not null,
+    UserId    int                              null,
+    JobId     int                              null,
     constraint Applications_JobId_UserId_unique
         unique (UserId, JobId),
     constraint Applications_ibfk_1
@@ -297,15 +297,16 @@ create table Interviews
 (
     id            int auto_increment
         primary key,
-    interviewDate datetime     not null,
-    location      point        not null,
-    status        varchar(255) not null,
-    notes         text         null,
-    createdAt     datetime     not null,
-    updatedAt     datetime     not null,
-    UserId        int          null,
-    CompanyId     int          null,
-    JobId         int          null,
+    interviewDate date                             not null,
+    interviewTime time                             not null,
+    address       varchar(255)                     not null,
+    status        varchar(255) default 'Scheduled' not null,
+    notes         text                             null,
+    createdAt     datetime                         not null,
+    updatedAt     datetime                         not null,
+    UserId        int                              null,
+    CompanyId     int                              null,
+    JobId         int                              null,
     constraint Interviews_ibfk_1
         foreign key (UserId) references Users (id)
             on update cascade on delete cascade,
@@ -369,9 +370,9 @@ create table UserProfiles
 (
     id                     int auto_increment
         primary key,
-    tagline                varchar(255)                                                                                                                null,
     avatar                 varchar(255)                                                                                                                null,
     coverPhoto             varchar(255)                                                                                                                null,
+    tagline                varchar(255)                                                                                                                null,
     birthDate              date                                                                                                                        null,
     phone                  varchar(255)                                                                                                                null,
     gender                 varchar(255)                                                                                                                null,
@@ -433,7 +434,7 @@ create table Education
         primary key,
     school        varchar(255)                                                                                                not null,
     displayName   varchar(255)                                                                                                not null,
-    degree        enum ('high school', 'bachelor''s degree', 'master''s degree', 'mba', 'doctorate', 'diploma', 'vocational') not null,
+    degree        enum ('high school', 'bachelor''s degree', 'master''s degree', 'MBA', 'doctorate', 'diploma', 'vocational') not null,
     fieldsOfStudy json                                                                                                        not null,
     grade         enum ('A / 100-85', 'B / 84-75', 'C / 74-65', 'D / 64-50')                                                  not null,
     startDate     date                                                                                                        not null,
@@ -477,14 +478,13 @@ create index UserId
 
 create table UserSkills
 (
-    id                int auto_increment
+    id            int auto_increment
         primary key,
-    proficiency       int          not null,
-    yearsOfExperience varchar(255) not null,
-    createdAt         datetime     not null,
-    updatedAt         datetime     not null,
-    UserProfileId     int          null,
-    SkillId           int          null,
+    proficiency   int      not null,
+    createdAt     datetime not null,
+    updatedAt     datetime not null,
+    UserProfileId int      null,
+    SkillId       int      null,
     constraint UserSkills_SkillId_UserProfileId_unique
         unique (UserProfileId, SkillId),
     constraint UserSkills_ibfk_1
