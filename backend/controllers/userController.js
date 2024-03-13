@@ -9,6 +9,14 @@ const Skill = require("../models/skillModel");
 const sharp = require("sharp");
 const { uploadMixOfImages } = require("../utils/uploadImage");
 const catchAsync = require("../utils/catchAsync");
+const UserProfile = require("../models/userProfileModel");
+const UserSkill = require("../models/userSkillModel");
+const {
+  findUserProfile,
+  updateOrCreateSkill,
+  updateUserSkillProficiency,
+} = require("../utils/userUtils");
+const ApiError = require("../utils/ApiError");
 
 exports.uploadUserProfileMedia = uploadMixOfImages([
   { name: "avatar", maxCount: 1 },
@@ -599,4 +607,111 @@ exports.deleteUserAccount = catchAsync(async (req, res) => {
       .status(401)
       .json({ status: "success", message: "User account deactivated" });
   }
+});
+
+exports.addUserSkill = catchAsync(async (req, res, next) => {
+  const { skillName, proficiency } = req.body;
+  const userProfile = await findUserProfile(req.user.id);
+  const skill = await updateOrCreateSkill(null, skillName);
+  const userSkill = await updateUserSkillProficiency(
+    userProfile.id,
+    skill.id,
+    proficiency
+  );
+
+  res.status(201).json({
+    status: "success",
+    data: { userSkill },
+  });
+});
+exports.getAllUserSkills = catchAsync(async (req, res, next) => {
+  const userProfile = await findUserProfile(req.user.id);
+  const userSkills = userProfile.Skills.map((skill) => ({
+    id: skill.UserSkill.id,
+    name: skill.name,
+    proficiency: skill.UserSkill.proficiency,
+  }));
+
+  res.status(200).json({
+    status: "success",
+    data: userSkills,
+  });
+});
+exports.deleteUserSkill = catchAsync(async (req, res, next) => {
+  const userId = req.user.id;
+  const userskillId = req.params.skillId;
+  const userProfile = await findUserProfile(userId);
+
+  const userSkill = await UserSkill.findOne({
+    where: {
+      id: userskillId,
+      UserProfileId: userProfile.id,
+    },
+  });
+
+  if (!userSkill) {
+    return next(
+      new ApiError("Skill association not found on user profile", 404)
+    );
+  }
+
+  const skillId = userSkill.SkillId;
+
+  await UserSkill.destroy({
+    where: {
+      id: userskillId,
+    },
+  });
+
+  const skillDeletionResult = await Skill.destroy({
+    where: {
+      id: skillId,
+    },
+  });
+
+  if (skillDeletionResult === 0) {
+    return next(new ApiError("Skill not found or already deleted", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    message: "Skill and its association with user profile successfully deleted",
+    data: null,
+  });
+});
+exports.updateUserSkill = catchAsync(async (req, res, next) => {
+  const userId = req.user.id;
+  const { userSkillId } = req.params;
+  const { newName, newProficiency } = req.body;
+  const userProfile = await findUserProfile(userId);
+  const userSkill = await UserSkill.findOne({
+    where: {
+      id: userSkillId,
+      UserProfileId: userProfile.id,
+    },
+  });
+  const skillId = userSkill.SkillId;
+  const skill = await Skill.findOne({
+    where: {
+      id: skillId,
+    },
+  });
+
+  if (!userSkill) {
+    return next(new ApiError("UserSkill association not found", 404));
+  }
+
+  await Skill.update({ name: newName }, { where: { id: skillId } });
+  await userSkill.update({proficiency: newProficiency});
+
+  res.status(200).json({
+    status: "success",
+    message: "User skill updated successfully",
+    data: {
+      userSkill: {
+        id: userSkill.id,
+        skillName: skill.name,
+        proficiency: userSkill.proficiency,
+      },
+    },
+  });
 });

@@ -86,7 +86,10 @@ const UserProfile = sequelize.define("UserProfile", {
   },
 
   // languages [[id, language, proficiency], ...]
-  languages: DataTypes.JSON,
+  languages: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
 
   // online presence
   linkedIn: DataTypes.STRING,

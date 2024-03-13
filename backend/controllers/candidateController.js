@@ -3,6 +3,7 @@ const Company = require("../models/companyModel");
 const UserProfile = require("../models/userProfileModel");
 const Category = require("../models/categoryModel");
 const User = require("../models/userModel");
+const Industry = require("../models/industryModel");
 
 
 exports.getCandidatesByCompanyCategories = async (req, res) => {
@@ -10,11 +11,10 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
     try {
       const companyCategories = await Company.findByPk(companyId, {
         include: [{
-          model: Category,
+          model: Industry,
           as: "Industry",
         }],
       });
-  
       if (!companyCategories || !companyCategories.Industry) {
         return res.status(404).json({ message: "Company or company categories not found" });
       }
@@ -32,8 +32,7 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
   
       const formattedProfiles = userProfiles.map(profile => {
         return {
-          userProfile: profile.dataValues,
-          user: profile.User 
+          userProfile: profile.dataValues
         };
       });
   

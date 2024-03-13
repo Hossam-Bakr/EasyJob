@@ -743,3 +743,22 @@ exports.changePasswordValidator = [
     }),
   validatorError,
 ];
+
+
+
+exports.validateUserSkill = [
+  body("skillName").trim().notEmpty().withMessage("Skill name is required."),
+  body("proficiency")
+    .isInt({ min: 1, max: 3})
+    .withMessage("Proficiency must be an integer between 1 and 3."),
+  validatorError,
+];
+
+
+exports.validateUpdateUserSkill = [
+  body("newName").trim().notEmpty().withMessage("Skill name is required."),
+  body("newProficiency")
+    .isInt({ min: 1, max: 3})
+    .withMessage("Proficiency must be an integer between 1 and 3."),
+  validatorError,
+];

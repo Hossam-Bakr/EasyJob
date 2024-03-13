@@ -9,10 +9,23 @@ const globalErrorHandler = require("./controllers/errorController");
 const sequelize = require("./config/database");
 const mountRoutes = require("./routes");
 const defineDBRelationships = require("./models/modelsRelationships");
+const session = require('express-session');
+const passport = require('passport');
+require("./utils/Passport");
 
-const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+
+app.use(session({
+  secret: 'easyJob',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 24 *60*60*1000 }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(cors());
 app.options("*", cors());
@@ -48,9 +61,12 @@ process.on("unhandledRejection", (err) => {
 
 defineDBRelationships();
 
+
+const PORT = process.env.PORT || 3000;
+
 sequelize
   .sync()
-  // .sync({ alter: true })
+  // .sync({ force: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`App running on port ${PORT}`);
