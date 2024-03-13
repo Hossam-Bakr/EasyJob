@@ -207,7 +207,6 @@ export const saveJobsHandler = async ({ jobId, token }) => {
         },
       }
     );
-    // console.log("all saved jobs", res.data);
     return res.data;
   } catch (error) {
     console.error(error);
@@ -228,9 +227,83 @@ export const getLatestJobs = async (num) => {
 
 export const getCountUpNumbers = async () => {
   try {
-    const response = await axios.get(`${baseServerUrl}specificTasks/display-counts`);
+    const response = await axios.get(
+      `${baseServerUrl}specificTasks/display-counts`
+    );
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
+
+export const getUserSkills = async ({ formData, method, id, token }) => {
+  console.log(formData)
+  try {
+    let response = null;
+    if (method === "post") {
+      response = await axios.post(`${baseServerUrl}users/addUserSkill`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else if (method === "put") {
+      response = await axios.put(`${baseServerUrl}users/skills/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else if (method === "delete") {
+      response = await axios.delete(`${baseServerUrl}users/skills/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      response = await axios(`${baseServerUrl}users/skills`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const languageHandler = async ({ formData, method, id, token }) => {
+  console.log(formData)
+  try {
+    let response = null;
+    if (method === "post") {
+      response = await axios.post(`${baseServerUrl}profile/language`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else if (method === "patch") {
+      response = await axios.patch(`${baseServerUrl}profile/language/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else if (method === "delete") {
+      response = await axios.delete(`${baseServerUrl}profile/language/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      response = await axios(`${baseServerUrl}profile/language`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+

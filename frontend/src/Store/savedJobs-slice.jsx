@@ -29,7 +29,6 @@ const savedJobsSLice=createSlice({
     deleteJob(state,action){
       state.totalQuantity--
       const id=action.payload
-      console.log("at slice id",id)
       const exisitJob=state.jobData.filter((job)=>job.id!==id)
       state.jobData=[...exisitJob]
     }

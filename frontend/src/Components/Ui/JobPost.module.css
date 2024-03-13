@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     min-height: 5rem;
+    margin-top: 0.625rem;
 }
 .logo_div{
     display: flex;
@@ -67,7 +68,15 @@
     color: var(--dark_white);
     font-weight: 600;
     margin-bottom: 1.25rem;
-    min-height: 3.4375rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.job p:hover {
+    overflow: visible;
+    -webkit-line-clamp: unset;
 }
 .location_icon{
     margin-right:0.125rem;

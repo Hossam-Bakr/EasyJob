@@ -45,7 +45,7 @@ const JobDetails = () => {
     queryKey: ["latestJobs"],
     queryFn: () => getJobsDetails(params.jobId),
   });
-
+  console.log(data);
   const saveJobPost = async () => {
     if (token) {
       const res = await saveJobsHandler({ jobId: params.jobId, token: token });
@@ -85,9 +85,15 @@ const JobDetails = () => {
 
   useEffect(() => {
     if (data) {
-      setProfilePic(null);
-      const profileLogoUrl = `http://127.0.0.1:3000/companies/${data.logo}`;
-      setProfilePic(profileLogoUrl);
+      if (data.Company) {
+        if (data.Company.CompanyProfile) {
+          if (data.Company.CompanyProfile.logo) {
+            setProfilePic(null);
+            const profileLogoUrl = `http://127.0.0.1:3000/companies/${data.Company.CompanyProfile.logo}`;
+            setProfilePic(profileLogoUrl);
+          }
+        }
+      }
     }
   }, [data]);
 
@@ -105,8 +111,8 @@ const JobDetails = () => {
           <div className={styles.main_container}>
             <div className={styles.job_header}>
               <div className={styles.company_logo}>
-                {/* <img src={profilePic?profilePic:noLogo} alt="profilePic" /> */}
-                <img src={noLogo} alt="no logo" />
+                <img src={profilePic ? profilePic : noLogo} alt="profilePic" />
+                {/* <img src={noLogo} alt="no logo" /> */}
               </div>
               <div className={styles.header_caption}>
                 <h1>{data.title}</h1>
@@ -170,35 +176,34 @@ const JobDetails = () => {
                       <FontAwesomeIcon icon={faBookmark} />
                     </div>
                     <Dropdown>
-                    <Dropdown.Toggle
-                      as={CustomDropDownItem}
-                      id="dropdown-custom-components"
-                    >
-                          <div className={styles.bookmark_icon} title="share job">
-                      <FontAwesomeIcon icon={faShare} />
-                    </div>
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={handleCopy}>
-                        <div
-                          className="d-flex align-items-center"
-                          title="copy url"
-                        >
-                          <FontAwesomeIcon
-                            icon={faCopy}
-                            className="special_main_color me-1"
-                          />
-                          <span className="mini_word">
-                            <p className="m-0" ref={textRef}>
-                              http://localhost:3001/job-details/{params.jobId}
-                            </p>
-                          </span>
+                      <Dropdown.Toggle
+                        as={CustomDropDownItem}
+                        id="dropdown-custom-components"
+                      >
+                        <div className={styles.bookmark_icon} title="share job">
+                          <FontAwesomeIcon icon={faShare} />
                         </div>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={handleCopy}>
+                          <div
+                            className="d-flex align-items-center"
+                            title="copy url"
+                          >
+                            <FontAwesomeIcon
+                              icon={faCopy}
+                              className="special_main_color me-1"
+                            />
+                            <span className="mini_word">
+                              <p className="m-0" ref={textRef}>
+                                http://localhost:3001/job-details/{params.jobId}
+                              </p>
+                            </span>
+                          </div>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </div>
                   <div className="mt-1">
                     <MainButtonTwo text="Apply Now" />

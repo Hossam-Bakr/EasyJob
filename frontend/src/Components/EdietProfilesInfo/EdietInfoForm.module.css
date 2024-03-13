@@ -66,6 +66,7 @@
     font-size: 18px;
     padding: 0 !important;
 }
+
 .check_field input{
     padding: 12px 25px;
 }
@@ -109,6 +110,10 @@
     min-width:12.5rem;
     text-align: center;
     cursor: pointer;
+    transition: all .4s !important;
+}
+.career_label:hover{
+   scale: 1.05;
 }
 .select_group{
     width: 100%;

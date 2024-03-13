@@ -39,21 +39,21 @@ VALUES
 
 -- Ensure to replace X with the actual IndustryId for "IT/Software Development"
 INSERT INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
-('Application Development', NOW(), NOW(), 14),
-('Business Intelligence', NOW(), NOW(), 14),
-('Cloud Computing', NOW(), NOW(), 14),
-('Data Analysis', NOW(), NOW(), 14),
-('Database Administration', NOW(), NOW(), 14),
-('ERP/CRM Software', NOW(), NOW(), 14),
-('Information Security', NOW(), NOW(), 14),
-('Mobile Development', NOW(), NOW(), 14),
-('Network Administration', NOW(), NOW(), 14),
-('Product Management', NOW(), NOW(), 14),
-('Quality Assurance', NOW(), NOW(), 14),
-('Software Development', NOW(), NOW(), 14),
-('Systems Integration', NOW(), NOW(), 14),
-('UI/UX Design', NOW(), NOW(), 14),
-('Web Development', NOW(), NOW(), 14);
+('Application Development', NOW(), NOW(), 1),
+('Business Intelligence', NOW(), NOW(), 1),
+('Cloud Computing', NOW(), NOW(), 1),
+('Data Analysis', NOW(), NOW(), 1),
+('Database Administration', NOW(), NOW(), 1),
+('ERP/CRM Software', NOW(), NOW(), 1),
+('Information Security', NOW(), NOW(), 1),
+('Mobile Development', NOW(), NOW(), 1),
+('Network Administration', NOW(), NOW(), 1),
+('Product Management', NOW(), NOW(), 1),
+('Quality Assurance', NOW(), NOW(), 1),
+('Software Development', NOW(), NOW(), 1),
+('Systems Integration', NOW(), NOW(), 1),
+('UI/UX Design', NOW(), NOW(), 1),
+('Web Development', NOW(), NOW(), 1);
 
 
 

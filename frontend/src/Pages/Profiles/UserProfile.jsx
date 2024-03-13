@@ -71,6 +71,8 @@ const UserProfile = () => {
               stackOverflow={userProfileData.stackOverflow}
               Experiences={userProfileData.Experiences}
               Education={userProfileData.Education}
+              Skills={userProfileData.Skills}
+              languages={userProfileData.languages}
             />
           </Container>
         </>

@@ -18,7 +18,6 @@ const Saved = () => {
   const [successResponse, setSuccessResponse] = useState(true);
 
   const mySavedJobs = useSelector((state) => state.savedJobs.jobData);
-  // console.log(mySavedJobs)
 
   return (
     <>
@@ -32,11 +31,12 @@ const Saved = () => {
                   return (
                     <JobItem
                       id={job.SavedJob.id}
+                      jobId={job.id}
                       key={job.SavedJob.id}
                       name={job.Company.name}
                       jobTitle={job.title}
                       req={job.requirements}
-                      logo={job.logo}
+                      logo={job.Company?.CompanyProfile?.logo}
                       type={job.type}
                       workplace={job.workplace}
                       time={job.SavedJob.createdAt}

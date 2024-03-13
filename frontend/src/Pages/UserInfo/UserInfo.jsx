@@ -10,6 +10,7 @@ import Links from "../../Components/EdietProfilesInfo/Links";
 import UserExperience from "../../Components/EdietProfilesInfo/UserExperience";
 import UserCareerInterests from "../../Components/EdietProfilesInfo/UserCareerInterests";
 import UserEducation from "../../Components/EdietProfilesInfo/UserEducation";
+import UserSkills from './../../Components/EdietProfilesInfo/UserSkills';
 
 const UserInfo = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
@@ -80,6 +81,13 @@ const UserInfo = () => {
             <Tab eventKey="education" title="Education">
               <UserEducation 
               educationLevel={userProfileData.educationLevel}
+              />
+            </Tab>
+            <Tab eventKey="skills" title="Skills">
+              {/* language with skills */}
+              <UserSkills
+                Skills={userProfileData.Skills}
+                languages={userProfileData.languages}
               />
             </Tab>
           </Tabs>

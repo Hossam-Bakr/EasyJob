@@ -11,7 +11,7 @@ import LoadingPlaceholders from "./LoadingPlaceholders";
 const HomeLatestJobs = () => {
   const { data, isFetching } = useQuery({
     queryKey: ["latestJobs"],
-    queryFn: () => getLatestJobs("4"),
+    queryFn: () => getLatestJobs("5"),
   });
 
   const navigate = useNavigate();
@@ -36,10 +36,10 @@ const HomeLatestJobs = () => {
                 <JobPost
                   key={job.id}
                   id={job.id}
-                  //   name={job.name}
+                    // name={job.Company.name}
                   jobTitle={job.title}
                   req={job.requirements}
-                  logo={job.logo}
+                  // logo={job.Company?.CompanyProfile?.logo}
                   country={job.country}
                   city={job.city}
                   time={job.createdAt}

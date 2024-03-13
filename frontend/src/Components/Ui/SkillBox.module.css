@@ -1,0 +1,26 @@
+.skill_box{
+    box-shadow: 0 0 3px rgba(47, 47, 47, 0.367);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    margin: 10px 0;
+}
+
+.red{
+    border: 1px solid red;
+}
+.yellow{
+    border: 1px solid orange;
+}
+.green{
+    border: 1px solid rgb(7, 176, 7);
+}
+
+.skill{
+    background-color: var(--vanilla);
+    padding: 0.3125rem 0.625rem;
+    border-radius: 0.3125rem;
+    min-width: 5rem;
+    text-align: center;
+    position: relative;
+}

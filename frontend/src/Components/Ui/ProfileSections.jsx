@@ -25,9 +25,10 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import WorkExperienceBox from "./WorkExperienceBox";
-import FloatingPopup from './FloatingPopup';
+import FloatingPopup from "./FloatingPopup";
 import EducationBox from "./EducationBox";
-
+import SkillBox from "./SkillBox";
+import LanguageBox from './LanguageBox';
 
 const ProfileSections = ({
   phone,
@@ -47,7 +48,9 @@ const ProfileSections = ({
   behance,
   github,
   Experiences,
-  Education
+  Education,
+  Skills,
+  languages
 }) => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -204,37 +207,63 @@ const ProfileSections = ({
 
       {/* education */}
       <section className={`${styles.main_style} ${styles.education_sec}`}>
-        <EdietPenIcon text="+Add" onClick={()=>navigateToEdiet("education")} />
+        <EdietPenIcon
+          text="+Add"
+          onClick={() => navigateToEdiet("education")}
+        />
         <h3 className={styles.sec_title}>Education</h3>
         <ul>
-        {Education.length !== 0 ? (
-          Education.map((item) => (
-            <EducationBox
-              key={item.id}
-              itemId={item.id}
-              grade={item.grade}
-              school={item.school}
-              degree={item.degree}
-              displayName={item.displayName}
-              fieldsOfStudy={item.fieldsOfStudy}
-              startDate={item.startDate}
-              endDate={item.endDate}
-              description={item.description}
-              setSecResponseMsg={setResponseMessage}
-              setSecSuccess={setSuccessResponse}
-              setSecShowResponse={setShowResponse}
+          {Education.length !== 0 ? (
+            Education.map((item) => (
+              <EducationBox
+                key={item.id}
+                itemId={item.id}
+                grade={item.grade}
+                school={item.school}
+                degree={item.degree}
+                displayName={item.displayName}
+                fieldsOfStudy={item.fieldsOfStudy}
+                startDate={item.startDate}
+                endDate={item.endDate}
+                description={item.description}
+                setSecResponseMsg={setResponseMessage}
+                setSecSuccess={setSuccessResponse}
+                setSecShowResponse={setShowResponse}
+              />
+            ))
+          ) : (
+            <NoDataBox
+              text="Start Adding Your Contact Links"
+              path="/user-info"
             />
-          ))
-        ) : (
-          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
-        )}
+          )}
         </ul>
       </section>
 
       {/* skills */}
       <section className={`${styles.main_style}`}>
-        <EdietPenIcon text="+Add" />
+        <EdietPenIcon text="+Add" onClick={() => navigateToEdiet("skills")} />
         <h3 className={styles.sec_title}>Skills</h3>
+
+        <Container className="my-4 ">
+          <Row className={`${styles.candidate_skills} gy-2 w-100`}>
+            {Skills.length !== 0 ? (
+              Skills.map((skill) => (
+                <SkillBox
+                  key={skill.id}
+                  id={skill.id}
+                  name={skill.name}
+                  proficiency={skill.proficiency}
+                  setShowResponse={setShowResponse}
+                  setResponseMessage={setResponseMessage}
+                  setSuccessResponse={setSuccessResponse}
+                />
+              ))
+            ) : (
+              <NoDataBox text="Start Adding Skills" path="/user-info" />
+            )}
+          </Row>
+        </Container>
         <div className={`${styles.skill_color} d-flex`}>
           <div className="d-flex justify-content-center align-items-center mx-2">
             <div className={styles.red_circle}></div>{" "}
@@ -249,38 +278,6 @@ const ProfileSections = ({
             <span className="mini_word">Expert</span>
           </div>
         </div>
-        <Container className="my-4 ">
-          <Row className={`${styles.candidate_skills} gy-2 w-100`}>
-            <Col sm={2} className={`${styles.skill} ${styles.expert} mx-2`}>
-              <span>HTML</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.expert} mx-2`}>
-              <span>CSS</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.medium} mx-2`}>
-              <span>JS</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.medium} mx-2`}>
-              <span>JQuery</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.medium} mx-2`}>
-              <span>React Js</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.expert} mx-2`}>
-              <span>TypeScript</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.low} mx-2`}>
-              <span>SQL</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.expert} mx-2`}>
-              <span>Office</span>
-            </Col>
-            <Col sm={2} className={`${styles.skill}  ${styles.low} mx-2`}>
-              <span>Java</span>
-            </Col>
-          </Row>
-        </Container>
-   
       </section>
 
       {/* Experiance */}
@@ -311,7 +308,7 @@ const ProfileSections = ({
           <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
         )}
       </section>
-      
+
       {/* contact */}
       <section className={`${styles.main_style}`}>
         <EdietPenIcon text="Ediet" onClick={() => navigateToEdiet("contact")} />
@@ -366,6 +363,31 @@ const ProfileSections = ({
               </Link>
             )}
           </div>
+        ) : (
+          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
+        )}
+      </section>
+
+      {/* Languages */}
+      <section className={styles.main_style}>
+        <EdietPenIcon
+          text="+Add"
+          onClick={() => navigateToEdiet("skills")}
+        />
+        <h3 className={styles.sec_title}>Languages</h3>
+        {/* languages.length !== 0 */}
+        {languages !== null ? (
+          languages.map((lang) => (
+            <LanguageBox
+              key={lang.id}
+              id={lang.id}
+              language={lang.language}
+              proficiency={lang.proficiency}
+              setSecResponseMsg={setResponseMessage}
+              setSecSuccess={setSuccessResponse}
+              setSecShowResponse={setShowResponse}
+            />
+          ))
         ) : (
           <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
         )}

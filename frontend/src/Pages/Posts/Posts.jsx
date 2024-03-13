@@ -274,6 +274,11 @@ const Posts = () => {
     }
     window.scrollTo(0, 0);
   }, [navigate, role, isLogin]);
+useEffect(()=>{
+  if(data){
+    console.log(data.data)
+  }
+},[data])
 
 
   return (
@@ -791,7 +796,7 @@ const Posts = () => {
                                   id={job.id}
                                   jobTitle={job.title}
                                   req={job.requirements}
-                                  // logo={job.Company?job.Company.CompanyProfile.logo:null}
+                                  logo={job.Company?.CompanyProfile?.logo}
                                   country={job.country}
                                   city={job.city}
                                   type={job.type}

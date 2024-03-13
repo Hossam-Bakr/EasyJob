@@ -16,9 +16,11 @@ import noLogo from "../../images/noLogo.jpg";
 import { formatedTimeHandler } from "../logic/Logic";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSavedJobHandler, getSavedJobsHandler } from "../../Store/savedJobs-actions";
+import { useNavigate } from "react-router-dom";
 
 const JobItem = ({
   id,
+  jobId,
   logo,
   name,
   jobTitle,
@@ -38,6 +40,7 @@ const JobItem = ({
   const [jobCompanyLogo, setJobCompanyLogo] = useState(null);
   const token=useSelector((state)=>state.userInfo.token);
   const dispatch=useDispatch();
+  const navigate=useNavigate();
 
   useEffect(() => {
     AOS.init();
@@ -79,6 +82,10 @@ const JobItem = ({
 
   }
 
+  const checkToNavigateJobDetails = () => {
+      navigate(`/job-details/${jobId}`)
+  };
+
   return (
     <>
     <Col xl={12} className={styles.job_container}>
@@ -98,6 +105,7 @@ const JobItem = ({
                   icon={faArrowRight}
                   title="preview"
                   className={`${styles.eye_icon} mx-2`}
+                  onClick={checkToNavigateJobDetails}
                 />
               </>
             ) : (
@@ -119,8 +127,8 @@ const JobItem = ({
           <div className={styles.header_container}>
             <div className={styles.logo_div}>
               <img
-                //jobCompanyLogo
-                src={noLogo}
+                
+                src={jobCompanyLogo?jobCompanyLogo:noLogo}
                 alt="company logo"
                 className={styles.company_logo}
               />

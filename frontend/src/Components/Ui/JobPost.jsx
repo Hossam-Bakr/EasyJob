@@ -162,15 +162,14 @@ const saveJobPost=async()=>{
             <div className={styles.header_container}>
               <div className={styles.logo_div}>
                 <img
-                   //jobCompanyLogo
-                  src={ noLogo}
+                  src={ jobCompanyLogo?jobCompanyLogo:noLogo}
                   alt="company logo"
                   className={styles.company_logo}
                 />
               </div>
 
               <div className="d-flex flex-column ms-3 mt-1">
-                <span className={styles.job_name}>{name?name:"Company Name"}</span>
+                <span className={styles.job_name}>{name?name:"Hidden Name"}</span>
                 <span className="mini_word">{formatedTime}</span>
               </div>
             </div>
