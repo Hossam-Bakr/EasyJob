@@ -451,26 +451,12 @@ VALUES (1, 'easyJob', 'bakr.hossam.255@gmail.com', '$2a$12$nQGTG7Dh3jeEDbLsUqvzm
 ON DUPLICATE KEY UPDATE
 name = VALUES(name), email = VALUES(email), password = VALUES(password), phone = VALUES(phone), role = VALUES(role), passwordResetCode = VALUES(passwordResetCode), passwordResetExpire = VALUES(passwordResetExpire), passwordResetVerified = VALUES(passwordResetVerified), createdAt = VALUES(createdAt), updatedAt = VALUES(updatedAt), deletedAt = VALUES(deletedAt), IndustryId = VALUES(IndustryId), PricingPlanId = VALUES(PricingPlanId);
 INSERT INTO Jobs 
-(logo, title, description, requirements, workplace, salaryRangeMin, salaryRangeMax, hideSalary, minExperience, careerLevel, type, country, city, openPositions, keywords, createdAt, updatedAt, CompanyId) 
+( title, description, requirements, workplace, salaryRangeMin, salaryRangeMax, hideSalary, minExperience, careerLevel, type, country, city, openPositions, keywords, createdAt, updatedAt, CompanyId) 
 VALUES 
-('logo_finadv.png', 'Financial Advisor', 'Provide financial advice and analysis.', 'Certified Financial Planner with strong communication skills.', 'remote', 50000, 70000, 0, 3, 'experienced/senior', 'full-time', 'USA', 'New York', 2, 'Finance, Advisor, Planning', NOW(), NOW(), 1);
-
--- INSERT INTO Jobs 
--- (logo, title, description, requirements, workplace, salaryRangeMin, salaryRangeMax, hideSalary, minExperience, careerLevel, type, country, city, openPositions, keywords, createdAt, updatedAt, CompanyId) 
--- VALUES 
--- ('logo_custsupp.png', 'Customer Support Specialist', 'Provide customer support and resolve issues.', 'Experience in customer service and problem solving.', 'remote', 40000, 60000, 1, 1, 'entry level', 'full-time', 'Canada', 'Toronto', 3, 'Customer Service, Communication, Support', NOW(), NOW(), 2);
-
-
+('Financial Advisor', 'Provide financial advice and analysis.', 'Certified Financial Planner with strong communication skills.', 'remote', 50000, 70000, 0, 3, 'experienced/senior', 'full-time', 'USA', 'New York', 2, 'Finance, Advisor, Planning', NOW(), NOW(), 1);
 
 
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:15:17', '2024-02-29 14:15:17', 1, 285);
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:15:18', '2024-02-29 14:15:18', 1, 79);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:15:19', '2024-02-29 14:15:19', 3, 15);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:21:46', '2024-02-29 14:21:45', 4, 15);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:16:03', '2024-02-29 14:16:05', 5, 37);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:16:44', '2024-02-29 14:16:46', 6, 177);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:17:08', '2024-02-29 14:17:10', 7, 215);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:00', '2024-02-29 14:17:58', 8, 121);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:19', '2024-02-29 14:18:16', 9, 35);
-INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES ('2024-02-29 14:18:55', '2024-02-29 14:18:53', 10, 49);
+
 
