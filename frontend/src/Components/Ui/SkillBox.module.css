@@ -1,26 +1,32 @@
 .skill_box{
-    box-shadow: 0 0 3px rgba(47, 47, 47, 0.367);
-    padding: 20px;
-    border-radius: 10px;
+    box-shadow: 0 0 0.1875rem rgba(47, 47, 47, 0.367);
+    padding: 1.25rem;
+    border-radius: 0.625rem;
     position: relative;
-    margin: 10px 0;
+    margin: 0.625rem 0;
 }
-
-.red{
-    border: 1px solid red;
+.skill_box span{
+    font-size: 1.25rem;
 }
-.yellow{
-    border: 1px solid orange;
-}
-.green{
-    border: 1px solid rgb(7, 176, 7);
-}
-
 .skill{
     background-color: var(--vanilla);
-    padding: 0.3125rem 0.625rem;
-    border-radius: 0.3125rem;
-    min-width: 5rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    min-width: 80px;
     text-align: center;
     position: relative;
 }
+.red{
+    border: 0.0625rem solid red;
+}
+.yellow{
+    border: 0.0625rem solid orange;
+}
+.green{
+    border: 0.0625rem solid rgb(7, 176, 7);
+}
+.star{
+    color: gold;
+    margin-inline: 5px;
+}
+

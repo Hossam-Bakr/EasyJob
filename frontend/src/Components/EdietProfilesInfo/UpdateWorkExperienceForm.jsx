@@ -6,7 +6,6 @@ import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
-import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import { ErrorMessage, Form, Formik, Field } from "formik";
@@ -26,14 +25,8 @@ const UpdateWorkExperienceForm = ({
   setSecSuccess,
   setSecShowResponse,
 }) => {
-  const [showResponse, setShowResponse] = useState(false);
-  const [responseMessage, setResponseMessage] = useState({
-    title: "",
-    content: "",
-  });
-  const [myCategories,setMyCategories]=useState([])
 
-  const [successResponse, setSuccessResponse] = useState(true);
+  const [myCategories,setMyCategories]=useState([])
   const [currentType, setCurrentType] = useState("");
   const [currentTitle, setCurrentTitle] = useState("");
   const [currentCategory, setCurrentCategory] = useState("");
@@ -74,7 +67,6 @@ const UpdateWorkExperienceForm = ({
         label: cat.name
       }));
       setMyCategories(categoryOptions);
-      console.log(categoryOptions)
     }
   }, [currentCategories]);
 
@@ -86,29 +78,32 @@ const UpdateWorkExperienceForm = ({
         if (role && token) {
           dispatch(fetchProfileData(token, role));
         }
-        setResponseMessage({
+        setSecResponseMsg({
           title: "Saved Successfully",
           content: "Your Work Experience Updated successfully",
         });
-        setSuccessResponse(true);
-        setShowResponse(true);
+        setSecSuccess(true);
+        setSecShowResponse(true);
+        onHide()
       } else {
-        setResponseMessage({
+        setSecResponseMsg({
           title: "Request Faild",
           content: "Your Work Experiences faild to be Updated please try again",
         });
-        setSuccessResponse(false);
-        setShowResponse(true);
+        setSecSuccess(false);
+        setSecShowResponse(true);
+        onHide()
       }
     },
     onError: (error) => {
       console.log(error);
-      setResponseMessage({
+      setSecResponseMsg({
         title: "Request Faild",
         content: "Your Work Experiences faild to be Updated please try again",
       });
-      setSuccessResponse(false);
-      setShowResponse(true);
+      setSecSuccess(false);
+      setSecShowResponse(true);
+      onHide()
     },
   });
 
@@ -171,7 +166,7 @@ const UpdateWorkExperienceForm = ({
       role: "users",
       method: "delete",
     });
-    if (res.status === 204) {
+    if (res.status === 204||res.data.status === "success") {
       setSecResponseMsg({
         title: "Deleted Successfully",
         content: "Your Work Experience Deleted successfully",
@@ -188,8 +183,6 @@ const UpdateWorkExperienceForm = ({
     }
     if (role && token) {
       dispatch(fetchProfileData(token, role));
-      console.log("role",role)
-      console.log("token",token)
     }
     onHide();
   };
@@ -202,6 +195,7 @@ const UpdateWorkExperienceForm = ({
     { value: "volunteering", label: "volunteering" },
     { value: "student-activity", label: "student-activity" },
   ];
+  
   return (
     <>
       <Formik
@@ -290,12 +284,6 @@ const UpdateWorkExperienceForm = ({
           </div>
         </Form>
       </Formik>
-      <FloatingPopup
-        showResponse={showResponse}
-        setShowResponse={setShowResponse}
-        message={responseMessage}
-        success={successResponse}
-      />
     </>
   );
 };

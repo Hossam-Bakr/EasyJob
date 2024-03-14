@@ -13,6 +13,19 @@
     cursor: pointer;
     transition: all .8s;
 }
+.penColorGray{
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2.5rem;
+    background-color:var(--darker_main_color);
+}
+
+.penColorGray svg{
+    color: white;
+}
+.penColorGray span{
+    color: white;
+}
 .ediet_pen_icon{
     color: var(--main_color);
     font-size: 0.8125rem;
@@ -20,7 +33,7 @@
 }
 
 .ediet_span{
-    font-size: 0.8125rem ;
+    font-size: 0.8125rem !important;
     color: var(--main_color);
     font-weight: 700;
     text-align: center;
@@ -40,20 +53,12 @@
     width: 5rem;
 }
 
-.penColorGray{
-    background-color:var(--darker_main_color);
-}
-.penColorGray svg{
-    color: white;
-}
-.penColorGray span{
-    color: white;
-}
 
 @media screen and (max-width:360px) {
-    .ediet_div{
+    .ediet_div,.penColorGray{
         top:6%;
         right: 3%;
+        transform: translateY(0);
     }
 }
 @media screen and (max-width:260px){

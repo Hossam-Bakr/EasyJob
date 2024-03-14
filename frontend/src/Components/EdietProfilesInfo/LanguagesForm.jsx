@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./EdietInfoForm.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Form, Formik, Field } from "formik";
@@ -9,12 +9,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
+import FloatingPopup from "../Ui/FloatingPopup";
+import MultiSelect from "../logic/SelectField";
+import { languageLevel } from "../logic/Logic";
 
-const LanguagesForm = ({
-  setShowResponse,
-  setResponseMessage,
-  setSuccessResponse,
-}) => {
+const LanguagesForm = () => {
+
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
+
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.userInfo.token);
@@ -92,12 +99,12 @@ const LanguagesForm = ({
             <ErrorMessage name="language" component={InputErrorMessage} />
           </div>
           <div className={styles.field}>
-            <h4 className="my-4">Choose language Level</h4>
             <Field
               type="text"
               id="proficiency"
               name="proficiency"
-              placeholder="ex: beginner"
+              component={MultiSelect}
+              options={languageLevel}
             />
             <ErrorMessage name="proficiency" component={InputErrorMessage} />
           </div>
@@ -115,6 +122,12 @@ const LanguagesForm = ({
           </div>
         </Form>
       </Formik>
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };

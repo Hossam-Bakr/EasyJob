@@ -11,6 +11,7 @@ import UserExperience from "../../Components/EdietProfilesInfo/UserExperience";
 import UserCareerInterests from "../../Components/EdietProfilesInfo/UserCareerInterests";
 import UserEducation from "../../Components/EdietProfilesInfo/UserEducation";
 import UserSkills from './../../Components/EdietProfilesInfo/UserSkills';
+import UserCertifications from "../../Components/EdietProfilesInfo/UserCertifications";
 
 const UserInfo = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
@@ -88,6 +89,11 @@ const UserInfo = () => {
               <UserSkills
                 Skills={userProfileData.Skills}
                 languages={userProfileData.languages}
+              />
+            </Tab>
+            <Tab eventKey="certifications" title="Certifications">
+              <UserCertifications
+                certifications={userProfileData.certifications}
               />
             </Tab>
           </Tabs>

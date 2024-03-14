@@ -73,6 +73,7 @@ const UserProfile = () => {
               Education={userProfileData.Education}
               Skills={userProfileData.Skills}
               languages={userProfileData.languages}
+              certifications={userProfileData.Certifications}
             />
           </Container>
         </>

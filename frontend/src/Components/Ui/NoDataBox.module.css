@@ -5,6 +5,16 @@
     width: 350px;
     margin: auto;
 }
-.no_data img{
-    width: 100%;
+.no_data_small{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.no_data img,.no_data_small img{
+    width: 100% ;
 }

@@ -1762,6 +1762,14 @@ export const fieldsOfStudy = [
   { value: "wildlife management", label: "Wildlife Management" },
 ];
 
+export const languageLevel=[
+  { value: "beginner", label: "beginner" },
+  { value: "intermediate", label: "intermediate" },
+  { value: "fluent", label: "fluent" },
+  { value: "native", label: "native" },
+]
+
+
 //company
 export const sizeOptions = [
   { value: "1-10", label: "1-10" },

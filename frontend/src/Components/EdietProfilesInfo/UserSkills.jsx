@@ -21,7 +21,6 @@ const UserSkills = ({ Skills,languages }) => {
   const [modalShow, setModalShow] = useState(false);
   const [modalType, setModalType] = useState("add");
 
-
   const fireModal=(type)=>{
     setModalType(type)
     setModalShow(true)
@@ -42,9 +41,10 @@ const UserSkills = ({ Skills,languages }) => {
                   <>
                     {Skills.map((skill) => (
                       <SkillBox 
-                        key={skill.id}  
+                        key={skill.UserSkill.id}  
+                        id={skill.UserSkill.id}
                         name={skill.name}
-                        proficiency={skill.proficiency}
+                        proficiency={skill.UserSkill.proficiency}
                         setShowResponse={setShowResponse}
                         setResponseMessage={setResponseMessage}
                         setSuccessResponse={setSuccessResponse}
@@ -68,12 +68,13 @@ const UserSkills = ({ Skills,languages }) => {
                 <h4 className={styles.sep_title}> 
                  What languages do you know?
                 </h4>
-                {/* languages.length !== 0 ? */}
-                {languages !== null ? (
+                
+                {languages.length !== 0 ? (
                   <>
                     {languages.map((lang) => (
                       <LanguageBox  
-                        key={lang.id}  
+                        key={lang.id} 
+                        id={lang.id} 
                         language={lang.language}
                         proficiency={lang.proficiency}
                         setShowResponse={setShowResponse}

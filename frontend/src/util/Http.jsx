@@ -237,17 +237,20 @@ export const getCountUpNumbers = async () => {
 };
 
 export const getUserSkills = async ({ formData, method, id, token }) => {
-  console.log(formData)
   try {
     let response = null;
     if (method === "post") {
+      console.log(formData)
       response = await axios.post(`${baseServerUrl}users/addUserSkill`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
     } else if (method === "put") {
-      response = await axios.put(`${baseServerUrl}users/skills/${id}`, {
+      console.log(`${baseServerUrl}users/skills/${id}`)
+      console.log("formData",formData)
+      console.log("id",id)
+      response = await axios.put(`${baseServerUrl}users/skills/${id}`,formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -265,9 +268,10 @@ export const getUserSkills = async ({ formData, method, id, token }) => {
         },
       });
     }
-    return response.data;
+    // console.log(response.data)
+    return response;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -276,19 +280,19 @@ export const languageHandler = async ({ formData, method, id, token }) => {
   try {
     let response = null;
     if (method === "post") {
-      response = await axios.post(`${baseServerUrl}profile/language`, formData, {
+      response = await axios.post(`${baseServerUrl}users/profile/language`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
     } else if (method === "patch") {
-      response = await axios.patch(`${baseServerUrl}profile/language/${id}`, {
+      response = await axios.patch(`${baseServerUrl}users/profile/language/${id}`,formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
     } else if (method === "delete") {
-      response = await axios.delete(`${baseServerUrl}profile/language/${id}`, {
+      response = await axios.delete(`${baseServerUrl}users/profile/language/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -300,7 +304,7 @@ export const languageHandler = async ({ formData, method, id, token }) => {
         },
       });
     }
-    return response.data;
+    return response;
   } catch (error) {
     console.error(error);
   }

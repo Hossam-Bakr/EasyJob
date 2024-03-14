@@ -42,7 +42,7 @@ const JobDetails = () => {
   const textRef = useRef(null);
 
   const { data } = useQuery({
-    queryKey: ["latestJobs"],
+    queryKey: ["jobDetails"],
     queryFn: () => getJobsDetails(params.jobId),
   });
   console.log(data);

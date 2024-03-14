@@ -6,7 +6,6 @@ import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
 import { updateFormHandler } from "../../util/Http";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
-import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import { ErrorMessage, Form, Formik, Field } from "formik";
@@ -29,16 +28,11 @@ const UpdateEducationForm = ({
   fieldsOfStudy,
   description,
   displayName,
+  onHide,
   setSecResponseMsg,
   setSecSuccess,
   setSecShowResponse,
 }) => {
-  const [showResponse, setShowResponse] = useState(false);
-  const [responseMessage, setResponseMessage] = useState({
-    title: "",
-    content: "",
-  });
-  const [successResponse, setSuccessResponse] = useState(true);
 
   const [currentSchool, setCurrentSchool] = useState("");
   const [currentDegree, setCurrentDegree] = useState("");
@@ -74,29 +68,32 @@ const UpdateEducationForm = ({
         if (role && token) {
           dispatch(fetchProfileData(token, role));
         }
-        setResponseMessage({
+        setSecResponseMsg({
           title: "Saved Successfully",
           content: "Your Education Saved successfully",
         });
-        setSuccessResponse(true);
-        setShowResponse(true);
+        setSecSuccess(true);
+        setSecShowResponse(true);
+        onHide();
       } else {
-        setResponseMessage({
+        setSecResponseMsg({
           title: "Request Faild",
           content: "Your Education faild to be uploaded please try again",
         });
-        setSuccessResponse(false);
-        setShowResponse(true);
+        setSecSuccess(false);
+        setSecShowResponse(true);
+        onHide();
       }
     },
     onError: (error) => {
       console.log(error);
-      setResponseMessage({
+      setSecResponseMsg({
         title: "Request Faild",
         content: "Your Education faild to be uploaded please try again",
       });
-      setSuccessResponse(false);
-      setShowResponse(true);
+      setSecSuccess(false);
+      setSecShowResponse(true);
+      onHide();
     },
   });
 
@@ -155,6 +152,37 @@ const UpdateEducationForm = ({
       .required("end date is required"),
     description: string(),
   });
+
+  const handleDeleteFormData = async() => {
+    const res = await updateFormHandler({
+      type: `education/${itemId}`,
+      token: token,
+      role: "users",
+      method: "delete",
+    });
+    if (res.status === 204||res.data.status === "success") {
+      setSecResponseMsg({
+        title: "Deleted Successfully",
+        content: "Your Education Deleted successfully",
+      });
+      setSecSuccess(true);
+      setSecShowResponse(true);
+    } else {
+      setSecResponseMsg({
+        title: "Request Faild",
+        content: "Your Education faild to be Deleted please try again",
+      });
+      setSecSuccess(false);
+      setSecShowResponse(true);
+    }
+    if (role && token) {
+      dispatch(fetchProfileData(token, role));
+      console.log("role",role)
+      console.log("token",token)
+    }
+    onHide();
+  };
+
 
   return (
     <>
@@ -252,7 +280,14 @@ const UpdateEducationForm = ({
             <ErrorMessage name="description" component={InputErrorMessage} />
           </div>
 
-          <div className="d-flex justify-content-end align-items-center mt-3 px-2">
+          <div className="d-flex justify-content-between align-items-center mt-3 px-2">
+          <button
+              type="button"
+              className={styles.delete_btn}
+              onClick={handleDeleteFormData}
+            >
+              Delete
+            </button>
             {isPending ? (
               <button type="submit" className={styles.save_btn}>
                 <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
@@ -265,12 +300,6 @@ const UpdateEducationForm = ({
           </div>
         </Form>
       </Formik>
-      <FloatingPopup
-        showResponse={showResponse}
-        setShowResponse={setShowResponse}
-        message={responseMessage}
-        success={successResponse}
-      />
     </>
   );
 };

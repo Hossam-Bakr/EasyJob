@@ -110,7 +110,7 @@ const EducationBox = ({
       <li className={styles.edu_item}>
         <EdietPenIcon onClick={() => setModalShow(true)} color="blue" />
         <div className={styles.education_logo}>
-          <img src={universityLogo} alt="university logo" className="w-100" />
+          <img src={universityLogo} alt="school logo" className="w-100" />
         </div>
         <div className={styles.education_caption}>
           <h3>{formatedSchoolName}</h3>

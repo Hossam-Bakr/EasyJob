@@ -44,14 +44,14 @@ const SkillBox = ({
     <>
       {shape === "profile" ? (
         <Col sm={2} className={`${styles.skill} ${levelClass} mx-2`}>
-          <span>HTML</span>
+          <span>{name}</span>
         </Col>
       ) : (
         <div className={`${styles.skill_box} ${levelClass}`}>
           <EdietPenIcon color="blue" onClick={() => setModalShow(true)} />
-          <h3>
+          <span>
             {name} <span className="mini_word">({formatedProf})</span>
-          </h3>
+          </span>
         </div>
       )}
 

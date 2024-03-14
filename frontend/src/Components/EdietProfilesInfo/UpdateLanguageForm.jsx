@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
+import MultiSelect from "../logic/SelectField";
+import { languageLevel } from "../logic/Logic";
 
 const UpdateLanguageForm = ({
   id,
@@ -57,6 +59,8 @@ const UpdateLanguageForm = ({
           });
           setSuccessResponse(false);
           setShowResponse(true);
+          onHide();
+
         }
       },
       onError: (error) => {
@@ -67,6 +71,8 @@ const UpdateLanguageForm = ({
         });
         setSuccessResponse(false);
         setShowResponse(true);
+        onHide();
+
       },
     });
   
@@ -77,8 +83,8 @@ const UpdateLanguageForm = ({
   
     const onSubmit = (values) => {
       const updatedValues = {
-        newName: values.newName !== "" ? values.newName : currentLanguage,
-        newProficiency:values.proficiency !== "" ? values.proficiency : currentlangProf,
+        language: values.language !== "" ? values.language : currentLanguage,
+        proficiency:values.proficiency !== "" ? values.proficiency : currentlangProf,
       };
       mutate({
         formData: updatedValues,
@@ -87,11 +93,42 @@ const UpdateLanguageForm = ({
         id:id
       });
     };
-  
     const validationSchema = object({
       language: string().required("language Name is required"),
       proficiency: string().required("proficiency is required"),
     });
+
+
+    const handleDeleteFormData = async() => {
+      const res = await languageHandler({
+        token: token,
+        id:id,
+        method: "delete",
+      });
+  
+      if (res.status === 204||res.data.status === "success") {
+        console.log(res)
+        setResponseMessage({
+          title: "Deleted Successfully",
+          content: "your language Deleted successfully",
+        });
+        setSuccessResponse(true);
+        setShowResponse(true);
+        
+      } else {
+        console.log(res)
+        setResponseMessage({
+          title: "Request Faild",
+          content: "your language faild to be Deleted please try again",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
+      }
+      if (role && token) {
+        dispatch(fetchProfileData(token, role));
+      }
+      onHide();
+    };
 
   return (
     <>
@@ -113,17 +150,24 @@ const UpdateLanguageForm = ({
             <ErrorMessage name="language" component={InputErrorMessage} />
           </div>
           <div className={styles.field}>
-            <h4 className="my-4">Choose language Level</h4>
             <Field
               type="text"
               id="proficiency"
               name="proficiency"
-              placeholder="ex: beginner"
+              component={MultiSelect}
+              options={languageLevel}
             />
             <ErrorMessage name="proficiency" component={InputErrorMessage} />
           </div>
 
-          <div className="d-flex justify-content-end align-items-center mt-3 px-2">
+          <div className="d-flex justify-content-between align-items-center mt-3 px-2">
+          <button
+              type="button"
+              className={styles.delete_btn}
+              onClick={handleDeleteFormData}
+            >
+              Delete
+            </button>
             {isPending ? (
               <button type="submit" className={styles.save_btn}>
                 <FontAwesomeIcon className="fa-spin" icon={faYinYang} />

@@ -28,7 +28,8 @@ import WorkExperienceBox from "./WorkExperienceBox";
 import FloatingPopup from "./FloatingPopup";
 import EducationBox from "./EducationBox";
 import SkillBox from "./SkillBox";
-import LanguageBox from './LanguageBox';
+import LanguageBox from "./LanguageBox";
+import CertificateBox from "./CertificateBox";
 
 const ProfileSections = ({
   phone,
@@ -50,7 +51,8 @@ const ProfileSections = ({
   Experiences,
   Education,
   Skills,
-  languages
+  languages,
+  certifications,
 }) => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -73,7 +75,7 @@ const ProfileSections = ({
 
   return (
     <>
-      {/* contacts */}
+      {/* general info */}
       {!phone && !birthDate && !nationality && !gender ? (
         <section className={`${styles.main_style}`}>
           <EdietPenIcon onClick={() => navigateToEdiet("info")} />
@@ -81,6 +83,8 @@ const ProfileSections = ({
           <div className={styles.contact_info_body}>
             <div className={styles.noData_container}>
               <NoDataBox
+                imgSize="small"
+                type="contact"
                 text="Complete your Profile Information"
                 path="/user-info"
               />
@@ -199,6 +203,8 @@ const ProfileSections = ({
           <p className={styles.about_p}>{about}</p>
         ) : (
           <NoDataBox
+            type="about"
+            imgSize="small"
             text="Introduce Yourself to get Jobs faster"
             path="/user-info"
           />
@@ -233,6 +239,8 @@ const ProfileSections = ({
             ))
           ) : (
             <NoDataBox
+              imgSize="small"
+              type="education"
               text="Start Adding Your Contact Links"
               path="/user-info"
             />
@@ -250,17 +258,23 @@ const ProfileSections = ({
             {Skills.length !== 0 ? (
               Skills.map((skill) => (
                 <SkillBox
-                  key={skill.id}
-                  id={skill.id}
+                  key={skill.UserSkill.id}
+                  id={skill.UserSkill.id}
                   name={skill.name}
-                  proficiency={skill.proficiency}
+                  proficiency={skill.UserSkill.proficiency}
                   setShowResponse={setShowResponse}
                   setResponseMessage={setResponseMessage}
                   setSuccessResponse={setSuccessResponse}
+                  shape="profile"
                 />
               ))
             ) : (
-              <NoDataBox text="Start Adding Skills" path="/user-info" />
+              <NoDataBox
+                type="skills"
+                imgSize="small"
+                text="Start Adding Skills"
+                path="/user-info"
+              />
             )}
           </Row>
         </Container>
@@ -305,7 +319,73 @@ const ProfileSections = ({
             />
           ))
         ) : (
-          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
+          <NoDataBox
+            imgSize="small"
+            type="workex"
+            text="Start Adding Your Contact Links"
+            path="/user-info"
+          />
+        )}
+      </section>
+
+      {/* Languages */}
+      <section className={styles.main_style}>
+        <EdietPenIcon text="+Add" onClick={() => navigateToEdiet("skills")} />
+        <h3 className={styles.sec_title}>Languages</h3>
+
+        {languages.length !== 0 ? (
+          languages.map((lang) => (
+            <LanguageBox
+              key={lang.id}
+              id={lang.id}
+              language={lang.language}
+              proficiency={lang.proficiency}
+              setSecResponseMsg={setResponseMessage}
+              setSecSuccess={setSuccessResponse}
+              setSecShowResponse={setShowResponse}
+            />
+          ))
+        ) : (
+          <NoDataBox
+            imgSize="small"
+            type="language"
+            text="Start Adding Your Contact Links"
+            path="/user-info"
+          />
+        )}
+      </section>
+
+      {/* certificates */}
+      <section className={styles.main_style}>
+        <EdietPenIcon
+          text="+Add"
+          onClick={() => navigateToEdiet("certifications")}
+        />
+        <h3 className={styles.sec_title}>Certifications</h3>
+
+        {certifications.length !== 0 ? (
+          certifications.map((certificate) => (
+            <CertificateBox
+              key={certificate.id}
+              id={certificate.id}
+              title={certificate.title}
+              organization={certificate.organization}
+              description={certificate.description}
+              issueDate={certificate.issueDate}
+              credentialID={certificate.credentialID}
+              credentialURL={certificate.credentialURL}
+              setSecResponseMsg={setResponseMessage}
+              setSecSuccess={setSuccessResponse}
+              setSecShowResponse={setShowResponse}
+            />
+          ))
+        ) : (
+          <NoDataBox
+            imgSize="small"
+            type="certificate"
+            text="Start Adding Your Certifications"
+            path="/user-info"
+          />
         )}
       </section>
 
@@ -364,32 +444,12 @@ const ProfileSections = ({
             )}
           </div>
         ) : (
-          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
-        )}
-      </section>
-
-      {/* Languages */}
-      <section className={styles.main_style}>
-        <EdietPenIcon
-          text="+Add"
-          onClick={() => navigateToEdiet("skills")}
-        />
-        <h3 className={styles.sec_title}>Languages</h3>
-        {/* languages.length !== 0 */}
-        {languages !== null ? (
-          languages.map((lang) => (
-            <LanguageBox
-              key={lang.id}
-              id={lang.id}
-              language={lang.language}
-              proficiency={lang.proficiency}
-              setSecResponseMsg={setResponseMessage}
-              setSecSuccess={setSuccessResponse}
-              setSecShowResponse={setShowResponse}
-            />
-          ))
-        ) : (
-          <NoDataBox text="Start Adding Your Contact Links" path="/user-info" />
+          <NoDataBox
+            imgSize="small"
+            type="contact"
+            text="Start Adding Your Contact Links"
+            path="/user-info"
+          />
         )}
       </section>
 

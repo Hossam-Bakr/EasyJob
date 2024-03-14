@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./EdietInfoForm.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Form, Formik, Field } from "formik";
@@ -10,12 +10,17 @@ import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import { Col, Row } from "react-bootstrap";
+import FloatingPopup from "../Ui/FloatingPopup";
 
-const UserSkillsForm = ({
-    setShowResponse,
-    setResponseMessage,
-    setSuccessResponse,
-}) => {
+const UserSkillsForm = () => {
+
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
+
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.userInfo.token);
@@ -44,8 +49,16 @@ const UserSkillsForm = ({
         setShowResponse(true);
       }
     },
-    onError: (error) => {
-      console.log(error);
+    onError: (data) => {
+      // console.log(data)
+      // if(e.data.message==="Validation error"){
+      //   setResponseMessage({
+      //     title: "Request Faild",
+      //     content: "Your Skill Already exist !",
+      //   });
+      //   setSuccessResponse(false);
+      //   setShowResponse(true);
+      // }
       setResponseMessage({
         title: "Request Faild",
         content: "Your Skill faild to be uploaded please try again",
@@ -56,13 +69,13 @@ const UserSkillsForm = ({
   });
 
   const initialValues = {
-    name: "",
+    skillName: "",
     proficiency: 1,
   };
 
   const onSubmit = (values) => {
     const updatedValues={
-      name:values.name,
+      skillName:values.skillName,
       proficiency:Number(values.proficiency),
     }
     console.log(updatedValues);
@@ -74,7 +87,7 @@ const UserSkillsForm = ({
   };
 
   const validationSchema = object({
-    name: string().required("Skill Name is required"),
+    skillName: string().required("Skill Name is required"),
     proficiency:number()
   });
 
@@ -91,10 +104,10 @@ const UserSkillsForm = ({
             <Field
               type="text"
               id="skillName"
-              name="name"
+              name="skillName"
               placeholder="ex: Digital Marketing"
             />
-            <ErrorMessage name="name" component={InputErrorMessage} />
+            <ErrorMessage name="skillName" component={InputErrorMessage} />
           </div>
           <div className={`${styles.field} ${styles.checks_group}`}>
             <h4 className="my-4">Choose Skill Level</h4>
@@ -175,6 +188,13 @@ const UserSkillsForm = ({
           </div>
         </Form>
       </Formik>
+
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };

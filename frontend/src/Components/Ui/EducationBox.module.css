@@ -7,9 +7,10 @@
     position: relative;
 }
 .education_logo{
-    width: 4.375rem;
+    width: 70px;
     margin-right: 0.625rem;
 }
+
 .education_caption h3{
     font-size: 1.25rem;
     font-weight: 700;
@@ -21,4 +22,19 @@
 .education_grade{
     font-weight: 700;
     font-size: 0.9375rem;
+}
+
+@media screen and (max-width:800px) {
+    .education_caption{
+        padding-right: 3.125rem;
+    }
+}
+@media screen and (max-width:360px) {
+    .edu_item{
+        flex-direction: column;
+        align-items:  center;
+    }
+    .education_caption{
+        text-align: center;
+    }
 }

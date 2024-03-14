@@ -54,6 +54,7 @@ const UpdateWorkExperienceModal = ({
             startDate={startDate}
             endDate={endDate}
             description={description}
+            onHide={onHide}
             setSecResponseMsg={setSecResponseMsg}
             setSecSuccess={setSecSuccess}
             setSecShowResponse={setSecShowResponse}

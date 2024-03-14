@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import Pagination from "../../Components/Ui/Pagination";
 import { useQuery } from "@tanstack/react-query";
 import { getJobs } from "../../util/Http";
-import PlacholderComponent from "../../Components/Ui/PlacholderComponent";
 import MainError from "./../Error/MainError";
 import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
 import NoDataBox from "./../../Components/Ui/NoDataBox";
