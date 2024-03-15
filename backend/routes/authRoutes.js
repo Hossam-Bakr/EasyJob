@@ -27,12 +27,7 @@ router.post("/forgotPassword", authController.forgotPassword);
 router.post("/verifyPassResetCode", authController.verifyPassResetCode);
 router.put("/resetPassword", ResetPassValidator, authController.resetPassword);
 
-
-
 //--------------------google auth routes ------------------------
-router.get("/login/success", authController.loginSuccessWithGoogle);
-
-router.get("/login/failed", authController.loginFailedWithGoogle);
 
 router.get(
   "/google",
@@ -43,11 +38,17 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login/failed" }),
   (req, res) => {
-    // if successful authentication redirect to /login/success
-    res.redirect(process.env.CLIENT_URL);
+    if (req.user) {
+      res.redirect(process.env.CLIENT_URL);
+    } else {
+      return next(new ApiError("Not Authorized", 403));
+    }
   }
 );
-router.get('/logout', authController.logout);
+router.get("/login/success", authController.loginSuccessWithGoogle);
 
+router.get("/login/failed", authController.loginFailedWithGoogle);
+
+router.get("/logout", authController.logout);
 
 module.exports = router;
