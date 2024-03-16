@@ -264,7 +264,6 @@ const UserCareerInterestsForm = ({
                   isMulti={true}
                   component={MultiSelect}
                   options={experianceOptions}
-                  // defaultValue={currentJobTypes.map((title) => ({ value: title, label: title }))}
                 />
               </div>
 
@@ -282,7 +281,6 @@ const UserCareerInterestsForm = ({
                   isMulti={true}
                   component={MultiSelect}
                   options={titleOptions}
-                  // defaultValue={currentJobTitles.map((title) => ({ value: title, label: title }))}
                 />
               </div>
 

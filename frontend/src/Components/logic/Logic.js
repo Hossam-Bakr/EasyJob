@@ -1769,7 +1769,6 @@ export const languageLevel=[
   { value: "native", label: "native" },
 ]
 
-
 //company
 export const sizeOptions = [
   { value: "1-10", label: "1-10" },
@@ -1788,6 +1787,7 @@ export const convertCategoriesIntoList = (currentCategories, setState) => {
     setState(categoryOptions);
   }
 };
+
 
 //functions
 export const formatedTimeHandler = (time, setState) => {

@@ -197,7 +197,7 @@ const UserGeneralInfoForm = ({ data }) => {
       })
       .required("Birthdate is required"),
     about: string()
-      .min(45, "At least 45 characters")
+      .min(46, "At least 45 characters")
       .max(400, "About must be less than 400 characters")
       .required("About is required"),
   });

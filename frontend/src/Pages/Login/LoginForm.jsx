@@ -158,7 +158,7 @@ const LoginForm = () => {
 
           <div className={styles.form_options}>
             <span>
-              <Link>Forgot Password?</Link>
+              <Link to={"/forget-password"}>Forgot Password?</Link>
             </span>
             <span>
               create account? <Link to={"/user-register"}>signup</Link>
@@ -180,7 +180,7 @@ const LoginForm = () => {
               <a
                 href="http://localhost:3000/api/v1/auth/google"
                 rel="noreferrer"
-                target="_blank"
+                // target="_blank"
               >
                 <SignWithGoogle text="Sign in with google" />
               </a>

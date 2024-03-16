@@ -21,9 +21,9 @@ const Home = () => {
   useEffect(()=>{
     const checkGoogleLogin=async()=>{
       try {
-        const res=await axios(`http://127.0.0.1:3000/api/v1/auth/login/success`)
-        console.log(res)
+        const res=await axios.get(`http://localhost:3000/api/v1/auth/login/success`)
         if(res.data.status==="success"){
+           console.log(res)
             dispatch(userActions.setUserInfo(res.data.data));
             dispatch(userActions.setIsLogin(true))
             dispatch(userActions.setRole("user"))

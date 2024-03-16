@@ -1,11 +1,18 @@
 import axios from "axios";
 const baseServerUrl = "http://127.0.0.1:3000/api/v1/";
 
-const signFormsHandler = async ({ type, formData }) => {
+const signFormsHandler = async ({ type, formData, method }) => {
   try {
-    const response = await axios.post(`${baseServerUrl}auth/${type}`, formData);
+    let response = null;
+    if (method === "put") {
+      console.log("hi")
+      response = await axios.put(`${baseServerUrl}auth/resetPassword`, formData);
+    } else {
+      response = await axios.post(`${baseServerUrl}auth/${type}`, formData);
+    }
     return response;
   } catch (error) {
+    console.log(error);
     if (error.response) {
       throw error.response;
     } else if (error.request) {
@@ -240,21 +247,29 @@ export const getUserSkills = async ({ formData, method, id, token }) => {
   try {
     let response = null;
     if (method === "post") {
-      console.log(formData)
-      response = await axios.post(`${baseServerUrl}users/addUserSkill`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      console.log(formData);
+      response = await axios.post(
+        `${baseServerUrl}users/addUserSkill`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } else if (method === "put") {
-      console.log(`${baseServerUrl}users/skills/${id}`)
-      console.log("formData",formData)
-      console.log("id",id)
-      response = await axios.put(`${baseServerUrl}users/skills/${id}`,formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      console.log(`${baseServerUrl}users/skills/${id}`);
+      console.log("formData", formData);
+      console.log("id", id);
+      response = await axios.put(
+        `${baseServerUrl}users/skills/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } else if (method === "delete") {
       response = await axios.delete(`${baseServerUrl}users/skills/${id}`, {
         headers: {
@@ -276,27 +291,38 @@ export const getUserSkills = async ({ formData, method, id, token }) => {
 };
 
 export const languageHandler = async ({ formData, method, id, token }) => {
-  console.log(formData)
+  console.log(formData);
   try {
     let response = null;
     if (method === "post") {
-      response = await axios.post(`${baseServerUrl}users/profile/language`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      response = await axios.post(
+        `${baseServerUrl}users/profile/language`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } else if (method === "patch") {
-      response = await axios.patch(`${baseServerUrl}users/profile/language/${id}`,formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      response = await axios.patch(
+        `${baseServerUrl}users/profile/language/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } else if (method === "delete") {
-      response = await axios.delete(`${baseServerUrl}users/profile/language/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      response = await axios.delete(
+        `${baseServerUrl}users/profile/language/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } else {
       response = await axios(`${baseServerUrl}profile/language`, {
         headers: {
@@ -310,4 +336,15 @@ export const languageHandler = async ({ formData, method, id, token }) => {
   }
 };
 
-
+export const getCompanyCandidates = async ({ id, token }) => {
+  try {
+    const response = await axios(`${baseServerUrl}companies/${id}/candidates`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
