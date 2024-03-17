@@ -24,7 +24,7 @@ const VerificationCode = (props) => {
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
-  const [isRightEmail, setIsRightEmail] = useState(false);
+  const [isCodeWrong, setIsCodeWrong] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -36,17 +36,11 @@ const VerificationCode = (props) => {
     mutationFn: signFormsHandler,
     onSuccess: (data) => {
       if (data.data.status === "success") {
-        setIsRightEmail(false);
+        setIsCodeWrong(false);
         console.log(data);
         if (role && token) {
           dispatch(fetchProfileData(token, role));
         }
-        setResponseMessage({
-          title: "Sent Successfully",
-          content: "Check Your email to reset password",
-        });
-        setSuccessResponse(true);
-        setShowResponse(true);
         setShowModal(true);
         props.onHide();
       } else {
@@ -60,10 +54,10 @@ const VerificationCode = (props) => {
     },
     onError: (error) => {
       console.log(error);
-      if (error.data.message === "account with this email not found") {
-        setIsRightEmail(true);
+      if (error.data.message === "Reset code invalid or expired") {
+        setIsCodeWrong(true);
       } else {
-        setIsRightEmail(false);
+        setIsCodeWrong(false);
         setResponseMessage({
           title: "Request Faild",
           content: "faild to be send reset email please try again",
@@ -114,16 +108,16 @@ const VerificationCode = (props) => {
                   type="text"
                   id="forgetPasswordEmail"
                   name="resetCode"
-                  placeholer="######"
+                  placeholder="######"
                 />
-                {isRightEmail && (
-                  <InputErrorMessage text="there is no Account with this email !" />
+                {isCodeWrong && (
+                  <InputErrorMessage text="Reset code invalid or expired !" />
                 )}
                 <ErrorMessage name="resetCode" component={InputErrorMessage} />
               </div>
 
               <div className="d-flex justify-content-end  align-items-center">
-                <input
+                <Field
                   type="radio"
                   name="entityType"
                   className="btn-check"
@@ -135,7 +129,7 @@ const VerificationCode = (props) => {
                   <FontAwesomeIcon icon={faUser} />
                 </label>
 
-                <input
+                <Field
                   type="radio"
                   name="entityType"
                   className="btn-check"

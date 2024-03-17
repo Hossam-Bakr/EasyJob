@@ -1,4 +1,3 @@
-
 .nav_list li a{
     color: var(--font_color);
     font-weight: 700;
@@ -91,6 +90,11 @@
 
  .burger_list_white .half_line, .burger_list_white .full_line{
     background-color: white !important;
+}
+
+.bell{
+    font-size: 30px;
+    margin-right: 50px;
 }
 
 @media screen and (max-width:1150px) {
