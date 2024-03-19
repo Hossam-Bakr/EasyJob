@@ -58,7 +58,7 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model, include = null) =>
+exports.getAll = (Model, include = null, overrideFields = null) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
     if (req.params.industryId) filter = { industryId: req.params.industryId };
@@ -91,9 +91,9 @@ exports.getAll = (Model, include = null) =>
         .map((item) =>
           item[0] === "-" ? [item.slice(1), "ASC"] : [item, "DESC"]
         );
-    } else {
-      sort = [["createdAt", "DESC"]];
     }
+
+    if (overrideFields) fields = overrideFields;
 
     const docs = await Model.findAll({
       where: filter,
