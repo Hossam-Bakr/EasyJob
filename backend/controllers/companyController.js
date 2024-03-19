@@ -1,7 +1,9 @@
 const { v4: uuidv4 } = require("uuid");
-const Company = require("../models/companyModel");
-const Category = require("../models/categoryModel");
 const sharp = require("sharp");
+const Company = require("../models/companyModel");
+const CompanyProfile = require("../models/companyProfileModel");
+const Category = require("../models/categoryModel");
+const factory = require("./handlerFactory");
 const { uploadMixOfImages } = require("../utils/uploadImage");
 const catchAsync = require("../utils/catchAsync");
 
@@ -9,6 +11,25 @@ exports.uploadCompanyMedia = uploadMixOfImages([
   { name: "logo", maxCount: 1 },
   { name: "coverPhoto", maxCount: 1 },
 ]);
+
+const allCompaniesInclude = {
+  model: CompanyProfile,
+  attributes: ["id", "logo", "coverPhoto", "country", "city", "size"],
+  include: [
+    {
+      model: Category,
+      attributes: ["id", "name"],
+      through: { attributes: [] },
+      as: "specializations",
+    },
+  ],
+};
+
+exports.getAllCompanies = factory.getAll(
+  Company,
+  allCompaniesInclude,
+  "id,name,email,phone,IndustryId"
+);
 
 exports.getCompanyProfile = catchAsync(async (req, res) => {
   const companyProfile = await req.company.getCompanyProfile({
@@ -183,18 +204,22 @@ exports.deleteCompanyAccount = catchAsync(async (req, res) => {
   }
 });
 
-
-
 exports.changeCompanyEmail = catchAsync(async (req, res) => {
-  const { newEmail } = req.body; 
+  const { newEmail } = req.body;
 
   const company = req.company;
 
   if (!company) {
-    return res.status(404).send({ status: "failed" ,message: 'Company not found' });
+    return res
+      .status(404)
+      .send({ status: "failed", message: "Company not found" });
   }
   company.email = newEmail;
   await company.save();
 
-  res.status(200).send({ status: "success" ,  message: 'Email updated successfully', companyData: company });
+  res.status(200).send({
+    status: "success",
+    message: "Email updated successfully",
+    companyData: company,
+  });
 });
