@@ -141,7 +141,7 @@ const ResetPassword = (props) => {
             </div>
 
             <div className="d-flex justify-content-end  align-items-center">
-              <input
+              <Field
                 type="radio"
                 name="entityType"
                 className="btn-check"
@@ -156,7 +156,7 @@ const ResetPassword = (props) => {
                 <FontAwesomeIcon icon={faUser} />
               </label>
 
-              <input
+              <Field
                 type="radio"
                 name="entityType"
                 className="btn-check"

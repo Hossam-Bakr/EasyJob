@@ -1,0 +1,8 @@
+.bell{
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform .5s;
+}
+.bell:hover{
+   transform: rotate(-20deg);
+}   

@@ -1,0 +1,79 @@
+.container{
+    margin: 60px 20px 20px 0;
+    border-radius: 10px;
+}
+.title h2{
+    font-size: 30px;
+    font-weight: 600;
+}
+.controlers{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.controlers button{
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px;
+    background-color: var(--vanilla);
+    border-radius: 10px;
+    min-width:70px;
+    transition: all .4s;
+}
+.controlers button:hover{
+    scale: 1.1;
+}
+.active_controller{
+    background-color: var(--main_color) !important;
+    color: white;
+}
+.noti_box{
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .4s;
+}
+.noti_box:hover{
+    background-color: var(--vanilla);
+    scale: 1.05;
+}
+.notify_photo{
+    width: 120px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.notify_photo img{
+    width: 100%;
+    border-radius: 50%;
+}
+.notify_caption h5,.notify_caption h6{
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+.notify_caption p{
+    margin: 0;
+}
+.notify_caption h6{
+    font-size: 12px;
+    color: var(--main_color);
+}
+
+
+@media screen and (max-width:500px) {
+    .container{
+        margin-inline: 0;
+        border-radius: 10px 0 0 10px;
+    }
+  
+}
+
+@media screen and (max-width:300px) {
+    .notify_photo{
+        display: none;
+    }
+  
+}

@@ -6,10 +6,11 @@ import { Link, NavLink } from "react-router-dom";
 import MainButton from "../Ui/MainButton";
 import styles from "./MainNavbar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars} from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import SideBar from "../Ui/SideBar";
 import ResponsiveMenuSlideBar from "../Ui/ResponsiveMenuSlideBar";
+import Notifications from "../Notifications/Notifications";
 
 const MainNavbar = () => {
   const [show, setShow] = useState(false);
@@ -91,7 +92,7 @@ const MainNavbar = () => {
               {role === "user" ? (
                 <>
                   {/* logged and user */}
-                  <li className={`${styles.special_hidden} mx-4`}>
+                  {/* <li className={`${styles.special_hidden} mx-4`}>
                     <NavLink
                       className={({ isActive }) =>
                         isActive ? styles.active : undefined
@@ -101,7 +102,7 @@ const MainNavbar = () => {
                     >
                       DASHBOARD
                     </NavLink>
-                  </li>
+                  </li> */}
                   <li className={`${styles.special_hidden} mx-4`}>
                     <NavLink
                       className={({ isActive }) =>
@@ -313,8 +314,10 @@ const MainNavbar = () => {
         </ul>
 
         <div className="d-flex align-items-center ms-auto me-5">
-          {isLogin ? (
-            ""
+          {isLogin ? ( 
+            <div className="me-4">
+              <Notifications/>
+            </div>
           ) : (
             <>
               <Link to={"login"} className={styles.sign_btn}>

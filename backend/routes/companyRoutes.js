@@ -14,6 +14,8 @@ const {
   validateEmailChange,
 } = require("../utils/validators/companyValidator");
 
+router.get("/", companyController.getAllCompanies);
+
 router.use(authController.protect, authController.restrictTo("company"));
 
 router.route("/profile").get(companyController.getCompanyProfile);

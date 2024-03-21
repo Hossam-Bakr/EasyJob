@@ -116,7 +116,6 @@ function App() {
   }, [dispatch,token,role]);
 
 
-
   // recieve user data from localStorage with login and role states
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("userData"))) {

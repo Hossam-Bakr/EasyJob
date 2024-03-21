@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./SideBar.module.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import ContactsIcon from "./ContactsIcon";
-import Badge from 'react-bootstrap/Badge';
+import Badge from "react-bootstrap/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
@@ -41,7 +41,9 @@ const SideBar = ({ onClose, show }) => {
     (state) => state.companyNav.changeNavContent
   );
   const profileData = useSelector((state) => state.profileInfo.data);
-  const savedJobsQuantinty = useSelector((state) => state.savedJobs.totalQuantity);
+  const savedJobsQuantinty = useSelector(
+    (state) => state.savedJobs.totalQuantity
+  );
 
   const handleClose = () => {
     onClose();
@@ -49,7 +51,7 @@ const SideBar = ({ onClose, show }) => {
 
   const navigateToProfilePage = () => {
     handleClose();
-    navigate(`user-profile/${profileData.id}`);
+        navigate(`user-profile/${profileData?.id}`);
   };
 
   const navigateTocompanyProfile = () => {
@@ -72,7 +74,7 @@ const SideBar = ({ onClose, show }) => {
   };
 
   useEffect(() => {
-    setProfilePic(null)
+    setProfilePic(null);
     if (role === "company") {
       if (profileData?.logo) {
         const profileLogoUrl = `http://127.0.0.1:3000/companies/${profileData.logo}`;
@@ -106,11 +108,7 @@ const SideBar = ({ onClose, show }) => {
                       title="view profile"
                     >
                       <img
-                        src={
-                          profilePic
-                            ? profilePic
-                            : noAvatarMale
-                        }
+                        src={profilePic ? profilePic : noAvatarMale}
                         className={styles.profile_pic}
                         alt="profile pic"
                       />
@@ -209,7 +207,10 @@ const SideBar = ({ onClose, show }) => {
                           className={styles.contact_list_item}
                           onClick={handleClose}
                         >
-                          <span>Saved Jobs <Badge bg="primary">{savedJobsQuantinty}</Badge></span>
+                          <span>
+                            Saved Jobs{" "}
+                            <Badge bg="primary">{savedJobsQuantinty}</Badge>
+                          </span>
                           <FontAwesomeIcon
                             className={styles.list_icons}
                             icon={faBookmark}
