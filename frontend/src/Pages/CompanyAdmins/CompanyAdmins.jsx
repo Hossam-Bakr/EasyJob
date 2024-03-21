@@ -10,7 +10,7 @@ const CompanyAdmins = () => {
     <div className={styles.admins_container}>
       <SectionMainTitle title="Manage Account Users" />
       <table className={styles.users_table}>
-        <thead>
+        <thead className={styles.thead}>
           <tr>
             <th>Name</th>
             <th>Title</th>

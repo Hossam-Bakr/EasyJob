@@ -126,7 +126,6 @@ const Categories = () => {
                   <>
                     {!isLoading ? (
                       <>
-                        {" "}
                         {isDataFiltered ? (
                           <>
                             {filteredData.map((industry) => (

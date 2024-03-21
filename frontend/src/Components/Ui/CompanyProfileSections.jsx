@@ -93,7 +93,6 @@ const CompanyProfileSections = ({
       title: "Software Engineering Team Leader",
       country: "Egypt",
       city: "Cairo",
-      photo: "p1",
     },
     {
       id: "e2",
@@ -101,7 +100,6 @@ const CompanyProfileSections = ({
       title: "Frontend Developer Angular",
       country: "Egypt",
       city: "Cairo",
-      photo: "p2",
     },
     {
       id: "e3",
@@ -109,7 +107,6 @@ const CompanyProfileSections = ({
       title: "Accounting",
       country: "Egypt",
       city: "Cairo",
-      photo: "p3",
       type: "part-time",
       workplace: "on site",
     },
@@ -119,7 +116,6 @@ const CompanyProfileSections = ({
       title: "Unit Tester| Mern Stack",
       country: "Egypt",
       city: "Cairo",
-      photo: "p4",
     },
     {
       id: "e5",
@@ -127,7 +123,6 @@ const CompanyProfileSections = ({
       title: "sales & marketing director",
       country: "Egypt",
       city: "Cairo",
-      photo: "p5",
     },
     {
       id: "e6",
@@ -135,7 +130,6 @@ const CompanyProfileSections = ({
       title: "Assistant Floor @Huwawei",
       country: "Egypt",
       city: "Cairo",
-      photo: "p6",
     },
   ];
 
@@ -306,7 +300,7 @@ const CompanyProfileSections = ({
                   name={job.name}
                   jobTitle={job.jobTitle}
                   req={job.req}
-                  logo={job.logo}
+                  logo={null}
                   type={job.type}
                   workplace={job.workplace}
                   time={job.time}

@@ -30,7 +30,6 @@ import CompanyProfile from "./Pages/Profiles/CompanyProfile";
 import CompanyInfo from "./Pages/CompanyInfo/CompanyInfo";
 import CompanyAdmins from "./Pages/CompanyAdmins/CompanyAdmins";
 import CompanyDashboard from "./Pages/Dashboards/CompanyDashboard";
-import UserDashboard from "./Pages/Dashboards/UserDashboard";
 import MyTest from "./Components/Test/MyTest";
 import MainError from "./Pages/Error/MainError";
 import fetchProfileData from "./Store/profileInfo-actions";
@@ -65,7 +64,6 @@ const router = createBrowserRouter([
       { path: "packages", element: <CompanyPricing /> },
       { path: "user-profile/:userId", element: <UserProfile /> },
       { path: "user-info", element: <UserInfo /> },
-      { path: "user-dashboard", element: <UserDashboard /> },
       { path: "user-account-setting", element: <UserAccountSetting /> },
       { path: "company-profile/:companyId", element: <CompanyProfile /> },
       { path: "company-info", element: <CompanyInfo /> },

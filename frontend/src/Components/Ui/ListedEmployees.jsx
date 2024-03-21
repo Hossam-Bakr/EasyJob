@@ -13,9 +13,10 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import MainBtnThree from "./MainBtnThree";
+import noAvatar from "../../images/noAvatarMale.jpg";
 
-const ListedEmployees = ({ pic, name, title, country, city }) => {
-  let employeePic = p1;
+const ListedEmployees = ({ pic, name, title, country, city, type,state,grid }) => {
+  let employeePic = noAvatar;
 
   switch (pic) {
     case "p1":
@@ -37,31 +38,57 @@ const ListedEmployees = ({ pic, name, title, country, city }) => {
       employeePic = p6;
       break;
     default:
+      employeePic=noAvatar
       break;
   }
 
   return (
-    <Row className="w-100">
-      <Col sm={8}>
-        <div className={styles.employee}>
-          <div className={styles.photo_container}>
-            <img src={employeePic} alt="employee Pic" />
-          </div>
-          <div className={styles.employee_content}>
-            <h3>{name}</h3>
-            <h4>{title}</h4>
-            <span className="mini_word">
-              <FontAwesomeIcon className="special_main_color" icon={faLocationDot} /> {city}, {country}
-            </span>
-          </div>
-        </div>
-      </Col>
-      <Col sm={4} className="d-flex align-items-center justify-content-center">
-        <div className={styles.show_profile_btn}>
-          <MainBtnThree text="Show Profile" />
-        </div>
-      </Col>
-    </Row>
+    <>
+      {grid === "table" ? (
+        <>
+          <td className={`${styles.info_table} ${styles.table_cell}`}>
+            <div className={styles.photo_container_table}>
+              <img src={employeePic} alt="employee Pic" />
+            </div>
+            {name}
+          </td>
+          <td className={` ${styles.table_cell}`}>{title}</td>
+          <td className={` ${styles.table_cell} ${styles.type}`}><span>{type?type:state}</span></td>
+          <td className={` ${styles.table_btn}`}>
+            <button>show</button>
+          </td>
+        </>
+      ) : (
+        <Row className="w-100">
+          <Col sm={8}>
+            <div className={styles.employee}>
+              <div className={styles.photo_container}>
+                  <img src={employeePic} alt="employee Pic" />
+              </div>
+              <div className={styles.employee_content}>
+                <h3>{name}</h3>
+                <h4>{title}</h4>
+                <span className="mini_word">
+                  <FontAwesomeIcon
+                    className="special_main_color"
+                    icon={faLocationDot}
+                  />{" "}
+                  {city}, {country}
+                </span>
+              </div>
+            </div>
+          </Col>
+          <Col
+            sm={4}
+            className="d-flex align-items-center justify-content-center"
+          >
+            <div className={styles.show_profile_btn}>
+              <MainBtnThree text="Show" />
+            </div>
+          </Col>
+        </Row>
+      )}
+    </>
   );
 };
 

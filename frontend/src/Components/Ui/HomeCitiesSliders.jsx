@@ -4,18 +4,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import { FreeMode,Autoplay, Pagination } from "swiper/modules";
+import { FreeMode, Autoplay, Pagination } from "swiper/modules";
 
 import styles from "./HomeCitiesSliders.module.css";
 
 import cairo from "../../images/Cairo.jpg";
 import alex from "../../images/Alex.jpg";
 import giza from "../../images/Giza.jpg";
-import london from "../../images/london.jpg";
-import paris from "../../images/paris.jpg";
 import dubai from "../../images/dubai.jpg";
-import germany from "../../images/Germany.jpg";
-import canada from "../../images/Canada.jpg";
+import kuwait from "../../images/Kuwait.jpg";
+import ryadh from "../../images/ryadh.jpg";
+import mecca from "../../images/mecca.jpg";
 import MainButtonTwo from "./MainButtonTwo";
 
 const HomeCitiesSliders = () => {
@@ -52,7 +51,7 @@ const HomeCitiesSliders = () => {
             spaceBetween: 50,
           },
         }}
-        modules={[FreeMode,Autoplay, Pagination]}
+        modules={[FreeMode, Autoplay, Pagination]}
         className={`${styles.slider_contnet} mySwiper`}
       >
         <SwiperSlide className={styles.slider_item}>
@@ -87,29 +86,19 @@ const HomeCitiesSliders = () => {
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={paris} alt="paris" />
+            <img src={ryadh} alt="ryadh" />
             <div className={styles.slider_caption}>
-              <h2>Paris</h2>
-              <span>open jobs 19</span>
+              <h2>Ryadh</h2>
+              <span>open jobs 42</span>
               <MainButtonTwo type="arrow" text="Discover" />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={london} alt="london" />
+            <img src={mecca} alt="mecca" />
             <div className={styles.slider_caption}>
-              <h2>London</h2>
-              <span>open jobs 12</span>
-              <MainButtonTwo type="arrow" text="Discover" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className={styles.slider_item}>
-          <div className={styles.slider_container_img}>
-            <img src={dubai} alt="newyork" />
-            <div className={styles.slider_caption}>
-              <h2>Dubai</h2>
+              <h2>Mecca</h2>
               <span>open jobs 2</span>
               <MainButtonTwo type="arrow" text="Discover" />
             </div>
@@ -117,20 +106,20 @@ const HomeCitiesSliders = () => {
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={canada} alt="canada" />
+            <img src={dubai} alt="dubai" />
             <div className={styles.slider_caption}>
-              <h2>Canada</h2>
-              <span>open jobs 7</span>
+              <h2>Dubai</h2>
+              <span>open jobs 20</span>
               <MainButtonTwo type="arrow" text="Discover" />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={germany} alt="germany" />
+            <img src={kuwait} alt="kuwait" />
             <div className={styles.slider_caption}>
-              <h2>Germany</h2>
-              <span>open jobs 3</span>
+              <h2>Kuwait</h2>
+              <span>open jobs 10</span>
               <MainButtonTwo type="arrow" text="Discover" />
             </div>
           </div>

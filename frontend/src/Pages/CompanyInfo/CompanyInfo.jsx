@@ -23,7 +23,7 @@ const CompanyInfo = () => {
       {companyProfileData ? (
         <Container>
           <Tabs
-            defaultActiveKey={defaultPage}
+            defaultActiveKey={defaultPage||"media"}
             id="uncontrolled-tab-example"
             className="mb-5 mt-5"
             fill

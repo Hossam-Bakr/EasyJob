@@ -340,9 +340,9 @@ const ProfileSections = ({
               id={lang.id}
               language={lang.language}
               proficiency={lang.proficiency}
-              setSecResponseMsg={setResponseMessage}
-              setSecSuccess={setSuccessResponse}
-              setSecShowResponse={setShowResponse}
+              setResponseMessage={setResponseMessage}
+              setSuccessResponse={setSuccessResponse}
+              setShowResponse={setShowResponse}
             />
           ))
         ) : (

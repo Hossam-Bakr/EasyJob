@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
 
-const PlacholderComponent = ({ type, myWidth, mySize,myAnimation,mybg }) => {
+const PlacholderComponent = ({ type, myWidth, mySize,myAnimation }) => {
   return (
     <>
       {type === "p" ? (
@@ -10,7 +10,6 @@ const PlacholderComponent = ({ type, myWidth, mySize,myAnimation,mybg }) => {
           as="p"
           animation={myAnimation?myAnimation:"wave"}
           style={{ width: myWidth ? myWidth : "25%" }}
-          bg={mybg}
         >
           <Placeholder xs={12} size={mySize} />
         </Placeholder>

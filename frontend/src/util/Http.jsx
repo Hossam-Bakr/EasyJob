@@ -78,6 +78,7 @@ export const getIndustries = async ({
   formData,
   method,
   pageNum,
+  limit
 }) => {
   try {
     let response = null;
@@ -96,6 +97,13 @@ export const getIndustries = async ({
           `${baseServerUrl}industries${type}${formData}`
         );
       }
+    } else if(method==="limit") {
+      response = await axios(`${baseServerUrl}industries`, {
+        params: {
+          page: pageNum,
+          limit:limit
+        },
+      });
     } else {
       response = await axios(`${baseServerUrl}industries`, {
         params: {
@@ -348,3 +356,12 @@ export const getCompanyCandidates = async ({ id, token }) => {
     console.error(error);
   }
 };
+
+export const getCompanies=async()=>{
+  try {
+    const res=axios(`${baseServerUrl}companies`);
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
