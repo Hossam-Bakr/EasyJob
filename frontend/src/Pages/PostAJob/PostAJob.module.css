@@ -1,0 +1,25 @@
+.main_container{
+    width: 100%;
+    background-color: #F5F6F7;
+}
+.main_container .mainHeader{
+    font-size: 38px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.main_container span {
+    color: var(--main_color);
+}
+.main_container .FormContainer{
+    width: 60%;
+    margin: auto;
+    background-color: white;
+    border: solid rgb(220, 219, 219) 0.5px;
+    padding: 1rem;
+}
+.FormContainer .subHeader{
+    font-size: 18px;
+    font-weight: 700;
+}
+
