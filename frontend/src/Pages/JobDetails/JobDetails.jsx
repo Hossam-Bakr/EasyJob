@@ -112,7 +112,6 @@ const JobDetails = () => {
             <div className={styles.job_header}>
               <div className={styles.company_logo}>
                 <img src={profilePic ? profilePic : noLogo} alt="profilePic" />
-                {/* <img src={noLogo} alt="no logo" /> */}
               </div>
               <div className={styles.header_caption}>
                 <h1>{data.title}</h1>
@@ -230,45 +229,43 @@ const JobDetails = () => {
                   </section>
 
                   <section
-                    className={`${styles.main_style} ${styles.det_section}`}
+                    className={`${styles.main_style} ${styles.det_section} py-5 position-relative`}
                   >
                     <h3 className={styles.sec_title}>Required Skills</h3>
                     <Container className="my-4 ">
                       <Row className={`${styles.candidate_skills} gy-2 w-100`}>
-                        {/* {data.RequiredSkills.map((skill) => (
-                          <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                            <span>{skill}</span>
+                        {data.RequiredSkills.map((skill) => (
+                          <Col
+                            sm={3}
+                            lg={2}
+                            className={`${styles.skill} ${
+                              skill.minLevel === 2
+                                ? styles.orange
+                                : skill.minLevel === 3
+                                ? styles.green
+                                : styles.red
+                            } mx-2`}
+                            key={skill.id}
+                          >
+                            <span>{skill.name}</span>
                           </Col>
-                        ))} */}
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>HTML</span>
-                        </Col>
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>CSS</span>
-                        </Col>
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>JS</span>
-                        </Col>
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>JQuery</span>
-                        </Col>
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>React Js</span>
-                        </Col>
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>TypeScript</span>
-                        </Col>
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>SQL</span>
-                        </Col>
-                        <Col sm={2} className={`${styles.skill} mx-2`}>
-                          <span>Office</span>
-                        </Col>
-                        <Col sm={3} lg={2} className={`${styles.skill} mx-2`}>
-                          <span>Java</span>
-                        </Col>
+                        ))}
                       </Row>
                     </Container>
+                    <div className={`${styles.skill_color} d-flex`}>
+                      <div className="d-flex justify-content-center align-items-center mx-2">
+                        <div className={styles.red_circle}></div>
+                        <span className="mini_word">Entry</span>
+                      </div>
+                      <div className="d-flex justify-content-center align-items-center mx-2">
+                        <div className={styles.yellow_circle}></div>
+                        <span className="mini_word">Medium</span>
+                      </div>
+                      <div className="d-flex justify-content-center align-items-center mx-2">
+                        <div className={styles.green_circle}></div>
+                        <span className="mini_word">Expert</span>
+                      </div>
+                    </div>
                   </section>
                 </Tab>
                 <Tab eventKey="companyDetails" title="Company Details">

@@ -84,6 +84,9 @@
     font-size: 1.375rem;
     font-weight: 600;
 }
+.company_details{
+    padding: 2.5rem 0;
+}
 .skill{
     background-color: var(--vanilla);
     padding: 5px 10px;
@@ -92,8 +95,36 @@
     text-align: center;
     position: relative;
 }
-.company_details{
-    padding: 2.5rem 0;
+.red_circle,.yellow_circle,.green_circle{
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.125rem;
+    border-radius: 50%;
+}
+.red_circle{
+    background-color: red;
+}
+.yellow_circle{
+    background-color: orange;
+}
+.green_circle{
+    background-color: rgb(7, 176, 7);
+}
+.skill_color{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 0.625rem 0.625rem 0;
+}
+
+.red{
+    border: 1px solid red;
+}
+.green {
+    border: 1px solid green;
+}
+.orange{
+    border: 1px solid orange;
 }
 
 @media screen and (max-width:670px) {
