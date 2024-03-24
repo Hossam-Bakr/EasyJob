@@ -14,7 +14,7 @@ import {
   faDribbble,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import banner from "../../images/banner.png";
+import banner from "../../images/banner2.png";
 import MainButtonTwo from "../Ui/MainButtonTwo";
 import { useNavigate } from "react-router-dom";
 

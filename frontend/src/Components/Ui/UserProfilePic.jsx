@@ -1,14 +1,10 @@
 import React from 'react';
 import styles from "./UserProfilePic.module.css";
-import { useSelector } from 'react-redux';
 
-const UserProfilePic = () => {
-
-const userMainData=useSelector((state)=>state.profileInfo.mainData);
-
+const UserProfilePic = ({firstName}) => {
   return (
     <div className={styles.profile_pic}>
-      <span>{userMainData.firstName.charAt(0)}</span>
+      <span>{firstName.charAt(0)}</span>
     </div>
   )
 }

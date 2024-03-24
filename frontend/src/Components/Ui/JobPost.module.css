@@ -74,10 +74,10 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
-.job p:hover {
+/* .job p:hover {
     overflow: visible;
     -webkit-line-clamp: unset;
-}
+} */
 .location_icon{
     margin-right:0.125rem;
     color: var(--main_color);
@@ -108,6 +108,54 @@
     font-weight: 600;
     cursor: pointer;
 }
+
+.table_cell{
+    margin: 20px 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+.type span{
+    background-color: var(--vanilla);
+    padding: 5px;
+    border-radius: 10px 0 10px 0;
+}
+.table_btn{
+    text-align: center;
+}
+.table_btn svg{
+    background-color: white;
+    box-shadow: 0  0 3px rgba(0, 0, 0, 0.332);
+    padding: 10px;
+    margin-inline: 10px;
+    border-radius: 50%;
+    color: var(--main_color);
+    cursor: pointer;
+    transition: all .4s;
+}
+
+.table_btn svg:hover{
+    color: white;
+    background-color: var(--main_color);
+}
+.photo_container_table{
+    width: 50px;
+    border-radius: 10%;
+    margin-right: 10px;
+}
+.photo_container_table img{
+    width: 100%;
+    border-radius: 10%;
+}
+.info_table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
 
 @media screen and (min-width:1200px) and (max-width:1366px) {
     .header_container{

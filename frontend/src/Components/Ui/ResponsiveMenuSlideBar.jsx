@@ -51,15 +51,6 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
             {role === "user" ?
              <>
               {/* logged and user */}
-              <Link onClick={handleClose} to={"user-dashboard"} end="true">
-                <li className={styles.contact_list_item}>
-                  Dashboard{" "}
-                  <FontAwesomeIcon
-                    icon={faFire}
-                    className={styles.list_icons}
-                  />
-                </li>
-              </Link>
               <Link onClick={handleClose} to={"jobs"} end="true">
                 <li className={styles.contact_list_item}>
                   Explore{" "}

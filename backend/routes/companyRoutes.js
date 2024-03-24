@@ -15,6 +15,7 @@ const {
 } = require("../utils/validators/companyValidator");
 
 router.get("/", companyController.getAllCompanies);
+router.get("/profile/:id", companyController.getCompanyProfileById);
 
 router.use(authController.protect, authController.restrictTo("company"));
 

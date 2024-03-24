@@ -245,7 +245,7 @@ exports.updateTotalExperience = catchAsync(async (req, res) => {
     });
   }
 
-  userProfile.totalYearsOfExperience = req.body.totalYearsOfExperience;
+  userProfile.totalYearsOfExperience = +req.body.totalYearsOfExperience;
 
   await userProfile.save();
 
@@ -701,7 +701,7 @@ exports.updateUserSkill = catchAsync(async (req, res, next) => {
   }
 
   await Skill.update({ name: newName }, { where: { id: skillId } });
-  await userSkill.update({proficiency: newProficiency});
+  await userSkill.update({ proficiency: newProficiency });
 
   res.status(200).json({
     status: "success",

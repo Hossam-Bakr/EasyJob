@@ -160,8 +160,17 @@ exports.updateTotalExperienceValidator = [
   check("totalYearsOfExperience")
     .notEmpty()
     .withMessage("Please provide total years of experience")
-    .isInt({ min: 0, max: 50 })
+    .isFloat({ min: 0 })
     .withMessage("Please provide valid total years of experience")
+    .customSanitizer((value) => {
+      if (value > 16) {
+        return 16;
+      } else if (value < 1) {
+        return 0.5;
+      } else {
+        return Math.round(value);
+      }
+    })
     .trim(),
 
   validatorError,
@@ -744,21 +753,18 @@ exports.changePasswordValidator = [
   validatorError,
 ];
 
-
-
 exports.validateUserSkill = [
   body("skillName").trim().notEmpty().withMessage("Skill name is required."),
   body("proficiency")
-    .isInt({ min: 1, max: 3})
+    .isInt({ min: 1, max: 3 })
     .withMessage("Proficiency must be an integer between 1 and 3."),
   validatorError,
 ];
 
-
 exports.validateUpdateUserSkill = [
   body("newName").trim().notEmpty().withMessage("Skill name is required."),
   body("newProficiency")
-    .isInt({ min: 1, max: 3})
+    .isInt({ min: 1, max: 3 })
     .withMessage("Proficiency must be an integer between 1 and 3."),
   validatorError,
 ];

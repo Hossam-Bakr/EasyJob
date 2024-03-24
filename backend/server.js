@@ -3,26 +3,27 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const cors = require("cors");
+
 dotenv.config({ path: "config.env" });
 const ApiError = require("./utils/ApiError");
 const globalErrorHandler = require("./controllers/errorController");
 const sequelize = require("./config/database");
 const mountRoutes = require("./routes");
 const defineDBRelationships = require("./models/modelsRelationships");
-const session = require('express-session');
-const passport = require('passport');
+const session = require("express-session");
+const passport = require("passport");
 require("./utils/Passport");
-
 
 const app = express();
 
-
-app.use(session({
-  secret: 'easyJob',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 24 *60*60*1000 }
-}));
+app.use(
+  session({
+    secret: "easyJob",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,12 +62,11 @@ process.on("unhandledRejection", (err) => {
 
 defineDBRelationships();
 
-
 const PORT = process.env.PORT || 3000;
 
 sequelize
   .sync()
-  // .sync({ force: true })
+  // .sync({ alter: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`App running on port ${PORT}`);

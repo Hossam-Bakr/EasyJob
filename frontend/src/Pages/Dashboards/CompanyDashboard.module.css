@@ -1,0 +1,178 @@
+.profile_layer{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom:0;
+    z-index: -1;
+     background-color: #F1F1F1;
+}
+
+.container{
+    min-height: 100vh;
+    width: 100vw;
+    margin-top: 10px;
+    position: relative;
+}
+.box{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.249);
+    padding: 10px;
+    min-height: 200px;
+}
+.consumption{
+    height:100%;
+}
+.admins_invitations{
+    height: 240px;
+}
+.plan{
+    background-color: #006CFF;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 240px;
+}
+.price{
+    color: rgb(237, 235, 235);
+}
+.plan_title h6{
+    margin: 0;
+    font-weight: 600;
+}
+.plan_title span{
+    font-size: 14px;
+    color: rgb(221, 221, 221);
+}
+.crown{
+    color: var(--golden);
+}
+.plan_date{
+    color: rgb(221, 221, 221) !important;
+    margin-left: 30px;
+}
+.plan_btns{
+    display: flex;
+    justify-content: space-between;
+}
+.recharge_btn{
+    background-color: white;
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #006CFF;
+    font-weight: 700;
+    transition: scale .4s;
+}
+.recharge_btn:hover{
+    scale: 1.05;
+}
+.upgrade_btn{
+    background-color: rgba(255, 255, 255, 0.415);
+    padding-inline: 12px;
+    border-radius: 5px;
+    transition: all .4s;
+}
+.upgrade_btn:hover{
+    background-color: white;
+    transform: translateY(-5px);
+    color: var(--main_color);
+}
+.sideBar{
+    position: fixed;
+    left: 10px;
+    top: 52%;
+    transform: translateY(-50%);
+    border-radius: 10px;
+    padding: 10px 2px;
+    background-color: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.347);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 10;
+    transition: all 1s;
+}
+
+.company_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.company_header img{
+    width: 50px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+.company_header h3{
+    font-size:20px;
+    font-weight: 700;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all .5s;
+}
+.sideBar ul{
+    padding: 0;
+}
+.sideBar ul li{
+    margin: 10px 5px;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    transition: all .6s;
+}
+.sideBar ul li:hover{
+    background-color: var(--vanilla);
+}
+.sideBar ul li svg{
+    margin-right: 10px;
+    font-size: 20px;
+    color: var(--light);
+}
+
+.sideBar ul li h6{
+    font-size: 16px;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all .6s;
+}
+
+.sideBar:hover ul li h6{
+    width:100px;
+    opacity: 1;
+}
+.sideBar:hover .company_header h3{
+    width:100px;
+    opacity: 1;
+}
+.sideBar:hover{
+    padding: 10px 20px; 
+}
+.employee_table{
+    width: 100%;
+}
+.table_header{
+    background-color: #E0E6ED;
+    width: 100%;
+    color: var(--main_color);
+}
+.employee_table th{
+    text-align: center;
+    width: 200px;
+    padding: 5px;
+}
+
+.active_link svg{
+    color: var(--main_color) !important;
+}
+.sideBar:hover .active_link{
+    background-color: var(--vanilla);
+}

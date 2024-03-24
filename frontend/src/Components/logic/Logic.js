@@ -1762,12 +1762,12 @@ export const fieldsOfStudy = [
   { value: "wildlife management", label: "Wildlife Management" },
 ];
 
-export const languageLevel=[
+export const languageLevel = [
   { value: "beginner", label: "beginner" },
   { value: "intermediate", label: "intermediate" },
   { value: "fluent", label: "fluent" },
   { value: "native", label: "native" },
-]
+];
 
 //company
 export const sizeOptions = [
@@ -1787,7 +1787,6 @@ export const convertCategoriesIntoList = (currentCategories, setState) => {
     setState(categoryOptions);
   }
 };
-
 
 //functions
 export const formatedTimeHandler = (time, setState) => {
@@ -1841,12 +1840,15 @@ export const formatedTimeHandler = (time, setState) => {
   }
 };
 
-
-export const getIndustryName=(currentIndustries,industryId,setCompanyIndustryName)=>{
-  let myIndustry={};
-  myIndustry= currentIndustries.find((industry)=>industry.id===industryId)
-  setCompanyIndustryName(myIndustry.name)
- }
+export const getIndustryName = (
+  currentIndustries,
+  industryId,
+  setCompanyIndustryName,
+) => {
+  let myIndustry = {};
+  myIndustry = currentIndustries.find((industry) => industry.id === industryId);
+  setCompanyIndustryName(myIndustry.name);
+};
 
 // const cityOptions = [];
 

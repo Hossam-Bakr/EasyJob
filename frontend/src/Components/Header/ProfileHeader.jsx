@@ -110,7 +110,7 @@ const ProfileHeader = ({
             ) : type === "company" ? (
               <img src={p2} alt="profile pic" />
             ) : (
-              <UserProfilePic />
+              <UserProfilePic firstName={firstName} />
             )}
             <div
               className={styles.ediet_profile_pic_btn}
