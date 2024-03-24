@@ -98,6 +98,12 @@
     opacity: 1;
     transform: translateX(-5px);
 }
+
+.location_map{
+    height: 60vh;
+    width:100%;
+}
+
 /* -----------------------------career--------------------------------------- */
 .career_label{
     color: var(--dark_white);

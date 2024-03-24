@@ -583,7 +583,6 @@ const Companies = () => {
                   <LoadingPlaceholders page="jobs" />
                 ) : (
                   <>
-                    {" "}
                     {data ? (
                       <>
                         {data.data.data.map((company) => {
