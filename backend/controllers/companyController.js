@@ -14,7 +14,15 @@ exports.uploadCompanyMedia = uploadMixOfImages([
 
 const allCompaniesInclude = {
   model: CompanyProfile,
-  attributes: ["id", "logo", "coverPhoto", "country", "city", "size"],
+  attributes: [
+    "id",
+    "logo",
+    "coverPhoto",
+    "description",
+    "country",
+    "city",
+    "size",
+  ],
   include: [
     {
       model: Category,
@@ -31,21 +39,45 @@ exports.getAllCompanies = factory.getAll(
   "id,name,email,phone,IndustryId"
 );
 
+const companyProfileInclude = {
+  include: [
+    {
+      model: Company,
+      attributes: ["id", "name", "email", "phone", "industryId"],
+    },
+    {
+      model: Category,
+      attributes: ["id", "name"],
+      through: { attributes: [] },
+      as: "specializations",
+    },
+  ],
+};
+
 exports.getCompanyProfile = catchAsync(async (req, res) => {
-  const companyProfile = await req.company.getCompanyProfile({
-    include: [
-      {
-        model: Company,
-        attributes: ["id", "name", "email", "phone", "industryId"],
-      },
-      {
-        model: Category,
-        attributes: ["id", "name"],
-        through: { attributes: [] },
-        as: "specializations",
-      },
-    ],
+  const companyProfile = await req.company.getCompanyProfile(
+    companyProfileInclude
+  );
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      companyProfile,
+    },
   });
+});
+
+exports.getCompanyProfileById = catchAsync(async (req, res) => {
+  const company = await Company.findByPk(req.params.id);
+
+  if (!company) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Company not found",
+    });
+  }
+
+  const companyProfile = await company.getCompanyProfile(companyProfileInclude);
 
   res.status(200).json({
     status: "success",

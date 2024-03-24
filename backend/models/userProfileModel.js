@@ -63,11 +63,8 @@ const UserProfile = sequelize.define("UserProfile", {
 
   // Experience
   totalYearsOfExperience: {
-    type: DataTypes.INTEGER,
-    validate: {
-      min: 0,
-      max: 50,
-    },
+    type: DataTypes.FLOAT,
+    defaultValue: 0,
   },
 
   // Education
