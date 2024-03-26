@@ -1,162 +1,181 @@
-.numbersSpeeks {
-    background-image: url("../../images/about-bg.jpg");
-    background-size: 100% 100%;
-    min-height: 70vh;
+.about_header{
+    height: 40vh;
+    width: 100vw;
+    background-image: url(../../images/aboutCover.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+    position: relative;
 }
-
-.container {
-    padding-top: 3.125rem;
-    padding-bottom: 3.125rem;
+.header_layer{
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
+/* -----------------------------------------------------about_title----------------------------------------------- */
 
-.header {
-    padding-top: 3.125rem;
-    padding-bottom: 3.125rem;
-}
-
-.header .title h1 {
+.about_title{
+    width: 80%;
+    margin-bottom: 3.125rem;
+    margin-top: 2.5rem;
+    margin-inline: auto;
+    padding: 3.125rem;
+    border-radius: 0.625rem;
     text-align: center;
-    font-weight: bolder;
-    font-size: 2.5rem;
+    background-color: #365be1;
+    color: white;
+}
+.about_title h1{
+    font-weight: 700;
+    font-size: 3.125rem;
+}
+.about_title p{
+    color:rgb(237, 236, 236);
+    padding-inline: 2.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
 }
 
-.header .subTitle p,
-.elements .element p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #73757A;
+/* -----------------------------------------------------team member----------------------------------------------- */
+.memeber{
+    padding:1.875rem 3.125rem;
+    border-radius: 0.5rem;
+    box-shadow: 0rem 0rem 0.125rem rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
 }
-
-.elements {
-    margin: auto;
-    width: 90%;
-    background-color: white;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    border-radius: 25px;
+.member_header{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.625rem;
 }
-
-.element {
-    width: 25%;
-    text-align: center;
+.member_title{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
 }
-
-.elements .borderRight {
-    border-right: #e2e1e1 solid 1px;
+.member_title h4{
+    margin: 0;
+    font-size:1.6875rem;
+    font-weight: 700;
+    margin-bottom: 0.1875rem;
 }
-
-.elements .element h2 {
-    text-align: center;
-    font-weight: bolder;
-    font-size: 3rem;
+.member_title span{
+    color: var(--main_color);
+    font-size: 0.75rem;
+    font-weight: 700;
 }
-
-.elements .box_one_border,
-.box_two_border,
-.box_three_border {
-    border-right: #e2e1e1 solid 1px;
-}
-
-.description {
-    min-height: 60vh;
-    padding-top: 3.125rem;
-    padding-bottom: 3.125rem;
-}
-
-.descContainer {
-    width: 75%;
-    margin: auto;
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
-}
-
-.accordionTitle {
-    font-size: 3.8rem;
-    font-style: italic;
-}
-
-/* how it works section  */
-.howItWorks{
-    min-height: 80vh
-}
-.secondHeader{
-    padding-bottom: 3.125rem;
+.img_side{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 0.9375rem;
 }
-.secondHeader .secondTitle h1{
-    text-align: center;
-    font-weight: bolder;
-    font-size: 3.3rem;
-    margin-left: 25px;
-    margin-right: 25px;
-    font-weight: bolder;
+.member_img{
+    border-radius: 50%;
+    width: 140px;
+}
+.member_img img{
+    width: 100%;
+    border-radius: 50%;
+}
+.memeber p{
+    width: 100%;
+    margin: 1.25rem 0;
+    text-align: end;
+}
+.icons {
+    display: flex;
+    justify-content: end;
+}
+.icons svg{
+    font-size: 1.5625rem;
+    margin-inline: 1.25rem;
+    color: #73757A;
+    cursor: pointer;
+    transition: all .5s;
+}
+.icons svg:hover{
+    color: var(--main_color);
+    transform: translateY(-0.5rem);
+}
+.member_right{
+    flex-direction: row-reverse;
+}
+.member_right .img_side{
+    margin-left: 0;
+    margin-right: 0.9375rem;
+}
+.member_right .icons{
+    justify-content: start;
+}
+.member_right .member_title{
+    align-items: flex-start;
+}
+.member_right p{
+    text-align: start;
 }
 
-.line{
-    width: 25%;
-    height: 2px;
-    background-color: #d1d1d3;
+/* ________________________________________counter_________________________________________________________ */
+
+.counter{
+    background-color: var(--vanilla);
+    margin: 3.125rem 0;
+    padding: 1.25rem 0.625rem;
 }
-.secondContainer{
-    margin-top: 2rem;
-}
-.steps{
-    width: 80%;
-    margin: auto;
-    position: relative;
-    text-align: center;
-}
-.step_item{
-    width: 100%;
-    min-height: 15.625rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    position: relative;
-}
-.circleCheck_icon{
-    font-size: 4rem;    
-    color:var(--main_color);
-    margin-bottom: 2rem;
+/* ________________________________________location_________________________________________________________ */
+.ourLocation{
+    height: 60vh;
+    width: 98vw;
+    margin: 3.125rem auto;
 }
 
 @media screen and (max-width:991px) {
-    .elements .element h2 {
-        text-align: center;
-        font-weight: bolder;
-        font-size: 2rem;
+    .memeber{
+        flex-direction: row-reverse;
+    }
+    .memeber .img_side{
+        margin-left: 0;
+        margin-right: 0.9375rem;
+    }
+    .memeber .icons{
+        justify-content: start;
+    }
+    .memeber .member_title{
+        align-items: flex-start;
+    }
+    .memeber p{
+        text-align: start;
     }
 
-    .elements .box_two_border {
-        border: none;
-    }
-
-    .elements .box_one_border,
-    .box_three_border {
-        border-right: #e2e1e1 solid 1.5px;
-    }
-
-    .elements .mediumScreen {
-        margin: auto;
-        width: 65%;
-        border-bottom: #e2e1e1 solid 1.5px;
-        margin-bottom: 12px;
-    }
 }
 
-@media screen and (max-width:767px) {
 
-    .elements .box_one_border,
-    .box_two_border,
-    .box_three_border{
-        border-right: none;
+@media screen and (max-width:595px) {
+   .about_title{
+    padding-inline: 5px;
+    width: 98vw;
+   }
+}
+
+@media screen and (max-width:390px) {
+    .memeber{
+        flex-direction: column-reverse;
     }
-    .elements .special_border{
-        margin: auto;
-        width: 65%;
-        border-bottom: #e2e1e1 solid 1.5px;
-        margin-bottom: 12px;
+    .img_side{
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    .member_header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0.625rem;
+    }
+    .member_title{
+        align-items: center !important;
     }
 }
