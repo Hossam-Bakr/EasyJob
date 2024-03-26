@@ -78,5 +78,10 @@ const Job = sequelize.define("Job", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  location: {
+    type: DataTypes.GEOMETRY("POINT"),
+    allowNull: false,
+  },
 });
+
 module.exports = Job;
