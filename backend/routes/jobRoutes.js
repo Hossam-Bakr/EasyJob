@@ -27,6 +27,8 @@ router
   );
 router.get("/latest/:limit", jobController.getLatestJob);
 
+router.get("/locations", jobController.getJobsForMap);
+
 // Saved Jobs
 router.use("/saved", authController.protect, authController.restrictTo("user"));
 
