@@ -9,6 +9,35 @@
     font-weight: 700;
     margin-bottom: 0.3125rem;
 }
+.check_Box{
+    min-width: 120px;
+    height: 50px;
+    background-color: #F5F6F7;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: #cececf 0.25px solid;
+    padding: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 10px;
+}
+.check_Box:hover{
+    cursor: pointer;
+}
+
+.check_Box label{
+    margin-right: 10px;
+}
+.check_Box label:hover{
+    cursor: pointer;
+}
+.checkbox_group{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .disabled_faild{
     color: var(--dark_white);
     opacity: .7;

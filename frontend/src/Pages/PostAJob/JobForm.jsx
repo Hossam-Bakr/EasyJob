@@ -1,109 +1,118 @@
 import styles from "./JobForm.module.css"
 import { Field, Form, Formik } from "formik";
-import Select from "react-select";
 import MultiSelect from "../../Components/logic/SelectField";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { convertCategoriesIntoList } from "../../Components/logic/Logic";
+import Select from "react-select";
+import { countryOptions } from './../../Components/logic/Logic';
 
-const JobForm = (
-    jobCategories
-) => {
-
-    const [currentJobTitle, setCurrentJobTitle] = useState();
-    const [currentJobCategories, setCurrentJobCategories] = useState([]);
-
-    const [myCategories, setMyCategories] = useState([]);
-    const currentCategories = useSelector((state) => state.category.categories);
-
-
-    useEffect(() => {
-        if (currentCategories != null) {
-            convertCategoriesIntoList(currentCategories, setMyCategories)
-        }
-    }, [currentCategories])
-
-    useEffect(() => {
-        setCurrentJobCategories(jobCategories || []);
-    }, [currentJobCategories])
-
-    console.log(myCategories)
-    let initialValues = {
-        jobTitle: currentJobTitle,
-        jobCategories: currentJobCategories,
-    }
-
-    const onSubmit = (values) => {
-        console.log(values)
-    }
+const JobForm = () => {
 
     return (
         <Formik
-            initialValues={initialValues}
-            onSubmit={onSubmit}
+            // initialValues={initialValues}
+            // onSubmit={onSubmit}
             // validationSchema={validationSchema}
             enableReinitialize
         >
             <Form className={styles.general_info_form}>
 
                 <div className={styles.field}>
-                    <label htmlFor="jobTitle">Job Title</label>
+                    <label htmlFor="jobTitle">Job Title -</label>
                     <Field
-                        type="text"
-                        value={currentJobTitle}
-                        className={styles.disabled_faild}
                         id="jobTitle"
+                        type="text"
+                        className={styles.disabled_faild}
+                    // value={currentJobTitle}
                     />
                 </div>
 
-                <div className={styles.checks_group}>
-                    <div className={styles.field}>
-                        <h4 className="my-4">Job Categories</h4>
-                        <div className={`${styles.select_category}`}>
-                            <Field
-                                name="jobCategory"
-                                isMulti={true}
-                                component={MultiSelect}
-                                options={myCategories}
-                            />
+                <div className={styles.field}>
+                    <label htmlFor="jobCategory">Job Category -</label>
+                    <Field
+                        id="jobCategory"
+                        isMulti={true}
+                        component={MultiSelect}
+                        placeholder="Select at least one job Category"
+                    // options={myCategories}
+                    />
+                </div>
+
+                <div className={styles.field}>
+                    <label>Job Type -</label>
+                    <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="fulltime">Full Time</label>
+                            <input type="checkbox" name="checked" value="fulltime" id="fulltime" />
                         </div>
-                        {/* <ErrorMessage
-                            name="jobCategory"
-                            component={InputErrorMessage}
-                        />  */}
+                        <div className={styles.check_Box}>
+                            <label htmlFor="parttime">Part Time</label>
+                            <Field type="checkbox" name="checked" value="parttime" id="parttime" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="freelance-project">Freelance / Project</label>
+                            <Field type="checkbox" name="checked" value="freelance-project" id="freelance-project" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="shiftbased">Shift Based</label>
+                            <Field type="checkbox" name="checked" value="shiftbased" id="shiftbased" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="volunteering">Volunteering</label>
+                            <Field type="checkbox" name="checked" value="volunteering" id="volunteering" />
+                        </div>
                     </div>
                 </div>
 
-                {/* <div className={styles.collection}>
-                 <div className={styles.field}>
-                        <label htmlFor="jobCategory">Job Category</label>
-                        <Select
-                            type="text"
-                            // placeholder={currentCountry}
-                            id="jobCategory"
-
-                        // options={countryOptions}
-                        // onChange={(value) => handleCountryChange(value)}
-                        // className={data.country ? "" : styles.empty_field}
-                        />
-                        <ErrorMessage name="country" component={InputErrorMessage} />
+                <div className={styles.field}>
+                    <label>Workplace -</label>
+                    <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="onSite">On-Site</label>
+                            <input type="checkbox" name="checked" value="onSite" id="onSite" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="parttime">Part Time</label>
+                            <Field type="checkbox" name="checked" value="parttime" id="parttime" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="freelance-project">Freelance / Project</label>
+                            <Field type="checkbox" name="checked" value="freelance-project" id="freelance-project" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="shiftbased">Shift Based</label>
+                            <Field type="checkbox" name="checked" value="shiftbased" id="shiftbased" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="volunteering">Volunteering</label>
+                            <Field type="checkbox" name="checked" value="volunteering" id="volunteering" />
+                        </div>
                     </div>
+                </div>
 
-                     <div className={styles.field}>
-                        <label htmlFor="companyCity">City</label>
-                        <Field
-                            type="text"
-                            // placeholder={currentCity}
-                            id="companyCity"
-                            name="city"
-                            isMulti={false}
-                        // component={MultiSelect}
-                        // options={formatedCityOptions}
-                        // className={data.city ? "" : styles.empty_field}
-                        />
-                         <ErrorMessage name="city" component={InputErrorMessage} />
-                    </div> 
-                </div> */}
+                <div className={styles.field}>
+                    <label htmlFor="location">Company Location -</label>
+                    <div className={styles.collection}>
+                        <div className={styles.field}>
+                            <label htmlFor="country">Country</label>
+                            <Select
+                                type="text"
+                                placeholder="Egypt"
+                                id="city"
+                                options={countryOptions}
+                            />
+                        </div>
+
+                        <div className={styles.field}>
+                            <label htmlFor="companyCity">City</label>
+                            <Select
+                                type="text"
+                                placeholder="Cairo"
+                                id="companyCity"
+                                // options={Cities}
+                            />
+                        </div>
+                    </div>
+                </div>
+
 
                 {/* <div className={styles.collection}>
                     <div className={styles.field}>
