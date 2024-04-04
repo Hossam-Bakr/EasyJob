@@ -357,7 +357,7 @@ export const getCompanyCandidates = async ({ id, token }) => {
   }
 };
 
-export const getCompanies=async()=>{
+export const getCompanies=async({type,token})=>{
   try {
     const res=axios(`${baseServerUrl}companies`);
     return res
@@ -365,3 +365,36 @@ export const getCompanies=async()=>{
     console.log(error)
   }
 }
+
+// export const GetProfileDataLocked =async ({token, role, companyId}) => {
+//     try {
+//       if (token) {
+//         if (role === "company") {
+//           let res = null;
+//           console.log(companyId)
+//             res = await axios.get(
+//               `http://127.0.0.1:3000/api/v1/companies/profile/${companyId}`,
+//               {
+//                 headers: {
+//                   Authorization: `Bearer ${token}`,
+//                 },
+//               }
+//             );
+//             return res.data;
+//         } else {
+//           const res = await axios.get(
+//             "http://127.0.0.1:3000/api/v1/users/profile",
+//             {
+//               headers: {
+//                 Authorization: `Bearer ${token}`,
+//               },
+//             }
+//           );
+//           console.log(res.data.data);
+//           return res.data;
+//         }
+//       }
+//     } catch (error) {
+//       console.error("Error fetching data:", error);
+//     }
+//   };

@@ -7,13 +7,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import noLogo from "../../images/noLogo.jpg";
 import ApplyBtn from "./ApplyBtn";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import fetchProfileData from "../../Store/profileInfo-actions";
 
-const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
+const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,companyId }) => {
 
   const [industryName,setIndustryName]=useState("");
   const [jobCompanyLogo, setJobCompanyLogo] = useState(null);
   const industries =useSelector((state)=>state.category.industries);
+  const token = useSelector((state) => state.userInfo.token);
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   useEffect(() => {
     AOS.init();
@@ -21,8 +26,7 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
 
   useEffect(()=>{
     if(industryId){
-      const industName =industries.find((industry) => industry.id === industryId)
-      console.log("industryName", industName);
+      const industName =industries?.find((industry) => industry.id === industryId)
       setIndustryName(industName.name)
     }
   },[industryId,industries])
@@ -39,6 +43,19 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
   let lgSize = grid ? 6 : 12;
   let companyHeightClass = grid ? styles.grid_height : "";
 
+  const navigateToCompanyProfile=async()=>{
+    const role="company";
+    const isMyProfile=false;
+
+    if(companyId){
+      const res=await dispatch(fetchProfileData(token, role,isMyProfile,companyId));
+      console.log(res)
+      if(res?.status==="success"){
+        navigate(`/company-profile/${companyId}`)
+      }
+    }
+  }
+
   return (
     <>
       <Col lg={lgSize} xl={xlSize}>
@@ -49,6 +66,7 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
                 icon={faArrowRight}
                 title="view"
                 className={`${styles.eye_icon} mx-2`}
+                onClick={navigateToCompanyProfile}
               />
             </div>
 

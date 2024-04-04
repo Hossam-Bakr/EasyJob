@@ -40,6 +40,7 @@ const CompanyProfileSections = ({
   youtube,
   behance,
   vimeo,
+  isMyProfile
 }) => {
   const myJobs = [
     {
@@ -51,6 +52,8 @@ const CompanyProfileSections = ({
       type: "full-time",
       workplace: "remote",
       time: "5 min",
+      city:"Cairo",
+      country:"Egypt"
     },
     {
       key: 2,
@@ -60,7 +63,8 @@ const CompanyProfileSections = ({
       logo: "L2",
       type: "full-time",
       workplace: "remote",
-      
+      city:"Cairo",
+      country:"Egypt",
      
       time: "2 days",
     },
@@ -73,6 +77,8 @@ const CompanyProfileSections = ({
       type: "full-time",
       workplace: "remote",
       time: "5 months",
+      city:"Cairo",
+      country:"Egypt"
     },
     {
       key: 4,
@@ -83,6 +89,8 @@ const CompanyProfileSections = ({
       workplace: "remote",
       type: "full-time",
       time: "2 years",
+      city:"Cairo",
+      country:"Egypt"
     },
   ];
 
@@ -133,17 +141,6 @@ const CompanyProfileSections = ({
     },
   ];
 
-  let companyIndustry = "Software Engineering";
-
-  switch (industry) {
-    case 10:
-      companyIndustry = "Information and communications technology (ICT)";
-      break;
-
-    default:
-      break;
-  }
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -163,7 +160,7 @@ const CompanyProfileSections = ({
         ) : (
           <>
             <div className={styles.main_style}>
-              <EdietPenIcon onClick={() => navigateToEdietProfile("info")} />
+              {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdietProfile("info")} />}
               <h3 className={styles.sec_title}>Company Overview</h3>
               <Row className={styles.general_info}>
                 <Col md={7}>
@@ -184,7 +181,7 @@ const CompanyProfileSections = ({
                     )}
                     <li>
                       <span className={styles.info_title}>Industry:</span>
-                      <span>{companyIndustry}</span>
+                      <span>{industry}</span>
                     </li>
                     {size && (
                       <li>
@@ -304,8 +301,11 @@ const CompanyProfileSections = ({
                   type={job.type}
                   workplace={job.workplace}
                   time={job.time}
+                  country={job.country}
+                  city={job.city}
                   grid={false}
                   profile={true}
+                  isMyProfile={isMyProfile}
                 />
               );
             })}

@@ -48,7 +48,7 @@ const GeneralInfoForm = ({ data }) => {
       setCurrentSize(data.size || "");
       setCurrentFounded(data.founded || "");
       setCurrentDescription(data.desc || "");
-      setCurrentLocation(data.location.coordinates);
+      setCurrentLocation(data.location?.coordinates);
     }
   }, [data]);
 

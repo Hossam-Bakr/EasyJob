@@ -9,16 +9,25 @@ import { useParams } from "react-router-dom";
 import { getIndustryName } from "../../Components/logic/Logic";
 
 
-
 const CompanyProfile = () => {
-
+  
   const companyProfileData = useSelector((state) => state.profileInfo.data);
-  const currentIndustries=useSelector((state)=>state.category.industries)
+  const currentIndustries=useSelector((state)=>state.category.industries);
+  const isMyProfile=useSelector((state)=>state.showProfile.isMyProfile);
+
   const [profileCover, setProfileCover] = useState(null);
   const [profileLogo, setProfileLogo] = useState(null);
   const [companyIndustryName, setCompanyIndustryName] = useState("");
   const params=useParams();
 
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
+  useEffect(()=>{
+    console.log("companyprokfosols",companyProfileData)
+  },[companyProfileData])
   useEffect(() => {
     if (companyProfileData?.coverPhoto) {
       const coverPhotoURL = `http://127.0.0.1:3000/companies/${companyProfileData.coverPhoto}`;
@@ -35,7 +44,7 @@ const CompanyProfile = () => {
  
   useEffect(()=>{
     if(currentIndustries&&companyProfileData){
-      let industryId=companyProfileData.Company.industryId;
+      let industryId=companyProfileData.Company?.industryId;
        getIndustryName(currentIndustries,industryId,setCompanyIndustryName)
     }
   },[companyProfileData,currentIndustries])
@@ -51,7 +60,7 @@ const CompanyProfile = () => {
                 cover={profileCover}
                 pic={profileLogo}
                 url={params.companyId}
-                name={companyProfileData.Company.name}
+                name={companyProfileData.Company?.name}
                 city={companyProfileData.city}
                 country={companyProfileData.country}
                 industry={companyIndustryName}
@@ -61,14 +70,15 @@ const CompanyProfile = () => {
                 linkedin={companyProfileData.linkedin}
                 behance={companyProfileData.behance}
                 type="company"
+                isMyProfile={isMyProfile}
               />
 
               <div className="position-relative px-2">
                 <CompanyProfileSections
                   city={companyProfileData.city}
                   country={companyProfileData.country}
-                  industry={companyProfileData.industry}
-                  phone={companyProfileData.Company.phone}
+                  industry={companyIndustryName}
+                  phone={companyProfileData.Company?.phone}
                   desc={companyProfileData.description}
                   founded={companyProfileData.foundedYear}
                   size={companyProfileData.size}
@@ -80,6 +90,7 @@ const CompanyProfile = () => {
                   youtube={companyProfileData.youtube}
                   behance={companyProfileData.behance}
                   vimeo={companyProfileData.vimeo}
+                  isMyProfile={isMyProfile}
                 />
               </div>
             </div>

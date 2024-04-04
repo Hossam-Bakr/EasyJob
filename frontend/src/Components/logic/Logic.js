@@ -1845,7 +1845,7 @@ export const getIndustryName = (
 ) => {
   let myIndustry = {};
   myIndustry = currentIndustries.find((industry) => industry.id === industryId);
-  setCompanyIndustryName(myIndustry.name);
+  setCompanyIndustryName(myIndustry?.name);
 };
 
 // const cityOptions = [];

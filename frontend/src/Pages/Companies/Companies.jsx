@@ -15,152 +15,6 @@ import { getCompanies } from "../../util/Http";
 import NoDataBox from "./../../Components/Ui/NoDataBox";
 import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
 
-// const companiesPosts = [
-//   {
-//     key: 1,
-//     name: "Saint-Gobain",
-//     industry: "Manufacturing",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L1",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 2,
-//     name: "Huawei",
-//     industry: "information and communications technology (ICT)",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L2",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 3,
-//     name: "Amazon",
-//     industry: "E-commerce, Technology",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L3",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 4,
-//     name: "We",
-//     industry: "Telecommunications",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L4",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 5,
-//     name: "Etisalat",
-//     industry: "Telecommunications",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L5",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 6,
-//     name: "Etoile",
-//     industry: "Food and Beverage Production",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L6",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 7,
-//     name: "B.Tech",
-//     industry: "Retail Electronics",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L7",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 8,
-//     name: "Masary",
-//     industry: "Financial Technology, Payment Solutions",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L8",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 9,
-//     name: "Raya",
-//     industry: "Outsourcing/Offshoring",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L9",
-//     city: "Alex",
-//     freelance: true,
-//     full: true,
-//     part: false,
-//     remote: false,
-//     time: "15 min",
-//   },
-//   {
-//     key: 10,
-//     name: "Vodafone",
-//     industry: "Telecommunications",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L10",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 11,
-//     name: "Orange",
-//     industry: "Telecommunications",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L11",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 12,
-//     name: "El-Araby",
-//     industry: "Consumer Electronics",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L12",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 13,
-//     name: "Concentrix",
-//     industry: "Consumer Sercive",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L13",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-//   {
-//     key: 14,
-//     name: "Talat Mostafa",
-//     industry: "Real Estate, Property Development",
-//     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L14",
-//     city: "Giza",
-//     full: true,
-//     remote: true,
-//     part: false,
-//     freelance: false,
-//     time: "2 days",
-//   },
-//   {
-//     key: 15,
-//     name: "SAINT GOBAIN",
-//     industry: "Information Technology and Services",
-//     desc: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L15",
-//     country: "Egypt",
-//     city: "Cairo",
-//   },
-// ];
-
 const Companies = () => {
   const [gridView, setGridView] = useState(true); 
 
@@ -589,9 +443,11 @@ const Companies = () => {
                           return (
                             <CompanyPost
                               key={company.id}
+                              CompanyProfileId={company.CompanyProfile?.id}
+                              companyId={company.id}
                               name={company.name}
                               industryId={company.IndustryId}
-                              // desc={company.desc}
+                              desc={company.CompanyProfile?.description}
                               logo={company.CompanyProfile?.logo}
                               country={company.CompanyProfile?.country}
                               city={company.CompanyProfile?.city}

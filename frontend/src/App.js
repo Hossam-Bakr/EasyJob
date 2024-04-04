@@ -85,11 +85,13 @@ function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
-
+  
+  
   // get profile data from database
   useEffect(() => {
     if (role && token) {
       dispatch(fetchProfileData(token, role));
+      
     }
   }, [dispatch, token, role]);
 
