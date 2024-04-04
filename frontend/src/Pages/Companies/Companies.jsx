@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Companies.module.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Accordion from "react-bootstrap/Accordion";
 import FilterAccordion from "../../Components/Ui/FilterAccordion";
 import SearchField from "../../Components/Ui/SearchField";
@@ -14,13 +12,15 @@ import { useQuery } from "@tanstack/react-query";
 import { getCompanies } from "../../util/Http";
 import NoDataBox from "./../../Components/Ui/NoDataBox";
 import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
+import Pagination from "../../Components/Ui/Pagination";
 
 const Companies = () => {
   const [gridView, setGridView] = useState(true); 
+  const [pageNum, setPageNum] = useState(1); 
 
-  let { data, isFetching } = useQuery({
+  let { data, isFetching,refetch } = useQuery({
     queryKey: ["companies"],
-    queryFn: getCompanies,
+    queryFn:()=>getCompanies(pageNum),
   });
 
   const setGrid = () => {
@@ -29,6 +29,11 @@ const Companies = () => {
   const setList = () => {
     setGridView(false);
   };
+
+  useEffect(()=>{
+    refetch()
+    window.scrollTo(0,0)
+  },[pageNum,refetch])
 
   return (
     <Container fluid className="mb-5">
@@ -463,32 +468,7 @@ const Companies = () => {
                 )}
               </Row>
             </Container>
-            <div
-              className={`${styles.pages} m-auto d-flex justify-content-evenly align-items-center mt-1 w-75 px-2`}
-            >
-              <div className={`${styles.page_arrow} ${styles.arrow_left}`}>
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </div>
-              <div className={styles.page_num}>
-                <h5>1</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>2</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>3</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>4</h5>
-              </div>
-              <div className={styles.page_num}>
-                <h5>5</h5>
-              </div>
-
-              <div className={`${styles.page_arrow} ${styles.arrow_right}`}>
-                <FontAwesomeIcon icon={faArrowRight} />
-              </div>
-            </div>
+           <Pagination setPageNum={setPageNum} maxPageNum={data?.data?.paginationResults?.numberOfPages}/>
           </section>
         </Col>
       </Row>

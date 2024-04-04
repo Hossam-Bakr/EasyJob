@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import styles from "./Categories.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { getIndustries } from "../../util/Http";
@@ -14,38 +14,23 @@ import PlacholderComponent from "../../Components/Ui/PlacholderComponent";
 import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
 
 const Categories = () => {
-  const [myData, setMyData] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
   const [activeLink, setActiveLink] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
   const [isDataFiltered, setIsDataFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [pageNum, setPageNum] = useState(1); 
 
-  const { data, isPending } = useQuery({
+  const { data, isPending,refetch } = useQuery({
     queryKey: ["categories"],
-    queryFn: ({ signal }) =>
-      getIndustries({ signal, type: "", pageNum: pageNumber }),
+    queryFn: () =>
+      getIndustries({type: "",pageNum }),
   });
 
-  useEffect(() => {
-    if (data) {
-      setMyData(data.data);
-    }
-  }, [data]);
-
-  const pageNavigator = (pageNum) => {
-    if (myData.length !== 0) {
-      console.log(myData.paginationResults.numberOfPages);
-      if (
-        myData.paginationResults.numberOfPages > setPageNumber &&
-        pageNum > 0
-      ) {
-        setPageNumber(setPageNumber);
-      } else {
-        alert("No More Data");
-      }
-    }
-  };
+  const { data:industryList } = useQuery({
+    queryKey: ["industries"],
+    queryFn: () =>
+      getIndustries({type: "",method:"industryList" }),
+  });
 
   const filterResult = (linkID) => {
     if (linkID === 0) {
@@ -53,9 +38,9 @@ const Categories = () => {
       setIsLoading(false);
       return;
     }
-    if (data) {
+    if (industryList) {
       window.scrollTo(0, 0);
-      const filteredData = data.data.data.filter(
+      const filteredData = industryList.data.data.filter(
         (industry) => industry.id === linkID
       );
       setIsDataFiltered(true);
@@ -68,6 +53,12 @@ const Categories = () => {
     setActiveLink(linkID);
     filterResult(linkID);
   };
+
+  useEffect(()=>{
+    refetch()
+    window.scrollTo(0,0)
+  },[pageNum,refetch])
+
   return (
     <>
       {isPending ? (
@@ -82,7 +73,7 @@ const Categories = () => {
                 <h4>
                   ALL INDUSTRIES{" "}
                   <span className="badge text-bg-secondary">
-                    {data.data.data.length}
+                    {industryList.data.data.length}
                   </span>
                 </h4>
                 <SearchField />
@@ -104,7 +95,7 @@ const Categories = () => {
                         />
                         ALL Industries
                       </li>
-                      {data.data.data.map((industry) => (
+                      {industryList.data.data.map((industry) => (
                         <li
                           key={industry.id}
                           className={`${styles.industry_list_item} ${
@@ -201,10 +192,7 @@ const Categories = () => {
                                 </Row>
                               </div>
                             ))}
-                            <Pagination
-                              active={1}
-                              pageNavigator={pageNavigator}
-                            />
+                          <Pagination setPageNum={setPageNum} maxPageNum={data?.data?.paginationResults?.numberOfPages}/>
                           </>
                         )}
                       </>

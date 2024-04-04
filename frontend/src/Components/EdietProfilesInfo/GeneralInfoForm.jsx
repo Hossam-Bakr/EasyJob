@@ -268,7 +268,7 @@ const GeneralInfoForm = ({ data }) => {
 
             <div className={`${styles.field} my-5`}>
               <label htmlFor="companyLocation">
-                Choose Your location Location
+                Choose Your Main Location
               </label>
               <div className={styles.location_map}>
                 <CompanyLocation currentLocation={currentLocation} setPostionHandler={setPostionHandler} />

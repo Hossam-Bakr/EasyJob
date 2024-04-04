@@ -10,6 +10,7 @@ import ApplyBtn from "./ApplyBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import fetchProfileData from "../../Store/profileInfo-actions";
+import { edietActions } from "../../Store/defaultEdietPage-slice";
 
 const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,companyId }) => {
 
@@ -43,14 +44,16 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,company
   let lgSize = grid ? 6 : 12;
   let companyHeightClass = grid ? styles.grid_height : "";
 
-  const navigateToCompanyProfile=async()=>{
+  const navigateToCompanyProfile=async(type)=>{
     const role="company";
     const isMyProfile=false;
 
     if(companyId){
       const res=await dispatch(fetchProfileData(token, role,isMyProfile,companyId));
-      console.log(res)
       if(res?.status==="success"){
+        if(type==="jobs"){
+          dispatch(edietActions.setDefaultCompanyProfilePage("jobs"))
+        }
         navigate(`/company-profile/${companyId}`)
       }
     }
@@ -92,10 +95,10 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,company
             </div>
             <div className={companyHeightClass}>
               <h4>{industryName}</h4>
-              <p>{desc?desc:"lore"}Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, sint.</p>
+              <p>{desc?desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, sint."}</p>
             </div>
             <div className="text-center">
-              <ApplyBtn text="Related Jobs" />
+              <ApplyBtn text="Related Jobs" onClick={()=>navigateToCompanyProfile("jobs")} />
             </div>
           </div>
         </div>

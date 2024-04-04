@@ -20,7 +20,6 @@ const CompanyProfile = () => {
   const [companyIndustryName, setCompanyIndustryName] = useState("");
   const params=useParams();
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
