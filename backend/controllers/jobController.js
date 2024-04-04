@@ -10,6 +10,7 @@ const Question = require("../models/questionModel");
 const Answer = require("../models/answerModel");
 const Application = require("../models/applicationModel");
 const SavedJob = require("../models/savedJobModel");
+const sequelize = require("../config/database");
 const factory = require("./handlerFactory");
 const { uploadMixOfAudios } = require("../utils/uploadAudio");
 const catchAsync = require("../utils/catchAsync");
@@ -230,6 +231,47 @@ exports.getLatestJob = catchAsync(async (req, res) => {
       .json({ message: "there is no jobs yet", latestJobs });
   }
   res.status(200).json({ status: "success", latestJobs });
+});
+
+exports.getJobsForMap = catchAsync(async (req, res) => {
+  let filter = {};
+
+  if (req.query.workplace) filter.workplace = req.query.workplace;
+  if (req.query.careerLevel) filter.careerLevel = req.query.careerLevel;
+  if (req.query.type) filter.type = req.query.type;
+
+  const jobs = await Job.findAll({
+    where: filter,
+    attributes: [
+      "id",
+      "title",
+      "description",
+      "requirements",
+      "workplace",
+      "careerLevel",
+      "minExperience",
+      "type",
+      "openPositions",
+      "CompanyId",
+      [sequelize.fn("ST_X", sequelize.col("location")), "latitude"],
+      [sequelize.fn("ST_Y", sequelize.col("location")), "longitude"],
+      "createdAt",
+    ],
+    include: [
+      {
+        model: Category,
+        attributes: ["id", "name"],
+        through: { attributes: [] },
+      },
+    ],
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      jobs,
+    },
+  });
 });
 
 // Questions

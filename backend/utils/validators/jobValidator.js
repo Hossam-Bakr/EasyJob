@@ -129,7 +129,6 @@ exports.createJobValidator = [
     })
     .trim(),
 
-  /*
   check("location")
     .notEmpty()
     .withMessage("Location is required")
@@ -155,7 +154,6 @@ exports.createJobValidator = [
 
       return true;
     }),
-  */
 
   check("categoriesId")
     .notEmpty()
@@ -309,6 +307,31 @@ exports.updateJobValidator = [
       return true;
     })
     .trim(),
+
+  check("location")
+    .optional()
+    .isObject()
+    .withMessage("Location must be an object")
+    .custom((value) => {
+      if (!value.type || value.type !== "Point") {
+        return Promise.reject("Location type must be Point");
+      }
+
+      if (
+        !value.coordinates ||
+        !Array.isArray(value.coordinates) ||
+        value.coordinates.length !== 2
+      ) {
+        return Promise.reject("Invalid coordinates in location");
+      }
+
+      const [longitude, latitude] = value.coordinates;
+      if (isNaN(longitude) || isNaN(latitude)) {
+        return Promise.reject("Invalid coordinates in location");
+      }
+
+      return true;
+    }),
 
   check("categoriesId")
     .optional()
