@@ -1,0 +1,100 @@
+/* ________________________________________________board_______________________________________________________ */
+.board_container{
+    min-height: 100vh;
+    padding: 40px;
+}
+/* _______________________________________________column____________________________________________________ */
+.stage_board{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    border-radius: 10px;
+    min-width: 300px;
+    min-height: 80vh;
+    padding: 10px;
+    background-color:white;
+    box-shadow: 0 0 5px rgb(0, 110, 255);
+    }
+.stage_board h3{
+    text-align: center;
+    font-size: 26px;
+    margin: 5px;
+    font-weight: 700;
+}
+.stage_board::-webkit-scrollbar{
+    display: none;
+}
+.content{
+    padding: 10px;
+    padding-top: 0;
+    height:50vh;
+    border-radius: 30px;
+    margin: 20px 0;
+    transition: background-color .4s ease;
+}
+
+/* _____________________________________________________card_________________________________________________________ */
+.card_container{
+    cursor: pointer;
+    margin: 40px 0;
+    transition: all .5s;
+    padding: 10px;
+    border-radius: 10px;
+}
+.card_container:hover{
+    background-color: var(--vanilla);
+    scale: 1.02;
+}
+.emp_id{
+    font-weight: 600;
+    color: var(--dark_white);
+}
+.emp_pic{
+    width: 50px;
+    border-radius: 50%;
+    margin-inline: 10px;
+}
+.emp_pic img{
+    width: 100%;
+    border-radius: 50%;
+}
+.card_content{
+    display: flex;
+    align-items: center;
+}
+.caption h5{
+    margin: 0;
+    font-weight: 700;
+    font-weight: 600px;
+    font-size: 20px;
+}
+.green{
+    background-color: green;
+}
+.black{
+    background-color: black;
+}
+.red{
+    background-color: red;
+}
+.yellow{
+    background-color: yellow;
+}
+
+.refuse_icon{
+    font-size: 20px;
+    margin-right: 20px;
+    color: red;
+    transition: transform .4s;
+
+}
+.accept_icon{
+    font-size: 25px;
+    margin-left: 20px;
+    color: var(--main_color);
+    transition: transform .4s;
+}
+.refuse_icon:hover,.accept_icon:hover{
+transform: scale(1.1);
+}
+

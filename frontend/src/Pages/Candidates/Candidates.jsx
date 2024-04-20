@@ -23,14 +23,12 @@ const Candidates = () => {
   const [pageNum, setPageNum] = useState(1);
 
   const companyProfileData = JSON.parse(localStorage.getItem("userData"));
-  const token = JSON.parse(localStorage.getItem("token"));
 
   const { data, isFetching, refetch } = useQuery({
     queryKey: ["candidates"],
     queryFn: () =>
       getCompanyCandidates({
         id: companyProfileData.id,
-        token: token,
         pageNum,
       }),
   });
@@ -632,7 +630,7 @@ const Candidates = () => {
               </Container>
               <Pagination
                 setPageNum={setPageNum}
-                maxPageNum={data.data?.paginationResults?.numberOfPages}
+                maxPageNum={data?.paginationResults?.numberOfPages}
               />
             </section>
           </Col>

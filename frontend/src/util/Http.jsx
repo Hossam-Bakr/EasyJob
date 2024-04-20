@@ -183,7 +183,7 @@ export const accountSettingHanlder = async ({
   }
 };
 
-export const getJobs = async ({ type, token, formData, method, pageNum }) => {
+export const getJobs = async ({ type, formData, method, pageNum }) => {
   try {
     let response = null;
     if (type) {
@@ -197,11 +197,6 @@ export const getJobs = async ({ type, token, formData, method, pageNum }) => {
     } else {
       response = await axios(
         `${baseServerUrl}jobs/`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
         {
           params: {
             limit: 15,
@@ -249,7 +244,9 @@ export const saveJobsHandler = async ({ jobId, token }) => {
 export const getLatestJobs = async (num) => {
   try {
     const response = await axios.get(`${baseServerUrl}jobs/latest/${num}`);
-    return response.data;
+      
+    return response;
+
   } catch (error) {
     console.error(error);
   }
@@ -362,9 +359,6 @@ export const languageHandler = async ({ formData, method, id, token }) => {
 export const getCompanyCandidates = async ({ id, token, pageNum }) => {
   try {
     const response = await axios(`${baseServerUrl}companies/${id}/candidates`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       params: {
         limit: 15,
         page: pageNum,

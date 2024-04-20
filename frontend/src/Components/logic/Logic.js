@@ -1847,17 +1847,3 @@ export const getIndustryName = (
   myIndustry = currentIndustries.find((industry) => industry.id === industryId);
   setCompanyIndustryName(myIndustry?.name);
 };
-
-// const cityOptions = [];
-
-// for (const country in Cities) {
-
-//   const cities = Cities[country];
-
-//   cities.forEach((city) => {
-//     cityOptions.push({ value: city, label: city });
-//   });
-// }
-// export default cityOptions;
-
-//conver totalYears of exp

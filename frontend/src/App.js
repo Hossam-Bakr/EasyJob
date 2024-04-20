@@ -41,6 +41,7 @@ import getAllCategories, { getAllIndustries } from "./Store/category-actions";
 import { getSavedJobsHandler } from "./Store/savedJobs-actions";
 import JobDetails from "./Pages/JobDetails/JobDetails";
 import ForgetPassword from "./Pages/ForgetPassword/ForgetPassword";
+import JobStagesBoard from "./Pages/JobStages/JobStagesBoard";
 
 //pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
 
@@ -69,6 +70,7 @@ const router = createBrowserRouter([
       { path: "company-info", element: <CompanyInfo /> },
       { path: "company-admins", element: <CompanyAdmins /> },
       { path: "company-dashboard", element: <CompanyDashboard /> },
+      { path: "stages/:jobId", element: <JobStagesBoard /> },
       { path: "company-account-setting", element: <CompanyAccountSetting /> },
       { path: "login", element: <Login /> },
       { path: "forget-password", element: <ForgetPassword /> },
