@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom";
 import MainButton from "../Ui/MainButton";
 import styles from "./MainNavbar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars} from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import SideBar from "../Ui/SideBar";
 import ResponsiveMenuSlideBar from "../Ui/ResponsiveMenuSlideBar";
@@ -91,18 +91,6 @@ const MainNavbar = () => {
             <>
               {role === "user" ? (
                 <>
-                  {/* logged and user */}
-                  {/* <li className={`${styles.special_hidden} mx-4`}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? styles.active : undefined
-                      }
-                      to={"user-dashboard"}
-                      end
-                    >
-                      DASHBOARD
-                    </NavLink>
-                  </li> */}
                   <li className={`${styles.special_hidden} mx-4`}>
                     <NavLink
                       className={({ isActive }) =>
@@ -115,30 +103,30 @@ const MainNavbar = () => {
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"companies"}
-              >
-                COMPANIES
-              </NavLink>
-            </li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"companies"}
+                    >
+                      COMPANIES
+                    </NavLink>
+                  </li>
                   <li className={`${styles.special_hidden} mx-4`}>
-                  <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"contact"}
-              >
-                CONTACT US
-              </NavLink>
-            </li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"contact"}
+                    >
+                      CONTACT US
+                    </NavLink>
+                  </li>
                 </>
               ) : (
                 <>
-                {/* logged and company */}
-                <li className={`${styles.special_hidden} mx-4`}>
+                  {/* logged and company */}
+                  <li className={`${styles.special_hidden} mx-4`}>
                     <NavLink
                       className={({ isActive }) =>
                         isActive ? styles.active : undefined
@@ -149,7 +137,7 @@ const MainNavbar = () => {
                       DASHBOARD
                     </NavLink>
                   </li>
-                <li className={`${styles.special_hidden} mx-4`}>
+                  <li className={`${styles.special_hidden} mx-4`}>
                     <NavLink
                       className={({ isActive }) =>
                         isActive ? styles.active : undefined
@@ -160,7 +148,7 @@ const MainNavbar = () => {
                       CANDIDATES
                     </NavLink>
                   </li>
-                <li className={`${styles.special_hidden} mx-4`}>
+                  <li className={`${styles.special_hidden} mx-4`}>
                     <NavLink
                       className={({ isActive }) =>
                         isActive ? styles.active : undefined
@@ -212,46 +200,45 @@ const MainNavbar = () => {
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"candidates"}
-              >
-                CANDIDATES
-              </NavLink>
-              
-            </li>
-            <li className={`${styles.special_hidden} mx-4`}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"about"}
-              >
-                ABOUT
-              </NavLink>
-            </li>
-            <li className={`${styles.special_hidden} mx-4`}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"packages"}
-              >
-                PACKAGES
-              </NavLink>
-            </li>
-            <li className={`${styles.special_hidden} mx-4`}>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.active : undefined
-              }
-              to={"categories"}
-            >
-              CATEGORIES
-            </NavLink>
-          </li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"candidates"}
+                    >
+                      CANDIDATES
+                    </NavLink>
+                  </li>
+                  <li className={`${styles.special_hidden} mx-4`}>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"about"}
+                    >
+                      ABOUT
+                    </NavLink>
+                  </li>
+                  <li className={`${styles.special_hidden} mx-4`}>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"packages"}
+                    >
+                      PACKAGES
+                    </NavLink>
+                  </li>
+                  <li className={`${styles.special_hidden} mx-4`}>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"categories"}
+                    >
+                      CATEGORIES
+                    </NavLink>
+                  </li>
                 </>
               ) : (
                 <>
@@ -268,45 +255,45 @@ const MainNavbar = () => {
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive ? styles.active : undefined
-                    }
-                    to={"jobs"}
-                  >
-                    EXPLORE
-                  </NavLink>
-                </li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"jobs"}
+                    >
+                      EXPLORE
+                    </NavLink>
+                  </li>
                   <li className={`${styles.special_hidden} mx-4`}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"about"}
-              >
-                ABOUT
-              </NavLink>
-            </li>
-            <li className={`${styles.special_hidden} mx-4`}>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.active : undefined
-              }
-              to={"categories"}
-            >
-              CATEGORIES
-            </NavLink>
-          </li>
-          <li className={`${styles.special_hidden} mx-4`}>
-                  <NavLink
-                className={({ isActive }) =>
-                  isActive ? styles.active : undefined
-                }
-                to={"contact"}
-              >
-                CONTACT US
-              </NavLink>
-            </li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"about"}
+                    >
+                      ABOUT
+                    </NavLink>
+                  </li>
+                  <li className={`${styles.special_hidden} mx-4`}>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"categories"}
+                    >
+                      CATEGORIES
+                    </NavLink>
+                  </li>
+                  <li className={`${styles.special_hidden} mx-4`}>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive ? styles.active : undefined
+                      }
+                      to={"contact"}
+                    >
+                      CONTACT US
+                    </NavLink>
+                  </li>
                 </>
               )}
             </>
@@ -314,10 +301,14 @@ const MainNavbar = () => {
         </ul>
 
         <div className="d-flex align-items-center ms-auto me-5">
-          {isLogin ? ( 
-            <div className="me-4">
-              <Notifications/>
-            </div>
+          {isLogin ? (
+            <>
+              {role === "user" && (
+                <div className="me-4">
+                  <Notifications />
+                </div>
+              )}
+            </>
           ) : (
             <>
               <Link to={"login"} className={styles.sign_btn}>

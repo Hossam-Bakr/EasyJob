@@ -13,7 +13,8 @@ import FloatingPopup from "../Ui/FloatingPopup";
 import fetchProfileData from "../../Store/profileInfo-actions";
 import MultiSelect from "../logic/SelectField";
 import { countryChange, countryOptions, sizeOptions } from "../logic/Logic";
-import Select from 'react-select';
+import Select from "react-select";
+import CompanyLocation from "../Maps/CompanyLocation";
 
 const GeneralInfoForm = ({ data }) => {
   const [showResponse, setShowResponse] = useState(false);
@@ -21,19 +22,19 @@ const GeneralInfoForm = ({ data }) => {
     title: "",
     content: "",
   });
-  const [newCityOptions,setNewCityOptions]=useState([])
-  const [formatedCityOptions,setFormatedCityOptions]=useState([])
-  const [chosenCountry,setChosenCountry]=useState("")
+  const [newCityOptions, setNewCityOptions] = useState([]);
+  const [formatedCityOptions, setFormatedCityOptions] = useState([]);
+  const [chosenCountry, setChosenCountry] = useState("");
   const [successResponse, setSuccessResponse] = useState(true);
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [currentSize, setCurrentSize] = useState("");
   const [currentFounded, setCurrentFounded] = useState("");
   const [currentDescription, setCurrentDescription] = useState("");
-  const [currentLocation, setCurrentLocation] = useState({
-    type: "Point",
-    coordinates: [0, 0],
-  });
+  const [currentLocation, setCurrentLocation] = useState([0,0]);
+
+  const [positionLat, setPositionLat] = useState(0);
+  const [positionLng, setPositionLng] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -47,28 +48,28 @@ const GeneralInfoForm = ({ data }) => {
       setCurrentSize(data.size || "");
       setCurrentFounded(data.founded || "");
       setCurrentDescription(data.desc || "");
-      setCurrentLocation(
-        data.location || {
-          type: "Point",
-          coordinates: [0, 0],
-        }
-      );
+      setCurrentLocation(data.location?.coordinates);
     }
   }, [data]);
 
-  const handleCountryChange=(e)=>{
-    let val=e.value
-    setChosenCountry(val)
-    countryChange(val,setNewCityOptions)
-  }
+  const handleCountryChange = (e) => {
+    let val = e.value;
+    setChosenCountry(val);
+    countryChange(val, setNewCityOptions);
+  };
+  const setPostionHandler = (p) => {
+    setPositionLat(p.lat)
+    setPositionLng(p.lng)
+  };
 
-  useEffect(()=>{
-   const cityOptions=newCityOptions.map((city)=>({
-      value:city,label:city
-    }))
-    setFormatedCityOptions(cityOptions)
-  },[newCityOptions])
-  
+  useEffect(() => {
+    const cityOptions = newCityOptions.map((city) => ({
+      value: city,
+      label: city,
+    }));
+    setFormatedCityOptions(cityOptions);
+  }, [newCityOptions]);
+
   const { mutate, isPending } = useMutation({
     mutationFn: updateFormHandler,
     onSuccess: (data) => {
@@ -106,7 +107,7 @@ const GeneralInfoForm = ({ data }) => {
   });
 
   const initialValues = {
-    country: currentCountry||chosenCountry,
+    country: currentCountry || chosenCountry,
     city: currentCity,
     size: currentSize,
     foundedYear: currentFounded,
@@ -115,16 +116,19 @@ const GeneralInfoForm = ({ data }) => {
   };
 
   const onSubmit = (values) => {
-    console.log(values)
+    console.log(values);
     const updatedValues = {
-      country: chosenCountry!== "" ? chosenCountry: currentCountry,
+      country: chosenCountry !== "" ? chosenCountry : currentCountry,
       city: values.city !== "" ? values.city : currentCity,
       size: values.size !== "" ? values.size : currentSize,
       foundedYear:
         values.foundedYear !== "" ? values.foundedYear : currentFounded,
       description:
         values.description !== "" ? values.description : currentDescription,
-      location: values.location !== "" ? values.location : currentLocation,
+      location: (positionLat!==0&&positionLng!==0)? {
+        type: "Point",
+        coordinates:[positionLat,positionLng],
+      } : currentLocation,
     };
     mutate({
       type: "info",
@@ -196,7 +200,7 @@ const GeneralInfoForm = ({ data }) => {
                   name="country"
                   isMulti={false}
                   options={countryOptions}
-                  onChange={(value)=>handleCountryChange(value)}
+                  onChange={(value) => handleCountryChange(value)}
                   className={data.country ? "" : styles.empty_field}
                 />
                 <ErrorMessage name="country" component={InputErrorMessage} />
@@ -262,15 +266,13 @@ const GeneralInfoForm = ({ data }) => {
               <ErrorMessage name="description" component={InputErrorMessage} />
             </div>
 
-            <div className={styles.field}>
-              <label htmlFor="companyLocation">Location</label>
-              <Field
-                type="text"
-                id="companyLocation"
-                name="location"
-                className={data.location ? "" : styles.empty_field}
-              />
-              <ErrorMessage name="location" component={InputErrorMessage} />
+            <div className={`${styles.field} my-5`}>
+              <label htmlFor="companyLocation">
+                Choose Your Main Location
+              </label>
+              <div className={styles.location_map}>
+                <CompanyLocation currentLocation={currentLocation} setPostionHandler={setPostionHandler} />
+              </div>
             </div>
 
             <div className="d-flex justify-content-end align-items-center mt-3 px-2">

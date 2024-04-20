@@ -55,6 +55,7 @@ const ProfileHeader = ({
   github,
   stackOverflow,
   openToWork,
+  isMyProfile,
 }) => {
   const textRef = useRef(null);
 
@@ -92,13 +93,15 @@ const ProfileHeader = ({
       <header className={headerClasses}>
         <img src={profile_cover} alt="cover pic" />
 
-        <div
-          className={styles.ediet_cover_btn}
-          onClick={() => navigateToEdietProfile("media")}
-          title="change cover photo"
-        >
-          <FontAwesomeIcon icon={faPencil} />
-        </div>
+        {isMyProfile && (
+          <div
+            className={styles.ediet_cover_btn}
+            onClick={() => navigateToEdietProfile("media")}
+            title="change cover photo"
+          >
+            <FontAwesomeIcon icon={faPencil} />
+          </div>
+        )}
         <div
           className={`${profilePictureClasses} ${
             !pic && type === "user" && styles.noAvatar_container
@@ -112,13 +115,15 @@ const ProfileHeader = ({
             ) : (
               <UserProfilePic firstName={firstName} />
             )}
-            <div
-              className={styles.ediet_profile_pic_btn}
-              title="change profile photo"
-              onClick={() => navigateToEdietProfile("media")}
-            >
-              <FontAwesomeIcon icon={faCamera} />
-            </div>
+            {isMyProfile && (
+              <div
+                className={styles.ediet_profile_pic_btn}
+                title="change profile photo"
+                onClick={() => navigateToEdietProfile("media")}
+              >
+                <FontAwesomeIcon icon={faCamera} />
+              </div>
+            )}
             {openToWork && (
               <div className={styles.badge}>
                 <span>open to work</span>
@@ -126,91 +131,95 @@ const ProfileHeader = ({
             )}
           </div>
         </div>
-        <div className={styles.header_links}>
-          <ul className="d-flex align-items-center">
-            {type === "company" ? (
-              <>
-                <li className={styles.headers_link_item}>
-                  <FontAwesomeIcon icon={faBookmark} />
-                  Draft
-                </li>
-                <li className={styles.headers_link_item}>
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      as={CustomDropDownItem}
-                      id="dropdown-custom-components"
-                    >
-                      <FontAwesomeIcon icon={faShare} />
-                      <span>Share</span>
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={handleCopy}>
-                        <div
-                          className="d-flex align-items-center"
-                          title="copy url"
-                        >
-                          <FontAwesomeIcon
-                            icon={faCopy}
-                            className={styles.copy_icon}
-                          />
-                          <span className="mini_word">
-                            <p className="m-0" ref={textRef}>
-                              http://localhost:3001/company-profile/{url}
-                            </p>
-                          </span>
-                        </div>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </li>
-
-                <li className={styles.headers_link_item}>
-                  <FontAwesomeIcon icon={faBook} />
-                  Activity
-                </li>
-                <li className={styles.headers_link_item}>
-                  <FontAwesomeIcon icon={faAdd} />
-                  New Post
-                </li>
-              </>
-            ) : (
-              <>
-                <li className={styles.headers_link_item}>
-                  <Link to={"/saved"}>
+        {isMyProfile && (
+          <div className={styles.header_links}>
+            <ul className="d-flex align-items-center">
+              {type === "company" ? (
+                <>
+                  <li className={styles.headers_link_item}>
                     <FontAwesomeIcon icon={faBookmark} />
-                    saved
-                  </Link>
-                </li>
+                    Draft
+                  </li>
+                  <li className={styles.headers_link_item}>
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        as={CustomDropDownItem}
+                        id="dropdown-custom-components"
+                      >
+                        <FontAwesomeIcon icon={faShare} />
+                        <span>Share</span>
+                      </Dropdown.Toggle>
 
-                <li className={styles.headers_link_item}>
-                  <Link to={"/applications"}>
-                    <FontAwesomeIcon icon={faFileContract} />
-                    Applications
-                  </Link>
-                </li>
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={handleCopy}>
+                          <div
+                            className="d-flex align-items-center"
+                            title="copy url"
+                          >
+                            <FontAwesomeIcon
+                              icon={faCopy}
+                              className={styles.copy_icon}
+                            />
+                            <span className="mini_word">
+                              <p className="m-0" ref={textRef}>
+                                http://localhost:3001/company-profile/{url}
+                              </p>
+                            </span>
+                          </div>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </li>
 
-                <li className={styles.headers_link_item}>
-                  <FontAwesomeIcon icon={faBook} />
-                  Activity
-                </li>
+                  <li className={styles.headers_link_item}>
+                    <FontAwesomeIcon icon={faBook} />
+                    Activity
+                  </li>
+                  <li className={styles.headers_link_item}>
+                    <FontAwesomeIcon icon={faAdd} />
+                    New Post
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className={styles.headers_link_item}>
+                    <Link to={"/saved"}>
+                      <FontAwesomeIcon icon={faBookmark} />
+                      saved
+                    </Link>
+                  </li>
 
-                <li className={styles.headers_link_item}>
-                  <FontAwesomeIcon icon={faAdd} />
-                  New Section
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
+                  <li className={styles.headers_link_item}>
+                    <Link to={"/applications"}>
+                      <FontAwesomeIcon icon={faFileContract} />
+                      Applications
+                    </Link>
+                  </li>
+
+                  <li className={styles.headers_link_item}>
+                    <FontAwesomeIcon icon={faBook} />
+                    Activity
+                  </li>
+
+                  <li className={styles.headers_link_item}>
+                    <FontAwesomeIcon icon={faAdd} />
+                    New Section
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        )}
       </header>
 
       <div className={styles.sub_header}>
-        <EdietPenIcon onClick={() => navigateToEdietProfile("info")} />
+       {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdietProfile("info")} />} 
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className={`${styles.contact_caption} d-flex flex-column`}>
             <h3>{type === "company" ? name : firstName + " " + lastName}</h3>
-            <span className={styles.tagline}>{tagline?tagline:industry}</span>
+            <span className={styles.tagline}>
+              {tagline ? tagline : industry}
+            </span>
             {(city || country) && (
               <span>
                 <FontAwesomeIcon

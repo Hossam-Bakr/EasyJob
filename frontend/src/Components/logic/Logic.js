@@ -1093,8 +1093,6 @@ export const educationLevelOptions = [
   { value: "bachelor's degree", label: "Bachelor's Degree" },
   { value: "master's degree", label: "Master's Degree" },
   { value: "doctorate", label: "Doctorate Degree" },
-  { value: "diploma", label: "Diploma" },
-  { value: "vocational", label: "Vocational" },
   { value: "vocational", label: "Vocational" },
   { value: "diploma", label: "College Diploma" },
 ];
@@ -1847,7 +1845,7 @@ export const getIndustryName = (
 ) => {
   let myIndustry = {};
   myIndustry = currentIndustries.find((industry) => industry.id === industryId);
-  setCompanyIndustryName(myIndustry.name);
+  setCompanyIndustryName(myIndustry?.name);
 };
 
 // const cityOptions = [];

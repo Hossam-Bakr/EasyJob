@@ -16,13 +16,62 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styles from "./CompanyProfileSections.module.css";
-import JobPost from "./JobPost";
-import MainBtnThree from "./MainBtnThree";
 import ListedEmployees from "./ListedEmployees";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
 import NoDataBox from "./NoDataBox";
+import CompanyRelatedJobs from "./CompanyRelatedJobs";
+
+
+
+
+const myEmployees = [
+  {
+    id: "e1",
+    name: "Omar Nasr",
+    title: "Software Engineering Team Leader",
+    country: "Egypt",
+    city: "Cairo",
+  },
+  {
+    id: "e2",
+    name: "Atef Alaa Eldin",
+    title: "Frontend Developer Angular",
+    country: "Egypt",
+    city: "Cairo",
+  },
+  {
+    id: "e3",
+    name: "Sameh GadAllah",
+    title: "Accounting",
+    country: "Egypt",
+    city: "Cairo",
+    type: "part-time",
+    workplace: "on site",
+  },
+  {
+    id: "e4",
+    name: "Ramdan Kareem",
+    title: "Unit Tester| Mern Stack",
+    country: "Egypt",
+    city: "Cairo",
+  },
+  {
+    id: "e5",
+    name: "Mohsen Ali",
+    title: "sales & marketing director",
+    country: "Egypt",
+    city: "Cairo",
+  },
+  {
+    id: "e6",
+    name: "Mohand Mostafa",
+    title: "Assistant Floor @Huwawei",
+    country: "Egypt",
+    city: "Cairo",
+  },
+];
 
 const CompanyProfileSections = ({
   city,
@@ -40,112 +89,13 @@ const CompanyProfileSections = ({
   youtube,
   behance,
   vimeo,
+  isMyProfile
 }) => {
-  const myJobs = [
-    {
-      key: 1,
-      name: "huwawei",
-      jobTitle: "Call Center",
-      req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-      logo: "L2",
-      type: "full-time",
-      workplace: "remote",
-      time: "5 min",
-    },
-    {
-      key: 2,
-      name: "Huwawei",
-      jobTitle: "Electrical Engineer",
-      req: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-      logo: "L2",
-      type: "full-time",
-      workplace: "remote",
-      
-     
-      time: "2 days",
-    },
-    {
-      key: 3,
-      name: "huwawei",
-      jobTitle: "Frontend React Developer",
-      req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-      logo: "L2",
-      type: "full-time",
-      workplace: "remote",
-      time: "5 months",
-    },
-    {
-      key: 4,
-      name: "huwawei",
-      jobTitle: "Financial Advisor",
-      req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-      logo: "L2",
-      workplace: "remote",
-      type: "full-time",
-      time: "2 years",
-    },
-  ];
-
-  const myEmployees = [
-    {
-      id: "e1",
-      name: "Omar Nasr",
-      title: "Software Engineering Team Leader",
-      country: "Egypt",
-      city: "Cairo",
-    },
-    {
-      id: "e2",
-      name: "Atef Alaa Eldin",
-      title: "Frontend Developer Angular",
-      country: "Egypt",
-      city: "Cairo",
-    },
-    {
-      id: "e3",
-      name: "Sameh GadAllah",
-      title: "Accounting",
-      country: "Egypt",
-      city: "Cairo",
-      type: "part-time",
-      workplace: "on site",
-    },
-    {
-      id: "e4",
-      name: "Ramdan Kareem",
-      title: "Unit Tester| Mern Stack",
-      country: "Egypt",
-      city: "Cairo",
-    },
-    {
-      id: "e5",
-      name: "Mohsen Ali",
-      title: "sales & marketing director",
-      country: "Egypt",
-      city: "Cairo",
-    },
-    {
-      id: "e6",
-      name: "Mohand Mostafa",
-      title: "Assistant Floor @Huwawei",
-      country: "Egypt",
-      city: "Cairo",
-    },
-  ];
-
-  let companyIndustry = "Software Engineering";
-
-  switch (industry) {
-    case 10:
-      companyIndustry = "Information and communications technology (ICT)";
-      break;
-
-    default:
-      break;
-  }
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const defaultPage=useSelector((state=>state.defaultEdiet.defaultCompanyProfilePage))
 
   const navigateToEdietProfile = (type) => {
     dispatch(edietActions.setDefaultEdietPage(type));
@@ -153,7 +103,7 @@ const CompanyProfileSections = ({
   };
 
   return (
-    <Tabs defaultActiveKey="overview" id="uncontrolled-tab-example" fill>
+    <Tabs defaultActiveKey={defaultPage} id="uncontrolled-tab-example" fill>
       <Tab eventKey="overview" title="Overview">
         {!city && !country && !size && !desc && !founded ? (
           <NoDataBox
@@ -163,7 +113,7 @@ const CompanyProfileSections = ({
         ) : (
           <>
             <div className={styles.main_style}>
-              <EdietPenIcon onClick={() => navigateToEdietProfile("info")} />
+              {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdietProfile("info")} />}
               <h3 className={styles.sec_title}>Company Overview</h3>
               <Row className={styles.general_info}>
                 <Col md={7}>
@@ -184,7 +134,7 @@ const CompanyProfileSections = ({
                     )}
                     <li>
                       <span className={styles.info_title}>Industry:</span>
-                      <span>{companyIndustry}</span>
+                      <span>{industry}</span>
                     </li>
                     {size && (
                       <li>
@@ -290,31 +240,7 @@ const CompanyProfileSections = ({
       </Tab>
 
       <Tab eventKey="jobs" title="Jobs">
-        <div className={`${styles.main_style} ${styles.job_section}`}>
-          <h3 className={styles.sec_title}>Posted Jobs</h3>
-          <div className="mt-4">
-            {myJobs.map((job) => {
-              return (
-                <JobPost
-                  key={job.key}
-                  name={job.name}
-                  jobTitle={job.jobTitle}
-                  req={job.req}
-                  logo={null}
-                  type={job.type}
-                  workplace={job.workplace}
-                  time={job.time}
-                  grid={false}
-                  profile={true}
-                />
-              );
-            })}
-
-            <div className="text-center">
-              <MainBtnThree text="Load More" />
-            </div>
-          </div>
-        </div>
+          <CompanyRelatedJobs isMyProfile={isMyProfile}/>
       </Tab>
 
       <Tab eventKey="employees" title="Employees">

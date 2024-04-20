@@ -38,7 +38,8 @@ const JobPost = ({
   hideSalary,
   grid,
   profile,
-  shape
+  shape,
+  isMyProfile,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [jobCompanyLogo, setJobCompanyLogo] = useState(null);
@@ -97,7 +98,7 @@ const JobPost = ({
   useEffect(() => {
     AOS.init();
   }, []);
-
+  
   useEffect(() => {
     setJobCompanyLogo(null);
     if (logo) {
@@ -118,17 +119,21 @@ const JobPost = ({
   return (
     <>
       {shape === "table" ? (
-          <tr>
+        <tr>
           <td className={`${styles.info_table} ${styles.table_cell}`}>
             {name}
           </td>
           <td className={` ${styles.table_cell}`}>{jobTitle}</td>
-          <td className={` ${styles.table_cell} ${styles.type}`}><span>{type} , {workplace}</span></td>
+          <td className={` ${styles.table_cell} ${styles.type}`}>
+            <span>
+              {type} , {workplace}
+            </span>
+          </td>
           <td className={` ${styles.table_cell}`}>{formatedTime}</td>
           <td className={` ${styles.table_btn}`}>
-            <FontAwesomeIcon title="preview" icon={faArrowRight}/>
-            <FontAwesomeIcon title="ediet" icon={faEdit}/>
-            <FontAwesomeIcon title="stages" icon={faLayerGroup}/>
+            <FontAwesomeIcon title="preview" icon={faArrowRight} />
+            <FontAwesomeIcon title="ediet" icon={faEdit} />
+            <FontAwesomeIcon title="stages" icon={faLayerGroup} />
           </td>
         </tr>
       ) : (
@@ -140,12 +145,15 @@ const JobPost = ({
                 <div className={styles.job_icons}>
                   {profile ? (
                     <>
-                      <FontAwesomeIcon
-                        onClick={checkToNavigateJobDetails}
-                        icon={faEdit}
-                        title="ediet post"
-                        className={`${styles.bookmark_icon} mx-2`}
-                      />
+                      {isMyProfile && (
+                        <FontAwesomeIcon
+                          onClick={checkToNavigateJobDetails}
+                          icon={faEdit}
+                          title="ediet post"
+                          className={`${styles.bookmark_icon} mx-2`}
+                        />
+                      )}
+
                       <FontAwesomeIcon
                         onClick={checkToNavigateJobDetails}
                         icon={faArrowRight}
@@ -195,9 +203,19 @@ const JobPost = ({
                   {workplace && <span>{workplace}</span>}
                   {type && <span>{type}</span>}
                   {profile ? (
-                    <span className={styles.delete_post}>
-                      <FontAwesomeIcon icon={faTrash} /> Delete
-                    </span>
+                    <>
+                      {isMyProfile ? (
+                        <span className={styles.delete_post}>
+                          <FontAwesomeIcon icon={faTrash} /> Delete
+                        </span>
+                      ):   <span>
+                      <FontAwesomeIcon
+                        icon={faLocationDot}
+                        className={styles.location_icon}
+                      />{" "}
+                      {city}, {country}
+                    </span>}
+                    </>
                   ) : (
                     <span>
                       <FontAwesomeIcon

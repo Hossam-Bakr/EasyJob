@@ -21,6 +21,8 @@ import NoDataBox from "./../../Components/Ui/NoDataBox";
 
 const Posts = () => {
   const [gridView, setGridView] = useState(true);
+  const [pageNum, setPageNum] = useState(1); 
+  const token = JSON.parse(localStorage.getItem("token"));
 
   const setGrid = () => {
     setGridView(true);
@@ -29,9 +31,9 @@ const Posts = () => {
     setGridView(false);
   };
 
-  const { data, isFetching, isError } = useQuery({
+  const { data, isFetching, isError,refetch } = useQuery({
     queryKey: ["jobs"],
-    queryFn: () => getJobs({ type: "" }),
+    queryFn: () => getJobs({ type: "",pageNum,token }),
   });
 
   const role = useSelector((state) => state.userInfo.role);
@@ -51,7 +53,10 @@ useEffect(()=>{
   }
 },[data])
 
-
+useEffect(()=>{
+  refetch()
+  window.scrollTo(0,0)
+},[pageNum,refetch])
   return (
     <>
       {isError ? (
@@ -562,7 +567,7 @@ useEffect(()=>{
                         )}
                       </>
                     )}
-                    <Pagination />
+                  <Pagination setPageNum={setPageNum} maxPageNum={data.data?.paginationResults?.numberOfPages}/>
                   </Row>
                 </Container>
               </section>

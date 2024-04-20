@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import styles from "./HomeMainBody.module.css";
-import { useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AOS from "aos";
-import "aos/dist/aos.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBullhorn,
@@ -30,11 +29,6 @@ import { useNavigate } from "react-router-dom";
 import HomeLatestJobs from "../../Components/Ui/HomeLatestJobs";
 
 const HomeMainBody = () => {
-  const darkMode = useSelector((state) => state.mode.darkMode);
-  const resumeCaptionClasses = !darkMode
-    ? styles.resume_caption
-    : styles.resume_caption_dark;
-
 
   const navigate=useNavigate();
 
@@ -64,7 +58,7 @@ const HomeMainBody = () => {
       </section>
 
       {/* resume caption section------------------------------------------------------------------- */}
-      <section className={resumeCaptionClasses}>
+      <section className={styles.resume_caption}>
         <div className={styles.resume_caption_container}>
           <div className={styles.resume_caption_circle}></div>
           <div className={styles.resume_caption_circle_two}></div>
