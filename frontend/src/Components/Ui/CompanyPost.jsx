@@ -54,6 +54,9 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,company
         if(type==="jobs"){
           dispatch(edietActions.setDefaultCompanyProfilePage("jobs"))
         }
+        else{
+          dispatch(edietActions.setDefaultCompanyProfilePage("overview"))
+        }
         navigate(`/company-profile/${companyId}`)
       }
     }
