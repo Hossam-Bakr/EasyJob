@@ -192,7 +192,7 @@ const Categories = () => {
                                 </Row>
                               </div>
                             ))}
-                          <Pagination setPageNum={setPageNum} maxPageNum={data?.data?.paginationResults?.numberOfPages}/>
+                          <Pagination setPageNum={setPageNum} maxPageNum={data?.paginationResults?.numberOfPages}/>
                           </>
                         )}
                       </>
