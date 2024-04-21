@@ -21,7 +21,7 @@
     margin: auto;
     background-color: white;
     border: solid rgb(220, 219, 219) 0.5px;
-    padding: 1rem;
+    padding: 1.5rem 2rem   ;
 }
 .FormContainer .subHeader{
     font-size: 18px;

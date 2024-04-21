@@ -2,13 +2,19 @@ import styles from "./JobForm.module.css"
 import { Field, Form, Formik } from "formik";
 import MultiSelect from "../../Components/logic/SelectField";
 import Select from "react-select";
-import { countryOptions } from './../../Components/logic/Logic';
+import { countryOptions, yearsOfExpr } from './../../Components/logic/Logic';
+import TextArea from "../../Components/TextArea/TextArea";
 
 const JobForm = () => {
 
     return (
         <Formik
-            // initialValues={initialValues}
+            initialValues={{
+                jobType: "",
+                Workplace: "",
+                careerLevel: "",
+                hideSalary: "",
+            }}
             // onSubmit={onSubmit}
             // validationSchema={validationSchema}
             enableReinitialize
@@ -21,7 +27,9 @@ const JobForm = () => {
                         id="jobTitle"
                         type="text"
                         className={styles.disabled_faild}
-                    // value={currentJobTitle}
+                        // value={currentJobTitle}
+                        value=''
+                        placeholder="Write The Job Title"
                     />
                 </div>
 
@@ -41,23 +49,23 @@ const JobForm = () => {
                     <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
                         <div className={styles.check_Box}>
                             <label htmlFor="fulltime">Full Time</label>
-                            <input type="checkbox" name="checked" value="fulltime" id="fulltime" />
+                            <Field type="radio" name="jobType" value="fulltime" id="fulltime" />
                         </div>
                         <div className={styles.check_Box}>
                             <label htmlFor="parttime">Part Time</label>
-                            <Field type="checkbox" name="checked" value="parttime" id="parttime" />
+                            <Field type="radio" name="jobType" value="parttime" id="parttime" />
                         </div>
                         <div className={styles.check_Box}>
                             <label htmlFor="freelance-project">Freelance / Project</label>
-                            <Field type="checkbox" name="checked" value="freelance-project" id="freelance-project" />
+                            <Field type="radio" name="jobType" value="freelance-project" id="freelance-project" />
                         </div>
                         <div className={styles.check_Box}>
                             <label htmlFor="shiftbased">Shift Based</label>
-                            <Field type="checkbox" name="checked" value="shiftbased" id="shiftbased" />
+                            <Field type="radio" name="jobType" value="shiftbased" id="shiftbased" />
                         </div>
                         <div className={styles.check_Box}>
                             <label htmlFor="volunteering">Volunteering</label>
-                            <Field type="checkbox" name="checked" value="volunteering" id="volunteering" />
+                            <Field type="radio" name="jobType" value="volunteering" id="volunteering" />
                         </div>
                     </div>
                 </div>
@@ -67,23 +75,15 @@ const JobForm = () => {
                     <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
                         <div className={styles.check_Box}>
                             <label htmlFor="onSite">On-Site</label>
-                            <input type="checkbox" name="checked" value="onSite" id="onSite" />
+                            <input type="radio" name="Workplace" value="onSite" id="onSite" />
                         </div>
                         <div className={styles.check_Box}>
-                            <label htmlFor="parttime">Part Time</label>
-                            <Field type="checkbox" name="checked" value="parttime" id="parttime" />
+                            <label htmlFor="parttime">Remote</label>
+                            <input type="radio" name="Workplace" value="parttime" id="parttime" />
                         </div>
                         <div className={styles.check_Box}>
-                            <label htmlFor="freelance-project">Freelance / Project</label>
-                            <Field type="checkbox" name="checked" value="freelance-project" id="freelance-project" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="shiftbased">Shift Based</label>
-                            <Field type="checkbox" name="checked" value="shiftbased" id="shiftbased" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="volunteering">Volunteering</label>
-                            <Field type="checkbox" name="checked" value="volunteering" id="volunteering" />
+                            <label htmlFor="freelance-project">Hybrid</label>
+                            <input type="radio" name="Workplace" value="freelance-project" id="freelance-project" />
                         </div>
                     </div>
                 </div>
@@ -107,82 +107,100 @@ const JobForm = () => {
                                 type="text"
                                 placeholder="Cairo"
                                 id="companyCity"
-                                // options={Cities}
+                            // options={Cities}
                             />
                         </div>
                     </div>
                 </div>
 
+                <hr></hr>
 
-                {/* <div className={styles.collection}>
+                <div className={styles.field}>
+                    <label>Career Level -</label>
+                    <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="student">Student</label>
+                            <input type="radio" name="careerLevel" value="student" id="student" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="entryLevel">Entry Level</label>
+                            <Field type="radio" name="careerLevel" value="entryLevel" id="entryLevel" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="experienced">Experienced</label>
+                            <Field type="radio" name="careerLevel" value="experienced" id="experienced" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="senior">Senior</label>
+                            <Field type="radio" name="careerLevel" value="senior" id="senior" />
+                        </div>
+                        <div className={styles.check_Box}>
+                            <label htmlFor="manager">Manager</label>
+                            <Field type="radio" name="careerLevel" value="manager" id="manager" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.field}>
+                    <label htmlFor="yearsOfExpr">Years Of Experience -</label>
+                    <div className={styles.collection}>
+                        <div className={styles.field}>
+                            <Select
+                                type="text"
+                                name="yearsOfExpr"
+                                id="yearsOfExpr"
+                                placeholder="Min - Max"
+                                options={yearsOfExpr}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.field}>
+                    <label htmlFor="location">Salary Range -</label>
                     <div className={styles.field}>
-                        <label htmlFor="companySize">Size</label>
-                        <Field
-                            type="text"
-                            id="companySize"
-                            name="size"
-                            isMulti={false}
-                        // component={MultiSelect}
-                        // options={sizeOptions}
-                        // className={data.size ? "" : styles.empty_field}
-                        />
-                         <ErrorMessage name="size" component={InputErrorMessage} />
+                        <div className={styles.SecondCollection}>
+                            <Field type="text" name="MinSalary" placeholder="e.g 8000" value='' />
+                            <h6>to</h6>
+                            <Field type="text" name="MaxSalary" placeholder="e.g 12000" value='' />
+                            <span>EGP/Per Month</span>
+                        </div>
+                        <div className={styles.Field}>
+                            <div className={styles.SecondCollection}>
+                                <Field type="checkbox" name="hideSalary" value="hide" id="hideSalary" />
+                                <label htmlFor="hideSalary">Hide Salary in job post (Will only used for recommendations)</label>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div className={`${styles.field}`}>
-                        <label htmlFor="companyFounded">Founded</label>
-                        <Field
-                            type="text"
-                            id="companyFounded"
-                            name="foundedYear"
-                        // className={`${data.founded ? "" : styles.empty_field} ${styles.founded
-                        //     } `}
-                        />
-                         <ErrorMessage
-                                    name="foundedYear"
-                                    component={InputErrorMessage}
-                                /> 
+                {/* <div className={styles.SecondBox}>
+                    <h5 className={styles.jobDesc}>About This Job</h5>
+                    <div className={styles.field}>
+                        <label>Job Description</label>
+                        <TextArea />
                     </div>
                 </div> */}
 
-                {/* <div className={`${styles.field} ${styles.text_area_desc}`}>
-                    <Field
-                        as="textarea"
-                        id="description"
-                        name="description"
-                        cols="30"
-                        rows="7"
-                    // className={data.description ? "" : styles.empty_field}
-                    />
-                     <ErrorMessage name="description" component={InputErrorMessage} />
-                </div> */}
-
-                {/* <div className={styles.field}>
-                    <label htmlFor="companyLocation">Location</label>
-                    <Field
-                        type="text"
-                        id="companyLocation"
-                        name="location"
-                    // className={data.location ? "" : styles.empty_field}
-                    />
-                <ErrorMessage name="location" component={InputErrorMessage} />
-                </div> */}
 
                 <div className="d-flex justify-content-end align-items-center mt-3 px-2">
-                    {/* {isPending ? (
+                    {/* 
+                    {isPending ? (
                                 <button type="submit" className={styles.save_btn}>
                                     <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
                                 </button>
                             ) : (
                                 <button className={styles.save_btn} type="submit">
-                                    Save Changes
+                                    Post The Job
                                 </button>
-                            )} */}
+                            )} 
+                    */}
                     <button className={styles.save_btn} type="submit">
-                        Save Changes
+                        Post The Job
                     </button>
                 </div>
             </Form>
+
         </Formik>
     );
 }

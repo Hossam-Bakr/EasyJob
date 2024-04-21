@@ -11,7 +11,7 @@ function PostAJob() {
                 <h1 className={styles.mainHeader}>Post New <span>Job.</span></h1>
             </div>
             <div className={styles.FormContainer}>
-                <p className={styles.subHeader}>Job information</p>
+                <p className={styles.subHeader}>Job Details</p>
                 <JobForm />
             </div>
 
