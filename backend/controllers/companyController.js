@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
+const { Op } = require("sequelize");
 const Company = require("../models/companyModel");
 const CompanyProfile = require("../models/companyProfileModel");
 const Category = require("../models/categoryModel");
@@ -31,6 +32,13 @@ const allCompaniesInclude = {
       as: "specializations",
     },
   ],
+  where: {
+    [Op.and]: [
+      { country: { [Op.not]: null } },
+      { city: { [Op.not]: null } },
+      { description: { [Op.not]: null } },
+    ],
+  },
 };
 
 exports.getAllCompanies = factory.getAll(
