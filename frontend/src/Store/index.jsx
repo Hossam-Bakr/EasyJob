@@ -5,6 +5,7 @@ import defaultEdietSlice from "./defaultEdietPage-slice";
 import profileSlice from "./profileInfo-slice";
 import categorySlice from "./category-slice";
 import savedJobsSLice from "./savedJobs-slice";
+import showProfileSlice from './showprofile-slice';
 
 
 const store = configureStore({
@@ -14,7 +15,8 @@ const store = configureStore({
     defaultEdiet: defaultEdietSlice.reducer,
     profileInfo:profileSlice.reducer,
     category:categorySlice.reducer,
-    savedJobs:savedJobsSLice.reducer
+    savedJobs:savedJobsSLice.reducer,
+    showProfile:showProfileSlice.reducer
   },
 });
 

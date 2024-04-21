@@ -20,13 +20,19 @@ import LoadingTwo from "./../../Components/Ui/LoadingTwo";
 
 const Candidates = () => {
   const [gridView, setGridView] = useState(true);
+  const [pageNum, setPageNum] = useState(1);
+
   const companyProfileData = JSON.parse(localStorage.getItem("userData"));
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, refetch } = useQuery({
     queryKey: ["candidates"],
     queryFn: () =>
-      getCompanyCandidates({ id: companyProfileData.id, token: token }),
+      getCompanyCandidates({
+        id: companyProfileData.id,
+        token: token,
+        pageNum,
+      }),
   });
 
   console.log("data", data);
@@ -59,7 +65,10 @@ const Candidates = () => {
       };
     }
   }, [dispatch, isLogin]);
-
+  useEffect(() => {
+    refetch();
+    window.scrollTo(0, 0);
+  }, [pageNum, refetch]);
   return (
     <>
       <Container fluid className="mb-5">
@@ -621,7 +630,10 @@ const Candidates = () => {
                   </>
                 </Row>
               </Container>
-              <Pagination />
+              <Pagination
+                setPageNum={setPageNum}
+                maxPageNum={data?.paginationResults?.numberOfPages}
+              />
             </section>
           </Col>
         </Row>

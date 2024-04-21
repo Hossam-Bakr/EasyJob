@@ -5,8 +5,11 @@ const signFormsHandler = async ({ type, formData, method }) => {
   try {
     let response = null;
     if (method === "put") {
-      console.log("hi")
-      response = await axios.put(`${baseServerUrl}auth/resetPassword`, formData);
+      console.log("hi");
+      response = await axios.put(
+        `${baseServerUrl}auth/resetPassword`,
+        formData
+      );
     } else {
       response = await axios.post(`${baseServerUrl}auth/${type}`, formData);
     }
@@ -73,12 +76,11 @@ export const updateFormHandler = async ({
 };
 
 export const getIndustries = async ({
-  signal,
   type,
   formData,
   method,
   pageNum,
-  limit
+  industryList
 }) => {
   try {
     let response = null;
@@ -97,16 +99,15 @@ export const getIndustries = async ({
           `${baseServerUrl}industries${type}${formData}`
         );
       }
-    } else if(method==="limit") {
+    }
+    else if(method==="industryList"){
       response = await axios(`${baseServerUrl}industries`, {
-        params: {
-          page: pageNum,
-          limit:limit
-        },
       });
-    } else {
+    }
+   else {
       response = await axios(`${baseServerUrl}industries`, {
         params: {
+          limit:8,
           page: pageNum,
         },
       });
@@ -182,7 +183,7 @@ export const accountSettingHanlder = async ({
   }
 };
 
-export const getJobs = async ({ signal, type, formData, method }) => {
+export const getJobs = async ({ type, formData, method, pageNum }) => {
   try {
     let response = null;
     if (type) {
@@ -194,13 +195,22 @@ export const getJobs = async ({ signal, type, formData, method }) => {
         response = await axios.delete(`${baseServerUrl}jobs${type}${formData}`);
       }
     } else {
-      response = await axios(`${baseServerUrl}jobs/`, { signal });
+      response = await axios(
+        `${baseServerUrl}jobs/`,
+        {
+          params: {
+            limit: 15,
+            page: pageNum,
+          },
+        }
+      );
     }
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
+
 export const getJobsDetails = async (id) => {
   try {
     const response = await axios(`${baseServerUrl}jobs/${id}`);
@@ -234,7 +244,9 @@ export const saveJobsHandler = async ({ jobId, token }) => {
 export const getLatestJobs = async (num) => {
   try {
     const response = await axios.get(`${baseServerUrl}jobs/latest/${num}`);
-    return response.data;
+      
+    return response;
+
   } catch (error) {
     console.error(error);
   }
@@ -344,11 +356,15 @@ export const languageHandler = async ({ formData, method, id, token }) => {
   }
 };
 
-export const getCompanyCandidates = async ({ id, token }) => {
+export const getCompanyCandidates = async ({ id, token, pageNum }) => {
   try {
     const response = await axios(`${baseServerUrl}companies/${id}/candidates`, {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+      params: {
+        limit: 15,
+        page: pageNum,
       },
     });
     return response;
@@ -357,11 +373,16 @@ export const getCompanyCandidates = async ({ id, token }) => {
   }
 };
 
-export const getCompanies=async()=>{
+export const getCompanies = async (pageNum) => {
   try {
-    const res=axios(`${baseServerUrl}companies`);
-    return res
+    const res = axios(`${baseServerUrl}companies`, {
+      params: {
+        limit: 15,
+        page: pageNum,
+      },
+    });
+    return res;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};

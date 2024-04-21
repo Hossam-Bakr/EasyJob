@@ -41,6 +41,8 @@ import getAllCategories, { getAllIndustries } from "./Store/category-actions";
 import { getSavedJobsHandler } from "./Store/savedJobs-actions";
 import JobDetails from "./Pages/JobDetails/JobDetails";
 import ForgetPassword from "./Pages/ForgetPassword/ForgetPassword";
+import PostAJob from "./Pages/PostAJob/PostAJob";
+import JobStagesBoard from "./Pages/JobStages/JobStagesBoard";
 
 //pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
 
@@ -52,6 +54,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "company-home", element: <CompanyHome /> },
+      { path: "job-post", element: <PostAJob /> },
       { path: "jobs", element: <Posts /> },
       { path: "job-details/:jobId", element: <JobDetails /> },
       { path: "candidates", element: <Candidates /> },
@@ -69,6 +72,7 @@ const router = createBrowserRouter([
       { path: "company-info", element: <CompanyInfo /> },
       { path: "company-admins", element: <CompanyAdmins /> },
       { path: "company-dashboard", element: <CompanyDashboard /> },
+      { path: "stages/:jobId", element: <JobStagesBoard /> },
       { path: "company-account-setting", element: <CompanyAccountSetting /> },
       { path: "login", element: <Login /> },
       { path: "forget-password", element: <ForgetPassword /> },
@@ -85,11 +89,13 @@ function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
-
+  
+  
   // get profile data from database
   useEffect(() => {
     if (role && token) {
       dispatch(fetchProfileData(token, role));
+      
     }
   }, [dispatch, token, role]);
 

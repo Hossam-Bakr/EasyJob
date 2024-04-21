@@ -60,7 +60,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                   />
                 </li>
               </Link>
-              <Link onClick={handleClose} to={"jobs"} end="true">
+              <Link onClick={handleClose} to={"companies"} end="true">
                 <li className={styles.contact_list_item}>
                   Companies{" "}
                   <FontAwesomeIcon

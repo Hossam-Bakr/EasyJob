@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 const UserProfile = () => {
   const userProfileData = useSelector((state) => state.profileInfo.data);
   const userProfileMainData = useSelector((state) => state.profileInfo.mainData);
+  const isMyProfile=useSelector((state)=>state.showProfile.isMyProfile);
   const [profileCover, setProfileCover] = useState(null);
   const [profileAvatar, setProfileAvatar] = useState(null);
   const params=useParams();
@@ -50,6 +51,7 @@ const UserProfile = () => {
                 linkedin={userProfileData.linkedIn}
                 behance={userProfileData.behance}
                 type="user"
+                isMyProfile={isMyProfile}
               />
             </div>
             <ProfileSections
@@ -74,6 +76,7 @@ const UserProfile = () => {
               Skills={userProfileData.Skills}
               languages={userProfileData.languages}
               certifications={userProfileData.Certifications}
+              // isMyProfile={isMyProfile}
             />
           </Container>
         </>

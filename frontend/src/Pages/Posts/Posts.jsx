@@ -21,6 +21,8 @@ import NoDataBox from "./../../Components/Ui/NoDataBox";
 
 const Posts = () => {
   const [gridView, setGridView] = useState(true);
+  const [pageNum, setPageNum] = useState(1); 
+  // const token = JSON.parse(localStorage.getItem("token"));
 
   const setGrid = () => {
     setGridView(true);
@@ -29,9 +31,9 @@ const Posts = () => {
     setGridView(false);
   };
 
-  const { data, isFetching, isError } = useQuery({
+  const { data, isFetching, isError,refetch } = useQuery({
     queryKey: ["jobs"],
-    queryFn: () => getJobs({ type: "" }),
+    queryFn:()=> getJobs({pageNum}),
   });
 
   const role = useSelector((state) => state.userInfo.role);
@@ -45,11 +47,11 @@ const Posts = () => {
     }
     window.scrollTo(0, 0);
   }, [navigate, role, isLogin]);
+
 useEffect(()=>{
-  if(data){
-    console.log(data.data)
-  }
-},[data])
+  refetch()
+  window.scrollTo(0,0)
+},[pageNum,refetch])
 
 
   return (
@@ -534,7 +536,8 @@ useEffect(()=>{
                       <>
                         {data ? (
                           <>
-                            {data.data.map((job) => {
+                          {data.data?.length!==0? <>
+                          {data.data?.map((job) => {
                               return (
                                 <JobPost
                                   key={job.id}
@@ -555,14 +558,17 @@ useEffect(()=>{
                                   grid={gridView}
                                 />
                               );
-                            })}
+                            })}</>:
+                            <NoDataBox text="sorry there isn't recommended jobs right now contact us"/>
+                            }
+                           
                           </>
                         ) : (
-                          <NoDataBox />
+                          <NoDataBox text="sorry there isn't recommended jobs right now contact us"/>
                         )}
                       </>
                     )}
-                    <Pagination />
+                  <Pagination setPageNum={setPageNum} maxPageNum={data?.paginationResults?.numberOfPages}/>
                   </Row>
                 </Container>
               </section>

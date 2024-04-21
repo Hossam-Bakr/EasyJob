@@ -14,7 +14,7 @@ const PlacholderComponent = ({ type, myWidth, mySize,myAnimation }) => {
           <Placeholder xs={12} size={mySize} />
         </Placeholder>
       ) : (
-        <Card style={{ width: myWidth ? myWidth : "18rem" }}>
+        <Card className="mb-3" style={{ width: myWidth ? myWidth : "18rem" }}>
           <Card.Body>
             <Placeholder as={Card.Title} animation="glow">
               <Placeholder xs={6} />

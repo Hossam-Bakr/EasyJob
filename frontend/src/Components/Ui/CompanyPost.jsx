@@ -7,13 +7,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import noLogo from "../../images/noLogo.jpg";
 import ApplyBtn from "./ApplyBtn";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import fetchProfileData from "../../Store/profileInfo-actions";
+import { edietActions } from "../../Store/defaultEdietPage-slice";
 
-const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
+const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,companyId }) => {
 
   const [industryName,setIndustryName]=useState("");
   const [jobCompanyLogo, setJobCompanyLogo] = useState(null);
   const industries =useSelector((state)=>state.category.industries);
+  const token = useSelector((state) => state.userInfo.token);
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   useEffect(() => {
     AOS.init();
@@ -21,8 +27,7 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
 
   useEffect(()=>{
     if(industryId){
-      const industName =industries.find((industry) => industry.id === industryId)
-      console.log("industryName", industName);
+      const industName =industries?.find((industry) => industry.id === industryId)
       setIndustryName(industName.name)
     }
   },[industryId,industries])
@@ -39,6 +44,24 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
   let lgSize = grid ? 6 : 12;
   let companyHeightClass = grid ? styles.grid_height : "";
 
+  const navigateToCompanyProfile=async(type)=>{
+    const role="company";
+    const isMyProfile=false;
+
+    if(companyId){
+      const res=await dispatch(fetchProfileData(token, role,isMyProfile,companyId));
+      if(res?.status==="success"){
+        if(type==="jobs"){
+          dispatch(edietActions.setDefaultCompanyProfilePage("jobs"))
+        }
+        else{
+          dispatch(edietActions.setDefaultCompanyProfilePage("overview"))
+        }
+        navigate(`/company-profile/${companyId}`)
+      }
+    }
+  }
+
   return (
     <>
       <Col lg={lgSize} xl={xlSize}>
@@ -49,6 +72,7 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
                 icon={faArrowRight}
                 title="view"
                 className={`${styles.eye_icon} mx-2`}
+                onClick={navigateToCompanyProfile}
               />
             </div>
 
@@ -74,10 +98,10 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid }) => {
             </div>
             <div className={companyHeightClass}>
               <h4>{industryName}</h4>
-              <p>{desc?desc:"lore"}Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, sint.</p>
+              <p>{desc?desc:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, sint."}</p>
             </div>
             <div className="text-center">
-              <ApplyBtn text="Related Jobs" />
+              <ApplyBtn text="Related Jobs" onClick={()=>navigateToCompanyProfile("jobs")} />
             </div>
           </div>
         </div>

@@ -113,10 +113,8 @@ const HomeMainBody = () => {
       </section>
 
       {/* featured job section------------------------------------------------------------------- */}
-      <section className={styles.fearured_job}>
-        <SectionMainTitle title="Latest Jobs" />
+
         <HomeLatestJobs/>
-      </section>
 
       {/* caption section------------------------------------------------------------------- */}
       <section className={styles.caption}>

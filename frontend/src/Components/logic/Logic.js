@@ -6,6 +6,12 @@ export const countryOptions = [
   { value: "KSA", label: "KSA" },
   { value: "Kuwait", label: "Kuwait" },
 ];
+export const yearsOfExpr = [
+  { value: "0", label: "fresh, 0-1 year" },
+  { value: "1-2", label: "junior, 1-2 years" },
+  { value: "3-4", label: "mid level, 3-4 years" },
+  { value: "+5", label: "senior, +5 years" },
+];
 
 export const Cities = {
   EgyptCities: [
@@ -1841,23 +1847,9 @@ export const formatedTimeHandler = (time, setState) => {
 export const getIndustryName = (
   currentIndustries,
   industryId,
-  setCompanyIndustryName,
+  setCompanyIndustryName
 ) => {
   let myIndustry = {};
   myIndustry = currentIndustries.find((industry) => industry.id === industryId);
-  setCompanyIndustryName(myIndustry.name);
+  setCompanyIndustryName(myIndustry?.name);
 };
-
-// const cityOptions = [];
-
-// for (const country in Cities) {
-
-//   const cities = Cities[country];
-
-//   cities.forEach((city) => {
-//     cityOptions.push({ value: city, label: city });
-//   });
-// }
-// export default cityOptions;
-
-//conver totalYears of exp
