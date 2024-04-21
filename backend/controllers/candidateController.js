@@ -1,11 +1,9 @@
-
 const sequelize = require("sequelize");
 const Company = require("../models/companyModel");
 const UserProfile = require("../models/userProfileModel");
 const Category = require("../models/categoryModel");
 const User = require("../models/userModel");
 const Industry = require("../models/industryModel");
-
 
 exports.getCandidatesByCompanyCategories = async (req, res) => {
   const companyId = req.params.companyId;
@@ -27,19 +25,24 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
       return res.status(404).json({ message: "No categories found for this industry" });
     }
 
-    const categoryIds = categories.map(cat => cat.id);
+    // Get an array of category names
+    const categoryNames = categories.map(cat => cat.name);
 
     // Building the JSON search query for MySQL
-    const searchQueries = categoryIds.map(id => 
-      `JSON_CONTAINS(jobCategories, '${id}', '$')`
-    ).join(' OR ');
+    const searchQueries = categoryNames.map(name => 
+      sequelize.where(
+        sequelize.fn('JSON_CONTAINS', sequelize.col('jobCategories'), `"${name}"`), 1
+      )
+    );
 
     const userProfiles = await UserProfile.findAll({
       include: [{
         model: User,
         attributes: ["id", "firstName", "lastName", "email", "role"]
       }],
-      where: sequelize.literal(searchQueries)
+      where: {
+        [sequelize.Op.or]: searchQueries
+      }
     });
 
     const formattedProfiles = userProfiles.map(profile => ({

@@ -359,6 +359,9 @@ export const languageHandler = async ({ formData, method, id, token }) => {
 export const getCompanyCandidates = async ({ id, token, pageNum }) => {
   try {
     const response = await axios(`${baseServerUrl}companies/${id}/candidates`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       params: {
         limit: 15,
         page: pageNum,

@@ -36,7 +36,7 @@ VALUES
 
 
 -- IT/Software Development
-INSERT IGNORE INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
+INSERT  INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 ('Application Development', NOW(), NOW(), 1),
 ('Business Intelligence', NOW(), NOW(), 1),
 ('Cloud Computing', NOW(), NOW(), 1),
@@ -57,7 +57,7 @@ INSERT IGNORE INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 
 -- Administration
 
-INSERT  IGNORE INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
+INSERT   INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 ('Administration', NOW(), NOW(), 2),
 ('Clerical', NOW(), NOW(), 2),
 ('Receptionist', NOW(), NOW(), 2),
@@ -67,7 +67,7 @@ INSERT  IGNORE INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 
 
 -- Engineering-Construction/CVI/Architecture'
-INSERT IGNORE INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
+INSERT  INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 ('Architecture', NOW(), NOW(), 3),
 ('Civil Engineering', NOW(), NOW(), 3),
 ('Construction', NOW(), NOW(), 3),
