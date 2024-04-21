@@ -167,7 +167,7 @@ const MainNavbar = () => {
                       to={"job-post"}
                       end
                     >
-                      Post a Job
+                      POSTS
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>

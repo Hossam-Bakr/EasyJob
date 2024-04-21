@@ -14,7 +14,6 @@ function PostAJob() {
                 <p className={styles.subHeader}>Job Details</p>
                 <JobForm />
             </div>
-
         </div>
 
     );

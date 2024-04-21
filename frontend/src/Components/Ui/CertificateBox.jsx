@@ -16,6 +16,7 @@ const CertificateBox = ({
   setSecResponseMsg,
   setSecSuccess,
   setSecShowResponse,
+  isMyProfile
 }) => {
   const [modalShow, setModalShow] = useState(false);
 
@@ -30,7 +31,7 @@ const CertificateBox = ({
   return (
     <>
   <div className={`${styles.exp_box} my-5`}>
-        <EdietPenIcon onClick={() => setModalShow(true)} color="blue" />
+        {isMyProfile&&<EdietPenIcon onClick={() => setModalShow(true)} color="blue" />}
         <div className={`${styles.box_container} d-flex`}>
           <div className={styles.organization_logo_certificate}>
             <img src={certLogo} alt="organization Logo" />

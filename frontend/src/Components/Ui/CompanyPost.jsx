@@ -9,8 +9,8 @@ import noLogo from "../../images/noLogo.jpg";
 import ApplyBtn from "./ApplyBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import fetchProfileData from "../../Store/profileInfo-actions";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
+import fetchVisitProfileData from './../../Store/visitProfile-actions';
 
 const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,companyId }) => {
 
@@ -28,7 +28,7 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,company
   useEffect(()=>{
     if(industryId){
       const industName =industries?.find((industry) => industry.id === industryId)
-      setIndustryName(industName.name)
+      setIndustryName(industName?.name)
     }
   },[industryId,industries])
 
@@ -46,10 +46,9 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,company
 
   const navigateToCompanyProfile=async(type)=>{
     const role="company";
-    const isMyProfile=false;
 
     if(companyId){
-      const res=await dispatch(fetchProfileData(token, role,isMyProfile,companyId));
+      const res=await dispatch(fetchVisitProfileData(token, role,companyId));
       if(res?.status==="success"){
         if(type==="jobs"){
           dispatch(edietActions.setDefaultCompanyProfilePage("jobs"))
@@ -57,7 +56,7 @@ const CompanyPost = ({ logo, name, industryId, desc, country, city, grid,company
         else{
           dispatch(edietActions.setDefaultCompanyProfilePage("overview"))
         }
-        navigate(`/company-profile/${companyId}`)
+        navigate(`/companyProfile/${companyId}`)
       }
     }
   }

@@ -74,6 +74,7 @@ const myEmployees = [
 ];
 
 const CompanyProfileSections = ({
+  id,
   city,
   country,
   founded,
@@ -240,7 +241,7 @@ const CompanyProfileSections = ({
       </Tab>
 
       <Tab eventKey="jobs" title="Jobs">
-          <CompanyRelatedJobs isMyProfile={isMyProfile}/>
+          <CompanyRelatedJobs id={id} isMyProfile={isMyProfile}/>
       </Tab>
 
       <Tab eventKey="employees" title="Employees">

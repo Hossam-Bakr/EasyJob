@@ -9,7 +9,6 @@ import {
   faBookmark,
   faEdit,
   faEye,
-  faLayerGroup,
   faLocationDot,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +20,7 @@ import noLogo from "../../images/noLogo.jpg";
 import FloatingPopup from "./FloatingPopup";
 import { getSavedJobsHandler } from "../../Store/savedJobs-actions";
 import { saveJobsHandler } from "../../util/Http";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 const JobPost = ({
   id,
@@ -38,7 +37,6 @@ const JobPost = ({
   hideSalary,
   grid,
   profile,
-  shape,
   isMyProfile,
 }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -118,27 +116,6 @@ const JobPost = ({
 
   return (
     <>
-      {shape === "table" ? (
-        <tr>
-          <td className={`${styles.info_table} ${styles.table_cell}`}>
-            {name}
-          </td>
-          <td className={` ${styles.table_cell}`}>{jobTitle}</td>
-          <td className={` ${styles.table_cell} ${styles.type}`}>
-            <span>
-              {type} , {workplace}
-            </span>
-          </td>
-          <td className={` ${styles.table_cell}`}>{formatedTime}</td>
-          <td className={` ${styles.table_btn}`}>
-            <FontAwesomeIcon title="preview" icon={faArrowRight} />
-            <FontAwesomeIcon title="ediet" icon={faEdit} />
-            <FontAwesomeIcon title="stages" icon={faLayerGroup} />
-          </td>
-        </tr>
-      ) : (
-        <>
-          {" "}
           <Col lg={lgSize} xl={xlSize} className={styles.job_container}>
             <div data-aos="zoom-in-up" data-aos-duration="1000">
               <div className={styles.job}>
@@ -253,9 +230,6 @@ const JobPost = ({
               </div>
             </div>
           </Col>
-        </>
-      )}
-
       <LoginAlertModal show={modalShow} onHide={() => setModalShow(false)} />
       <FloatingPopup
         showResponse={showResponse}

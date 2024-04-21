@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import StageColumn from "./StageColumn";
 import styles from "./Board.module.css";
@@ -7,147 +7,127 @@ import Row from "react-bootstrap/Row";
 
 const employees1 = [
   {
-    name: "John Doe",
+    name: "Sami Galal",
     id: "1",
     title: "Software Engineer",
+    avatar: "p1",
   },
   {
-    name: "Mary Williams",
+    name: "Yousef Tarek",
     id: "2",
     title: "UI Designer",
+    avatar: "p2",
   },
   {
-    name: "Mark Thomas",
+    name: "Ahmed Sabry",
     id: "3",
     title: "Project Manager",
+    avatar: "p3",
   },
+
   {
-    name: "Lisa Jackson",
-    id: "4",
-    title: " Marketing Manager",
-  },
-  {
-    name: "George Fernandez",
+    name: "Mina Fawzy",
     id: "5",
     title: "Accountant",
+    avatar: "p5",
   },
   {
-    name: "Laura Kim",
+    name: "Kareem Said",
     id: "6",
     title: "Sales Representative",
+    avatar: "p6",
   },
   {
-    name: "Michael Brown",
+    name: "Mostafa Wael",
     id: "7",
     title: "HR Manager",
+    avatar: "p4",
+  },
+  {
+    name: "Wael Ali",
+    id: "4",
+    title: " Marketing Manager",
+    avatar: "noAvatar",
   },
 ];
 const employees2 = [
   {
-    name: "James Lee",
+    name: "Mido Gaber",
     id: "8",
     title: "Frontend Developer",
+    avatar:"p8"
   },
   {
-    name: "Emma Wilson",
+    name: "Nasr Eldin",
     id: "9",
     title: "UX Designer",
+    avatar:"p9"
   },
   {
-    name: "Ethan Walker",
+    name: "Menna Abdo",
     id: "10",
     title: "Project Lead",
+    avatar:"noAvatar"
   },
   {
-    name: "Samantha Cruz",
+    name: "Nadia Taha",
     id: "11",
     title: "Marketing Head",
+    avatar:"p10"
   },
   {
-    name: "David Cook",
+    name: "Hassan Ibrahim",
     id: "12",
     title: "Accounts Manager",
+    avatar:"noAvatar"
   },
   {
-    name: "Maria Garcia",
-    id: "13",
-    title: "Sales Manager",
-  },
-  {
-    name: "Susan Martinez",
+    name: "Susan Khaled",
     id: "14",
     title: "HR Head",
+    avatar:"noAvatar"
   },
 ];
 
 const JobStagesBoard = () => {
-  const [incomplete, setIncomplete] = useState([]);
-  const [completed, setCompleted] = useState([]);
-  const [inReview, setInReview] = useState([]);
+  const [columns, setColumns] = useState({
+    1: employees1,
+    2: employees2,
+    3: [],
+  });
 
   const handleDragEnd = (result) => {
     const { destination, source, draggableId } = result;
 
     if (!destination || source.droppableId === destination.droppableId) return;
 
-    deletePreviousState(source.droppableId, draggableId);
+    const sourceColumn = columns[source.droppableId];
+    const destinationColumn = columns[destination.droppableId];
+    const [draggedItem] = sourceColumn.filter(
+      (item) => item.id === draggableId
+    );
 
-    const task = findItemById(draggableId, [
-      ...incomplete,
-      ...completed,
-      ...inReview,
-    ]);
-
-    setNewState(destination.droppableId, task);
+    setColumns((prevColumns) => {
+      const updatedColumns = { ...prevColumns };
+      updatedColumns[source.droppableId] = sourceColumn.filter(
+        (item) => item.id !== draggableId
+      );
+      updatedColumns[destination.droppableId] = [
+        ...destinationColumn,
+        draggedItem,
+      ];
+      return updatedColumns;
+    });
   };
-
-  function deletePreviousState(sourceDroppableId, taskId) {
-    switch (sourceDroppableId) {
-      case "1":
-        setIncomplete(removeItemById(taskId, incomplete));
-        break;
-      case "2":
-        setCompleted(removeItemById(taskId, completed));
-        break;
-      case "3":
-        setInReview(removeItemById(taskId, inReview));
-        break;
-      default:
-    }
-  }
-  function setNewState(destinationDroppableId, task) {
-    let updatedTask;
-    switch (destinationDroppableId) {
-      case "1": // TO DO
-        updatedTask = { ...task, completed: false };
-        setIncomplete([updatedTask, ...incomplete]);
-        break;
-      case "2": // DONE
-        updatedTask = { ...task, completed: true };
-        setCompleted([updatedTask, ...completed]);
-        break;
-      case "3": // IN REVIEW
-        updatedTask = { ...task, completed: false };
-        setInReview([updatedTask, ...inReview]);
-        break;
-      default:
-    }
-  }
-  function findItemById(id, array) {
-    return array.find((item) => item.id === id);
-  }
-
-  function removeItemById(id, array) {
-    return array.filter((item) => item.id !== id);
-  }
+  
 
   return (
-    <DragDropContext>
+    <DragDropContext onDragEnd={handleDragEnd}>
       <Container fluid>
         <Row className={styles.board_container}>
-          <StageColumn title={"Screening"} employees={employees1} id={"1"} />
-          <StageColumn title={"Assessment"} employees={employees2} id={"2"} />
-          <StageColumn title={"Reviewed"} employees={inReview} id={"3"} />
+          <StageColumn title={"Screening"} employees={columns["1"]} id={"1"} />
+          <StageColumn title={"Assessment"} employees={columns["2"]} id={"2"} />
+          <StageColumn title={"Reviewed"} employees={columns["3"]} id={"3"} />
         </Row>
       </Container>
     </DragDropContext>
@@ -155,5 +135,3 @@ const JobStagesBoard = () => {
 };
 
 export default JobStagesBoard;
-//Assessment
-//Reviewed

@@ -26,10 +26,11 @@ import ListedEmployees from "./../../Components/Ui/ListedEmployees";
 import CompanyAdmins from "../CompanyAdmins/CompanyAdmins";
 import CompanyAccountSetting from "./../AccountSetting/CompanyAccountSetting";
 import ContactUs from "./../ContactUs/ContactUs";
+import CurrentJobs from "../../Components/Ui/CurrentJobs";
 
 const myJobs = [
   {
-    key: 1,
+    id: 1,
     name: "Bassam",
     jobTitle: "Call Center",
     req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
@@ -39,7 +40,7 @@ const myJobs = [
     time: "5 min",
   },
   {
-    key: 2,
+    id: 2,
     name: "Hossam",
     jobTitle: "Electrical Engineer",
     req: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
@@ -50,7 +51,7 @@ const myJobs = [
     time: "2 days",
   },
   {
-    key: 3,
+    id: 3,
     name: "Ammar",
     jobTitle: "Frontend React Developer",
     req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
@@ -60,7 +61,7 @@ const myJobs = [
     time: "5 months",
   },
   {
-    key: 4,
+    id: 4,
     name: "Begad",
     jobTitle: "Financial Advisor",
     req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
@@ -277,26 +278,30 @@ const CompanyDashboard = () => {
                   <div className={`${styles.box}`}>
                     <h5 className="fw-bold mt-3">Accepted Employees</h5>
                     <table className={`${styles.employee_table} my-4`}>
-                      <tr className={styles.table_header}>
-                        <th>employee</th>
-                        <th>title</th>
-                        <th>type</th>
-                        <th>show</th>
-                      </tr>
-                      {myEmployees.map((employee) => {
-                        return (
-                          <tr key={employee.id}>
-                            <ListedEmployees
-                              id={employee.id}
-                              pic={employee.photo}
-                              name={employee.name}
-                              title={employee.title}
-                              type={employee.type}
-                              grid="table"
-                            />
-                          </tr>
-                        );
-                      })}
+                      <thead>
+                        <tr className={styles.table_header}>
+                          <th>employee</th>
+                          <th>title</th>
+                          <th>type</th>
+                          <th>show</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {myEmployees.map((employee) => {
+                          return (
+                            <tr key={employee.id}>
+                              <ListedEmployees
+                                id={employee.id}
+                                pic={employee.photo}
+                                name={employee.name}
+                                title={employee.title}
+                                type={employee.type}
+                                grid="table"
+                              />
+                            </tr>
+                          );
+                        })}
+                      </tbody>
                     </table>
                   </div>
                 </Col>
@@ -305,29 +310,33 @@ const CompanyDashboard = () => {
                 <>
                   <Col md={12}>
                     <div className={`${styles.box}`}>
-                      <h5 className="fw-bold mt-3">Current Posts</h5>
+                      <h5 className="fw-bold mt-3">Current Jobs</h5>
                       <table className={`${styles.employee_table} my-4`}>
-                        <tr className={styles.table_header}>
-                          <th>Admin</th>
-                          <th>title</th>
-                          <th>type</th>
-                          <th>time</th>
-                          <th>control</th>
-                        </tr>
-                        {myJobs.map((job) => {
-                          return (
-                            <JobPost
-                              key={job.key}
-                              id={job.id}
-                              name={job.name}
-                              jobTitle={job.jobTitle}
-                              type={job.type}
-                              workplace={job.workplace}
-                              time={job.time}
-                              shape="table"
-                            />
-                          );
-                        })}
+                        <thead>
+                          <tr className={styles.table_header}>
+                            <th>Admin</th>
+                            <th>title</th>
+                            <th>type</th>
+                            <th>time</th>
+                            <th>control</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {myJobs.map((job) => {
+                            return (
+                              <tr key={job.id}>
+                                <CurrentJobs
+                                  id={job.id}
+                                  name={job.name}
+                                  jobTitle={job.jobTitle}
+                                  type={job.type}
+                                  workplace={job.workplace}
+                                  time={job.time}
+                                />
+                              </tr>
+                            );
+                          })}
+                        </tbody>
                       </table>
                     </div>
                   </Col>
@@ -341,8 +350,11 @@ const CompanyDashboard = () => {
                       {myJobs.map((job) => {
                         return (
                           <JobPost
-                            key={job.key}
+                            key={job.id}
+                            id={job.id}
                             name={job.name}
+                            country="Egypt"
+                            city="Cairo"
                             jobTitle={job.jobTitle}
                             req={job.req}
                             logo={null}
@@ -365,31 +377,37 @@ const CompanyDashboard = () => {
                   </div>
                 </Col>
               )}
-              {(activeLink === "main" || activeLink === "candidates"||activeLink==="invitations") && (
+              {(activeLink === "main" ||
+                activeLink === "candidates" ||
+                activeLink === "invitations") && (
                 <Col md={12}>
                   <div className={`${styles.box}`}>
                     <h5 className="fw-bold mt-3">Track Invitations</h5>
                     <table className={`${styles.employee_table} my-4`}>
-                      <tr className={styles.table_header}>
-                        <th>employee</th>
-                        <th>title</th>
-                        <th>State</th>
-                        <th>show</th>
-                      </tr>
-                      {myEmployees.map((employee) => {
-                        return (
-                          <tr key={employee.id}>
-                            <ListedEmployees
-                              id={employee.id}
-                              pic={employee.photo}
-                              name={employee.name}
-                              title={employee.title}
-                              state={employee.state}
-                              grid="table"
-                            />
-                          </tr>
-                        );
-                      })}
+                      <thead>
+                        <tr className={styles.table_header}>
+                          <th>employee</th>
+                          <th>title</th>
+                          <th>State</th>
+                          <th>show</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {myEmployees.map((employee) => {
+                          return (
+                            <tr key={employee.id}>
+                              <ListedEmployees
+                                id={employee.id}
+                                pic={employee.photo}
+                                name={employee.name}
+                                title={employee.title}
+                                state={employee.state}
+                                grid="table"
+                              />
+                            </tr>
+                          );
+                        })}
+                      </tbody>
                     </table>
                   </div>
                 </Col>

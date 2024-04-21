@@ -43,6 +43,8 @@ import JobDetails from "./Pages/JobDetails/JobDetails";
 import ForgetPassword from "./Pages/ForgetPassword/ForgetPassword";
 import PostAJob from "./Pages/PostAJob/PostAJob";
 import JobStagesBoard from "./Pages/JobStages/JobStagesBoard";
+import VisitCompanyProfile from "./Pages/Profiles/VisitCompanyProfile";
+import VisiteEmployeeProfile from "./Pages/Profiles/VisiteEmployeeProfile";
 
 //pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
 
@@ -66,9 +68,11 @@ const router = createBrowserRouter([
       { path: "applications", element: <Applications /> },
       { path: "packages", element: <CompanyPricing /> },
       { path: "user-profile/:userId", element: <UserProfile /> },
+      { path: "userProfile/:userId", element: <VisiteEmployeeProfile /> },
       { path: "user-info", element: <UserInfo /> },
       { path: "user-account-setting", element: <UserAccountSetting /> },
       { path: "company-profile/:companyId", element: <CompanyProfile /> },
+      { path: "companyProfile/:companyId", element: < VisitCompanyProfile/> },
       { path: "company-info", element: <CompanyInfo /> },
       { path: "company-admins", element: <CompanyAdmins /> },
       { path: "company-dashboard", element: <CompanyDashboard /> },
@@ -95,7 +99,6 @@ function App() {
   useEffect(() => {
     if (role && token) {
       dispatch(fetchProfileData(token, role));
-      
     }
   }, [dispatch, token, role]);
 

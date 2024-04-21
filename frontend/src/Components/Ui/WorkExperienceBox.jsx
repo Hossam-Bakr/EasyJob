@@ -15,7 +15,8 @@ const WorkExperienceBox = ({
   category,
   setSecResponseMsg,
   setSecSuccess,
-  setSecShowResponse
+  setSecShowResponse,
+  isMyProfile
 }) => {
 
   const [modalShow, setModalShow] = useState(false);
@@ -32,7 +33,7 @@ const WorkExperienceBox = ({
   return (
     <>
       <div className={`${styles.exp_box} my-5`}>
-        <EdietPenIcon onClick={() => setModalShow(true)} color="blue" />
+       {isMyProfile&& <EdietPenIcon onClick={() => setModalShow(true)} color="blue" />}
         <div className={`${styles.box_container} d-flex`}>
           <div className={styles.organization_logo}>
             <img src={organizationLogo} alt="organization Logo" />

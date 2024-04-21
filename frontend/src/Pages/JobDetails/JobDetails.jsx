@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getJobsDetails, saveJobsHandler } from "../../util/Http";
 import Loading from "../../Components/Ui/Loading";
 import styles from "./JobDetails.module.css";
@@ -45,7 +45,7 @@ const JobDetails = () => {
     queryKey: ["jobDetails"],
     queryFn: () => getJobsDetails(params.jobId),
   });
-  console.log(data);
+  
   const saveJobPost = async () => {
     if (token) {
       const res = await saveJobsHandler({ jobId: params.jobId, token: token });
@@ -103,6 +103,7 @@ const JobDetails = () => {
     }
   }, [data]);
 
+
   return (
     <>
       {data ? (
@@ -118,7 +119,7 @@ const JobDetails = () => {
                 <div
                   className={`${styles.name} w-100 d-flex justify-content-between align-items-center mt-1`}
                 >
-                  <h4>{data.Company.name} </h4>
+                  <Link to={`/companyProfile/${data.CompanyId}`}><h4>{data.Company.name} </h4></Link>
                   <span> {data.openPositions} Open Position</span>
                 </div>
                 <span className="mini_word">

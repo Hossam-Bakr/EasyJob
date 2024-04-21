@@ -60,8 +60,7 @@
     font-size:1.125rem;
     font-weight: 600;
     font-family: var(--jakarta);
-    margin: 0.625rem 0 0.125rem 0;
-    min-height: 3.125rem;
+    margin: 10px 0;
 }
 .job p{
     font-size: 0.875rem;
@@ -71,7 +70,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
 /* .job p:hover {

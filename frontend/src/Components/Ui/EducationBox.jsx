@@ -22,6 +22,7 @@ const EducationBox = ({
   setSecResponseMsg,
   setSecSuccess,
   setSecShowResponse,
+  isMyProfile
 }) => {
 
   const [modalShow, setModalShow] = useState(false);
@@ -108,7 +109,7 @@ const EducationBox = ({
   return (
     <>
       <li className={styles.edu_item}>
-        <EdietPenIcon onClick={() => setModalShow(true)} color="blue" />
+        {isMyProfile&&<EdietPenIcon onClick={() => setModalShow(true)} color="blue" />}
         <div className={styles.education_logo}>
           <img src={universityLogo} alt="school logo" className="w-100" />
         </div>

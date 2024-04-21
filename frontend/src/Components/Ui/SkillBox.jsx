@@ -12,6 +12,7 @@ const SkillBox = ({
   setResponseMessage,
   setSuccessResponse,
   shape,
+  isMyProfile
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [formatedProf, setFormatedProf] = useState("entry level");
@@ -48,7 +49,7 @@ const SkillBox = ({
         </Col>
       ) : (
         <div className={`${styles.skill_box} ${levelClass}`}>
-          <EdietPenIcon color="blue" onClick={() => setModalShow(true)} />
+          {isMyProfile&&<EdietPenIcon color="blue" onClick={() => setModalShow(true)} />}
           <span>
             {name} <span className="mini_word">({formatedProf})</span>
           </span>

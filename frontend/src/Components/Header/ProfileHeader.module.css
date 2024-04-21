@@ -105,6 +105,15 @@
 .noAvatar_container{
     background-color: rgb(199, 199, 199);
 }
+.download_icon{
+    font-size: 40px;
+    color: var(--main_color);
+    transition: transform .4s;  
+    cursor: pointer;
+}
+.download_icon:hover{
+    transform: translateY(5px);
+}
 /* case company */
 .profile_pic_company{
     width: 9.375rem;

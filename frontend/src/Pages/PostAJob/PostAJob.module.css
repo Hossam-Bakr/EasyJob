@@ -1,6 +1,7 @@
 .main_container{
     width: 100%; /*F5F6F7*/
     background-color: #F5F6F7;
+    padding-bottom: 30px;
 }
 .main_container .headerBox{
     padding-top: 1rem;
@@ -11,7 +12,6 @@
     text-align: center;
     margin-bottom: 40px;
     margin-top: 2rem;
-    /* background-color: blue; */
 }
 .main_container span {
     color: var(--main_color);

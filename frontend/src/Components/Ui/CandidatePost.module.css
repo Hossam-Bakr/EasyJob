@@ -95,7 +95,13 @@
     color: var(--dark_white);
     font-weight: 600;
     margin-top: 1.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
+
 .education_sec{
     min-height: 57px;
 }

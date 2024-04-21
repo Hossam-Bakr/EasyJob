@@ -12,7 +12,7 @@ const LanguageBox = ({
     proficiency,
     setShowResponse,
     setResponseMessage,
-    setSuccessResponse,}) => {
+    setSuccessResponse,isMyProfile}) => {
 
   const [modalShow, setModalShow] = useState(false);
   
@@ -59,7 +59,7 @@ switch (proficiency) {
   return (
     <>
     <div className={styles.skill_box}>
-      <EdietPenIcon color="blue" onClick={() => setModalShow(true)} />
+      {isMyProfile&&<EdietPenIcon color="blue" onClick={() => setModalShow(true)} />}
       <span className="d-flex align-items-center">
         {language} <span className="mini_word">
           {level}

@@ -35,8 +35,6 @@ const Candidates = () => {
       }),
   });
 
-  console.log("data", data);
-
   const setGrid = () => {
     setGridView(true);
   };
@@ -69,6 +67,9 @@ const Candidates = () => {
     refetch();
     window.scrollTo(0, 0);
   }, [pageNum, refetch]);
+
+console.log(data)
+
   return (
     <>
       <Container fluid className="mb-5">
@@ -596,23 +597,25 @@ const Candidates = () => {
                           <>
                             {data.data?.candidates.length !== 0 ? (
                               <>
-                                {data.data?.candidates.map((candidate) => {
+                                {data.candidates?.map((candidate) => {
                                   return (
                                     <CandidatePost
-                                      key={candidate.id}
-                                      pic={candidate.pic}
-                                      name={candidate.name}
-                                      jobTitle={candidate.title}
-                                      desc={candidate.description}
-                                      city={candidate.city}
-                                      level={candidate.level}
-                                      degree={candidate.degree}
-                                      age={candidate.age}
-                                      available={candidate.available}
-                                      full={candidate.full}
-                                      remote={candidate.remote}
-                                      part={candidate.part}
-                                      department={candidate.department}
+                                      key={candidate.user?.id}
+                                      id={candidate.user?.id}
+                                      avatar={candidate.userProfile?.avatar}
+                                      name={`${candidate.user?.firstName} ${candidate.user?.lastName}`}
+                                      desc={candidate.userProfile?.about}
+                                      city={candidate.userProfile?.city}
+                                      country={candidate.userProfile?.country}
+                                      openToWork={candidate.userProfile?.openToWork}
+                                      tagline={candidate.userProfile?.tagline}
+                                      jobTitles={candidate.userProfile?.jobTitles}
+                                      jobTypes={candidate.userProfile?.jobTypes}
+                                      birthDate={candidate.userProfile?.birthDate}
+                                      currentCareerLevel={candidate.userProfile?.currentCareerLevel}
+                                      // department={candidate.department}
+                                      // degree={candidate.degree}
+
                                       grid={gridView}
                                     />
                                   );

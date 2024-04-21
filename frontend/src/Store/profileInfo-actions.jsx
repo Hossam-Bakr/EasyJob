@@ -8,32 +8,20 @@ const fetchProfileData = (token, role, isMyProfile, companyId) => {
       if (token) {
         if (role === "company") {
           let res = null;
-          console.log(companyId)
-          if (isMyProfile === false) {
+
+          dispatch(showProfileActions.setIsMyProfile(true));
             res = await axios.get(
-              `http://127.0.0.1:3000/api/v1/companies/profile/${companyId}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            dispatch(showProfileActions.setIsMyProfile(false));
-          } else {
-              dispatch(showProfileActions.setIsMyProfile(true));
-              res = await axios.get(
-              "http://127.0.0.1:3000/api/v1/companies/profile",
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-          }
+            "http://127.0.0.1:3000/api/v1/companies/profile",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
 
           const companyData = res.data.data.companyProfile;
           dispatch(profileActions.setProfileInfo(companyData));
-          return res.data
+          return res.data;
         } else {
           const res = await axios.get(
             "http://127.0.0.1:3000/api/v1/users/profile",
@@ -43,7 +31,6 @@ const fetchProfileData = (token, role, isMyProfile, companyId) => {
               },
             }
           );
-          console.log(res.data.data);
           const userData = res.data.data;
           dispatch(profileActions.setProfileInfo(userData.userProfile));
           dispatch(profileActions.setProfileMainInfo(userData.user));

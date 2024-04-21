@@ -367,7 +367,7 @@ export const getCompanyCandidates = async ({ id, token, pageNum }) => {
         page: pageNum,
       },
     });
-    return response;
+    return response.data;
   } catch (error) {
     console.error(error);
   }
@@ -375,7 +375,7 @@ export const getCompanyCandidates = async ({ id, token, pageNum }) => {
 
 export const getCompanies = async (pageNum) => {
   try {
-    const res = axios(`${baseServerUrl}companies`, {
+    const res = await axios(`${baseServerUrl}companies`, {
       params: {
         limit: 15,
         page: pageNum,
@@ -386,3 +386,15 @@ export const getCompanies = async (pageNum) => {
     console.log(error);
   }
 };
+
+export const getCompanyRelatedJobs = async ({id}) => {
+
+  try {
+    const res = await axios(`${baseServerUrl}jobs/?CompanyId=${id}`);
+
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+

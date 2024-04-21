@@ -12,6 +12,7 @@ import {
   faHome,
   faLayerGroup,
   faUserTie,
+  faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
@@ -65,6 +66,15 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                   Companies{" "}
                   <FontAwesomeIcon
                     icon={faBuilding}
+                    className={styles.list_icons}
+                  />
+                </li>
+              </Link>
+              <Link onClick={handleClose} to={"contact"} end="true">
+                <li className={styles.contact_list_item}>
+                  Contact Us
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
                     className={styles.list_icons}
                   />
                 </li>

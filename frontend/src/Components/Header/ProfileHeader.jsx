@@ -7,6 +7,7 @@ import {
   faBookmark,
   faCamera,
   faCopy,
+  faDownload,
   faEnvelope,
   faEye,
   faFileContract,
@@ -213,7 +214,9 @@ const ProfileHeader = ({
       </header>
 
       <div className={styles.sub_header}>
-       {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdietProfile("info")} />} 
+        {isMyProfile && (
+          <EdietPenIcon onClick={() => navigateToEdietProfile("info")} />
+        )}
         <div className={`${styles.contact_info} ${companyContactInfoClass}`}>
           <div className={`${styles.contact_caption} d-flex flex-column`}>
             <h3>{type === "company" ? name : firstName + " " + lastName}</h3>
@@ -240,26 +243,41 @@ const ProfileHeader = ({
             ) : (
               <>
                 <div className={styles.resume_div}>
-                  <span>
-                    {firstName} Resume{" "}
-                    <span className="mini_word">(last update 2 days ago)</span>
-                  </span>
-                  <div className="d-flex justify-content-center align-items-center mt-2">
-                    <span className={`${styles.view_cv} me-4`}>
-                      <FontAwesomeIcon
-                        className="special_main_color me-2"
-                        icon={faEye}
-                      />{" "}
-                      view
+                  {isMyProfile ? (
+                    <span>
+                      {firstName} Resume{" "}
+                      <span className="mini_word">
+                        (last update 2 days ago)
+                      </span>
                     </span>
-                    <span className={`${styles.delete_cv} ms-4`}>
+                  ) : (
+                      <span>Click here to download {firstName}'s Resume</span>
+                  )}
+                  {isMyProfile ? (
+                    <div className="d-flex justify-content-center align-items-center mt-2">
+                      <span className={`${styles.view_cv} me-4`}>
+                        <FontAwesomeIcon
+                          className="special_main_color me-2"
+                          icon={faEye}
+                        />{" "}
+                        view
+                      </span>
+                      <span className={`${styles.delete_cv} ms-4`}>
+                        <FontAwesomeIcon
+                          className="me-2 color-danger"
+                          icon={faTrash}
+                        />{" "}
+                        delete
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="d-flex justify-content-center my-3">
                       <FontAwesomeIcon
-                        className="me-2 color-danger"
-                        icon={faTrash}
-                      />{" "}
-                      delete
-                    </span>
-                  </div>
+                        className={styles.download_icon}
+                        icon={faDownload}
+                      />
+                    </div>
+                  )}
                 </div>
                 {type === "company" ? (
                   <>

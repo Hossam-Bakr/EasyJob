@@ -1,45 +1,47 @@
 /* ________________________________________________board_______________________________________________________ */
 .board_container{
     min-height: 100vh;
-    padding: 40px;
+    padding: 2.5rem;
+    justify-content: center;
+    grid-row-gap: 2.5rem;
 }
 /* _______________________________________________column____________________________________________________ */
 .stage_board{
     -ms-overflow-style: none;
     scrollbar-width: none;
     overflow-y: scroll;
-    border-radius: 10px;
-    min-width: 300px;
+    border-radius: 0.625rem;
+    min-width: 18.75rem;
     min-height: 80vh;
-    padding: 10px;
+    padding: 0.625rem;
     background-color:white;
-    box-shadow: 0 0 5px rgb(0, 110, 255);
+    box-shadow: 0 0 0.3125rem rgb(0, 110, 255);
     }
 .stage_board h3{
     text-align: center;
-    font-size: 26px;
-    margin: 5px;
+    font-size: 1.625rem;
+    margin: 0.3125rem;
     font-weight: 700;
 }
 .stage_board::-webkit-scrollbar{
     display: none;
 }
 .content{
-    padding: 10px;
+    padding: 0.625rem;
     padding-top: 0;
     height:50vh;
-    border-radius: 30px;
-    margin: 20px 0;
+    border-radius: 1.875rem;
+    margin: 1.25rem 0;
     transition: background-color .4s ease;
 }
 
 /* _____________________________________________________card_________________________________________________________ */
 .card_container{
     cursor: pointer;
-    margin: 40px 0;
+    margin: 2.5rem 0;
     transition: all .5s;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 0.625rem;
+    border-radius: 0.625rem;
 }
 .card_container:hover{
     background-color: var(--vanilla);
@@ -50,9 +52,9 @@
     color: var(--dark_white);
 }
 .emp_pic{
-    width: 50px;
+    width: 3.125rem;
     border-radius: 50%;
-    margin-inline: 10px;
+    margin-inline: 0.625rem;
 }
 .emp_pic img{
     width: 100%;
@@ -65,8 +67,8 @@
 .caption h5{
     margin: 0;
     font-weight: 700;
-    font-weight: 600px;
-    font-size: 20px;
+    font-weight: 37.5rem;
+    font-size: 1.25rem;
 }
 .green{
     background-color: green;
@@ -82,15 +84,15 @@
 }
 
 .refuse_icon{
-    font-size: 20px;
-    margin-right: 20px;
+    font-size: 1.25rem;
+    margin-right: 1.25rem;
     color: red;
     transition: transform .4s;
 
 }
 .accept_icon{
-    font-size: 25px;
-    margin-left: 20px;
+    font-size: 1.5625rem;
+    margin-left: 1.25rem;
     color: var(--main_color);
     transition: transform .4s;
 }

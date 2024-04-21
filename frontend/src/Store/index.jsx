@@ -6,6 +6,7 @@ import profileSlice from "./profileInfo-slice";
 import categorySlice from "./category-slice";
 import savedJobsSLice from "./savedJobs-slice";
 import showProfileSlice from './showprofile-slice';
+import visitProfileSlice from './visitProfile-slice';
 
 
 const store = configureStore({
@@ -16,7 +17,8 @@ const store = configureStore({
     profileInfo:profileSlice.reducer,
     category:categorySlice.reducer,
     savedJobs:savedJobsSLice.reducer,
-    showProfile:showProfileSlice.reducer
+    showProfile:showProfileSlice.reducer,
+    visitProfile:visitProfileSlice.reducer
   },
 });
 

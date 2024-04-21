@@ -53,6 +53,7 @@ const ProfileSections = ({
   Skills,
   languages,
   certifications,
+  isMyProfile
 }) => {
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -78,7 +79,7 @@ const ProfileSections = ({
       {/* general info */}
       {!phone && !birthDate && !nationality && !gender ? (
         <section className={`${styles.main_style}`}>
-          <EdietPenIcon onClick={() => navigateToEdiet("info")} />
+          {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdiet("info")} />}
           <h3 className={styles.sec_title}>Contact Info</h3>
           <div className={styles.contact_info_body}>
             <div className={styles.noData_container}>
@@ -98,7 +99,7 @@ const ProfileSections = ({
               showContactInfo ? styles.main_style_spread : ""
             }`}
           >
-            <EdietPenIcon onClick={() => navigateToEdiet("info")} />
+            {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdiet("info")} />}
             <h3 className={styles.sec_title}>Contact Info</h3>
             <div className={styles.contact_info_body}>
               <div className={styles.contact_info_body_header}>
@@ -197,7 +198,7 @@ const ProfileSections = ({
 
       {/* about */}
       <section className={`${styles.main_style} ${styles.about_sec}`}>
-        <EdietPenIcon onClick={() => navigateToEdiet("info")} />
+        {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdiet("info")} />}
         <h3 className={styles.sec_title}>About</h3>
         {about ? (
           <p className={styles.about_p}>{about}</p>
@@ -213,15 +214,16 @@ const ProfileSections = ({
 
       {/* education */}
       <section className={`${styles.main_style} ${styles.education_sec}`}>
-        <EdietPenIcon
+      {isMyProfile&&<EdietPenIcon
           text="+Add"
           onClick={() => navigateToEdiet("education")}
-        />
+        />}
         <h3 className={styles.sec_title}>Education</h3>
         <ul>
-          {Education.length !== 0 ? (
+          {Education?.length !== 0 ? (
             Education.map((item) => (
               <EducationBox
+                isMyProfile={isMyProfile}
                 key={item.id}
                 itemId={item.id}
                 grade={item.grade}
@@ -250,14 +252,15 @@ const ProfileSections = ({
 
       {/* skills */}
       <section className={`${styles.main_style}`}>
-        <EdietPenIcon text="+Add" onClick={() => navigateToEdiet("skills")} />
+      {isMyProfile&&<EdietPenIcon text="+Add" onClick={() => navigateToEdiet("skills")} />}
         <h3 className={styles.sec_title}>Skills</h3>
 
         <Container className="my-4 ">
           <Row className={`${styles.candidate_skills} gy-2 w-100`}>
-            {Skills.length !== 0 ? (
+            {Skills?.length !== 0 ? (
               Skills.map((skill) => (
                 <SkillBox
+                isMyProfile={isMyProfile}
                   key={skill.UserSkill.id}
                   id={skill.UserSkill.id}
                   name={skill.name}
@@ -296,14 +299,15 @@ const ProfileSections = ({
 
       {/* Experiance */}
       <section className={styles.main_style}>
-        <EdietPenIcon
+      {isMyProfile&& <EdietPenIcon
           text="+Add"
           onClick={() => navigateToEdiet("experience")}
-        />
+        />}
         <h3 className={styles.sec_title}>Work Experience</h3>
-        {Experiences.length !== 0 ? (
+        {Experiences?.length !== 0 ? (
           Experiences.map((exp) => (
             <WorkExperienceBox
+            isMyProfile={isMyProfile}
               key={exp.id}
               expId={exp.id}
               title={exp.title}
@@ -330,12 +334,13 @@ const ProfileSections = ({
 
       {/* Languages */}
       <section className={styles.main_style}>
-        <EdietPenIcon text="+Add" onClick={() => navigateToEdiet("skills")} />
+      {isMyProfile&& <EdietPenIcon text="+Add" onClick={() => navigateToEdiet("skills")} />}
         <h3 className={styles.sec_title}>Languages</h3>
 
-        {languages.length !== 0 ? (
+        {languages?.length !== 0 ? (
           languages.map((lang) => (
             <LanguageBox
+            isMyProfile={isMyProfile}
               key={lang.id}
               id={lang.id}
               language={lang.language}
@@ -357,15 +362,16 @@ const ProfileSections = ({
 
       {/* certificates */}
       <section className={styles.main_style}>
-        <EdietPenIcon
+      {isMyProfile&&<EdietPenIcon
           text="+Add"
           onClick={() => navigateToEdiet("certifications")}
-        />
+        />}
         <h3 className={styles.sec_title}>Certifications</h3>
 
-        {certifications.length !== 0 ? (
+        {certifications?.length !== 0 ? (
           certifications.map((certificate) => (
             <CertificateBox
+            isMyProfile={isMyProfile}
               key={certificate.id}
               id={certificate.id}
               title={certificate.title}
@@ -391,7 +397,7 @@ const ProfileSections = ({
 
       {/* contact */}
       <section className={`${styles.main_style}`}>
-        <EdietPenIcon text="Ediet" onClick={() => navigateToEdiet("contact")} />
+      {isMyProfile&&<EdietPenIcon text="Ediet" onClick={() => navigateToEdiet("contact")} />}
         <h3 className={styles.sec_title}>Contact Links</h3>
         {website ||
         facebook ||
