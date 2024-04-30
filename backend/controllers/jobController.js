@@ -15,7 +15,7 @@ const factory = require("./handlerFactory");
 const { uploadMixOfAudios } = require("../utils/uploadAudio");
 const catchAsync = require("../utils/catchAsync");
 
-const fieldsArr = new Array(11)
+const fieldsArr = new Array(+process.env.VOICE_ANSWERS_COUNT)
   .fill(0)
   .map((_, i) => ({ name: `voiceAnswer${i}`, maxCount: 1 }));
 
