@@ -377,7 +377,7 @@ exports.deleteJobQuestion = catchAsync(async (req, res) => {
 
 // Applications
 
-exports.applyForJob = catchAsync(async (req, res) => {
+exports.applyForJob = catchAsync(async (req, res, next) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
@@ -395,6 +395,24 @@ exports.applyForJob = catchAsync(async (req, res) => {
     return res.status(409).json({
       status: "fail",
       message: "You have already applied for this job",
+    });
+  }
+
+  const jobQuestions = await Question.findAll({
+    where: { JobId: job.id },
+  });
+
+  if (
+    jobQuestions.length !== req.body.answers.length + req.body.voices.length ||
+    !jobQuestions.every(
+      (question) =>
+        req.body.answers.some((answer) => +answer.QuestionId === question.id) ||
+        req.body.voices.some((voice) => +voice.QuestionId === question.id)
+    )
+  ) {
+    return res.status(400).json({
+      status: "fail",
+      message: "You must answer all the questions",
     });
   }
 
