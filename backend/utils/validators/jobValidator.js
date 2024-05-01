@@ -445,10 +445,14 @@ exports.applyForJobValidator = [
     .isArray()
     .withMessage("Answers must be an array")
     .custom((value) => {
+      if (!value.every((answer) => typeof answer === "object")) {
+        return Promise.reject("Answers must be an array of objects");
+      }
+
       if (
         value.some(
           (answer) =>
-            !answer.QuestionId || !(answer.answerText || answer.yesNoAnswer)
+            !answer.QuestionId || (!answer.textAnswer && !answer.yesNoAnswer)
         )
       ) {
         return Promise.reject(
@@ -464,11 +468,25 @@ exports.applyForJobValidator = [
     .isArray()
     .withMessage("Voices must be an array")
     .custom((value) => {
+      if (!value.every((voice) => typeof voice === "object")) {
+        return Promise.reject("Voices must be an array of objects");
+      }
+
       if (value.some((voice) => !voice.QuestionId || !voice.voiceAnswer)) {
         return Promise.reject(
           "Please provide QuestionId and voiceAnswer for each voice"
         );
       }
+
+      // if (
+      //   value.some(
+      //     (voice) => +voice.voiceAnswer >= +process.env.VOICE_ANSWERS_COUNT
+      //   )
+      // ) {
+      //   return Promise.reject(
+      //     `voiceAnswer must be less than ${process.env.VOICE_ANSWERS_COUNT}`
+      //   );
+      // }
 
       return true;
     }),
