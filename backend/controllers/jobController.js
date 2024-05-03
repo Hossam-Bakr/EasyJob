@@ -403,11 +403,13 @@ exports.applyForJob = catchAsync(async (req, res, next) => {
   });
 
   if (
-    jobQuestions.length !== req.body.answers.length + req.body.voices.length ||
+    jobQuestions.length !==
+      (req.body.answers?.length || 0) + (req.body.voices?.length || 0) ||
     !jobQuestions.every(
       (question) =>
-        req.body.answers.some((answer) => +answer.QuestionId === question.id) ||
-        req.body.voices.some((voice) => +voice.QuestionId === question.id)
+        req.body.answers?.some(
+          (answer) => +answer.QuestionId === question.id
+        ) || req.body.voices?.some((voice) => +voice.QuestionId === question.id)
     )
   ) {
     return res.status(400).json({
