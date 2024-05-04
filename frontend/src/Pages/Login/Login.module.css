@@ -1,11 +1,20 @@
 .user_login_container{
-    background:linear-gradient(-135deg,var(--vanilla) 50%,var(--darker_main_color) 50%) ;
     width: 100vw;
     min-height: 92vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1.25rem;
+    position: relative;
+}
+.layer{
+    background:linear-gradient(-156deg,var(--vanilla) 50%,var(--darker_main_color) 50%) ;
+    position: absolute;
+    top: -75px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
 }
 .user_login_content{
     display: flex;
@@ -26,7 +35,10 @@
     align-items: center;
 }
 .caption_vector{
-    width: 31.25rem;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .caption_vector img{
     width: 100%;

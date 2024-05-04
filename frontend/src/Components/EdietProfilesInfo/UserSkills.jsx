@@ -48,6 +48,7 @@ const UserSkills = ({ Skills,languages }) => {
                         setShowResponse={setShowResponse}
                         setResponseMessage={setResponseMessage}
                         setSuccessResponse={setSuccessResponse}
+                        isMyProfile={true}
                       />
                     ))}
                   </>
@@ -80,6 +81,7 @@ const UserSkills = ({ Skills,languages }) => {
                         setShowResponse={setShowResponse}
                         setResponseMessage={setResponseMessage}
                         setSuccessResponse={setSuccessResponse}
+                        isMyProfile={true}
                       />
                     ))}
                   </>

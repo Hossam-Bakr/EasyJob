@@ -48,7 +48,7 @@ const UserGeneralInfoForm = ({ data }) => {
 
   const userToken = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
-
+    
   useEffect(() => {
     if (data) {
       setCurrentCountry(data.country || "");
@@ -165,7 +165,7 @@ const UserGeneralInfoForm = ({ data }) => {
       about: values.about !== "" ? values.about : currentAbout,
       tagline: values.tagline !== "" ? values.tagline : currentTagline,
     };
-    console.log(updatedValues);
+    
     mutate({
       type: "info",
       formData: updatedValues,
@@ -200,6 +200,7 @@ const UserGeneralInfoForm = ({ data }) => {
       .min(46, "At least 45 characters")
       .max(400, "About must be less than 400 characters")
       .required("About is required"),
+      tagline: string().required("tagline is required")
   });
 
   return (

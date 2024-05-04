@@ -149,6 +149,26 @@ select{
   border-radius: 5px;
 }
 
+.audio-recorder{
+  background-color: var(--vanilla) !important;
+  border: 1px solid rgb(99, 165, 205);
+  width: 100px !important;
+  height: 100px;
+  border-radius: 50% !important;
+  justify-content: center;
+}
+.audio-recorder-mic{
+  scale: 2;
+}
+.recording {
+ width: 95% !important;
+ border-radius: 10px !important;
+ padding-inline: 30px;
+}
+.audio-recorder:hover{
+  scale: 1.06;
+}
+
 @media screen and (max-width:768px) {
   body,html{
     font-size: 14px;

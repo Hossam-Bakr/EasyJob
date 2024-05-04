@@ -355,6 +355,14 @@
     padding-inline:0.625rem;
    }
 } 
+@media screen and (max-width:550px) {
+    .seperation_bg_caption{
+        width: 100%;
+    }
+    .seperation_bg_caption p{
+        text-align: center;        
+    }
+} 
 @media screen and (max-width:422px) {
     .resume_caption_content{
         width: 100%;

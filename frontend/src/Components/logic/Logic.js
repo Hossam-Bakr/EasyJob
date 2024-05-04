@@ -101,6 +101,7 @@ export const Areas = {
     "Zamalek",
     "Mohandessin",
     "New Cairo",
+    "Roud El Farag"
   ],
   AlexandriaAreas: [
     "Montaza",
@@ -118,6 +119,7 @@ export const Areas = {
     "Haram",
     "Faisal",
     "Imbaba",
+    "Warraq",
     "6th of October City",
   ],
   PortSaidAreas: [

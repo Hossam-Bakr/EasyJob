@@ -35,6 +35,7 @@ import { edietActions } from "../../Store/defaultEdietPage-slice";
 import UserProfilePic from "../Ui/UserProfilePic";
 import CustomDropDownItem from "../Ui/CustomDropDownItem";
 import Dropdown from "react-bootstrap/Dropdown";
+import MainBtnThree from "../Ui/MainBtnThree";
 
 const ProfileHeader = ({
   cover,
@@ -211,6 +212,9 @@ const ProfileHeader = ({
             </ul>
           </div>
         )}
+        {(!isMyProfile&&type!=="company")&&<div className={styles.invite_btn}>
+            <MainBtnThree text="Send Invitation"/>
+          </div>}
       </header>
 
       <div className={styles.sub_header}>

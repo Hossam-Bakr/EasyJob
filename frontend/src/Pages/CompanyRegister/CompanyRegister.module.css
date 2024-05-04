@@ -71,6 +71,12 @@
     overflow: hidden;
     position: relative;
 }
+.register_form{
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
 .company_register_form h3{
     font-size:35px;
     font-weight: 900;

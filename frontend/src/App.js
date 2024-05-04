@@ -45,8 +45,7 @@ import PostAJob from "./Pages/PostAJob/PostAJob";
 import JobStagesBoard from "./Pages/JobStages/JobStagesBoard";
 import VisitCompanyProfile from "./Pages/Profiles/VisitCompanyProfile";
 import VisiteEmployeeProfile from "./Pages/Profiles/VisiteEmployeeProfile";
-
-//pull , remove db , create db name "db", new sql (import db.sql) ||---export bd.sql
+import JobApplicationFormModal from "./Components/Ui/JobApplicationFormModal";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +66,7 @@ const router = createBrowserRouter([
       { path: "saved", element: <Saved /> },
       { path: "applications", element: <Applications /> },
       { path: "packages", element: <CompanyPricing /> },
+      { path: "job-application-form/:jobId", element: <JobApplicationFormModal /> },
       { path: "user-profile/:userId", element: <UserProfile /> },
       { path: "userProfile/:userId", element: <VisiteEmployeeProfile /> },
       { path: "user-info", element: <UserInfo /> },

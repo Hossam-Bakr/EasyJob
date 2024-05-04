@@ -48,6 +48,7 @@ const UserMedia = ({ gender, cover }) => {
 
     if (file) {
       setImgFile(file);
+   
       const url = URL.createObjectURL(file);
       setImgUrl(url);
     }
@@ -90,9 +91,8 @@ const UserMedia = ({ gender, cover }) => {
       const formData = new FormData();
       formData.append("avatar", imgFile);
       formData.append("coverPhoto", coverFile);
-
+      setIsLoading(true);
       try {
-        setIsLoading(true);
         const response = await axios.patch(
           "http://127.0.0.1:3000/api/v1/users/profile/media",
           formData,
@@ -115,7 +115,6 @@ const UserMedia = ({ gender, cover }) => {
         });
         setSuccessResponse(true);
         setShowResponse(true);
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
         setResponseMessage({
@@ -125,6 +124,7 @@ const UserMedia = ({ gender, cover }) => {
         setSuccessResponse(false);
         setShowResponse(true);
       }
+      setIsLoading(false);
     }
   };
 

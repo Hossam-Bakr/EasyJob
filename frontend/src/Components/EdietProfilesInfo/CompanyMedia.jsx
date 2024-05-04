@@ -4,7 +4,7 @@ import SectionMainTitle from "../Ui/SectionMainTitle";
 import noLogo from "../../images/noLogo.jpg";
 import noCover from "../../images/noCover.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faYinYang } from "@fortawesome/free-solid-svg-icons";
 import CropLogo from "../CropImages/CropLogo";
 import CropCover from "../CropImages/CropCover";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,7 @@ const CompanyMedia = ({ logo, cover }) => {
   const [profileLogo, setProfileLogo] = useState(null);
   const [profileCover, setProfileCover] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     title: "",
@@ -89,6 +90,7 @@ const CompanyMedia = ({ logo, cover }) => {
       const formData = new FormData();
       formData.append("logo", imgFile);
       formData.append("coverPhoto", coverFile);
+      setIsLoading(true);
 
       try {
         const response = await axios.patch(
@@ -106,7 +108,6 @@ const CompanyMedia = ({ logo, cover }) => {
         if (role && companyToken) {
           dispatch(fetchProfileData(companyToken, role));
         }
-
         setResponseMessage({
           title: "Edieted Successfully",
           content: "your logo and cover updated successfully",
@@ -122,6 +123,7 @@ const CompanyMedia = ({ logo, cover }) => {
         setSuccessResponse(false);
         setShowResponse(true);
       }
+      setIsLoading(false);
     }
   };
 
@@ -165,7 +167,7 @@ const CompanyMedia = ({ logo, cover }) => {
             </button>
           </div>
           <span className="mini_word mt-4 text-center">
-            maximum size of 3 MB. Logo Recommended aspect ratio of 1:1
+            maximum size of 10 MB. Logo Recommended aspect ratio of 1:1
           </span>
         </div>
 
@@ -208,9 +210,15 @@ const CompanyMedia = ({ logo, cover }) => {
         </div>
 
         <div className="d-flex justify-content-end align-items-center my-5 px-2">
-          <button className={styles.save_btn} type="submit">
-            Save Changes
-          </button>
+          {isLoading ? (
+            <button className={styles.save_btn} type="submit">
+              <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
+            </button>
+          ) : (
+            <button className={styles.save_btn} type="submit">
+              Save Changes
+            </button>
+          )}
         </div>
       </form>
 

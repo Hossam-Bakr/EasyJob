@@ -36,8 +36,22 @@
         width:6.25rem;
     }
 }
+
 @media screen and (max-width:600px) {
     .step_item svg{
-display: none;
+        display: none;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .step_img{
+        width: 100%;
+    }
+    .step_item{
+      width: 100%;
+    }
+    .swiper_container{
+        width: 100%;
+        text-align: center;
     }
 }

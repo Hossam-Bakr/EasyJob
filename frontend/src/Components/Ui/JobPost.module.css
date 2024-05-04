@@ -6,6 +6,7 @@
     transition: all .5s;
     box-shadow:0 0 0.1875rem rgba(0, 0, 0, 0.26);
     margin-bottom: 0.625rem;
+    min-height: 20.8125rem;
 }
 .job:hover{
     border: 0.0625rem solid var(--main_color);

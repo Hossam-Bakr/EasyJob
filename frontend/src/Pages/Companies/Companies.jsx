@@ -444,7 +444,7 @@ const Companies = () => {
                   <>
                     {data ? (
                       <>
-                        {data.data.data.map((company) => {
+                      {data.data?.data?.length!==0?<>     {data.data?.data?.map((company) => {
                           return (
                             <CompanyPost
                               key={company.id}
@@ -459,10 +459,11 @@ const Companies = () => {
                               grid={gridView}
                             />
                           );
-                        })}
+                        })}</>:<NoDataBox  text="there is no companies for you right now, call suppport"/>}
+                   
                       </>
                     ) : (
-                      <NoDataBox text="there is no companies for you, call suppport" />
+                      <NoDataBox text="there is no companies for you right now, call suppport" />
                     )}
                   </>
                 )}

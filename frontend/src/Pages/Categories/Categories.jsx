@@ -40,7 +40,7 @@ const Categories = () => {
     }
     if (industryList) {
       window.scrollTo(0, 0);
-      const filteredData = industryList.data.data.filter(
+      const filteredData = industryList?.data?.data?.filter(
         (industry) => industry.id === linkID
       );
       setIsDataFiltered(true);
@@ -73,7 +73,7 @@ const Categories = () => {
                 <h4>
                   ALL INDUSTRIES{" "}
                   <span className="badge text-bg-secondary">
-                    {industryList.data.data.length}
+                    {industryList?.data?.data?.length}
                   </span>
                 </h4>
                 <SearchField />
@@ -95,7 +95,7 @@ const Categories = () => {
                         />
                         ALL Industries
                       </li>
-                      {industryList.data.data.map((industry) => (
+                      {industryList?.data?.data?.map((industry) => (
                         <li
                           key={industry.id}
                           className={`${styles.industry_list_item} ${
@@ -119,7 +119,7 @@ const Categories = () => {
                       <>
                         {isDataFiltered ? (
                           <>
-                            {filteredData.map((industry) => (
+                            {filteredData?.map((industry) => (
                               <div className="mb-5" key={industry.id}>
                                 <h3 className={styles.industry_name}>
                                   {industry.name}
@@ -127,7 +127,7 @@ const Categories = () => {
                                 <Row
                                   className={`${styles.categories_list} gy-3`}
                                 >
-                                  {industry.Categories.length === 0 ? (
+                                  {industry.Categories?.length === 0 ? (
                                     <div
                                       className={`${styles.noCat} alert alert-warning`}
                                     >
@@ -138,7 +138,7 @@ const Categories = () => {
                                     </div>
                                   ) : (
                                     <>
-                                      {industry.Categories.map((category) => (
+                                      {industry.Categories?.map((category) => (
                                         <Col sm={6} md={4} key={category.id}>
                                           <div className={styles.category_item}>
                                             <FontAwesomeIcon
@@ -157,7 +157,7 @@ const Categories = () => {
                           </>
                         ) : (
                           <>
-                            {data.data.data.map((industry) => (
+                            {data.data?.data?.map((industry) => (
                               <div className="mb-5" key={industry.id}>
                                 <h3 className={styles.industry_name}>
                                   {industry.name}
@@ -165,7 +165,7 @@ const Categories = () => {
                                 <Row
                                   className={`${styles.categories_list} gy-3`}
                                 >
-                                  {industry.Categories.length === 0 ? (
+                                  {industry.Categories?.length === 0 ? (
                                     <div
                                       className={`${styles.noCat} alert alert-warning`}
                                     >
@@ -176,7 +176,7 @@ const Categories = () => {
                                     </div>
                                   ) : (
                                     <>
-                                      {industry.Categories.map((category) => (
+                                      {industry.Categories?.map((category) => (
                                         <Col sm={6} md={4} key={category.id}>
                                           <div className={styles.category_item}>
                                             <FontAwesomeIcon
@@ -192,7 +192,7 @@ const Categories = () => {
                                 </Row>
                               </div>
                             ))}
-                          <Pagination setPageNum={setPageNum} maxPageNum={data?.paginationResults?.numberOfPages}/>
+                          <Pagination setPageNum={setPageNum} maxPageNum={data.data?.paginationResults?.numberOfPages}/>
                           </>
                         )}
                       </>

@@ -18,7 +18,7 @@ const Saved = () => {
   const [successResponse, setSuccessResponse] = useState(true);
 
   const mySavedJobs = useSelector((state) => state.savedJobs.jobData);
-
+  console.log(mySavedJobs)
   return (
     <>
       {mySavedJobs.length !== 0 ? (
@@ -36,13 +36,9 @@ const Saved = () => {
                       name={job.Company.name}
                       jobTitle={job.title}
                       req={job.requirements}
-                      logo={job.Company?.CompanyProfile?.logo}
                       type={job.type}
                       workplace={job.workplace}
                       time={job.SavedJob.createdAt}
-                      // description={job.description}
-                      // minExperience={job.minExperience}
-                      // openPositions={job.openPositions}
                       careerLevel={job.careerLevel}
                       grid={false}
                       profile={true}

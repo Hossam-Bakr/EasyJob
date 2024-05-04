@@ -30,6 +30,7 @@ import EducationBox from "./EducationBox";
 import SkillBox from "./SkillBox";
 import LanguageBox from "./LanguageBox";
 import CertificateBox from "./CertificateBox";
+import MainButton from "./MainButton";
 
 const ProfileSections = ({
   phone,
@@ -98,8 +99,8 @@ const ProfileSections = ({
             className={`${styles.main_style} ${styles.contact_info_section} ${
               showContactInfo ? styles.main_style_spread : ""
             }`}
-          >
-            {isMyProfile&&<EdietPenIcon onClick={() => navigateToEdiet("info")} />}
+          > 
+            {isMyProfile?<EdietPenIcon onClick={() => navigateToEdiet("info")} />:<div className={styles.blur_layer}><MainButton text="Unlock Profile"/></div>}
             <h3 className={styles.sec_title}>Contact Info</h3>
             <div className={styles.contact_info_body}>
               <div className={styles.contact_info_body_header}>

@@ -398,3 +398,16 @@ export const getCompanyRelatedJobs = async ({id}) => {
   }
 };
 
+export const getJobApplications=async({jobId,token})=>{
+  try{
+    const res=await axios.get(`${baseServerUrl}jobs/${jobId}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return res.data
+  }
+  catch(error){
+    console.error(error)
+  }
+}

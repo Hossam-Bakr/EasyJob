@@ -61,7 +61,7 @@ const MainNavbar = () => {
             ? !isScrollDown
               ? {
                   y: 0,
-                  backgroundColor: "rgb(255, 255, 255)",
+                  backgroundColor: "rgba(255, 255, 255)",
                   opacity: 1,
                   boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.3)",
                   borderBottom: "1px solid rgb(246, 242, 255)",
@@ -69,13 +69,14 @@ const MainNavbar = () => {
               : {
                   y: -200,
                   opacity: 0,
+                  backgroundColor: "rgb(255, 255, 255)",
                   boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.3)",
                   borderBottom: "1px solid rgb(246, 242, 255)",
                 }
             : {
                 y: 0,
                 opacity: 1,
-                borderBottom: "0px solid rgba(255,255,255,0",
+                borderBottom: "0px solid rgba(255,255,255,0)",
                 boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)",
               }
         }

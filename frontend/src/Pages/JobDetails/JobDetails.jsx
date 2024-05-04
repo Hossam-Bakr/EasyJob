@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getJobsDetails, saveJobsHandler } from "../../util/Http";
 import Loading from "../../Components/Ui/Loading";
 import styles from "./JobDetails.module.css";
@@ -40,6 +40,7 @@ const JobDetails = () => {
   const token = useSelector((state) => state.userInfo.token);
   const dispatch = useDispatch();
   const textRef = useRef(null);
+  const navigate=useNavigate();
 
   const { data } = useQuery({
     queryKey: ["jobDetails"],
@@ -96,6 +97,11 @@ const JobDetails = () => {
       }
     }
   }, [data]);
+
+  const navigateToApplicationFormPage=()=>{
+    navigate(`/job-application-form/${params.jobId}`)
+  }
+
 
   useEffect(() => {
     if (data) {
@@ -210,7 +216,7 @@ const JobDetails = () => {
                     </Dropdown>
                   </div>
                   <div className="mt-1">
-                    <MainButtonTwo text="Apply Now" />
+                    <MainButtonTwo onClick={navigateToApplicationFormPage} text="Apply Now" />
                   </div>
                 </Col>
               </Row>

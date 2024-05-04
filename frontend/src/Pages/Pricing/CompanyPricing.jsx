@@ -67,6 +67,13 @@ const CompanyPricing = () => {
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
+                      100 invitiation
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       Unlimited search in Easy job database
                     </li>
                     <li>
@@ -132,6 +139,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Post 15 jobs ads
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      200 invitiation
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -204,6 +218,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Post 60 jobs ads
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      300 invitiation
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -294,6 +315,13 @@ const CompanyPricing = () => {
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
+                      100 invitiation
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       Unlimited search in Easy job database
                     </li>
                     <li>
@@ -360,6 +388,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Post 15 jobs ads
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      200 invitiation
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -433,6 +468,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Post 60 jobs ads
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      300 invitiation
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -522,6 +564,13 @@ const CompanyPricing = () => {
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
+                      100 invitiation
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       Unlimited search in Easy job database
                     </li>
                     <li>
@@ -587,6 +636,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Post 15 jobs ads
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      200 invitiation
                     </li>
                     <li>
                       <FontAwesomeIcon
@@ -659,6 +715,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       Post 60 jobs ads
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      300 invitiation
                     </li>
                     <li>
                       <FontAwesomeIcon

@@ -55,7 +55,7 @@ const Footer = () => {
               <ContactsIcon type="one" />
             </div>
             <div>
-              <p>© 2023 EasyJob. All Rights Reserved. Owned by <Link to={"/"} className={styles.footer_link}>EasyJob.</Link></p>
+              <p>© 2023 EasyJob. All Rights Reserved. Owned by <Link to={"/"} className={styles.footer_link}>EasyJob team.</Link></p>
             </div>
           </Col>
         </Row>

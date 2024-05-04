@@ -52,6 +52,7 @@ const UserInfo = () => {
                 city={userProfileData.city}
                 area={userProfileData.area}
                 about={userProfileData.about}
+                tagline={userProfileData.tagline}
               />
             </Tab>
             <Tab eventKey="contact" title="Contact Links">

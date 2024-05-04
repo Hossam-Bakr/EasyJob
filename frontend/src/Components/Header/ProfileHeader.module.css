@@ -59,6 +59,15 @@
     z-index: 3;
     transform: translateY(100%);
 }
+.invite_btn{
+    position: absolute;
+    bottom: -10%;
+    right: 5%;
+    padding:0.625rem;
+    padding-top: 0;
+    z-index: 3;
+    transform: translateY(100%);
+}
 .header_links ul{
     margin: 0;
     border:0.0625rem solid rgb(219, 219, 219) ;

@@ -93,6 +93,11 @@ const JobPost = ({
     }
   };
 
+  const navigateToApplicationFormPage=()=>{
+    navigate(`/job-application-form/${id}`)
+  }
+
+
   useEffect(() => {
     AOS.init();
   }, []);
@@ -221,7 +226,7 @@ const JobPost = ({
                           </h6>
                         )}
                         <div className="text-end w-100">
-                          <ApplyBtn type="white" text="Apply Now" />
+                          <ApplyBtn onClick={navigateToApplicationFormPage} type="white" text="Apply Now" />
                         </div>
                       </div>
                     )}
