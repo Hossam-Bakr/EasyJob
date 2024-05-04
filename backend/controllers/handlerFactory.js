@@ -1,6 +1,6 @@
 const catchAsync = require("./../utils/catchAsync");
 const ApiError = require("./../utils/ApiError");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -69,8 +69,16 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
     if (keyword && Model.rawAttributes.title) {
       filter = {
         [Op.or]: [
-          { title: { [Op.iLike]: `%${keyword}%` } },
-          { description: { [Op.iLike]: `%${keyword}%` } },
+          Sequelize.where(
+            Sequelize.fn("LOWER", Sequelize.col("title")),
+            "LIKE",
+            `%${keyword.toLowerCase()}%`
+          ),
+          Sequelize.where(
+            Sequelize.fn("LOWER", Sequelize.col("description")),
+            "LIKE",
+            `%${keyword.toLowerCase()}%`
+          ),
         ],
       };
     }
