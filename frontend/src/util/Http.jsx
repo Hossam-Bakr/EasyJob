@@ -80,7 +80,7 @@ export const getIndustries = async ({
   formData,
   method,
   pageNum,
-  industryList
+  industryList,
 }) => {
   try {
     let response = null;
@@ -99,15 +99,12 @@ export const getIndustries = async ({
           `${baseServerUrl}industries${type}${formData}`
         );
       }
-    }
-    else if(method==="industryList"){
-      response = await axios(`${baseServerUrl}industries`, {
-      });
-    }
-   else {
+    } else if (method === "industryList") {
+      response = await axios(`${baseServerUrl}industries`, {});
+    } else {
       response = await axios(`${baseServerUrl}industries`, {
         params: {
-          limit:8,
+          limit: 8,
           page: pageNum,
         },
       });
@@ -183,9 +180,73 @@ export const accountSettingHanlder = async ({
   }
 };
 
-export const getJobs = async ({ type, formData, method, pageNum }) => {
+export const getJobs = async ({
+  type,
+  formData,
+  method,
+  pageNum,
+  countryFilteration,
+  cityFilteration,
+  categoriesFilteration,
+  jobTypeFilteration,
+  careerLevelFilteration,
+  minSalaryFilteration,
+  maxSalaryFilteration,
+  jobTitleFilteration
+}) => {
+  //handle categories
+  //handle minSalaryFilteration & maxSalaryFilteration
   try {
+    let params={
+      limit: 15,
+      page: pageNum,
+    }
     let response = null;
+    let paramValues = "";
+
+    if (jobTitleFilteration) {
+     params.title=jobTitleFilteration
+    }
+    if (countryFilteration.length > 0) {
+      countryFilteration.forEach((myCountry) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?country=${myCountry}`);
+        } else {
+          paramValues = paramValues.concat(`&country=${myCountry}`);
+        }
+      });
+    }
+
+    if (cityFilteration.length > 0) {
+      cityFilteration.forEach((myCity) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?city=${myCity}`);
+        } else {
+          paramValues = paramValues.concat(`&city=${myCity}`);
+        }
+      });
+    }
+
+    if (jobTypeFilteration.length > 0) {
+      jobTypeFilteration.forEach((myType) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?type=${myType}`);
+        } else {
+          paramValues = paramValues.concat(`&type=${myType}`);
+        }
+      });
+    }
+
+    if (careerLevelFilteration.length > 0) {
+      careerLevelFilteration.forEach((myCareer) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?careerLevel=${myCareer}`);
+        } else {
+          paramValues = paramValues.concat(`&careerLevel=${myCareer}`);
+        }
+      });
+    }
+
     if (type) {
       if (method === "post") {
         response = await axios.post(`${baseServerUrl}jobs${type}`, formData);
@@ -195,15 +256,9 @@ export const getJobs = async ({ type, formData, method, pageNum }) => {
         response = await axios.delete(`${baseServerUrl}jobs${type}${formData}`);
       }
     } else {
-      response = await axios(
-        `${baseServerUrl}jobs/`,
-        {
-          params: {
-            limit: 15,
-            page: pageNum,
-          },
-        }
-      );
+      response = await axios(`${baseServerUrl}jobs/${paramValues}`, {
+        params
+      });
     }
     return response.data;
   } catch (error) {
@@ -244,9 +299,8 @@ export const saveJobsHandler = async ({ jobId, token }) => {
 export const getLatestJobs = async (num) => {
   try {
     const response = await axios.get(`${baseServerUrl}jobs/latest/${num}`);
-      
-    return response;
 
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -387,8 +441,7 @@ export const getCompanies = async (pageNum) => {
   }
 };
 
-export const getCompanyRelatedJobs = async ({id}) => {
-
+export const getCompanyRelatedJobs = async ({ id }) => {
   try {
     const res = await axios(`${baseServerUrl}jobs/?CompanyId=${id}`);
 
@@ -398,16 +451,15 @@ export const getCompanyRelatedJobs = async ({id}) => {
   }
 };
 
-export const getJobApplications=async({jobId,token})=>{
-  try{
-    const res=await axios.get(`${baseServerUrl}jobs/${jobId}`,{
+export const getJobApplications = async ({ jobId, token }) => {
+  try {
+    const res = await axios.get(`${baseServerUrl}jobs/${jobId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
-    return res.data
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
   }
-  catch(error){
-    console.error(error)
-  }
-}
+};

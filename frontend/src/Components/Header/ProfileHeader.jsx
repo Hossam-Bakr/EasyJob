@@ -212,9 +212,11 @@ const ProfileHeader = ({
             </ul>
           </div>
         )}
-        {(!isMyProfile&&type!=="company")&&<div className={styles.invite_btn}>
-            <MainBtnThree text="Send Invitation"/>
-          </div>}
+        {!isMyProfile && type !== "company" && (
+          <div className={styles.invite_btn}>
+            <MainBtnThree text="Send Invitation" />
+          </div>
+        )}
       </header>
 
       <div className={styles.sub_header}>
@@ -238,7 +240,11 @@ const ProfileHeader = ({
               </span>
             )}
           </div>
-
+          {!isMyProfile && type !== "company" && (
+              <div className={styles.hidden_invite_btn}>
+                <MainBtnThree text="Send Invitation" />
+              </div>
+            )}
           <div
             className={`${styles.links_and_cv} d-flex justify-content-between align-items-center mt-3`}
           >
@@ -255,7 +261,7 @@ const ProfileHeader = ({
                       </span>
                     </span>
                   ) : (
-                      <span>Click here to download {firstName}'s Resume</span>
+                    <span>Click here to download {firstName}'s Resume</span>
                   )}
                   {isMyProfile ? (
                     <div className="d-flex justify-content-center align-items-center mt-2">
@@ -275,12 +281,14 @@ const ProfileHeader = ({
                       </span>
                     </div>
                   ) : (
-                    <div className="d-flex justify-content-center my-3">
-                      <FontAwesomeIcon
-                        className={styles.download_icon}
-                        icon={faDownload}
-                      />
-                    </div>
+                    <>
+                      <div className="d-flex justify-content-center my-3">
+                        <FontAwesomeIcon
+                          className={styles.download_icon}
+                          icon={faDownload}
+                        />
+                      </div>
+                    </>
                   )}
                 </div>
                 {type === "company" ? (

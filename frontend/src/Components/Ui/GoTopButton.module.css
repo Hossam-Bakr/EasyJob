@@ -1,0 +1,25 @@
+.up_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: var(--main_color);
+    color: white;
+    transition: all .4s;
+    font-size: 20px;
+    border-radius: 10px;
+}
+.up_button_hidden{
+    transform: translateY(400px);
+    opacity: 0;
+}
+.up_button_show{
+    transform: translateY(0);
+    opacity:1;
+}
+.up_button:hover{
+    transform: translateY(-10px);
+}

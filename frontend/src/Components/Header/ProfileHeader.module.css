@@ -68,6 +68,10 @@
     z-index: 3;
     transform: translateY(100%);
 }
+.hidden_invite_btn{
+    text-align: end;
+    display: none;
+}
 .header_links ul{
     margin: 0;
     border:0.0625rem solid rgb(219, 219, 219) ;
@@ -300,6 +304,17 @@
       display: none;
     }
   }
+@media screen and (max-width:522px) {
+    .invite_btn{
+        display: none;
+    }
+    .hidden_invite_btn{
+        display: block;
+    }
+    .resume_div{
+     text-align: center;
+    }
+  }
 
 @media screen and (max-width:400px) {
    .ediet_section_btn{
@@ -318,6 +333,16 @@
 .company_info{
     padding-top: 1.25rem !important;
 }  
+.links_and_cv{
+    flex-direction: column;
+}
+.resume_div{
+    margin: 20px 0;
+   }
+   .hidden_invite_btn{
+    margin-top: 20px;
+    text-align: center;
+   }
 }
 
 
