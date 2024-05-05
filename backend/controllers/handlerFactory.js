@@ -93,6 +93,17 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
       }
     }
 
+    for (const key in req.query) {
+      if (key.includes("__") && Model.rawAttributes[key.split("__")[0]]) {
+        const [field, operator] = key.split("__");
+        const value = req.query[key];
+
+        if (operator && ["gt", "gte", "lt", "lte"].includes(operator)) {
+          filter[field] = { [Op[operator]]: value };
+        }
+      }
+    }
+
     if (sort) {
       sort
         .split(",")
