@@ -427,13 +427,47 @@ export const getCompanyCandidates = async ({ id, token, pageNum }) => {
   }
 };
 
-export const getCompanies = async (pageNum) => {
+export const getCompanies = async ({pageNum,indusryFilteration,countryFilteration,cityFilteration,sizeFilteration}) => {
+console.log(sizeFilteration)
+  let params={
+    limit: 15,
+    page: pageNum,
+  }
+  let paramValues = "";
+
+  if (indusryFilteration) {
+   params.IndustryId=indusryFilteration
+  }
+  if (countryFilteration.length > 0) {
+    countryFilteration.forEach((myCountry) => {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?country=${myCountry}`);
+      } else {
+        paramValues = paramValues.concat(`&country=${myCountry}`);
+      }
+    });
+  }
+  if (cityFilteration.length > 0) {
+    cityFilteration.forEach((myCity) => {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?city=${myCity}`);
+      } else {
+        paramValues = paramValues.concat(`&city=${myCity}`);
+      }
+    });
+  }
+  if (sizeFilteration.length > 0) {
+    sizeFilteration.forEach((size) => {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?size=${size}`);
+      } else {
+        paramValues = paramValues.concat(`&size=${size}`);
+      }
+    });
+  }
   try {
-    const res = await axios(`${baseServerUrl}companies`, {
-      params: {
-        limit: 15,
-        page: pageNum,
-      },
+    const res = await axios(`${baseServerUrl}companies${paramValues}`, {
+      params
     });
     return res;
   } catch (error) {

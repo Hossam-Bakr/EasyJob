@@ -23,7 +23,7 @@ import {
   titleOptions,
 } from "../../Components/logic/Logic";
 import GoTopButton from "../../Components/Ui/GoTopButton";
-import Select from 'react-select';
+import Select from "react-select";
 
 const Posts = () => {
   const [gridView, setGridView] = useState(true);
@@ -58,7 +58,7 @@ const Posts = () => {
         careerLevelFilteration,
         minSalaryFilteration,
         maxSalaryFilteration,
-        jobTitleFilteration
+        jobTitleFilteration,
       }),
   });
 
@@ -199,9 +199,8 @@ const Posts = () => {
     }
   };
 
-  const addParamsToFilterList = (e,titleValue,titleTag) => {
-
-    if(e!==false){
+  const addParamsToFilterList = (e, titleValue, titleTag) => {
+    if (e !== false) {
       const filterType = e.target.getAttribute("tag");
       const filterValue = e.target.value;
       switch (filterType) {
@@ -233,11 +232,8 @@ const Posts = () => {
         default:
           break;
       }
-
-    }
-    else{
-      if(titleTag==="title")
-      filterOperations("title", titleValue.value);
+    } else {
+      if (titleTag === "title") filterOperations("title", titleValue.value);
     }
   };
 
@@ -248,7 +244,7 @@ const Posts = () => {
       ) : (
         <Container fluid className="mb-5">
           <Row>
-            <Col sm={5} md={3} className={styles.aside_container}>
+            <Col sm={6} md={4} lg={3}  className={styles.aside_container}>
               <aside className={styles.job_filters}>
                 <Accordion alwaysOpen defaultActiveKey={["0"]}>
                   <FilterAccordion title="Filter by Title" eventKey="0">
@@ -258,7 +254,9 @@ const Posts = () => {
                       isSearchable={true}
                       name="jobTitle"
                       options={titleOptions}
-                      onChange={(value)=>addParamsToFilterList(false,value,"title")}
+                      onChange={(value) =>
+                        addParamsToFilterList(false, value, "title")
+                      }
                     />
                   </FilterAccordion>
                   <FilterAccordion title="Filter by Country" eventKey="1">
@@ -538,7 +536,7 @@ const Posts = () => {
                 </Accordion>
               </aside>
             </Col>
-            <Col sm={7} md={9}>
+            <Col sm={6} md={8} lg={9}>
               <section className={styles.job_posts}>
                 <Container>
                   <Row className="gy-3">

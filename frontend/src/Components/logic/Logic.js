@@ -7,7 +7,6 @@ export const countryOptions = [
   { value: "Kuwait", label: "Kuwait" },
 ];
 
-
 export const Cities = {
   EgyptCities: [
     "Alexandria",

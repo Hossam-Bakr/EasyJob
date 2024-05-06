@@ -19,18 +19,26 @@ const JobApplicationForm = ({
   const { jobId } = useParams();
   const [record, setRecord] = useState(null);
   const [formValues, setFormValues] = useState(new FormData());
+  const [voicesAnswers, setVoicesAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const token = useSelector((state) => state.userInfo.token);
-  const navigate=useNavigate();
-
-  const addAudioElement = (blob, index, id) => {
+  const navigate = useNavigate();
+  
+  const addAudioElement = (blob,id) => {
     const url = URL.createObjectURL(blob);
     setRecord(url);
-    const file = new File([blob], `recorder.webm${index}`, { type: "audio/webm" });
-    formValues.append(`voiceAnswer${index + 1}`, file);
-    formValues.append(`voices[${index}][voiceAnswer]`, `${index + 1}`);
-    formValues.append(`voices[${index}][QuestionId]`, `${id}`);
+    const file = new File([blob], `recorder.webm`, { type: "audio/webm" });
+    let newVoice={id,file}
+    let existVoice=voicesAnswers.find((voice)=>voice.id===id)
+    if(existVoice){
+      voicesAnswers[existVoice]=newVoice
+    }
+    else{
+      let updatedVoiceAnswers = [...voicesAnswers, newVoice];
+      setVoicesAnswers(updatedVoiceAnswers);
+    }
+
   };
 
   const saveData = (e) => {
@@ -47,16 +55,22 @@ const JobApplicationForm = ({
   const handleSubmittedForm = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
-
+    if (voicesAnswers.length > 0) {
+      console.log("myAnswers",voicesAnswers)
+      voicesAnswers.map((voice, index) => {
+        formValues.append(`voiceAnswer${index + 1}`, voice.file);
+        formValues.append(`voices[${index}][voiceAnswer]`, `${index + 1}`);
+        formValues.append(`voices[${index}][QuestionId]`, `${voice.id}`);
+        return null;  
+      });
+    }
 
     if (formValues && token) {
-
       const formDataObject = {};
       for (const [key, value] of formValues.entries()) {
         formDataObject[key] = value;
       }
-      console.log(formDataObject)
+      console.log(formDataObject);
       try {
         const res = await axios.post(
           `http://127.0.0.1:3000/api/v1/jobs/${jobId}/apply`,
@@ -67,16 +81,16 @@ const JobApplicationForm = ({
             },
           }
         );
-        console.log("response",res);
-        if(res.data.status==="success"){
+        console.log("response", res);
+        if (res.statusText === "Created") {
           setResponseMessage({
             title: "Sent Successfully",
             content: "your Answers have been sent successfully",
           });
           setSuccessResponse(true);
           setShowResponse(true);
-          navigate("/jobs")
-        }else{
+          navigate("/jobs");
+        } else {
           setResponseMessage({
             title: "Request Faild",
             content: "your Answers faild to be sent please try again",
@@ -85,7 +99,9 @@ const JobApplicationForm = ({
           setShowResponse(true);
         }
       } catch (error) {
-        if(error.response.data.message==="You have already applied for this job"){
+       
+        if (
+          error.response.data.message ==="You have already applied for this job") {
           setResponseMessage({
             title: "Already Applied",
             content: "You have already applied for this job",
@@ -93,11 +109,20 @@ const JobApplicationForm = ({
           setSuccessResponse(false);
           setShowResponse(true);
         }
-        console.log("error",error);
+        if(error.response.data.message==="You must answer all the questions"){
+          setResponseMessage({
+            title: "Answer All Questions",
+            content: "You Must Answer All the Questions",
+          });
+          setSuccessResponse(false);
+          setShowResponse(true);
+        }
+        console.log("error", error);
       }
     }
 
     setIsLoading(false);
+    setVoicesAnswers([])
     setFormValues(new FormData());
     // setRecord(null);
     // myClaerButtonRef.current.click();
@@ -114,9 +139,7 @@ const JobApplicationForm = ({
                 className={`${styles.input_field} ${styles.checks_group}`}
                 key={question.id}
               >
-                <label
-                  className={styles.question_label}
-                >
+                <label className={styles.question_label}>
                   {question.questionText}
                 </label>
                 <div>
@@ -201,22 +224,17 @@ const JobApplicationForm = ({
               </div>
             ) : (
               //voice question
-
               <div
                 className={`${styles.input_field} ${styles.checks_group}`}
                 key={question.id}
               >
-                <label
-                  className={styles.question_label}
-                >
+                <label className={styles.question_label}>
                   {question.questionText}
                 </label>
-                <div
-                  className={styles.record_field}
-                >
+                <div className={styles.record_field}>
                   <AudioRecorder
                     onRecordingComplete={(blob) =>
-                      addAudioElement(blob, index, question.id)
+                      addAudioElement(blob,question.id)
                     }
                     audioTrackConstraints={{
                       noiseSuppression: true,
@@ -240,7 +258,6 @@ const JobApplicationForm = ({
             )
           )}
           <div className="text-center mt-4 mb-3">
-
             {isLoading ? (
               <button type="submit" className={styles.submit_btn}>
                 <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
@@ -258,7 +275,7 @@ const JobApplicationForm = ({
             There is no questions for this job
           </h4>
           <div className="text-center">
-            <MainButton text="submit"/>
+            <MainButton text="submit" />
           </div>
         </div>
       )}
@@ -278,8 +295,6 @@ export default JobApplicationForm;
 //   // recordingTime,
 //   // mediaRecorder
 // } = useAudioRecorder();
-
-
 
 // {/* <button
 //   ref={myClaerButtonRef}
