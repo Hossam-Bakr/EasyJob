@@ -165,10 +165,10 @@ const UpdateUserCirtificationsForm = ({
       >
         <Form className={styles.general_info_form}>
           <div className={styles.field}>
-            <label htmlFor="title">title</label>
+            <label htmlFor="UpdateCertificatetitle">title</label>
             <Field
               type="text"
-              id="title"
+              id="UpdateCertificatetitle"
               name="title"
               placeholder="ex: Accountant Certificate"
             />
@@ -176,10 +176,10 @@ const UpdateUserCirtificationsForm = ({
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="organization">Organization</label>
+            <label htmlFor="UpdateCertificateorganization">Organization</label>
             <Field
               type="text"
-              id="organization"
+              id="UpdateCertificateorganization"
               name="organization"
               placeholder="ex: Microsoft"
             />
@@ -187,26 +187,26 @@ const UpdateUserCirtificationsForm = ({
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="issueDate">issueDate</label>
-            <Field type="date" id="issueDate" name="issueDate" />
+            <label htmlFor="UpdateCertificateissueDate">issueDate</label>
+            <Field type="date" id="UpdateCertificateissueDate" name="issueDate" />
             <ErrorMessage name="issueDate" component={InputErrorMessage} />
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="credentialURL">credential URL</label>
+            <label htmlFor="UpdateCertificatecredentialURL">credential URL</label>
             <Field
               type="text"
-              id="credentialURL"
+              id="UpdateCertificatecredentialURL"
               name="credentialURL"
               placeholder="ex: Accountant Certificate"
             />
             <ErrorMessage name="credentialURL" component={InputErrorMessage} />
           </div>
           <div className={styles.field}>
-            <label htmlFor="credentialID">credential ID</label>
+            <label htmlFor="UpdateCertificatecredentialID">credential ID</label>
             <Field
               type="text"
-              id="credentialID"
+              id="UpdateCertificatecredentialID"
               name="credentialID"
               placeholder="ex: Accountant Certificate"
             />
@@ -216,7 +216,7 @@ const UpdateUserCirtificationsForm = ({
             <Field
               as="textarea"
               placeholder="description"
-              id="description"
+              id="UpdateCertificateupdatedDescription"
               name="description"
               cols="30"
               rows="7"

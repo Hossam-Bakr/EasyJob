@@ -6,58 +6,6 @@ import { getCompanyRelatedJobs } from "../../util/Http";
 import Loading from "./Loading";
 import NoDataBox from "./NoDataBox";
 
-// const myJobs = [
-//   {
-//     key: 1,
-//     name: "huwawei",
-//     jobTitle: "Call Center",
-//     req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L2",
-//     type: "full-time",
-//     workplace: "remote",
-//     time: "5 min",
-//     city: "Cairo",
-//     country: "Egypt",
-//   },
-//   {
-//     key: 2,
-//     name: "Huwawei",
-//     jobTitle: "Electrical Engineer",
-//     req: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L2",
-//     type: "full-time",
-//     workplace: "remote",
-//     city: "Cairo",
-//     country: "Egypt",
-
-//     time: "2 days",
-//   },
-//   {
-//     key: 3,
-//     name: "huwawei",
-//     jobTitle: "Frontend React Developer",
-//     req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L2",
-//     type: "full-time",
-//     workplace: "remote",
-//     time: "5 months",
-//     city: "Cairo",
-//     country: "Egypt",
-//   },
-//   {
-//     key: 4,
-//     name: "huwawei",
-//     jobTitle: "Financial Advisor",
-//     req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-//     logo: "L2",
-//     workplace: "remote",
-//     type: "full-time",
-//     time: "2 years",
-//     city: "Cairo",
-//     country: "Egypt",
-//   },
-// ];
-
 const CompanyRelatedJobs = ({ isMyProfile, id }) => {
   const { data } = useQuery({
     queryKey: ["relatedJobs"],

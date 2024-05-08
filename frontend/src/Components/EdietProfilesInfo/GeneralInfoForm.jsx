@@ -169,24 +169,24 @@ const GeneralInfoForm = ({ data }) => {
         >
           <Form className={styles.general_info_form}>
             <div className={styles.field}>
-              <label htmlFor="companyName">Company Name</label>
+              <label htmlFor="company_Name">Company Name</label>
               <Field
                 type="text"
                 value={data.name || ""}
                 disabled
                 className={styles.disabled_faild}
-                id="companyName"
+                id="company_Name"
               />
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="companyEmail">Email</label>
+              <label htmlFor="company_Email">Email</label>
               <Field
                 type="email"
                 value={data.email || ""}
                 disabled
                 className={styles.disabled_faild}
-                id="companyEmail"
+                id="company_Email"
               />
             </div>
 
@@ -257,7 +257,7 @@ const GeneralInfoForm = ({ data }) => {
             <div className={`${styles.field} ${styles.text_area_desc}`}>
               <Field
                 as="textarea"
-                id="description"
+                id="companyGeneraldescription"
                 name="description"
                 cols="30"
                 rows="7"

@@ -328,7 +328,6 @@ const HomeMainBody = () => {
         <div className={styles.seperation_bg_layer}></div>
         <div className={styles.seperation_bg_caption}>
           <h2 data-aos="fade-in" data-aos-duration="1000">
-            {" "}
             Work From Anywhere
           </h2>
           <p data-aos="fade-in" data-aos-duration="1000">

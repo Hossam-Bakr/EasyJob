@@ -24,20 +24,26 @@ import {
 } from "../../Components/logic/Logic";
 import GoTopButton from "../../Components/Ui/GoTopButton";
 import Select from "react-select";
+import MainButton from "../../Components/Ui/MainButton";
 
 const Posts = () => {
   const [gridView, setGridView] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
   const [pageNum, setPageNum] = useState(1);
+  const [searchFilter, setSearchFilter] = useState("");
   const [countryFilteration, setCountryFilteration] = useState([]);
   const [cityFilteration, setCityFilteration] = useState([]);
   const [categoriesFilteration, setCategoriesFilteration] = useState([]);
   const [jobTypeFilteration, setJobTypeFilteration] = useState([]);
   const [careerLevelFilteration, setCareerLevelFilteration] = useState([]);
+  const [workPlaceFilteration, setWorkPlaceFilteration] = useState([]);
   const [minSalaryFilteration, setMinSalaryFilteration] = useState([]);
   const [maxSalaryFilteration, setmMaxSalaryFilteration] = useState([]);
   const [jobTitleFilteration, setmJobTitleFilteration] = useState("");
   const [showMoreCities, setShowMoreCities] = useState(false);
   const categories = useSelector((state) => state.category.categories);
+  const outSideFilteration = useSelector((state) => state.filter.data);
+
 
   const setGrid = () => {
     setGridView(true);
@@ -51,11 +57,13 @@ const Posts = () => {
     queryFn: () =>
       getJobs({
         pageNum,
+        searchFilter,
         countryFilteration,
         cityFilteration,
         categoriesFilteration,
         jobTypeFilteration,
         careerLevelFilteration,
+        workPlaceFilteration,
         minSalaryFilteration,
         maxSalaryFilteration,
         jobTitleFilteration,
@@ -79,16 +87,32 @@ const Posts = () => {
     window.scrollTo(0, 0);
   }, [
     pageNum,
+    searchFilter,
     countryFilteration,
     cityFilteration,
     categoriesFilteration,
     jobTypeFilteration,
     careerLevelFilteration,
+    workPlaceFilteration,
     minSalaryFilteration,
     maxSalaryFilteration,
     jobTitleFilteration,
     refetch,
   ]);
+
+
+  useEffect(()=>{
+    if(outSideFilteration.value!==null){
+      switch (outSideFilteration.type) {
+        case "city":
+          setCityFilteration([outSideFilteration.value])
+          break;
+      
+        default:
+          break;
+      }
+    }
+  },[outSideFilteration])
 
   const filterOperations = (type, filterValue) => {
     switch (type) {
@@ -194,6 +218,21 @@ const Posts = () => {
           setmMaxSalaryFilteration(newList);
         }
         break;
+      case "workplace":
+        const newPlace = workPlaceFilteration.find(
+          (place) => place === filterValue
+        );
+        if (!newPlace) {
+          const updatedList = [...workPlaceFilteration, filterValue];
+          setWorkPlaceFilteration(updatedList);
+        } else {
+          const updatedFilterList = [...workPlaceFilteration];
+          const newList = updatedFilterList.filter(
+            (place) => place !== newPlace
+          );
+          setWorkPlaceFilteration(newList);
+        }
+        break;
       default:
         break;
     }
@@ -225,9 +264,12 @@ const Posts = () => {
           }
           break;
         case "maxSalary":
-          if (filterValue >= 0) {
+          if (filterValue > 0) {
             filterOperations("maxSalary", filterValue);
           }
+          break;
+        case "workplace":
+          filterOperations("workplace", filterValue);
           break;
         default:
           break;
@@ -237,6 +279,28 @@ const Posts = () => {
     }
   };
 
+  const clearALLFilterations = () => {
+    setCountryFilteration([]);
+    setCityFilteration([]);
+    setCategoriesFilteration([]);
+    setJobTypeFilteration([]);
+    setCareerLevelFilteration([]);
+    setMinSalaryFilteration([]);
+    setmMaxSalaryFilteration([]);
+    setWorkPlaceFilteration([]);
+    setmJobTitleFilteration("");
+  };
+
+  const onSearch = (e, searchInput) => {
+    e.preventDefault();
+    setIsSearching(true);
+    if (searchInput) {
+      clearALLFilterations();
+      setSearchFilter(searchInput);
+    }
+    setIsSearching(false);
+  };
+
   return (
     <>
       {isError ? (
@@ -244,7 +308,7 @@ const Posts = () => {
       ) : (
         <Container fluid className="mb-5">
           <Row>
-            <Col sm={6} md={4} lg={3}  className={styles.aside_container}>
+            <Col sm={6} md={4} lg={3} className={styles.aside_container}>
               <aside className={styles.job_filters}>
                 <Accordion alwaysOpen defaultActiveKey={["0"]}>
                   <FilterAccordion title="Filter by Title" eventKey="0">
@@ -270,6 +334,7 @@ const Posts = () => {
                             value="Egypt"
                             tag="country"
                             onChange={addParamsToFilterList}
+                            checked={countryFilteration.includes("Egypt")}
                           />
                           <label htmlFor="country_Egypt">Egypt</label>
                         </div>
@@ -283,6 +348,7 @@ const Posts = () => {
                             value="KSA"
                             tag="country"
                             onChange={addParamsToFilterList}
+                            checked={countryFilteration.includes("KSA")}
                           />
                           <label htmlFor="KSA">KSA</label>
                         </div>
@@ -296,6 +362,7 @@ const Posts = () => {
                             value="UAE"
                             tag="country"
                             onChange={addParamsToFilterList}
+                            checked={countryFilteration.includes("UAE")}
                           />
                           <label htmlFor="UAE">UAE</label>
                         </div>
@@ -309,6 +376,7 @@ const Posts = () => {
                             value="Kuwait"
                             tag="country"
                             onChange={addParamsToFilterList}
+                            checked={countryFilteration.includes("Kuwait")}
                           />
                           <label htmlFor="Kuwait">Kuwait</label>
                         </div>
@@ -331,6 +399,7 @@ const Posts = () => {
                                 value={city}
                                 tag="city"
                                 onChange={addParamsToFilterList}
+                                checked={cityFilteration.includes(city)}
                               />
                               <label htmlFor={`city_${city}`}>{city}</label>
                             </div>
@@ -351,6 +420,7 @@ const Posts = () => {
                                     value={city}
                                     tag="city"
                                     onChange={addParamsToFilterList}
+                                    checked={cityFilteration.includes(city)}
                                   />
                                   <label htmlFor={`city_${city}`}>{city}</label>
                                 </div>
@@ -369,6 +439,7 @@ const Posts = () => {
                                     value={city}
                                     tag="city"
                                     onChange={addParamsToFilterList}
+                                    checked={cityFilteration.includes(city)}
                                   />
                                   <label htmlFor={`city_${city}`}>{city}</label>
                                 </div>
@@ -387,6 +458,7 @@ const Posts = () => {
                                     value={city}
                                     tag="city"
                                     onChange={addParamsToFilterList}
+                                    checked={cityFilteration.includes(city)}
                                   />
                                   <label htmlFor={`city_${city}`}>{city}</label>
                                 </div>
@@ -421,6 +493,7 @@ const Posts = () => {
                                 value={category.id}
                                 tag="category"
                                 onChange={addParamsToFilterList}
+                                checked={categoriesFilteration.includes(category.id)}
                               />
                               <label htmlFor={`category_${category.name}`}>
                                 {category.name}
@@ -446,6 +519,7 @@ const Posts = () => {
                               value={type.value}
                               tag="type"
                               onChange={addParamsToFilterList}
+                              checked={jobTypeFilteration.includes(type.value)}
                             />
                             <label htmlFor={`type_${type.label}`}>
                               {type.label}
@@ -470,6 +544,7 @@ const Posts = () => {
                               value={career.value}
                               tag="careerLevel"
                               onChange={addParamsToFilterList}
+                              checked={careerLevelFilteration.includes(career.value)}
                             />
                             <label htmlFor={`careerLevel_${career.label}`}>
                               {career.label}
@@ -482,28 +557,36 @@ const Posts = () => {
                       <span className={styles.more}>show more</span>
                     </div>
                   </FilterAccordion>
-                  <FilterAccordion title="Filter by work place" eventKey="6">
+                  <FilterAccordion title="Filter by workplace" eventKey="6">
                     <ul className={styles.filter_list}>
-                      {careerLevel.map((career) => (
-                        <li
-                          key={career.value}
-                          className="d-flex justify-content-between"
-                        >
-                          <div>
-                            <input
-                              type="checkbox"
-                              className={styles.checkbox_type}
-                              id={`careerLevel_${career.label}`}
-                              value={career.value}
-                              tag="careerLevel"
-                              onChange={addParamsToFilterList}
-                            />
-                            <label htmlFor={`careerLevel_${career.label}`}>
-                              {career.label}
-                            </label>
-                          </div>
-                        </li>
-                      ))}
+                      <li className="d-flex justify-content-between">
+                        <div>
+                          <input
+                            type="checkbox"
+                            className={styles.checkbox_type}
+                            id="workplace_office"
+                            value="office"
+                            tag="workplace"
+                            onChange={addParamsToFilterList}
+                            checked={workPlaceFilteration.includes("office")}
+                          />
+                          <label htmlFor="workplace_office">On Site</label>
+                        </div>
+                      </li>
+                      <li className="d-flex justify-content-between">
+                        <div>
+                          <input
+                            type="checkbox"
+                            className={styles.checkbox_type}
+                            id="workplace_remote"
+                            value="remote"
+                            tag="workplace"
+                            onChange={addParamsToFilterList}
+                            checked={workPlaceFilteration.includes("remote")}
+                          />
+                          <label htmlFor="workplace_remote">Remotely</label>
+                        </div>
+                      </li>
                     </ul>
                     <div className="text-end">
                       <span className={styles.more}>show more</span>
@@ -533,6 +616,9 @@ const Posts = () => {
                       />
                     </div>
                   </FilterAccordion>
+                  <div className="mt-3 text-center">
+                    <MainButton onClick={clearALLFilterations} text="Reset Filteration"/>
+                  </div>
                 </Accordion>
               </aside>
             </Col>
@@ -541,8 +627,12 @@ const Posts = () => {
                 <Container>
                   <Row className="gy-3">
                     <div className="d-flex justify-content-center align-items-center my-3 flex-wrap">
-                      <h2>Recommended Jobs</h2>
-                      <SearchField />
+                      <h2>Explore Jobs</h2>
+                      <SearchField
+                        onSearch={onSearch}
+                        text="search Job title"
+                        isSearching={isSearching}
+                      />
                     </div>
 
                     <GridButtons setGrid={setGrid} setList={setList} />
@@ -580,11 +670,11 @@ const Posts = () => {
                                 })}
                               </>
                             ) : (
-                              <NoDataBox text="sorry there isn't recommended jobs right now contact us" />
+                              <NoDataBox text="We cannot find what you are searching for please try again or call support" />
                             )}
                           </>
                         ) : (
-                          <NoDataBox text="sorry there isn't recommended jobs right now contact us" />
+                          <NoDataBox text="We cannot find what you are searching for please try again or call support" />
                         )}
                       </>
                     )}

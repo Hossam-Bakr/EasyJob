@@ -47,7 +47,7 @@ const NoDataBox = ({path,text,type,imgSize}) => {
     <div className={imgClasses}>
       <img src={imgSrc} alt="noData" />
     </div>
-    <span className="mini_word">
+    <span className="mini_word text-center">
       {text}{" "}
       <Link to={path}>here</Link>
     </span>

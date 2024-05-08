@@ -185,17 +185,19 @@ export const getJobs = async ({
   formData,
   method,
   pageNum,
+  searchFilter,
   countryFilteration,
   cityFilteration,
   categoriesFilteration,
   jobTypeFilteration,
   careerLevelFilteration,
+  workPlaceFilteration,
   minSalaryFilteration,
   maxSalaryFilteration,
   jobTitleFilteration
 }) => {
   //handle categories
-  //handle minSalaryFilteration & maxSalaryFilteration
+
   try {
     let params={
       limit: 15,
@@ -203,6 +205,10 @@ export const getJobs = async ({
     }
     let response = null;
     let paramValues = "";
+    
+    if(searchFilter){
+      paramValues=`?keyword=${searchFilter}`
+    }
 
     if (jobTitleFilteration) {
      params.title=jobTitleFilteration
@@ -243,6 +249,35 @@ export const getJobs = async ({
           paramValues = paramValues.concat(`?careerLevel=${myCareer}`);
         } else {
           paramValues = paramValues.concat(`&careerLevel=${myCareer}`);
+        }
+      });
+    }
+
+    if (workPlaceFilteration.length > 0) {
+      workPlaceFilteration.forEach((place) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?workplace=${place}`);
+        } else {
+          paramValues = paramValues.concat(`&workplace=${place}`);
+        }
+      });
+    }
+
+    if (minSalaryFilteration.length > 0) {
+      minSalaryFilteration.forEach((salary) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?salaryRangeMin__gte=${salary}`);
+        } else {
+          paramValues = paramValues.concat(`&salaryRangeMin__gte=${salary}`);
+        }
+      });
+    }
+    if (maxSalaryFilteration.length > 0) {
+      maxSalaryFilteration.forEach((salary) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?salaryRangeMax__lte  =${salary}`);
+        } else {
+          paramValues = paramValues.concat(`&salaryRangeMax__lte  =${salary}`);
         }
       });
     }

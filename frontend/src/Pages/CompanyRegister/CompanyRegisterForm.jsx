@@ -98,11 +98,11 @@ const CompanyRegisterForm = () => {
     >
       <Form className={styles.register_form}>
         <div className={`${styles.field} mb-4`}>
-          <Field type="text" name="name" id="name" placeholder="Company Name" />
+          <Field type="text" name="name" id="company_Name" placeholder="Company Name" />
           <ErrorMessage name="name" component={InputErrorMessage} />
         </div>
         <div className={`${styles.field} mb-4`}>
-          <Field type="email" name="email" id="email" placeholder="Email" />
+          <Field type="email" name="email" id="companyEmailInput" placeholder="Email" />
           <ErrorMessage name="email" component={InputErrorMessage} />
           {isEmailError && <InputErrorMessage text="email already exist!" />}
         </div>
@@ -110,7 +110,7 @@ const CompanyRegisterForm = () => {
           <Field
             type="password"
             name="password"
-            id="password"
+            id="companyPasswordInput"
             placeholder="Password"
           />
           <ErrorMessage name="password" component={InputErrorMessage} />

@@ -48,7 +48,18 @@
 .filter_list li:hover label{
     color: var(--main_color);
 }
+.default{
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
 
+    padding: 10px;
+    border-radius: 10px;
+    transition: all .4s;
+}
+.default:hover{
+    background-color: var(--vanilla);
+}
 .more:hover{
     color: var(--main_color);
 }

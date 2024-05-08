@@ -121,14 +121,14 @@ const UserSkillsForm = () => {
                   type="radio"
                   className="btn-check"
                   name="proficiency"
-                  id="prof1"
+                  id="skillsprof1"
                   value="1"
                   autoComplete="off"
                   checked 
                 />
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="prof1"
+                  htmlFor="skillsprof1"
                 >
                    Entry Level
                 </label>
@@ -139,14 +139,14 @@ const UserSkillsForm = () => {
                   type="radio"
                   className="btn-check"
                   name="proficiency"
-                  id="prof2"
+                  id="skillsprof2"
                   value="2"
                   autoComplete="off"
                 />
 
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="prof2"
+                  htmlFor="skillsprof2"
                 >
                   Mid Level
                 </label>
@@ -156,14 +156,14 @@ const UserSkillsForm = () => {
                   type="radio"
                   className="btn-check"
                   name="proficiency"
-                  id="prof3"
+                  id="skillsprof3"
                   autoComplete="off"
                   value="3"
                 />
 
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="prof3"
+                  htmlFor="skillsprof3"
                 >
                   Experienced
                 </label>

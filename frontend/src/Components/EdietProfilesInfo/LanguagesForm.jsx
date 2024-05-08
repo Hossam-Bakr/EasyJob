@@ -99,10 +99,10 @@ const LanguagesForm = () => {
             <ErrorMessage name="language" component={InputErrorMessage} />
           </div>
           <div className={styles.field}>
-           <label htmlFor="proficiency">proficiency</label>
+           <label htmlFor="langproficiency">proficiency</label>
             <Field
               type="text"
-              id="proficiency"
+              id="langproficiency"
               name="proficiency"
               component={MultiSelect}
               options={languageLevel}

@@ -194,9 +194,9 @@ const UpdateEducationForm = ({
       >
         <Form className={styles.general_info_form}>
           <div className={styles.field}>
-            <label htmlFor="degree">Degree Level </label>
+            <label htmlFor="updatedEducationdegree">Degree Level </label>
             <Field
-              id="degree"
+              id="updatedEducationdegree"
               name="degree"
               isMulti={false}
               component={MultiSelect}
@@ -205,19 +205,19 @@ const UpdateEducationForm = ({
             <ErrorMessage name="degree" component={InputErrorMessage} />
           </div>
           <div className={styles.field}>
-            <label htmlFor="displayName">Degree Display Name </label>
+            <label htmlFor="updatedEducationdisplayName">Degree Display Name </label>
             <Field
               type="text"
-              id="displayName"
+              id="updatedEducationdisplayName"
               name="displayName"
               placeholder="ex: Bachelor of Science in Civil Engineering "
             />
             <ErrorMessage name="displayName" component={InputErrorMessage} />
           </div>
           <div className={styles.field}>
-            <label htmlFor="school">School</label>
+            <label htmlFor="updatedEducationschool">School</label>
             <Field
-              id="school"
+              id="updatedEducationschool"
               name="school"
               isMulti={false}
               isClearable={true}
@@ -229,9 +229,9 @@ const UpdateEducationForm = ({
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="fieldsOfStudy">Fields of Study</label>
+            <label htmlFor="updatedEducationfieldsOfStudy">Fields of Study</label>
             <Field
-              id="fieldsOfStudy"
+              id="updatedEducationfieldsOfStudy"
               name="fieldsOfStudy"
               isCreatable={true}
               component={MultiSelect}
@@ -244,22 +244,22 @@ const UpdateEducationForm = ({
 
           <div className={styles.collection}>
             <div className={styles.field}>
-              <label htmlFor="startDate">Start Date</label>
-              <Field type="date" id="startDate" name="startDate" />
+              <label htmlFor="updatedEducationstartDate">Start Date</label>
+              <Field type="date" id="updatedEducationstartDate" name="startDate" />
               <ErrorMessage name="startDate" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="endDate">End Date</label>
-              <Field type="date" id="endDate" name="endDate" />
+              <label htmlFor="updatedEducationendDate">End Date</label>
+              <Field type="date" id="updatedEducationendDate" name="endDate" />
               <ErrorMessage name="endDate" component={InputErrorMessage} />
             </div>
           </div>
 
           <div className={`${styles.field} mb-4`}>
-            <label htmlFor="grade">Your Grade</label>
+            <label htmlFor="updatedEducationgrade">Your Grade</label>
             <Field
-              id="grade"
+              id="updatedEducationgrade"
               name="grade"
               isMulti={false}
               component={MultiSelect}
@@ -272,7 +272,7 @@ const UpdateEducationForm = ({
             <Field
               as="textarea"
               placeholder="description"
-              id="description"
+              id="updatedEducationdesc"
               name="description"
               cols="30"
               rows="7"

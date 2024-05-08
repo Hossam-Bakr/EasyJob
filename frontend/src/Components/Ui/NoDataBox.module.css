@@ -2,19 +2,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 350px;
+    width: 21.875rem;
     margin: auto;
 }
 .no_data_small{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    padding: 10px;
+    width: 6.25rem;
+    padding: 0.625rem;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 .no_data img,.no_data_small img{
     width: 100% ;
+}
+
+
+@media screen and (max-width:330px) {
+    .no_data{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width:95%;
+        margin: auto;
+    }
 }

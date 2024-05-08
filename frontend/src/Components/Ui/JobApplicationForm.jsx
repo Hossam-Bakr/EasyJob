@@ -28,7 +28,7 @@ const JobApplicationForm = ({
   const addAudioElement = (blob,id) => {
     const url = URL.createObjectURL(blob);
     setRecord(url);
-    const file = new File([blob], `recorder.webm`, { type: "audio/webm" });
+    const file = new File([blob], `recorder.mp3`, { type: "audio/mp3" });
     let newVoice={id,file}
     let existVoice=voicesAnswers.find((voice)=>voice.id===id)
     if(existVoice){
@@ -241,7 +241,7 @@ const JobApplicationForm = ({
                       echoCancellation: true,
                     }}
                     downloadOnSavePress={false}
-                    downloadFileExtension="webm"
+                    downloadFileExtension="mp3"
                   />
                 </div>
 

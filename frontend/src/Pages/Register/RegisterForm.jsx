@@ -83,12 +83,12 @@ const RegisterForm = () => {
           </div>
         </div>
         <div className='d-flex flex-column mb-5 position-relative'>
-          <Field type="email" id='email' name='email' placeholder='Email' />
+          <Field type="email" id='email_Input' name='email' placeholder='Email' />
           <ErrorMessage name='email' component={InputErrorMessage} />
           {isEmailError && <InputErrorMessage text='email already exist!' />}
         </div>
         <div className='d-flex flex-column mb-5 position-relative'>
-          <Field type="password" id='Password' name='password' placeholder='Password' />
+          <Field type="password" id='Password_Input' name='password' placeholder='Password' />
           <ErrorMessage name='password' component={InputErrorMessage} />
         </div>
         {isPending ? <button type='submit' className={styles.register_btn}><FontAwesomeIcon className='fa-spin' icon={faYinYang} /></button> : <button type='submit' className={styles.register_btn}>Register</button>}

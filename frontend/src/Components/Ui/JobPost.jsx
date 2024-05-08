@@ -123,7 +123,7 @@ const JobPost = ({
     <>
           <Col lg={lgSize} xl={xlSize} className={styles.job_container}>
             <div data-aos="zoom-in-up" data-aos-duration="1000">
-              <div className={styles.job}>
+              <div className={`${styles.job} ${profile?styles.job_profile:''} ${grid?'':styles.job_profile}`}>
                 <div className={styles.job_icons}>
                   {profile ? (
                     <>
