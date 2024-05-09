@@ -532,3 +532,8 @@ export const getJobApplications = async ({ jobId, token }) => {
     console.error(error);
   }
 };
+
+
+export const postJob=({token})=>{
+  console.log("hi")
+}

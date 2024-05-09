@@ -22,10 +22,10 @@ const GeneralInfoForm = ({ data }) => {
     title: "",
     content: "",
   });
+  const [successResponse, setSuccessResponse] = useState(true);
   const [newCityOptions, setNewCityOptions] = useState([]);
   const [formatedCityOptions, setFormatedCityOptions] = useState([]);
   const [chosenCountry, setChosenCountry] = useState("");
-  const [successResponse, setSuccessResponse] = useState(true);
   const [currentCountry, setCurrentCountry] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [currentSize, setCurrentSize] = useState("");
@@ -105,6 +105,7 @@ const GeneralInfoForm = ({ data }) => {
       setShowResponse(true);
     },
   });
+
 
   const initialValues = {
     country: currentCountry || chosenCountry,

@@ -12,7 +12,8 @@ import {
   faHome,
   faLayerGroup,
   faUserTie,
-  faEnvelope
+  faEnvelope,
+  faBusinessTime
 } from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
@@ -106,6 +107,12 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               <li className={styles.contact_list_item}>
                 Packages{" "}
                 <FontAwesomeIcon className={styles.list_icons} icon={faCoins} />
+              </li>
+            </Link>
+            <Link onClick={handleClose} to={"job-post"}>
+              <li className={styles.contact_list_item}>
+                Post Job{" "}
+                <FontAwesomeIcon className={styles.list_icons} icon={faBusinessTime} />
               </li>
             </Link>
             </>}</>

@@ -86,6 +86,12 @@ export const Cities = {
     "Al Jahra",
   ],
 };
+
+
+export const cityOptions = Object.entries(Cities).flatMap(([country, cities]) =>
+  cities.map(city => ({ value: city, label: city }))
+);
+
 export const Areas = {
   CairoAreas: [
     "Nasr City",
@@ -999,12 +1005,25 @@ export const cityChange = (val, setState) => {
   }
 };
 
-
-export const yearsOfExpr = [
-  { value: "0", label: "fresh, 0-1 year" },
-  { value: "1-2", label: "junior, 1-2 years" },
-  { value: "3-4", label: "mid level, 3-4 years" },
-  { value: "+5", label: "senior, +5 years" },
+export const yearsOptions = [
+  { value: 0, label: "No Experience" },
+  { value: 0.5, label: "less than year" },
+  { value: 1, label: "1 year" },
+  { value: 2, label: "2 years" },
+  { value: 3, label: "3 years" },
+  { value: 4, label: "4 years" },
+  { value: 5, label: "5 years" },
+  { value: 6, label: "6 years" },
+  { value: 7, label: "7 years" },
+  { value: 8, label: "8 years" },
+  { value: 9, label: "9 years" },
+  { value: 10, label: "10 years" },
+  { value: 11, label: "11 years" },
+  { value: 12, label: "12 years" },
+  { value: 13, label: "13 years" },
+  { value: 14, label: "14 years" },
+  { value: 15, label: "15 years" },
+  { value: 16, label: "+15 years" },
 ];
 
 export const totalYearsConversion = (num, setState) => {
@@ -1971,13 +1990,22 @@ export const careerLevel=[
   { value: "not specified", label: "not specified" },
 ]
 
-export const convertCategoriesIntoList = (currentCategories, setState) => {
-  if (currentCategories.length !== 0) {
-    let categoryOptions = currentCategories.map((cat) => ({
-      value: cat.name,
-      label: cat.name,
-    }));
-    setState(categoryOptions);
+export const convertCategoriesIntoList = (currentCategories, setState,type) => {
+  if (currentCategories?.length !== 0) {
+  if(type==="return__Id"){
+      let categoryOptions = currentCategories?.map((cat) => ({
+        value: cat.id,
+        label: cat.name,
+      }));
+      setState(categoryOptions);
+
+  }else{
+      let categoryOptions = currentCategories?.map((cat) => ({
+        value: cat.name,
+        label: cat.name,
+      }));
+      setState(categoryOptions);
+  }
   }
 };
 

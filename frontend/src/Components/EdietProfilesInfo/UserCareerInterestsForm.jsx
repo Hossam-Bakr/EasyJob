@@ -160,7 +160,6 @@ const UserCareerInterestsForm = ({
                   Student
                 </label>
               </Col>
-
               <Col className="d-flex justify-content-center" sm={6} md={4}>
                 <Field
                   type="radio"

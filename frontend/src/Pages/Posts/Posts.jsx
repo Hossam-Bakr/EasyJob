@@ -587,10 +587,21 @@ const Posts = () => {
                           <label htmlFor="workplace_remote">Remotely</label>
                         </div>
                       </li>
+                      <li className="d-flex justify-content-between">
+                        <div>
+                          <input
+                            type="checkbox"
+                            className={styles.checkbox_type}
+                            id="workplace_hybrid"
+                            value="hybrid"
+                            tag="workplace"
+                            onChange={addParamsToFilterList}
+                            checked={workPlaceFilteration.includes("hybrid")}
+                          />
+                          <label htmlFor="workplace_hybrid">Hybrid</label>
+                        </div>
+                      </li>
                     </ul>
-                    <div className="text-end">
-                      <span className={styles.more}>show more</span>
-                    </div>
                   </FilterAccordion>
                   <FilterAccordion title="Filter by Salary" eventKey="7">
                     <div>

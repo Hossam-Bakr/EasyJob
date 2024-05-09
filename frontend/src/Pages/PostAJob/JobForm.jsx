@@ -1,208 +1,464 @@
-import styles from "./JobForm.module.css"
-import { Field, Form, Formik } from "formik";
+import styles from "./JobForm.module.css";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import MultiSelect from "../../Components/logic/SelectField";
 import Select from "react-select";
-import { countryOptions, yearsOfExpr } from './../../Components/logic/Logic';
-import TextArea from "../../Components/TextArea/TextArea";
+import {
+    Cities,
+  cityOptions,
+  convertCategoriesIntoList,
+  countryOptions,
+  yearsOfExpr,
+  yearsOptions,
+} from "./../../Components/logic/Logic";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import { postJob } from "../../util/Http";
+import { array, object, string } from "yup";
+import InputErrorMessage from "../../Components/Ui/InputErrorMessage";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 
 const JobForm = () => {
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
 
-    return (
-        <Formik
-            initialValues={{
-                jobType: "",
-                Workplace: "",
-                careerLevel: "",
-                hideSalary: "",
-            }}
-            // onSubmit={onSubmit}
-            // validationSchema={validationSchema}
-            enableReinitialize
-        >
-            <Form className={styles.general_info_form}>
+  const [myCategories, setMyCategories] = useState([]);
 
-                <div className={styles.field}>
-                    <label htmlFor="jobTitle">Job Title -</label>
-                    <Field
-                        id="jobTitle"
-                        type="text"
-                        className={styles.disabled_faild}
-                        // value={currentJobTitle}
-                        value=''
-                        placeholder="Write The Job Title"
-                    />
-                </div>
+  const companyToken = useSelector((state) => state.userInfo.token);
+  const currentCategories = useSelector((state) => state.category.categories);
 
-                <div className={styles.field}>
-                    <label htmlFor="jobCategory">Job Category -</label>
-                    <Field
-                        id="jobCategory"
-                        isMulti={true}
-                        component={MultiSelect}
-                        placeholder="Select at least one job Category"
-                    // options={myCategories}
-                    />
-                </div>
+  useEffect(() => {
+    convertCategoriesIntoList(currentCategories, setMyCategories, "return__Id");
+  }, [currentCategories]);
 
-                <div className={styles.field}>
-                    <label>Job Type -</label>
-                    <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="fulltime">Full Time</label>
-                            <Field type="radio" name="jobType" value="fulltime" id="fulltime" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="parttime">Part Time</label>
-                            <Field type="radio" name="jobType" value="parttime" id="parttime" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="freelance-project">Freelance / Project</label>
-                            <Field type="radio" name="jobType" value="freelance-project" id="freelance-project" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="shiftbased">Shift Based</label>
-                            <Field type="radio" name="jobType" value="shiftbased" id="shiftbased" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="volunteering">Volunteering</label>
-                            <Field type="radio" name="jobType" value="volunteering" id="volunteering" />
-                        </div>
-                    </div>
-                </div>
+  const { mutate, isPending } = useMutation({
+    mutationFn: postJob,
+    onSuccess: (data) => {
+      if (data.data.status === "success") {
+        console.log(data);
 
-                <div className={styles.field}>
-                    <label>Workplace -</label>
-                    <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="onSite">On-Site</label>
-                            <input type="radio" name="Workplace" value="onSite" id="onSite" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="parttime">Remote</label>
-                            <input type="radio" name="Workplace" value="parttime" id="parttime" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="freelance-project">Hybrid</label>
-                            <input type="radio" name="Workplace" value="freelance-project" id="freelance-project" />
-                        </div>
-                    </div>
-                </div>
+        setResponseMessage({
+          title: "Added Successfully",
+          content: "Your Post Added Successfully",
+        });
+        setSuccessResponse(true);
+        setShowResponse(true);
+      } else {
+        setResponseMessage({
+          title: "Request Faild",
+          content: "Your Posta faild to be added please try again",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+      setResponseMessage({
+        title: "Request Faild",
+        content: "Your Posta faild to be added please try again",
+      });
+      setSuccessResponse(false);
+      setShowResponse(true);
+    },
+  });
+  const initialValues = {
+    title: "",
+    categoriesId: [],
+    type: "full-time",
+    workplace: "office",
+    salaryRangeMin: "",
+    salaryRangeMax: "",
+    hideSalary: true,
+    minExperience: 3,
+    careerLevel: "student",
+    country: "",
+    city: "",
+    openPositions: 1,
+    keywords: "", //ask ammar here
+    description: "",
+    requirements: "",
+    location: { type: "Point", coordinates: [25.2048, 55.2708] },
+    requiredSkills: [],
+  };
 
-                <div className={styles.field}>
-                    <label htmlFor="location">Company Location -</label>
-                    <div className={styles.collection}>
-                        <div className={styles.field}>
-                            <label htmlFor="country">Country</label>
-                            <Select
-                                type="text"
-                                placeholder="Egypt"
-                                id="city"
-                                options={countryOptions}
-                            />
-                        </div>
+  const onSubmit = (values) => {
+    console.log(values);
+    mutate({
+      type: "info",
+      formData: values,
+      token: companyToken,
+    });
+  };
 
-                        <div className={styles.field}>
-                            <label htmlFor="companyCity">City</label>
-                            <Select
-                                type="text"
-                                placeholder="Cairo"
-                                id="companyCity"
-                            // options={Cities}
-                            />
-                        </div>
-                    </div>
-                </div>
+  const validationSchema = object({
+    title: string().required("job title is required"),
+    categoriesId: array()
+      .min(1, "You can't leave this blank.")
+      .required("job category is required"),
+    country: string()
+      .matches(/^[A-Z]+/, "Country Start With Capital letter")
+      .required("country is required"),
+    city: string()
+      .matches(/^[A-Z]+/, "City Start With Capital letter")
+      .required("City is required"),
+    description: string().required("description is required"),
+  });
 
-                <hr></hr>
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+      enableReinitialize
+    >
+      <Form className={styles.general_info_form}>
+        <div className={styles.field}>
+          <label htmlFor="postJobTitle">Job Title</label>
+          <Field
+            type="text"
+            id="postJobTitle"
+            name="title"
+            placeholder="Ex : Accountant"
+          />
+          <ErrorMessage name="title" component={InputErrorMessage} />
+        </div>
 
-                <div className={styles.field}>
-                    <label>Career Level -</label>
-                    <div role="group" aria-labelledby="checkbox-group" className={styles.checkbox_group}>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="student">Student</label>
-                            <input type="radio" name="careerLevel" value="student" id="student" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="entryLevel">Entry Level</label>
-                            <Field type="radio" name="careerLevel" value="entryLevel" id="entryLevel" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="experienced">Experienced</label>
-                            <Field type="radio" name="careerLevel" value="experienced" id="experienced" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="senior">Senior</label>
-                            <Field type="radio" name="careerLevel" value="senior" id="senior" />
-                        </div>
-                        <div className={styles.check_Box}>
-                            <label htmlFor="manager">Manager</label>
-                            <Field type="radio" name="careerLevel" value="manager" id="manager" />
-                        </div>
-                    </div>
-                </div>
+        <div className={styles.field}>
+          <h4 className="my-4">Job Categories You Are Interested in</h4>
+          <div className={`${styles.select_category}`}>
+            <Field
+              name="categoriesId"
+              isMulti={true}
+              component={MultiSelect}
+              options={myCategories}
+            />
+          </div>
+          <ErrorMessage name="categoriesId" component={InputErrorMessage} />
+        </div>
 
-                <div className={styles.field}>
-                    <label htmlFor="yearsOfExpr">Years Of Experience -</label>
-                    <div className={styles.collection}>
-                        <div className={styles.field}>
-                            <Select
-                                type="text"
-                                name="yearsOfExpr"
-                                id="yearsOfExpr"
-                                placeholder="Min - Max"
-                                options={yearsOfExpr}
-                            />
-                        </div>
-                    </div>
-                </div>
+        <hr className="my-5" />
 
-                <div className={styles.field}>
-                    <label htmlFor="location">Salary Range -</label>
-                    <div className={styles.field}>
-                        <div className={styles.SecondCollection}>
-                            <Field type="text" name="MinSalary" placeholder="e.g 8000" value='' />
-                            <h6>to</h6>
-                            <Field type="text" name="MaxSalary" placeholder="e.g 12000" value='' />
-                            <span>EGP/Per Month</span>
-                        </div>
-                        <div className={styles.Field}>
-                            <div className={styles.SecondCollection}>
-                                <Field type="checkbox" name="hideSalary" value="hide" id="hideSalary" />
-                                <label htmlFor="hideSalary">Hide Salary in job post (Will only used for recommendations)</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div className={`${styles.field} w-100`}>
+          <label>Job Type</label>
+          <Row
+            role="group"
+            aria-labelledby="checkbox-group"
+            className="gy-3 justify-content-center"
+          >
+            <Col sm={6} md={3}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="type"
+                  value="full-time"
+                  id="postJobFulltime"
+                />{" "}
+                <label htmlFor="postJobFulltime">Full Time</label>
+              </div>
+            </Col>
+            <Col sm={6} md={3}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="type"
+                  value="part-time"
+                  id="postJobParttime"
+                />{" "}
+                <label htmlFor="postJobParttime">Part Time</label>
+              </div>
+            </Col>
+            <Col sm={6} md={3}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="type"
+                  value="freelance/project"
+                  id="postJobFreelanceProject"
+                />{" "}
+                <label htmlFor="postJobFreelanceProject">
+                  freelance/project
+                </label>
+              </div>
+            </Col>
+            <Col sm={6} md={3}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="type"
+                  value="internship"
+                  id="postJobInternship"
+                />{" "}
+                <label htmlFor="postJobInternship">Internship</label>
+              </div>
+            </Col>
+            <Col sm={6} md={3}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="type"
+                  value="volunteering"
+                  id="postJobVolunteering"
+                />{" "}
+                <label htmlFor="postJobVolunteering">volunteering</label>
+              </div>
+            </Col>
+            <Col sm={6} md={3}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="type"
+                  value="student-activity"
+                  id="postJobStudentActivity"
+                />{" "}
+                <label htmlFor="postJobStudentActivity">student-activity</label>
+              </div>
+            </Col>
+          </Row>
+        </div>
 
-                {/* <div className={styles.SecondBox}>
-                    <h5 className={styles.jobDesc}>About This Job</h5>
-                    <div className={styles.field}>
-                        <label>Job Description</label>
-                        <TextArea />
-                    </div>
-                </div> */}
+        <hr className="my-5" />
 
+        <div className={`${styles.field} w-100`}>
+          <label>Workplace</label>
+          <Row
+            role="group"
+            aria-labelledby="checkbox-group"
+            className="gy-3 justify-content-center"
+          >
+            <Col sm={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="workplace"
+                  value="office"
+                  id="onSite"
+                />
+                <label htmlFor="onSite">On Site</label>
+              </div>
+            </Col>
+            <Col sm={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="workplace"
+                  value="remote"
+                  id="postJobRemote"
+                />
+                <label htmlFor="postJobRemote">Remotely</label>
+              </div>
+            </Col>
+            <Col sm={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="workplace"
+                  value="hybrid"
+                  id="postJobHybrid"
+                />
+                <label htmlFor="postJobHybrid">Hybrid</label>
+              </div>
+            </Col>
+          </Row>
+        </div>
 
-                <div className="d-flex justify-content-end align-items-center mt-3 px-2">
-                    {/* 
-                    {isPending ? (
-                                <button type="submit" className={styles.save_btn}>
-                                    <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
-                                </button>
-                            ) : (
-                                <button className={styles.save_btn} type="submit">
-                                    Post The Job
-                                </button>
-                            )} 
-                    */}
-                    <button className={styles.save_btn} type="submit">
-                        Post The Job
-                    </button>
-                </div>
-            </Form>
+        <hr className="my-5" />
 
-        </Formik>
-    );
-}
+        <div className={`${styles.field} w-100`}>
+          <label>Career Level</label>
+          <Row
+            role="group"
+            aria-labelledby="checkbox-group"
+            className="gy-3 justify-content-center"
+          >
+            <Col sm={6} md={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="careerLevel"
+                  value="student"
+                  id="postJobStudent"
+                />{" "}
+                <label htmlFor="postJobStudent">Student</label>
+              </div>
+            </Col>
+            <Col sm={6} md={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="careerLevel"
+                  value="entry level"
+                  id="postJobEntryLevel"
+                />{" "}
+                <label htmlFor="postJobEntryLevel">Entry Level</label>
+              </div>
+            </Col>
+            <Col sm={6} md={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="careerLevel"
+                  value="experienced/senior"
+                  id="postJobExperienced"
+                />{" "}
+                <label htmlFor="postJobExperienced">Experienced/senior</label>
+              </div>
+            </Col>
+            <Col sm={6} md={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="careerLevel"
+                  value="manager/lead"
+                  id="postJobManager"
+                />{" "}
+                <label htmlFor="postJobManager">manager/lead</label>
+              </div>
+            </Col>
+            <Col sm={6} md={4}>
+              <div className={styles.check_Box}>
+                <Field
+                  type="radio"
+                  className={styles.radio_input}
+                  name="careerLevel"
+                  value="executive"
+                  id="postJobExecutive"
+                />{" "}
+                <label htmlFor="postJobExecutive">Executive</label>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <hr className="my-5" />
+
+        <div className={styles.field}>
+          <label htmlFor="totalYears">Years of Experience</label>
+          <Field
+            id="totalYears"
+            name="totalYearsOfExperience"
+            isMulti={false}
+            component={MultiSelect}
+            options={yearsOptions}
+          />
+
+          <ErrorMessage
+            name="totalYearsOfExperience"
+            component={InputErrorMessage}
+          />
+        </div>
+
+        <div className={`${styles.field} w-100`}>
+          <label htmlFor="location" className="d-flex align-items-center">
+            Salary Range
+            <div className={`${styles.SecondCollection}`}>
+              <span className="mini_word  d-flex align-items-center px-2">
+                ({" "}
+                <Field
+                  type="checkbox"
+                  name="hideSalary"
+                  id="hideSalary"
+                  className="ms-1"
+                />
+                <label htmlFor="hideSalary" className="mx-1">
+                  Hide Salary
+                </label>
+                )
+              </span>
+            </div>
+          </label>
+          <div className={styles.field}>
+            <div className={styles.SecondCollection}>
+              <div>
+                <Field
+                  type="text"
+                  name="salaryRangeMin"
+                  placeholder="e.g 8000"
+                />
+                <ErrorMessage
+                  name="salaryRangeMin"
+                  component={InputErrorMessage}
+                />
+              </div>
+
+              <h6>to</h6>
+              <div>
+                <Field
+                  type="text"
+                  name="salaryRangeMax"
+                  placeholder="e.g 12000"
+                />
+                <ErrorMessage
+                  name="salaryRangeMax"
+                  component={InputErrorMessage}
+                />
+              </div>
+
+              <span>
+                <span className="text-success">$</span>/Per Month
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className={`${styles.field} w-100`}>
+          <div className={styles.collection}>
+            <div className={styles.field}>
+              <label htmlFor="country">Country</label>
+              <Select
+                type="text"
+                placeholder="Egypt"
+                id="city"
+                options={countryOptions}
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="companyCity">City</label>
+              <Select
+                type="text"
+                placeholder="Cairo"
+                id="companyCity"
+                options={cityOptions}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="d-flex justify-content-end align-items-center mt-3 px-2">
+          {isPending ? (
+            <button type="submit" className={styles.save_btn}>
+              <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
+            </button>
+          ) : (
+            <button className={styles.save_btn} type="submit">
+              Post The Job
+            </button>
+          )}
+        </div>
+      </Form>
+    </Formik>
+  );
+};
 
 export default JobForm;
