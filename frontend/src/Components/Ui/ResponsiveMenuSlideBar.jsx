@@ -13,7 +13,8 @@ import {
   faLayerGroup,
   faUserTie,
   faEnvelope,
-  faBusinessTime
+  faBusinessTime,
+  faUsers
 } from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
@@ -26,6 +27,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
   const changeContent = useSelector(
     (state) => state.companyNav.changeNavContent
   );
+  const profileData = useSelector((state) => state.profileInfo.data);
 
   const handleClose = () => {
     onClose();
@@ -85,7 +87,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               : 
             <>
               {/* logged and company */}
-              <Link onClick={handleClose} to={"company-dashboard"} end="true">
+              <Link onClick={handleClose} to={`company-dashboard/${profileData?.CompanyId}`} end="true">
                 <li className={styles.contact_list_item}>
                   Dashboard{" "}
                   <FontAwesomeIcon
@@ -100,6 +102,15 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                 <FontAwesomeIcon
                   className={styles.list_icons}
                   icon={faUserTie}
+                />
+              </li>
+            </Link>
+              <Link onClick={handleClose} to={`company-admins/${profileData?.CompanyId}`}>
+              <li className={styles.contact_list_item}>
+                 Users{" "}
+                <FontAwesomeIcon
+                  className={styles.list_icons}
+                  icon={faUsers}
                 />
               </li>
             </Link>

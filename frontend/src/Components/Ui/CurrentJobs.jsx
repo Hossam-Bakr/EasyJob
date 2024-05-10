@@ -8,63 +8,64 @@ import {
   faEdit,
   faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
-import { formatedTimeHandler } from "../logic/Logic";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UpdateJobModal from "../../Pages/PostAJob/UpdateJobModal";
 
 const CurrentJobs = ({
-    id,
-    name,
-    jobTitle,
-    type,
-    workplace,
-    time,
+  id,
+  job,
+  setShowResponse,
+  setResponseMessage,
+  setSuccessResponse,
 }) => {
 
+  const[showModal,setShowModal]=useState();
+  const navigate = useNavigate();
 
-    const [formatedTime, setFormatedTime] = useState("");
-  
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
-    // const navigate = useNavigate();
-  
-    // const checkToNavigateJobDetails = () => {
-    //   if (isLogin) {
-    //     navigate(`/job-details/${id}`);
-    //   } else {
-    //     setModalShow(true);
-    //   }
-    // };
-  
-  
-    useEffect(() => {
-      AOS.init();
-    }, []);
-  
-    useEffect(() => {
-      if (time) {
-        formatedTimeHandler(time, setFormatedTime);
-      }
-    }, [time]);
-
+  const navigateToJobDetails = () => {
+    navigate(`/job-details/${id}`);
+  };
 
   return (
     <>
-    <td className={`${styles.info_table} ${styles.table_cell}`}>
-      {name}
-    </td>
-    <td className={` ${styles.table_cell}`}>{jobTitle}</td>
-    <td className={` ${styles.table_cell} ${styles.type}`}>
-      <span>
-        {type} , {workplace}
-      </span>
-    </td>
-    <td className={` ${styles.table_cell}`}>{formatedTime}</td>
-    <td className={` ${styles.table_btn}`}>
-      <FontAwesomeIcon title="preview" icon={faArrowRight} />
-      <FontAwesomeIcon title="ediet" icon={faEdit} />
-      <Link to={`/stages/${id}`}><FontAwesomeIcon title="stages" icon={faLayerGroup} /></Link>
-    </td>
-  </>
-  )
-}
+      <td className={`${styles.info_table} ${styles.table_cell}`}>
+        <FontAwesomeIcon
+          className="special_main_color me-3"
+          icon={faArrowRight}
+        />
+        {job?.title}
+      </td>
+      <td className={` ${styles.table_cell} ${styles.type}`}>
+        <span>
+          {job?.country} , {job?.city}
+        </span>
+      </td>
+      <td className={` ${styles.table_btn}`}>
+        <FontAwesomeIcon
+          onClick={navigateToJobDetails}
+          title="preview"
+          icon={faArrowRight}
+        />
+        <FontAwesomeIcon title="ediet" icon={faEdit} onClick={()=>setShowModal(true)} />
+        <Link to={`/stages/${id}`}>
+          <FontAwesomeIcon title="stages" icon={faLayerGroup} />
+        </Link>
+      </td>
+      <UpdateJobModal
+        onHide={()=>setShowModal(false)}
+        show={showModal}
+        id={id}
+        job={job}
+        setShowResponse={setShowResponse}
+        setResponseMessage={setResponseMessage}
+        setSuccessResponse={setSuccessResponse}
+      />
+    </>
+  );
+};
 
-export default CurrentJobs
+export default CurrentJobs;

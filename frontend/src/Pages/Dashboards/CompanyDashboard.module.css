@@ -158,6 +158,8 @@
 }
 .employee_table{
     width: 100%;
+        background-color: var(--vanilla);
+        padding: 50px;
 }
 .table_header{
     background-color: #E0E6ED;

@@ -22,21 +22,35 @@ import PostSkillBox from "../../Components/Ui/PostSkillBox";
 import { Editor } from "@tinymce/tinymce-react";
 import CompanyLocation from "../../Components/Maps/CompanyLocation";
 
-const JobForm = ({
+const UpdateJobPostForm = ({
+  job,
   setShowResponse,
   setResponseMessage,
   setSuccessResponse,
+  onHide,
 }) => {
+  const [currentTitle, setCurrentTitle] = useState("");
+  const [currentCategoriesId, setCurrentCategoriesId] = useState([]);
+  const [currentType, setCurrentType] = useState("");
+  const [currentWorkplace, setCurrentWorkplace] = useState("");
+  const [currentHideSalary, setCurrentHideSalary] = useState(true);
+  const [currentSalaryRangeMin, setCurrentSalaryRangeMin] = useState("");
+  const [currentSalaryRangeMax, setCurrentSalaryRangeMax] = useState("");
+  const [currentMinExperience, setCurrentMinExperience] = useState(1);
+  const [currentCareerLevel, setCurrentCareerLevel] = useState("");
+  const [currentCountry, setCurrentCountry] = useState("");
+  const [currentCity, setCurrentCity] = useState("");
+  const [currentOpenPositions, setCurrentOpenPositions] = useState(1);
+  const [currentKeywords, setCurrentKeywords] = useState("");
+  const [currentRequirements, setCurrentRequirements] = useState("");
+  const [currentDescription, setCurrentDescription] = useState("");
+  const [OldLocation, setOldLocation] = useState([0, 0]);
+
   const [modalShow, setModalShow] = useState(false);
   const [jobSkills, setJobSkills] = useState([]);
-
   const [myCategories, setMyCategories] = useState([]);
   const [editorError, setEditorError] = useState(false);
-  const [editorErrorMessage, setEditorErrorMessage] = useState(
-    "requirements is required"
-  );
   const [currentLocation, setCurrentLocation] = useState([0, 0]);
-  const [isSkillsError, setIsSkillsError] = useState(false);
   const [positionLat, setPositionLat] = useState(0);
   const [positionLng, setPositionLng] = useState(0);
 
@@ -49,6 +63,44 @@ const JobForm = ({
     setPositionLat(p.lat);
     setPositionLng(p.lng);
   };
+
+  useEffect(() => {
+    if (job) {
+      if (job.Categories) {
+        if (job.Categories.length > 0) {
+          let updatedCategoriesId = [];
+          job.Categories.map((cat) => updatedCategoriesId=[...updatedCategoriesId,cat.id]);
+          setCurrentCategoriesId(updatedCategoriesId);
+        }
+      } else {
+        setCurrentCategoriesId([]);
+      }
+    }
+  }, [job]);
+
+// console.log(job.requiredSkills)
+// check with ammar where is requiredSkills
+
+  useEffect(() => {
+    if (job) {
+      setCurrentTitle(job.title || "");
+      setCurrentType(job.type || "");
+      setCurrentWorkplace(job.workplace || "");
+      setCurrentSalaryRangeMin(job.salaryRangeMin || "");
+      setCurrentSalaryRangeMax(job.salaryRangeMax || "");
+      setCurrentHideSalary(job.hideSalary || true);
+      setCurrentMinExperience(job.minExperience || 1);
+      setCurrentCareerLevel(job.careerLevel || "");
+      setCurrentCountry(job.country || "");
+      setCurrentCity(job.city || "");
+      setJobSkills(job.requiredSkills || []);
+      setCurrentOpenPositions(job.openPositions || 1);
+      setCurrentKeywords(job.keywords || "");
+      setCurrentRequirements(job.requirements || "");
+      setCurrentDescription(job.description || "");
+      setOldLocation(job.location?.coordinates || [0, 0]);
+    }
+  }, [job]);
 
   useEffect(() => {
     const getUserLocation = () => {
@@ -79,8 +131,7 @@ const JobForm = ({
     onSuccess: (data) => {
       if (data.status === "success") {
         console.log(data);
-        setIsSkillsError(false);
-        setEditorError(false);
+
         setResponseMessage({
           title: "Added Successfully",
           content: "Your Post Added Successfully",
@@ -108,37 +159,28 @@ const JobForm = ({
   });
 
   const initialValues = {
-    title: "",
-    categoriesId: [],
-    type: "full-time",
-    workplace: "office",
-    salaryRangeMin: "",
-    salaryRangeMax: "",
-    hideSalary: true,
-    minExperience: 3,
-    careerLevel: "student",
-    country: "Egypt",
-    city: "Cairo",
-    requiredSkills: [],
-    openPositions: 1,
-    keywords: "",
-    requirements: "",
-    description: "",
-    location: { type: "Point", coordinates: currentLocation },
+    title: currentTitle,
+    categoriesId: currentCategoriesId,
+    type: currentType,
+    workplace: currentWorkplace,
+    salaryRangeMin: currentSalaryRangeMin,
+    salaryRangeMax: currentSalaryRangeMax,
+    hideSalary: currentHideSalary,
+    minExperience: currentMinExperience,
+    careerLevel: currentCareerLevel,
+    country: currentCountry,
+    city: currentCity,
+    requiredSkills: jobSkills,
+    openPositions: currentOpenPositions,
+    keywords: currentKeywords,
+    requirements: currentRequirements,
+    description: currentDescription,
+    location: currentLocation,
   };
 
   const onSubmit = (values) => {
     if (!edietorRequirements.current) {
       setEditorError(true);
-      return;
-    }
-    if(edietorRequirements.current.getContent().length<20){
-      setEditorError(true);
-      setEditorErrorMessage("Requirments must be more than 20 character")
-      return;
-    }
-    if(jobSkills.length<3){
-      setIsSkillsError(true)
       return;
     }
 
@@ -177,9 +219,7 @@ const JobForm = ({
           return keywords?.length >= 3;
         }
       ),
-    description: string()
-      .min(20, "Description must be at least 20 characters")
-      .required("description is required"),
+    description: string().required("description is required"),
     openPositions: number("Accept only numbers")
       .min(1, " openPositions cannot be zero or less")
       .required("openPositions is required"),
@@ -587,10 +627,10 @@ const JobForm = ({
             </div>
             <Row className="gy-4 gx-5">
               {jobSkills?.length > 0 ? (
-                jobSkills.map((skill,index) => (
+                jobSkills.map((skill) => (
                   <PostSkillBox
-                    key={`${skill[Object.keys(skill)[0]]}${index}`}
-                    id={`${skill[Object.keys(skill)[0]]}${index}`}
+                    key={skill[Object.keys(skill)[0]]}
+                    id={skill[Object.keys(skill)[0]]}
                     skillDetails={skill}
                     deleteSelectedSkill={deleteSelectedSkill}
                   />
@@ -613,7 +653,6 @@ const JobForm = ({
                 <span className="mini_word">Expert</span>
               </div>
             </div>
-            {isSkillsError&&<InputErrorMessage text="Required skills must at least 3 skills"/>}
           </div>
 
           <hr className="my-5" />
@@ -673,7 +712,7 @@ const JobForm = ({
             <Editor
               apiKey={process.env.REACT_APP_Tiny_API_KEY}
               onInit={(_evt, editor) => (edietorRequirements.current = editor)}
-              initialValue="<p>Job Requirements.</p>"
+              initialValue={`${currentRequirements}`}
               init={{
                 height: 500,
                 menubar: false,
@@ -706,7 +745,9 @@ const JobForm = ({
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
               }}
             />
-            {editorError && <InputErrorMessage text={editorErrorMessage} />}
+            {editorError && (
+              <InputErrorMessage text="Job requirements is required" />
+            )}
           </div>
 
           <hr className="my-5" />
@@ -715,7 +756,7 @@ const JobForm = ({
             <label htmlFor="companyLocation">Choose Job's Location</label>
             <div className={styles.location_map}>
               <CompanyLocation
-                currentLocation={currentLocation}
+                currentLocation={OldLocation}
                 setPostionHandler={setPostionHandler}
               />
             </div>
@@ -747,4 +788,4 @@ const JobForm = ({
   );
 };
 
-export default JobForm;
+export default UpdateJobPostForm;

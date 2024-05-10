@@ -10,14 +10,17 @@
 }
 
 .white_btn{
-    color:var(--main_color) !important;
     background-color:white;
     border: 1px solid var(--main_color) !important;
 }
-
+.white_btn .btn_text{
+    color:var(--main_color) ;
+}
+.main_color_btn .btn_text{
+    color: white;
+}
 .btn_text{
     position: relative;
-    color: white !important;
     z-index:5 ;
     transition: all .4s;
 }
@@ -43,7 +46,7 @@
     transition: all 1s;  
 }
 .white_btn:hover{
-    color:white !important;
+    color:white;
 }
 .white_btn:hover .first_layer1{
    transform:translateX(0);
@@ -57,7 +60,7 @@
 
 /* ________________________________________main_color_btn__________________________________________ */
 .main_color_btn{
-    color:white !important;
+    color:white ;
     background-color:var(--main_color) !important;
     box-shadow: 0 0 0.1875rem var(--main_color);
 }
@@ -79,8 +82,11 @@
     z-index: 3;
     transition: all 1s;  
 }
+.white_btn:hover .btn_text{
+    color:white;
+}
 .main_color_btn:hover .btn_text{
-    color:var(--main_color) !important;
+    color:var(--main_color);
 }
 .main_color_btn:hover .first_layer2{
    transform:translateX(0);

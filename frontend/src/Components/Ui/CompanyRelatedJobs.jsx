@@ -23,7 +23,8 @@ const CompanyRelatedJobs = ({ isMyProfile, id }) => {
   useEffect(()=>{
     window.scrollTo(0 ,0)
   },[])
-
+ 
+  console.log(data)
   return (
     <>
       {data ? (

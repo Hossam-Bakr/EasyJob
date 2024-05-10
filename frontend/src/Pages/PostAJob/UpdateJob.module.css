@@ -1,0 +1,10 @@
+.modal_container{
+    backdrop-filter: blur(10px);
+    background-color: rgba(0,0,0,.4);
+}
+.modal_body,.modal_header{
+    background-color:white;
+}
+.modal_body{
+    border-radius: 0 0 10px 10px;
+}

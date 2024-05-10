@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUp,
   faBriefcase,
-  faClipboardList,
   faCrown,
   faEnvelopeOpenText,
   faGear,
@@ -21,56 +20,17 @@ import huwawei from "../../images/logo/huwawei.webp";
 import Packageconsumption from "../../Components/charts/Packageconsumption";
 import AdminsInvitations from "./../../Components/charts/AdminsInvitations";
 import TotalApplications from "../../Components/charts/TotalApplications";
-import JobPost from "../../Components/Ui/JobPost";
 import ListedEmployees from "./../../Components/Ui/ListedEmployees";
 import CompanyAdmins from "../CompanyAdmins/CompanyAdmins";
 import CompanyAccountSetting from "./../AccountSetting/CompanyAccountSetting";
 import ContactUs from "./../ContactUs/ContactUs";
 import CurrentJobs from "../../Components/Ui/CurrentJobs";
+import { useQuery } from "@tanstack/react-query";
+import { getCompanyRelatedJobs } from "../../util/Http";
+import { useParams } from "react-router-dom";
+import NoDataBox from "../../Components/Ui/NoDataBox";
+import FloatingPopup from "../../Components/Ui/FloatingPopup";
 
-const myJobs = [
-  {
-    id: 1,
-    name: "Bassam",
-    jobTitle: "Call Center",
-    req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L2",
-    type: "full-time",
-    workplace: "remote",
-    time: "5 min",
-  },
-  {
-    id: 2,
-    name: "Hossam",
-    jobTitle: "Electrical Engineer",
-    req: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L2",
-    type: "full-time",
-    workplace: "remote",
-
-    time: "2 days",
-  },
-  {
-    id: 3,
-    name: "Ammar",
-    jobTitle: "Frontend React Developer",
-    req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L2",
-    type: "full-time",
-    workplace: "remote",
-    time: "5 months",
-  },
-  {
-    id: 4,
-    name: "Begad",
-    jobTitle: "Financial Advisor",
-    req: " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enimlaudantium eaque harum expedita error autem soluta.",
-    logo: "L2",
-    workplace: "remote",
-    type: "full-time",
-    time: "2 years",
-  },
-];
 
 const myEmployees = [
   {
@@ -136,7 +96,23 @@ const myEmployees = [
 ];
 
 const CompanyDashboard = () => {
+
   const [activeLink, setActiveLink] = useState("main");
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
+  const {companyId:id} = useParams();
+
+
+  const { data: relatedJobs} = useQuery({
+    queryKey: ["relatedJobs"],
+    queryFn: () => getCompanyRelatedJobs({id}),
+  });
+
+  console.log(relatedJobs)
 
   return (
     <>
@@ -168,13 +144,6 @@ const CompanyDashboard = () => {
             >
               <FontAwesomeIcon icon={faBriefcase} />
               <h6>jobs</h6>
-            </li>
-            <li
-              className={activeLink === "drafted" ? styles.active_link : ""}
-              onClick={() => setActiveLink("drafted")}
-            >
-              <FontAwesomeIcon icon={faClipboardList} />
-              <h6>drafted</h6>
             </li>
             <li
               className={activeLink === "users" ? styles.active_link : ""}
@@ -308,67 +277,48 @@ const CompanyDashboard = () => {
               )}
               {(activeLink === "main" || activeLink === "jobs") && (
                 <>
-                  <Col md={12}>
-                    <div className={`${styles.box}`}>
-                      <h5 className="fw-bold mt-3">Current Jobs</h5>
-                      <table className={`${styles.employee_table} my-4`}>
-                        <thead>
-                          <tr className={styles.table_header}>
-                            <th>Admin</th>
-                            <th>title</th>
-                            <th>type</th>
-                            <th>time</th>
-                            <th>control</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {myJobs.map((job) => {
-                            return (
-                              <tr key={job.id}>
-                                <CurrentJobs
-                                  id={job.id}
-                                  name={job.name}
-                                  jobTitle={job.jobTitle}
-                                  type={job.type}
-                                  workplace={job.workplace}
-                                  time={job.time}
-                                />
+                  {relatedJobs && (
+                    <Col md={12}>
+                      <div className={`${styles.box}`}>
+                        <h5 className="fw-bold mt-3">Current Jobs</h5>
+                        {relatedJobs.data?.length > 0 ? (
+                          <table className={`${styles.employee_table} my-4`}>
+                            <thead>
+                              <tr className={styles.table_header}>
+                                <th>title</th>
+                                <th>Location</th>
+                                <th>controls</th>
                               </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </Col>
-                </>
-              )}
-              {(activeLink === "main" || activeLink === "drafted") && (
-                <Col md={12}>
-                  <div className={`${styles.box}`}>
-                    <h5 className="fw-bold mt-3">Drafted Jobs</h5>
-                    <Row className="mt-4">
-                      {myJobs.map((job) => {
-                        return (
-                          <JobPost
-                            key={job.id}
-                            id={job.id}
-                            name={job.name}
-                            country="Egypt"
-                            city="Cairo"
-                            jobTitle={job.jobTitle}
-                            desc={job.description}
-                            logo={null}
-                            type={job.type}
-                            workplace={job.workplace}
-                            time={job.time}
-                            grid={true}
-                            profile={true}
+                            </thead>
+                            <tbody>
+                              <>
+                                {relatedJobs.data?.map((job) => {
+                                  return (
+                                    <tr key={job.id}>
+                                      <CurrentJobs
+                                        key={job.id}
+                                        id={job.id}
+                                        job={job}
+                                        setShowResponse={setShowResponse}
+                                        setResponseMessage={setResponseMessage}
+                                        setSuccessResponse={setSuccessResponse}
+                                      />
+                                    </tr>
+                                  );
+                                })}
+                              </>
+                            </tbody>
+                          </table>
+                        ) : (
+                          <NoDataBox
+                            className="m-auto"
+                            text="you don't have any current jobs yet if there is problem you can call support team"
                           />
-                        );
-                      })}
-                    </Row>
-                  </div>
-                </Col>
+                        )}
+                      </div>
+                    </Col>
+                  )}
+                </>
               )}
               {(activeLink === "main" || activeLink === "users") && (
                 <Col>
@@ -428,6 +378,12 @@ const CompanyDashboard = () => {
           </Container>
         </div>
       </Container>
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };
