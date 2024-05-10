@@ -356,7 +356,7 @@ const CompanyDashboard = () => {
                             country="Egypt"
                             city="Cairo"
                             jobTitle={job.jobTitle}
-                            req={job.req}
+                            desc={job.description}
                             logo={null}
                             type={job.type}
                             workplace={job.workplace}

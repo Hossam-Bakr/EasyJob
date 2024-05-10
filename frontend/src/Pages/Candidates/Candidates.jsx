@@ -68,7 +68,6 @@ const Candidates = () => {
     window.scrollTo(0, 0);
   }, [pageNum, refetch]);
 
-console.log(data)
 
   return (
     <>

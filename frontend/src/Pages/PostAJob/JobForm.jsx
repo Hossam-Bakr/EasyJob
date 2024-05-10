@@ -18,19 +18,16 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus, faYinYang } from "@fortawesome/free-solid-svg-icons";
-import FloatingPopup from "../../Components/Ui/FloatingPopup";
 import UpdateUserSkillsModal from "../../Components/Ui/UpdateUserSkillsModal";
 import PostSkillBox from "../../Components/Ui/PostSkillBox";
 import { Editor } from "@tinymce/tinymce-react";
 import CompanyLocation from "../../Components/Maps/CompanyLocation";
 
-const JobForm = () => {
-  const [showResponse, setShowResponse] = useState(false);
-  const [responseMessage, setResponseMessage] = useState({
-    title: "",
-    content: "",
-  });
-  const [successResponse, setSuccessResponse] = useState(true);
+const JobForm = ({
+  setShowResponse,
+  setResponseMessage,
+  setSuccessResponse,
+}) => {
   const [modalShow, setModalShow] = useState(false);
   const [jobSkills, setJobSkills] = useState([]);
 
@@ -75,9 +72,9 @@ const JobForm = () => {
   }, [currentCategories]);
 
   const { mutate, isPending } = useMutation({
-    mutationFn:getJobs,
+    mutationFn: getJobs,
     onSuccess: (data) => {
-      if (data?.data?.status === "success") {
+      if (data.status === "success") {
         console.log(data);
 
         setResponseMessage({
@@ -127,7 +124,6 @@ const JobForm = () => {
   };
 
   const onSubmit = (values) => {
-
     if (!edietorRequirements.current) {
       setEditorError(true);
       return;
@@ -146,7 +142,7 @@ const JobForm = () => {
     console.log(updatedValues);
     mutate({
       type: "/",
-      method:"post",
+      method: "post",
       formData: updatedValues,
       token: companyToken,
     });
@@ -238,10 +234,11 @@ const JobForm = () => {
           </div>
 
           <div className={styles.field}>
-            <h4 className="my-4">Job Categoriesn</h4>
+            <label htmlFor="postJobCategories">Job Categoriesn</label>
             <div className={`${styles.select_category}`}>
               <Field
                 name="categoriesId"
+                id="postJobCategories"
                 isMulti={true}
                 component={MultiSelect}
                 options={myCategories}
@@ -721,12 +718,6 @@ const JobForm = () => {
           </div>
         </Form>
       </Formik>
-      <FloatingPopup
-        showResponse={showResponse}
-        setShowResponse={setShowResponse}
-        message={responseMessage}
-        success={successResponse}
-      />
       <UpdateUserSkillsModal
         savePostSkillDataToMainForm={savePostSkillDataToMainForm}
         show={modalShow}

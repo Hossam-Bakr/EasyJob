@@ -1,9 +1,17 @@
 import styles from "./PostAJob.module.css";
 import JobForm from "./JobForm";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
+import FloatingPopup from "../../Components/Ui/FloatingPopup";
 
 function PostAJob() {
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
+
   useEffect(() => {
     AOS.init();
   }, []);
@@ -20,8 +28,18 @@ function PostAJob() {
         data-aos-duration="800"
         className={styles.FormContainer}
       >
-        <JobForm />
+        <JobForm
+          setShowResponse={setShowResponse}
+          setResponseMessage={setResponseMessage}
+          setSuccessResponse={setSuccessResponse}
+        />
       </div>
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </div>
   );
 }

@@ -7,9 +7,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    z-index: 5;
 }
 .popup_container_hidden{
-    z-index: -1;
+    z-index: -1 !important;
 }
 .popupHeaderSuccess{
     background-color: var(--vanilla);

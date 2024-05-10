@@ -47,15 +47,7 @@
     color: white !important;
     font-weight: 500;
 }
-.post_skill_red{
-    background-color: red !important;
-}
-.post_skill_yellow{
-    background-color: orange !important;
-}
-.post_skill_green{
-    background-color: green !important;
-}
+
 .trash{
     position: absolute;
     left: 10px;

@@ -19,7 +19,7 @@ import {
 import { formatedTimeHandler } from "../../Components/logic/Logic";
 import MainButtonTwo from "../../Components/Ui/MainButtonTwo";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
-import { Col, Container, Dropdown, Row } from "react-bootstrap";
+import { Badge, Col, Container, Dropdown, Row } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,13 +40,13 @@ const JobDetails = () => {
   const token = useSelector((state) => state.userInfo.token);
   const dispatch = useDispatch();
   const textRef = useRef(null);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const { data } = useQuery({
     queryKey: ["jobDetails"],
     queryFn: () => getJobsDetails(params.jobId),
   });
-  
+
   const saveJobPost = async () => {
     if (token) {
       const res = await saveJobsHandler({ jobId: params.jobId, token: token });
@@ -98,10 +98,9 @@ const JobDetails = () => {
     }
   }, [data]);
 
-  const navigateToApplicationFormPage=()=>{
-    navigate(`/job-application-form/${params.jobId}`)
-  }
-
+  const navigateToApplicationFormPage = () => {
+    navigate(`/job-application-form/${params.jobId}`);
+  };
 
   useEffect(() => {
     if (data) {
@@ -110,9 +109,8 @@ const JobDetails = () => {
   }, [data]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
-
 
   return (
     <>
@@ -129,7 +127,9 @@ const JobDetails = () => {
                 <div
                   className={`${styles.name} w-100 d-flex justify-content-between align-items-center mt-1`}
                 >
-                  <Link to={`/companyProfile/${data.CompanyId}`}><h4>{data.Company.name} </h4></Link>
+                  <Link to={`/companyProfile/${data.CompanyId}`}>
+                    <h4>{data.Company.name} </h4>
+                  </Link>
                   <span> {data.openPositions} Open Position</span>
                 </div>
                 <span className="mini_word">
@@ -216,7 +216,10 @@ const JobDetails = () => {
                     </Dropdown>
                   </div>
                   <div className="mt-1">
-                    <MainButtonTwo onClick={navigateToApplicationFormPage} text="Apply Now" />
+                    <MainButtonTwo
+                      onClick={navigateToApplicationFormPage}
+                      text="Apply Now"
+                    />
                   </div>
                 </Col>
               </Row>
@@ -236,7 +239,9 @@ const JobDetails = () => {
 
                   <section className={styles.det_section}>
                     <h2 className={styles.sec_title}>Job Requirements</h2>
-                    <p>{data.requirements}</p>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: data.requirements }}
+                    />
                   </section>
 
                   <section
@@ -249,16 +254,36 @@ const JobDetails = () => {
                           <Col
                             sm={3}
                             lg={2}
+                            title={`skill level is (${
+                              skill.minLevel === 2
+                                ? "mid-level"
+                                : skill.minLevel === 3
+                                ? "expert"
+                                : "entry-level"
+                            }) & min years of experience from (${
+                              skill.minYearsOfExperience
+                            }) years`}
                             className={`${styles.skill} ${
                               skill.minLevel === 2
                                 ? styles.orange
                                 : skill.minLevel === 3
                                 ? styles.green
                                 : styles.red
-                            } mx-2`}
+                            } mx-2 position-relative`}
                             key={skill.id}
                           >
                             <span>{skill.name}</span>
+                            <Badge
+                              className={`${
+                                skill.minLevel === 2
+                                  ? "bg-warning"
+                                  : skill.minLevel === 3
+                                  ? "bg-success"
+                                  : "bg-danger"
+                              } position-absolute top-0 start-100 translate-middle badge rounded-pill`}
+                            >
+                              {skill?.minYearsOfExperience}
+                            </Badge>
                           </Col>
                         ))}
                       </Row>

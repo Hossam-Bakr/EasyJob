@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseServerUrl = "http://127.0.0.1:3000/api/v1/";
+const baseServerUrl = process.env.REACT_APP_Base_API_URl;
 
 const signFormsHandler = async ({ type, formData, method }) => {
   try {
@@ -205,9 +205,8 @@ export const getJobs = async ({
     };
     let response = null;
     let paramValues = "";
-
+    console.log(token)
     if(!method){
-      console.log("njjnmopjop")
       if (searchFilter) {
         paramValues = `?keyword=${searchFilter}`;
       }
@@ -289,12 +288,12 @@ export const getJobs = async ({
       if (method === "post") {
         response = await axios.post(
           `${baseServerUrl}jobs${type}`,
+          formData,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             }
-          },
-          formData
+          }
         );
       } else if (method === "put") {
         response = await axios.put(`${baseServerUrl}jobs${type}${formData}`);

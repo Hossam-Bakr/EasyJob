@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CompanyProfileSections.module.css";
 import JobPost from "./JobPost";
 import { useQuery } from "@tanstack/react-query";
 import { getCompanyRelatedJobs } from "../../util/Http";
 import Loading from "./Loading";
 import NoDataBox from "./NoDataBox";
+import FloatingPopup from "./FloatingPopup";
 
 const CompanyRelatedJobs = ({ isMyProfile, id }) => {
-  const { data } = useQuery({
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
+
+  const { data, refetch } = useQuery({
     queryKey: ["relatedJobs"],
     queryFn: () => getCompanyRelatedJobs({ id }),
   });
-  
+
+  useEffect(()=>{
+    window.scrollTo(0 ,0)
+  },[])
+
   return (
     <>
       {data ? (
@@ -28,7 +40,7 @@ const CompanyRelatedJobs = ({ isMyProfile, id }) => {
                         id={job.id}
                         name={job.Company?.name}
                         jobTitle={job.jobTitle}
-                        req={job.requirements}
+                        desc={job.description}
                         logo={job.Company?.CompanyProfile?.logo}
                         type={job.type}
                         workplace={job.workplace}
@@ -38,6 +50,10 @@ const CompanyRelatedJobs = ({ isMyProfile, id }) => {
                         grid={false}
                         profile={true}
                         isMyProfile={isMyProfile}
+                        refetch={refetch}
+                        setShowResponse={setShowResponse}
+                        setResponseMessage={setResponseMessage}
+                        setSuccessResponse={setSuccessResponse}
                       />
                     );
                   })}
@@ -51,6 +67,13 @@ const CompanyRelatedJobs = ({ isMyProfile, id }) => {
       ) : (
         <Loading />
       )}
+
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };

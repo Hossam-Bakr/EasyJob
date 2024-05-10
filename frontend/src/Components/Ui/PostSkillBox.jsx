@@ -75,10 +75,10 @@ const PostSkillBox = ({ skillDetails, deleteSelectedSkill }) => {
         {formatedSkillName}
         <Badge
           className={`${formatedLevel === "entry level"
-          ? styles.post_skill_red
+          ? "bg-danger"
           : formatedLevel === "mid level"
-          ? styles.post_skill_yellow
-          : styles.post_skill_green} position-absolute top-0 start-100 translate-middle badge rounded-pill`}
+          ? "bg-warning"
+          : "bg-success"} position-absolute top-0 start-100 translate-middle badge rounded-pill`}
         >
           {skillDetails?.minYearsOfExperience}
         </Badge>
