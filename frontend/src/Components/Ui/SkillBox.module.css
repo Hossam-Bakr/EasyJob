@@ -16,6 +16,7 @@
     text-align: center;
     position: relative;
 }
+
 .red{
     border: 0.0625rem solid red;
 }
@@ -25,8 +26,50 @@
 .green{
     border: 0.0625rem solid rgb(7, 176, 7);
 }
+
 .star{
     color: gold;
     margin-inline: 5px;
 }
 
+/* ------------------------------------------skill job post----------------------------------------------- */
+.post_skill{
+    background-color: var(--main_color);
+    padding:10px;
+    border-radius: 5px;
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.208);
+    cursor: pointer;
+    position: relative;
+}
+.post_skill span{
+    color: white !important;
+    font-weight: 500;
+}
+.post_skill_red{
+    background-color: red !important;
+}
+.post_skill_yellow{
+    background-color: orange !important;
+}
+.post_skill_green{
+    background-color: green !important;
+}
+.trash{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--vanilla);
+    opacity: 0;
+    font-size: 18px;
+    transition: all .3s;
+}
+.trash:hover{
+   color: red;
+   scale: 1.1;
+}
+.post_skill:hover .trash{
+    opacity: 1;
+}

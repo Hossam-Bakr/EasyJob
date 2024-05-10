@@ -2009,6 +2009,16 @@ export const convertCategoriesIntoList = (currentCategories, setState,type) => {
   }
 };
 
+export const convertSkillsIntoList=(currentSkills,setState)=>{
+  if(currentSkills?.length>0){
+    let skillsOption = currentSkills?.map((skill) => ({
+      value: skill.id,
+      label: skill.name,
+    }));
+    setState(skillsOption);
+  }
+}
+
 //functions
 export const formatedTimeHandler = (time, setState) => {
   const currentTimestamp = new Date();

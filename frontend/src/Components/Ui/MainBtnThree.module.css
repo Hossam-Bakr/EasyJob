@@ -17,7 +17,9 @@
 
 .btn_text{
     position: relative;
-    z-index:2 ;
+    color: white !important;
+    z-index:5 ;
+    transition: all .4s;
 }
 .first_layer1,.second_layer1,.third_layer1,.first_layer2,.second_layer2,.third_layer2{
     position: absolute !important;
@@ -74,9 +76,10 @@
     background-color: rgb(255,255,255);
     transform:translateX(-101%);
     border-radius: 0.3125rem;
+    z-index: 3;
     transition: all 1s;  
 }
-.main_color_btn:hover{
+.main_color_btn:hover .btn_text{
     color:var(--main_color) !important;
 }
 .main_color_btn:hover .first_layer2{

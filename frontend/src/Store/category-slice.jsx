@@ -5,6 +5,7 @@ const categorySlice=createSlice({
     initialState:{
         categories:null,
         industries:null,
+        skills:null
     },
     reducers:{
         setCategories(state,action){
@@ -13,6 +14,9 @@ const categorySlice=createSlice({
         setIndustries(state,action){
             state.industries=action.payload
         },
+        setSkills(state,action){
+            state.skills=action.payload;
+        }
     }
 })
 

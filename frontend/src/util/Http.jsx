@@ -184,6 +184,7 @@ export const getJobs = async ({
   type,
   formData,
   method,
+  token,
   pageNum,
   searchFilter,
   countryFilteration,
@@ -194,97 +195,107 @@ export const getJobs = async ({
   workPlaceFilteration,
   minSalaryFilteration,
   maxSalaryFilteration,
-  jobTitleFilteration
+  jobTitleFilteration,
 }) => {
   //handle categories
-
   try {
-    let params={
+    let params = {
       limit: 15,
       page: pageNum,
-    }
+    };
     let response = null;
     let paramValues = "";
-    
-    if(searchFilter){
-      paramValues=`?keyword=${searchFilter}`
-    }
 
-    if (jobTitleFilteration) {
-     params.title=jobTitleFilteration
-    }
-    if (countryFilteration.length > 0) {
-      countryFilteration.forEach((myCountry) => {
-        if (paramValues === "") {
-          paramValues = paramValues.concat(`?country=${myCountry}`);
-        } else {
-          paramValues = paramValues.concat(`&country=${myCountry}`);
-        }
-      });
-    }
-
-    if (cityFilteration.length > 0) {
-      cityFilteration.forEach((myCity) => {
-        if (paramValues === "") {
-          paramValues = paramValues.concat(`?city=${myCity}`);
-        } else {
-          paramValues = paramValues.concat(`&city=${myCity}`);
-        }
-      });
-    }
-
-    if (jobTypeFilteration.length > 0) {
-      jobTypeFilteration.forEach((myType) => {
-        if (paramValues === "") {
-          paramValues = paramValues.concat(`?type=${myType}`);
-        } else {
-          paramValues = paramValues.concat(`&type=${myType}`);
-        }
-      });
-    }
-
-    if (careerLevelFilteration.length > 0) {
-      careerLevelFilteration.forEach((myCareer) => {
-        if (paramValues === "") {
-          paramValues = paramValues.concat(`?careerLevel=${myCareer}`);
-        } else {
-          paramValues = paramValues.concat(`&careerLevel=${myCareer}`);
-        }
-      });
-    }
-
-    if (workPlaceFilteration.length > 0) {
-      workPlaceFilteration.forEach((place) => {
-        if (paramValues === "") {
-          paramValues = paramValues.concat(`?workplace=${place}`);
-        } else {
-          paramValues = paramValues.concat(`&workplace=${place}`);
-        }
-      });
-    }
-
-    if (minSalaryFilteration.length > 0) {
-      minSalaryFilteration.forEach((salary) => {
-        if (paramValues === "") {
-          paramValues = paramValues.concat(`?salaryRangeMin__gte=${salary}`);
-        } else {
-          paramValues = paramValues.concat(`&salaryRangeMin__gte=${salary}`);
-        }
-      });
-    }
-    if (maxSalaryFilteration.length > 0) {
-      maxSalaryFilteration.forEach((salary) => {
-        if (paramValues === "") {
-          paramValues = paramValues.concat(`?salaryRangeMax__lte  =${salary}`);
-        } else {
-          paramValues = paramValues.concat(`&salaryRangeMax__lte  =${salary}`);
-        }
-      });
+    if(!method){
+      console.log("njjnmopjop")
+      if (searchFilter) {
+        paramValues = `?keyword=${searchFilter}`;
+      }
+  
+      if (jobTitleFilteration) {
+        params.title = jobTitleFilteration;
+      }
+      if (countryFilteration.length > 0) {
+        countryFilteration.forEach((myCountry) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?country=${myCountry}`);
+          } else {
+            paramValues = paramValues.concat(`&country=${myCountry}`);
+          }
+        });
+      }
+  
+      if (cityFilteration.length > 0) {
+        cityFilteration.forEach((myCity) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?city=${myCity}`);
+          } else {
+            paramValues = paramValues.concat(`&city=${myCity}`);
+          }
+        });
+      }
+  
+      if (jobTypeFilteration.length > 0) {
+        jobTypeFilteration.forEach((myType) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?type=${myType}`);
+          } else {
+            paramValues = paramValues.concat(`&type=${myType}`);
+          }
+        });
+      }
+  
+      if (careerLevelFilteration.length > 0) {
+        careerLevelFilteration.forEach((myCareer) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?careerLevel=${myCareer}`);
+          } else {
+            paramValues = paramValues.concat(`&careerLevel=${myCareer}`);
+          }
+        });
+      }
+  
+      if (workPlaceFilteration.length > 0) {
+        workPlaceFilteration.forEach((place) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?workplace=${place}`);
+          } else {
+            paramValues = paramValues.concat(`&workplace=${place}`);
+          }
+        });
+      }
+  
+      if (minSalaryFilteration.length > 0) {
+        minSalaryFilteration.forEach((salary) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?salaryRangeMin__gte=${salary}`);
+          } else {
+            paramValues = paramValues.concat(`&salaryRangeMin__gte=${salary}`);
+          }
+        });
+      }
+      if (maxSalaryFilteration.length > 0) {
+        maxSalaryFilteration.forEach((salary) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?salaryRangeMax__lte  =${salary}`);
+          } else {
+            paramValues = paramValues.concat(`&salaryRangeMax__lte  =${salary}`);
+          }
+        });
+      }
     }
 
     if (type) {
       if (method === "post") {
-        response = await axios.post(`${baseServerUrl}jobs${type}`, formData);
+        response = await axios.post(
+          `${baseServerUrl}jobs${type}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          },
+          formData
+        );
       } else if (method === "put") {
         response = await axios.put(`${baseServerUrl}jobs${type}${formData}`);
       } else if (method === "delete") {
@@ -292,12 +303,12 @@ export const getJobs = async ({
       }
     } else {
       response = await axios(`${baseServerUrl}jobs/${paramValues}`, {
-        params
+        params,
       });
     }
     return response.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -462,16 +473,22 @@ export const getCompanyCandidates = async ({ id, token, pageNum }) => {
   }
 };
 
-export const getCompanies = async ({pageNum,indusryFilteration,countryFilteration,cityFilteration,sizeFilteration}) => {
-console.log(sizeFilteration)
-  let params={
+export const getCompanies = async ({
+  pageNum,
+  indusryFilteration,
+  countryFilteration,
+  cityFilteration,
+  sizeFilteration,
+}) => {
+  console.log(sizeFilteration);
+  let params = {
     limit: 15,
     page: pageNum,
-  }
+  };
   let paramValues = "";
 
   if (indusryFilteration) {
-   params.IndustryId=indusryFilteration
+    params.IndustryId = indusryFilteration;
   }
   if (countryFilteration.length > 0) {
     countryFilteration.forEach((myCountry) => {
@@ -502,7 +519,7 @@ console.log(sizeFilteration)
   }
   try {
     const res = await axios(`${baseServerUrl}companies${paramValues}`, {
-      params
+      params,
     });
     return res;
   } catch (error) {
@@ -532,8 +549,3 @@ export const getJobApplications = async ({ jobId, token }) => {
     console.error(error);
   }
 };
-
-
-export const postJob=({token})=>{
-  console.log("hi")
-}

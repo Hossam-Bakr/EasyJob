@@ -6,6 +6,7 @@ import UpdateUserSkillsForm from "../EdietProfilesInfo/UpdateUserSkillsForm";
 import LanguagesForm from "../EdietProfilesInfo/LanguagesForm";
 import UpdateLanguageForm from "../EdietProfilesInfo/UpdateLanguageForm";
 import UpdateUserCirtificationsForm from "./../EdietProfilesInfo/UpdateUserCirtificationsForm";
+import PostSkillsForm from "../../Pages/PostAJob/PostSkillsForm";
 
 const UpdateUserSkillsModal = ({
   onHide,
@@ -19,7 +20,14 @@ const UpdateUserSkillsModal = ({
   proficiency,
   language,
   certificate,
+  savePostSkillDataToMainForm
 }) => {
+
+
+  const savePostSkillDataToModal=(data)=>{
+    savePostSkillDataToMainForm(data)
+  }
+
   return (
     <>
       <Modal
@@ -42,6 +50,8 @@ const UpdateUserSkillsModal = ({
                   ? "Update Skill"
                   : type === "lang"
                   ? "Add Language"
+                  : type === "postSkills"
+                  ? "Add Skill"
                   : "update Language"}
               </>
             )}
@@ -50,11 +60,11 @@ const UpdateUserSkillsModal = ({
         <Modal.Body className={styles.modal_body}>
           {type === "certificate" ? (
             <UpdateUserCirtificationsForm
-            certificate={certificate}
-            onHide={onHide}
-            setShowResponse={setShowResponse}
-            setResponseMessage={setResponseMessage}
-            setSuccessResponse={setSuccessResponse}
+              certificate={certificate}
+              onHide={onHide}
+              setShowResponse={setShowResponse}
+              setResponseMessage={setResponseMessage}
+              setSuccessResponse={setSuccessResponse}
             />
           ) : (
             <>
@@ -72,7 +82,15 @@ const UpdateUserSkillsModal = ({
                     />
                   ) : (
                     <>
-                      {type === "lang" ? (
+                      {type === "postSkills" ? (
+                        <PostSkillsForm 
+                        savePostSkillDataToModal={savePostSkillDataToModal}
+                        onHide={onHide}
+                        setShowResponse={setShowResponse}
+                        setResponseMessage={setResponseMessage}
+                        setSuccessResponse={setSuccessResponse}
+                        />
+                      ) : type === "lang" ? (
                         <LanguagesForm />
                       ) : (
                         <UpdateLanguageForm

@@ -1,7 +1,7 @@
 .field{
     display: flex;
     flex-direction: column;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.875rem;
     width: 90%;
     position: relative;
 }
@@ -10,17 +10,17 @@
     margin-bottom: 0.3125rem;
 }
 .check_Box{
-    min-width: 100px;
-    height: 50px;
+    min-width: 6.25rem;
+    height: 3.125rem;
     background-color: #F5F6F7;
-    font-size: 15px;
+    font-size: 0.9375rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    border: #cececf 0.25px solid;
-    border-radius: 10px;
-    padding: 4px;
+    border: #cececf 0.0156rem solid;
+    border-radius: 0.625rem;
+    padding: 0.25rem;
     transition: border-color .4s;
 }
 .check_Box:hover{
@@ -28,9 +28,9 @@
     border-color: var(--main_color);
 }
 .radio_input{
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-right: 0.625rem;
 }
 
 .check_Box label:hover{
@@ -64,18 +64,7 @@
     font-weight: 700;
     color: black;
 }
-.general_info_form .SecondBox .jobDesc{
-    font-weight: bolder;
-    font-size: 18px;
-}
-.SecondBox label {
-    font-weight: 300;
-    font-size: 15px;
-}
-.founded {
-    border-radius: 5px;
-    padding: 6px 5px;
-}
+
 .save_btn{
     background-color: var(--main_color);
     color: white;
@@ -91,12 +80,83 @@
     transform: translateX(0.3125rem);
 }
 
-.thumb_icon{
-    position: absolute;
-    right:20px;
-    top: 60%;
-    color: red;
+.delete_btn{
+    min-width: 7.5rem;
+    font-weight: 600;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid var(--font_color);
+    color: var(--font_color);
+    opacity: .7;
+    transition: all .3s;
+
 }
+.delete_btn:hover{
+    color: red;
+    border: 0.0625rem solid red;
+    opacity: 1;
+    transform: translateX(-0.3125rem);
+}
+
+.select_group{
+    width: 100%;
+}
+.field h4{
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.select_category{
+    width: 100%;
+}
+.skill_field{
+    padding: 50px 30px ;
+    width: 100%;
+    text-align: center;
+    border: 1px dashed var(--main_color);
+    background-color: var(--vanilla);
+    margin: 20px 0;
+    border-radius: 10px;
+    position: relative;
+}
+.add_skill_btn{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--dark_white);
+    transition: all .4s;
+}
+.add_skill_btn:hover{
+    color: black;
+    scale: 1.05;
+}
+
+.red_circle,.yellow_circle,.green_circle{
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.125rem;
+    border-radius: 50%;
+}
+.red_circle{
+    background-color: red;
+}
+.yellow_circle{
+    background-color: orange;
+
+}
+.green_circle{
+    background-color: rgb(7, 176, 7);
+}
+.skill_color{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px 10px 0;
+}
+
+
 .text_area_desc{
     width: 100%;
     margin-top: 0.625rem;
@@ -108,82 +168,13 @@
     outline: none;
     border: 0.0625rem solid rgb(162, 162, 162);
 }
-.user_general_info .field{
-    margin-bottom: 30px;
+
+.location_map{
+    height: 60vh;
+    width:100%;
 }
 
-.check_field{
-    font-size: 18px;
-    padding: 0 !important;
-}
-
-.check_field input{
-    padding: 12px 25px;
-}
-.checks{
-    background-color: white;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.399);
-    padding: 20px 10px;
-    border-radius: 10px;
-}
-.select_title{
-    background-color: var(--vanilla);
-    font-weight: 700;
-}
-
-.delete_btn{
-    min-width: 120px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--font_color);
-    color: var(--font_color);
-    opacity: .7;
-    transition: all .3s;
-
-}
-.delete_btn:hover{
-    color: red;
-    border: 1px solid red;
-    opacity: 1;
-    transform: translateX(-5px);
-}
-
-/* -----------------------------career--------------------------------------- */
-.career_label{
-    color: var(--dark_white);
-    font-size: 1rem;
-    font-weight: 600 !important;
-    padding: 0.625rem;
-    border-radius: 0.625rem;
-    border: 0.0625rem solid rgb(201, 201, 201);
-    color: var(--font_color);
-    min-width:12.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all .4s !important;
-}
-.career_label:hover{
-   scale: 1.05;
-}
-.select_group{
-    width: 100%;
-}
-.field h4{
-    font-size: 1.25rem;
-    font-weight: 700;
-}
-.checks_group{
-    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.263);
-    padding: 1.25rem;
-    border-radius: 0.625rem;
-    margin: 1.875rem 0;
-}
-.select_category{
-    width: 100%;
-}
-
-@media screen and (max-width:37.5rem) {
+@media screen and (max-width:600px) {
     .field h4{
         margin: 0;
         text-align: center;

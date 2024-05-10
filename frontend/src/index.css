@@ -172,6 +172,7 @@ select{
   scale: 1.06;
 }
 
+
 @media screen and (max-width:768px) {
   body,html{
     font-size: 14px;
