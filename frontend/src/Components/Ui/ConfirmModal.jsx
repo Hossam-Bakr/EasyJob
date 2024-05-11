@@ -11,6 +11,7 @@ import axios from "axios";
 
 const ConfirmModal = ({
   onHide,
+  onHideAll,
   show,
   text,
   btnText,
@@ -38,6 +39,7 @@ const ConfirmModal = ({
   };
 
   const deleteMyJob = async () => {
+    console.log("bl7")
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_Base_API_URl}jobs/${jobId}`,
@@ -46,7 +48,7 @@ const ConfirmModal = ({
         } }
       );
   
-      console.log(response.data);  
+      console.log("fromconfirm",response.data);  
       setResponseMessage({
         title: "Deleted Successfully",
         content: "Your Job has been Deleted successfully",
@@ -54,6 +56,9 @@ const ConfirmModal = ({
       setSuccessResponse(true);
       setShowResponse(true);
       refetch()
+      if(onHideAll){
+        onHideAll()
+      }
       onHide() 
     } catch (error) {
       setResponseMessage({
@@ -62,7 +67,7 @@ const ConfirmModal = ({
       });
       setSuccessResponse(false);
       setShowResponse(true);
-      console.log(error)
+      console.log("from response error",error)
     }
 
   };

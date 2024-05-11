@@ -9,9 +9,12 @@ const UpdateJobModal = ({
   setShowResponse,
   setResponseMessage,
   setSuccessResponse,
-  id,
-  job
+  jobId,
+  refetch,
+  call,
+  data
 }) => {
+ 
   return (
     <Modal
       onHide={onHide}
@@ -31,7 +34,10 @@ const UpdateJobModal = ({
               setShowResponse={setShowResponse}
               setResponseMessage={setResponseMessage}
               setSuccessResponse={setSuccessResponse}  
-              job={job}
+              job={data}
+              id={jobId}
+              refetch={refetch}
+              call={call}
             />
         </div>
       </Modal.Body>

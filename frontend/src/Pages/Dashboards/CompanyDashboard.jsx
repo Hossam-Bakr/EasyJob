@@ -107,12 +107,11 @@ const CompanyDashboard = () => {
   const {companyId:id} = useParams();
 
 
-  const { data: relatedJobs} = useQuery({
+  const { data: relatedJobs,refetch} = useQuery({
     queryKey: ["relatedJobs"],
     queryFn: () => getCompanyRelatedJobs({id}),
   });
 
-  console.log(relatedJobs)
 
   return (
     <>
@@ -297,11 +296,12 @@ const CompanyDashboard = () => {
                                     <tr key={job.id}>
                                       <CurrentJobs
                                         key={job.id}
-                                        id={job.id}
+                                        jobId={job.id}
                                         job={job}
                                         setShowResponse={setShowResponse}
                                         setResponseMessage={setResponseMessage}
                                         setSuccessResponse={setSuccessResponse}
+                                        refetch={refetch}
                                       />
                                     </tr>
                                   );

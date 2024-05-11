@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faBookmark,
-  faEdit,
   faEye,
   faLocationDot,
   faTrash,
@@ -41,7 +40,7 @@ const JobPost = ({
   refetch,
   setShowResponse,
   setResponseMessage,
-  setSuccessResponse
+  setSuccessResponse,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [confirmModalShow, setConfirmModalShow] = useState(false);
@@ -52,9 +51,13 @@ const JobPost = ({
   const token = useSelector((state) => state.userInfo.token);
   const navigate = useNavigate();
 
-  const checkToNavigateJobDetails = () => {
+  const checkToNavigateJobDetails = (type) => {
     if (isLogin) {
-      navigate(`/job-details/${id}`);
+      if (type === "myJob") {
+        navigate(`/preview-job/${id}`);
+      } else {
+        navigate(`/job-details/${id}`);
+      }
     } else {
       setModalShow(true);
     }
@@ -129,20 +132,15 @@ const JobPost = ({
               {profile ? (
                 <>
                   {isMyProfile && (
-                    <FontAwesomeIcon
-                      onClick={checkToNavigateJobDetails}
-                      icon={faEdit}
-                      title="ediet post"
-                      className={`${styles.bookmark_icon} mx-2`}
-                    />
+                    <>
+                      <FontAwesomeIcon
+                        onClick={() => checkToNavigateJobDetails("myJob")}
+                        icon={faArrowRight}
+                        title="preview"
+                        className={`${styles.eye_icon} mx-2`}
+                      />
+                    </>
                   )}
-
-                  <FontAwesomeIcon
-                    onClick={checkToNavigateJobDetails}
-                    icon={faArrowRight}
-                    title="preview"
-                    className={`${styles.eye_icon} mx-2`}
-                  />
                 </>
               ) : (
                 <>
@@ -153,7 +151,7 @@ const JobPost = ({
                     className={`${styles.bookmark_icon} mx-2`}
                   />
                   <FontAwesomeIcon
-                    onClick={checkToNavigateJobDetails}
+                    onClick={() => checkToNavigateJobDetails("viewJob")}
                     icon={faEye}
                     title="view"
                     className={`${styles.eye_icon} mx-2`}

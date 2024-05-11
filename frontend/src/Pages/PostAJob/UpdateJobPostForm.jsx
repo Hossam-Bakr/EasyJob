@@ -21,6 +21,7 @@ import UpdateUserSkillsModal from "../../Components/Ui/UpdateUserSkillsModal";
 import PostSkillBox from "../../Components/Ui/PostSkillBox";
 import { Editor } from "@tinymce/tinymce-react";
 import CompanyLocation from "../../Components/Maps/CompanyLocation";
+import ConfirmModal from "../../Components/Ui/ConfirmModal";
 
 const UpdateJobPostForm = ({
   job,
@@ -28,6 +29,9 @@ const UpdateJobPostForm = ({
   setResponseMessage,
   setSuccessResponse,
   onHide,
+  id,
+  refetch,
+  call
 }) => {
   const [currentTitle, setCurrentTitle] = useState("");
   const [currentCategoriesId, setCurrentCategoriesId] = useState([]);
@@ -47,6 +51,7 @@ const UpdateJobPostForm = ({
   const [OldLocation, setOldLocation] = useState([0, 0]);
 
   const [modalShow, setModalShow] = useState(false);
+  const [confirmModalShow, setConfirmModalShow] = useState(false);
   const [jobSkills, setJobSkills] = useState([]);
   const [myCategories, setMyCategories] = useState([]);
   const [editorError, setEditorError] = useState(false);
@@ -69,7 +74,9 @@ const UpdateJobPostForm = ({
       if (job.Categories) {
         if (job.Categories.length > 0) {
           let updatedCategoriesId = [];
-          job.Categories.map((cat) => updatedCategoriesId=[...updatedCategoriesId,cat.id]);
+          job.Categories.map(
+            (cat) => (updatedCategoriesId = [...updatedCategoriesId, cat.id])
+          );
           setCurrentCategoriesId(updatedCategoriesId);
         }
       } else {
@@ -77,9 +84,6 @@ const UpdateJobPostForm = ({
       }
     }
   }, [job]);
-
-// console.log(job.requiredSkills)
-// check with ammar where is requiredSkills
 
   useEffect(() => {
     if (job) {
@@ -93,12 +97,12 @@ const UpdateJobPostForm = ({
       setCurrentCareerLevel(job.careerLevel || "");
       setCurrentCountry(job.country || "");
       setCurrentCity(job.city || "");
-      setJobSkills(job.requiredSkills || []);
+      setJobSkills(job.RequiredSkills || []);
       setCurrentOpenPositions(job.openPositions || 1);
       setCurrentKeywords(job.keywords || "");
       setCurrentRequirements(job.requirements || "");
       setCurrentDescription(job.description || "");
-      setOldLocation(job.location?.coordinates || [0, 0]);
+      setOldLocation(job.location?.coordinates);
     }
   }, [job]);
 
@@ -131,17 +135,21 @@ const UpdateJobPostForm = ({
     onSuccess: (data) => {
       if (data.status === "success") {
         console.log(data);
-
+        refetch()
+        if(call){
+          call()
+        }
         setResponseMessage({
-          title: "Added Successfully",
-          content: "Your Post Added Successfully",
+          title: "Updated Successfully",
+          content: "Your Post has been updated Successfully",
         });
         setSuccessResponse(true);
         setShowResponse(true);
+        onHide()
       } else {
         setResponseMessage({
           title: "Request Faild",
-          content: "Your Post faild to be added please try again",
+          content: "Your Post faild to be updated please try again",
         });
         setSuccessResponse(false);
         setShowResponse(true);
@@ -151,7 +159,7 @@ const UpdateJobPostForm = ({
       console.log(error);
       setResponseMessage({
         title: "Request Faild",
-        content: "Your Post faild to be added please try again",
+        content: "Your Post faild to be updated please try again",
       });
       setSuccessResponse(false);
       setShowResponse(true);
@@ -183,21 +191,32 @@ const UpdateJobPostForm = ({
       setEditorError(true);
       return;
     }
-
+    const transformedArray = jobSkills.map(skill => {
+      if (skill.id !== undefined && skill.name !== undefined) {
+          const newObj = {
+              SkillId: skill.id,
+              minLevel: skill.minLevel,
+              minYearsOfExperience: skill.minYearsOfExperience
+          };
+          return newObj;
+      } else {
+          return skill;
+      }
+  });
+  
     let updatedValues = {
       ...values,
-      requiredSkills: jobSkills,
+      requiredSkills: transformedArray,
       requirements: edietorRequirements.current.getContent(),
       location: {
         type: "Point",
         coordinates: [positionLat, positionLng],
       },
     };
-
-    console.log(updatedValues);
+    console.log(updatedValues)
     mutate({
-      type: "/",
-      method: "post",
+      type: `/${id}`,
+      method: "patch",
       formData: updatedValues,
       token: companyToken,
     });
@@ -236,28 +255,12 @@ const UpdateJobPostForm = ({
     setJobSkills(updatedSkill);
   };
 
-  const deleteSelectedSkill = (skillDetails, skillType) => {
+  const deleteSelectedSkill = (skillDetails) => {
     if (jobSkills) {
-      let updatedSkillList;
-      if (skillType === "new") {
-        let existSkill = jobSkills.find(
-          (skill) => skill.newSkill === skillDetails.newSkill
-        );
-        if (existSkill) {
-          updatedSkillList = jobSkills.filter(
-            (skill) => skill.newSkill !== existSkill.newSkill
-          );
-        }
-      } else {
-        let existSkill = jobSkills.find(
-          (skill) => skill.SkillId === skillDetails.SkillId
-        );
-        if (existSkill) {
-          updatedSkillList = jobSkills.filter(
-            (skill) => skill.SkillId !== existSkill.SkillId
-          );
-        }
-      }
+      let updatedSkillList = jobSkills.filter(
+        (skill) => skill !== skillDetails
+      );
+
       setJobSkills(updatedSkillList);
       setResponseMessage({
         title: "Deleted Successfully",
@@ -522,10 +525,7 @@ const UpdateJobPostForm = ({
               options={yearsOptions}
             />
 
-            <ErrorMessage
-              name="minExperience"
-              component={InputErrorMessage}
-            />
+            <ErrorMessage name="minExperience" component={InputErrorMessage} />
           </div>
 
           <div className={`${styles.field} w-100`}>
@@ -627,11 +627,12 @@ const UpdateJobPostForm = ({
             </div>
             <Row className="gy-4 gx-5">
               {jobSkills?.length > 0 ? (
-                jobSkills.map((skill) => (
+                jobSkills.map((skill, index) => (
                   <PostSkillBox
-                    key={skill[Object.keys(skill)[0]]}
-                    id={skill[Object.keys(skill)[0]]}
+                    key={`${skill[Object.keys(skill)[0]]}${index}`}
+                    id={`${skill[Object.keys(skill)[0]]}${index}`}
                     skillDetails={skill}
+                    type="update"
                     deleteSelectedSkill={deleteSelectedSkill}
                   />
                 ))
@@ -762,14 +763,17 @@ const UpdateJobPostForm = ({
             </div>
           </div>
 
-          <div className="d-flex justify-content-end align-items-center mt-3 px-2">
+          <div className="d-flex justify-content-between align-items-center mt-3 px-2">
+            <button className={`${styles.save_btn} bg-danger`} type="button" onClick={()=>setConfirmModalShow(true)}>
+              Delete Post
+            </button>
             {isPending ? (
               <button type="submit" className={styles.save_btn}>
                 <FontAwesomeIcon className="fa-spin" icon={faYinYang} />
               </button>
             ) : (
               <button className={styles.save_btn} type="submit">
-                Save Post
+                Update Post
               </button>
             )}
           </div>
@@ -783,6 +787,19 @@ const UpdateJobPostForm = ({
         setResponseMessage={setResponseMessage}
         setSuccessResponse={setSuccessResponse}
         type={"postSkills"}
+      />
+      <ConfirmModal
+        show={confirmModalShow}
+        onHide={() => setConfirmModalShow(false)}
+        onHideAll={onHide}
+        jobId={id}
+        btnText="Delete"
+        text="Are you sure you want to delete this job"
+        type="deleteJob"
+        refetch={refetch}
+        setShowResponse={setShowResponse}
+        setResponseMessage={setResponseMessage}
+        setSuccessResponse={setSuccessResponse}
       />
     </>
   );

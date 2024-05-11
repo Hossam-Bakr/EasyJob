@@ -46,6 +46,7 @@ import JobStagesBoard from "./Pages/JobStages/JobStagesBoard";
 import VisitCompanyProfile from "./Pages/Profiles/VisitCompanyProfile";
 import VisiteEmployeeProfile from "./Pages/Profiles/VisiteEmployeeProfile";
 import JobApplicationFormModal from "./Components/Ui/JobApplicationFormModal";
+import PreviewMyJob from "./Pages/JobDetails/PreviewMyJob";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,7 @@ const router = createBrowserRouter([
       { path: "company-admins/:companyId", element: <CompanyAdmins /> },
       { path: "company-dashboard/:companyId", element: <CompanyDashboard /> },
       { path: "stages/:jobId", element: <JobStagesBoard /> },
+      { path: "preview-job/:jobId", element: <PreviewMyJob /> },
       { path: "company-account-setting", element: <CompanyAccountSetting /> },
       { path: "login", element: <Login /> },
       { path: "forget-password", element: <ForgetPassword /> },

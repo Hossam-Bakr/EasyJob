@@ -6,10 +6,9 @@ import Badge from "react-bootstrap/Badge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const PostSkillBox = ({ skillDetails, deleteSelectedSkill }) => {
+const PostSkillBox = ({ skillDetails, deleteSelectedSkill, type }) => {
   const [formatedLevel, setFormatedLevel] = useState("");
   const [formatedSkillName, setFormatedSkillName] = useState("");
-  const [isNewSkill, setIsNewSkill] = useState(false);
   const currentSkills = useSelector((state) => state.category.skills);
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const PostSkillBox = ({ skillDetails, deleteSelectedSkill }) => {
 
   useEffect(() => {
     if (skillDetails.hasOwnProperty("SkillId")) {
-      setIsNewSkill(false);
       if (currentSkills) {
         let existSkill = currentSkills.find(
           (skill) => skill.id === skillDetails.SkillId
@@ -44,18 +42,14 @@ const PostSkillBox = ({ skillDetails, deleteSelectedSkill }) => {
         }
       }
     } else if (skillDetails.hasOwnProperty("newSkill")) {
-      setIsNewSkill(true);
-
       setFormatedSkillName(skillDetails.newSkill);
+    } else {
+      setFormatedSkillName(skillDetails.name);
     }
-  }, [skillDetails, currentSkills]);
+  }, [skillDetails, currentSkills, type]);
 
   const deleteSkill = () => {
-    if (isNewSkill) {
-      deleteSelectedSkill(skillDetails, "new");
-    } else {
-      deleteSelectedSkill(skillDetails, "exist");
-    }
+    deleteSelectedSkill(skillDetails);
   };
 
   return (
@@ -74,11 +68,13 @@ const PostSkillBox = ({ skillDetails, deleteSelectedSkill }) => {
       <span>
         {formatedSkillName}
         <Badge
-          className={`${formatedLevel === "entry level"
-          ? "bg-danger"
-          : formatedLevel === "mid level"
-          ? "bg-warning"
-          : "bg-success"} position-absolute top-0 start-100 translate-middle badge rounded-pill`}
+          className={`${
+            formatedLevel === "entry level"
+              ? "bg-danger"
+              : formatedLevel === "mid level"
+              ? "bg-warning"
+              : "bg-success"
+          } position-absolute top-0 start-100 translate-middle badge rounded-pill`}
         >
           {skillDetails?.minYearsOfExperience}
         </Badge>

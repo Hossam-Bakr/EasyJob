@@ -95,6 +95,12 @@
     text-align: center;
     position: relative;
 }
+.skills_div{
+    padding: 50px 20px;
+    border: 1px solid var(--main_color);
+    border-radius: 10px;
+    box-shadow: 0 0 3px var(--main_color);
+}
 .red_circle,.yellow_circle,.green_circle{
     width: 0.5rem;
     height: 0.5rem;
@@ -125,6 +131,19 @@
 }
 .orange{
     border: 1px solid orange;
+}
+
+.requirements_div{
+    /* border: 1px dashed var(--main_color); */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.182);
+}
+
+.ourLocation{
+    height: 60vh;
+    width: 100%;
+    margin: 3.125rem auto;
 }
 
 @media screen and (max-width:670px) {

@@ -162,7 +162,7 @@ const About = () => {
       <section className="my-5 py-5">
         <section className={` ${styles.ourLocation}`}>
           <SectionMainTitle title="The company's main headquarters" />
-          <EasyJobLocation />
+          <EasyJobLocation myPosition={[30.0880301565236, 31.21248902756294]} />
         </section>
       </section>
     </>

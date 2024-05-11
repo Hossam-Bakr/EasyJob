@@ -10,25 +10,46 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import UpdateJobModal from "../../Pages/PostAJob/UpdateJobModal";
+import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { getJobsDetails } from "../../util/Http";
 
 const CurrentJobs = ({
-  id,
+  jobId,
   job,
   setShowResponse,
   setResponseMessage,
   setSuccessResponse,
+  refetch
 }) => {
 
   const[showModal,setShowModal]=useState();
   const navigate = useNavigate();
+
+
+  const token = useSelector((state) => state.userInfo.token);
+
+  const { data, refetch:call } = useQuery({
+    queryKey: ["jobDetails"],
+    queryFn: () => getJobsDetails({ jobId, token }),
+    enabled: !!jobId,
+  });
+  
+  useEffect(() => {
+    if (jobId) {
+      call();
+    }
+  }, [jobId, token, call]);
+
 
   useEffect(() => {
     AOS.init();
   }, []);
 
   const navigateToJobDetails = () => {
-    navigate(`/job-details/${id}`);
+    navigate(`/preview-job/${jobId}`);
   };
+
 
   return (
     <>
@@ -51,18 +72,20 @@ const CurrentJobs = ({
           icon={faArrowRight}
         />
         <FontAwesomeIcon title="ediet" icon={faEdit} onClick={()=>setShowModal(true)} />
-        <Link to={`/stages/${id}`}>
+        <Link to={`/stages/${jobId}`}>
           <FontAwesomeIcon title="stages" icon={faLayerGroup} />
         </Link>
       </td>
       <UpdateJobModal
         onHide={()=>setShowModal(false)}
         show={showModal}
-        id={id}
-        job={job}
+        jobId={jobId}
+        data={data}
+        call={call}
         setShowResponse={setShowResponse}
         setResponseMessage={setResponseMessage}
         setSuccessResponse={setSuccessResponse}
+        refetch={refetch}
       />
     </>
   );

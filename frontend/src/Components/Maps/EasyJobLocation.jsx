@@ -3,8 +3,8 @@ import React from 'react'
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet"
 import marker from "../../images/marker.png";
 
-const EasyJobLocation = () => {
-    const position = [30.0880301565236, 31.21248902756294]
+const EasyJobLocation = ({myPosition}) => {
+    const position = myPosition
    
     const myIcon=new icon({
         iconUrl:marker,

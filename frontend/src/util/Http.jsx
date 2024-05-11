@@ -205,12 +205,12 @@ export const getJobs = async ({
     };
     let response = null;
     let paramValues = "";
-    console.log(token)
-    if(!method){
+
+    if (!method) {
       if (searchFilter) {
         paramValues = `?keyword=${searchFilter}`;
       }
-  
+
       if (jobTitleFilteration) {
         params.title = jobTitleFilteration;
       }
@@ -223,7 +223,7 @@ export const getJobs = async ({
           }
         });
       }
-  
+
       if (cityFilteration.length > 0) {
         cityFilteration.forEach((myCity) => {
           if (paramValues === "") {
@@ -233,7 +233,7 @@ export const getJobs = async ({
           }
         });
       }
-  
+
       if (jobTypeFilteration.length > 0) {
         jobTypeFilteration.forEach((myType) => {
           if (paramValues === "") {
@@ -243,7 +243,7 @@ export const getJobs = async ({
           }
         });
       }
-  
+
       if (careerLevelFilteration.length > 0) {
         careerLevelFilteration.forEach((myCareer) => {
           if (paramValues === "") {
@@ -253,7 +253,7 @@ export const getJobs = async ({
           }
         });
       }
-  
+
       if (workPlaceFilteration.length > 0) {
         workPlaceFilteration.forEach((place) => {
           if (paramValues === "") {
@@ -263,7 +263,7 @@ export const getJobs = async ({
           }
         });
       }
-  
+
       if (minSalaryFilteration.length > 0) {
         minSalaryFilteration.forEach((salary) => {
           if (paramValues === "") {
@@ -276,9 +276,13 @@ export const getJobs = async ({
       if (maxSalaryFilteration.length > 0) {
         maxSalaryFilteration.forEach((salary) => {
           if (paramValues === "") {
-            paramValues = paramValues.concat(`?salaryRangeMax__lte  =${salary}`);
+            paramValues = paramValues.concat(
+              `?salaryRangeMax__lte  =${salary}`
+            );
           } else {
-            paramValues = paramValues.concat(`&salaryRangeMax__lte  =${salary}`);
+            paramValues = paramValues.concat(
+              `&salaryRangeMax__lte  =${salary}`
+            );
           }
         });
       }
@@ -286,17 +290,17 @@ export const getJobs = async ({
 
     if (type) {
       if (method === "post") {
-        response = await axios.post(
-          `${baseServerUrl}jobs${type}`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-          }
-        );
-      } else if (method === "put") {
-        response = await axios.put(`${baseServerUrl}jobs${type}${formData}`);
+        response = await axios.post(`${baseServerUrl}jobs${type}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } else if (method === "patch") {
+        response = await axios.patch(`${baseServerUrl}jobs${type}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       } else if (method === "delete") {
         response = await axios.delete(`${baseServerUrl}jobs${type}${formData}`);
       }
@@ -308,16 +312,6 @@ export const getJobs = async ({
     return response.data;
   } catch (error) {
     console.log(error);
-  }
-};
-
-export const getJobsDetails = async (id) => {
-  try {
-    const response = await axios(`${baseServerUrl}jobs/${id}`);
-
-    return response.data.data.job;
-  } catch (error) {
-    console.error(error);
   }
 };
 
@@ -544,6 +538,20 @@ export const getJobApplications = async ({ jobId, token }) => {
       },
     });
     return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getJobsDetails = async ({ jobId, token }) => {
+  try {
+    const response = await axios(`${baseServerUrl}jobs/${jobId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.data.job;
   } catch (error) {
     console.error(error);
   }

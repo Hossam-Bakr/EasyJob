@@ -24,7 +24,7 @@ const CompanyRelatedJobs = ({ isMyProfile, id }) => {
     window.scrollTo(0 ,0)
   },[])
  
-  console.log(data)
+  
   return (
     <>
       {data ? (
