@@ -135,7 +135,9 @@ const UpdateJobPostForm = ({
     onSuccess: (data) => {
       if (data.status === "success") {
         console.log(data);
-        refetch()
+        if(refetch){
+          refetch()
+        }
         if(call){
           call()
         }

@@ -664,7 +664,7 @@ const Posts = () => {
                                       name={job.Company.name}
                                       id={job.id}
                                       jobTitle={job.title}
-                                      req={job.requirements}
+                                      desc={job.description}
                                       logo={job.Company?.CompanyProfile?.logo}
                                       country={job.country}
                                       city={job.city}

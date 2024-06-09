@@ -155,17 +155,6 @@ const MainNavbar = () => {
                       className={({ isActive }) =>
                         isActive ? styles.active : undefined
                       }
-                      to={`company-admins/${profileData?.CompanyId}`}
-                      end
-                    >
-                      USERS
-                    </NavLink>
-                  </li>
-                  <li className={`${styles.special_hidden} mx-4`}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? styles.active : undefined
-                      }
                       to={"job-post"}
                       end
                     >

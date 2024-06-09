@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -16,27 +16,34 @@ import { companyActions } from "../../Store/companyNav-slice";
 import { useDispatch } from "react-redux";
 
 const CompanyPricing = () => {
-
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-    dispatch(companyActions.changeNavState({
-      changeCompany:false,
-      changeNav:true
-    }));
+    window.scrollTo(0, 0);
+    dispatch(
+      companyActions.changeNavState({
+        changeCompany: false,
+        changeNav: true,
+      })
+    );
     return () => {
-      dispatch(companyActions.changeNavState({
-        changeCompany:false,
-        changeNav:false
-      }));
+      dispatch(
+        companyActions.changeNavState({
+          changeCompany: false,
+          changeNav: false,
+        })
+      );
     };
   }, [dispatch]);
 
   return (
     <Container fluid="xl" className="my-5">
       <SectionMainTitle title="PRICING PLANS" />
-      <Tabs defaultActiveKey="three" className={`${styles.tabs_container} mb-3`} fill>
+      <Tabs
+        defaultActiveKey="three"
+        className={`${styles.tabs_container} mb-3`}
+        fill
+      >
         <Tab eventKey="month" title="Month">
           <Row className="justify-content-center">
             <Col sm={6} md={4} className="my-5">
@@ -98,11 +105,22 @@ const CompanyPricing = () => {
                       Performing filtering on candidates
                     </li>
                     <li>
+                      <FontAwesomeIcon className={styles.list_icon} icon={faSquareArrowUpRight}/>
+                      <del>Display your brand logo</del>
+                    </li>
+                    <li>
                       <FontAwesomeIcon
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
                       Two Admins
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      Silver Support
                     </li>
                   </ul>
                 </div>
@@ -188,6 +206,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       five Admins
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      Golden Support
                     </li>
                   </ul>
                 </div>
@@ -346,11 +371,22 @@ const CompanyPricing = () => {
                       Performing filtering on candidates
                     </li>
                     <li>
+                      <FontAwesomeIcon className={styles.list_icon} icon={faSquareArrowUpRight}/>
+                      <del>Display your brand logo</del>
+                    </li>
+                    <li>
                       <FontAwesomeIcon
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
                       Two Admins
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      Silver Support
                     </li>
                   </ul>
                 </div>
@@ -437,6 +473,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       five Admins
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      Golden Support
                     </li>
                   </ul>
                 </div>
@@ -595,11 +638,22 @@ const CompanyPricing = () => {
                       Performing filtering on candidates
                     </li>
                     <li>
+                      <FontAwesomeIcon className={styles.list_icon} icon={faSquareArrowUpRight}/>
+                      <del>Display your brand logo</del>
+                    </li>
+                    <li>
                       <FontAwesomeIcon
                         className={styles.list_icon}
                         icon={faSquareArrowUpRight}
                       />
                       Two Admins
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      Silver Support
                     </li>
                   </ul>
                 </div>
@@ -685,6 +739,13 @@ const CompanyPricing = () => {
                         icon={faSquareArrowUpRight}
                       />
                       five Admins
+                    </li>
+                    <li>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
+                      Golden Support
                     </li>
                   </ul>
                 </div>

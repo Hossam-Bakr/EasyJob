@@ -89,6 +89,9 @@ const ProfileHeader = ({
       .writeText(textToCopy)
       .catch((error) => console.error("Failed to copy:", error));
   };
+  const navigateToCreatPost=()=>{
+    navigate("/job-post")
+  }
 
   return (
     <>
@@ -177,7 +180,7 @@ const ProfileHeader = ({
                     <FontAwesomeIcon icon={faBook} />
                     Activity
                   </li>
-                  <li className={styles.headers_link_item}>
+                  <li onClick={navigateToCreatPost} className={styles.headers_link_item}>
                     <FontAwesomeIcon icon={faAdd} />
                     New Post
                   </li>

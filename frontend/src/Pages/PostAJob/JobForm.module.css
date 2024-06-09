@@ -65,7 +65,7 @@
     color: black;
 }
 
-.save_btn{
+.save_btn,.save_btn_question,.Ediet_btn{
     background-color: var(--main_color);
     color: white;
     padding: 0.625rem 0.9375rem;
@@ -80,6 +80,21 @@
     transform: translateX(0.3125rem);
 }
 
+.save_btn_question{
+    background-color: var(--darker_main_color);
+    margin-top: 40px;
+}
+.Ediet_btn{
+    background-color:var(--dark_white);
+}
+.Ediet_btn:hover{
+    background-color: var(--darker_main_color);
+    transform: translateX(-0.3125rem);
+}
+.save_btn_question:hover{
+    background-color: var(--main_color);
+    transform: translateX(0.3125rem);
+}
 .delete_btn{
     min-width: 7.5rem;
     font-weight: 600;
@@ -173,6 +188,25 @@
     height: 60vh;
     width:100%;
 }
+
+
+
+
+/* __________________________________________________questions___________________________________________________________________ */
+
+.no_questions{
+    padding: 50px 10px 10px 10px;
+    border-radius: 10px;
+    background-color: var(--vanilla);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.163);
+    text-align: center;
+}
+.no_questions span{
+    font-weight: 700;
+    font-size: 20px;
+    color: black;
+}
+
 
 @media screen and (max-width:600px) {
     .field h4{

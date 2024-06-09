@@ -2,6 +2,7 @@
     width: 100%;
     background-color: #F5F6F7;
     padding-bottom: 1.875rem;
+    min-height: 100vh;
 }
 .main_container .headerBox{
     padding-top: 1rem;
@@ -29,7 +30,17 @@
     font-size: 1.125rem;
     font-weight: 700;
 }
-
+.title_number_two,.title_number_one{
+    color: white !important;
+    background-color: var(--main_color);
+    padding: 5px 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.title_number_one{
+    padding: 5px 18px;
+}
 @media screen and (max-width:1100px) {
     .main_container .FormContainer{
         width: 90%;

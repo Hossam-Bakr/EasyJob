@@ -28,7 +28,6 @@ import Companies from "./Pages/Companies/Companies";
 import "./App.css";
 import CompanyProfile from "./Pages/Profiles/CompanyProfile";
 import CompanyInfo from "./Pages/CompanyInfo/CompanyInfo";
-import CompanyAdmins from "./Pages/CompanyAdmins/CompanyAdmins";
 import CompanyDashboard from "./Pages/Dashboards/CompanyDashboard";
 import MyTest from "./Components/Test/MyTest";
 import MainError from "./Pages/Error/MainError";
@@ -75,7 +74,6 @@ const router = createBrowserRouter([
       { path: "company-profile/:companyId", element: <CompanyProfile /> },
       { path: "companyProfile/:companyId", element: < VisitCompanyProfile/> },
       { path: "company-info", element: <CompanyInfo /> },
-      { path: "company-admins/:companyId", element: <CompanyAdmins /> },
       { path: "company-dashboard/:companyId", element: <CompanyDashboard /> },
       { path: "stages/:jobId", element: <JobStagesBoard /> },
       { path: "preview-job/:jobId", element: <PreviewMyJob /> },

@@ -18,7 +18,6 @@ import {
   faPencil,
   faSackDollar,
   faUserTie,
-  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -286,7 +285,7 @@ const SideBar = ({ onClose, show }) => {
                         />
                       </li>
                     </Link>
-                    <Link to={"company-dashboard"}>
+                    <Link to={`company-dashboard/${profileData?.CompanyId}`}>
                       <li
                         className={styles.contact_list_item}
                         onClick={handleClose}
@@ -307,18 +306,6 @@ const SideBar = ({ onClose, show }) => {
                         <FontAwesomeIcon
                           className={styles.list_icons}
                           icon={faSackDollar}
-                        />
-                      </li>
-                    </Link>
-                    <Link to={"company-admins"}>
-                      <li
-                        className={styles.contact_list_item}
-                        onClick={handleClose}
-                      >
-                        Manage Users{" "}
-                        <FontAwesomeIcon
-                          className={styles.list_icons}
-                          icon={faUsers}
                         />
                       </li>
                     </Link>

@@ -21,7 +21,6 @@ import Packageconsumption from "../../Components/charts/Packageconsumption";
 import AdminsInvitations from "./../../Components/charts/AdminsInvitations";
 import TotalApplications from "../../Components/charts/TotalApplications";
 import ListedEmployees from "./../../Components/Ui/ListedEmployees";
-import CompanyAdmins from "../CompanyAdmins/CompanyAdmins";
 import CompanyAccountSetting from "./../AccountSetting/CompanyAccountSetting";
 import ContactUs from "./../ContactUs/ContactUs";
 import CurrentJobs from "../../Components/Ui/CurrentJobs";
@@ -319,13 +318,6 @@ const CompanyDashboard = () => {
                     </Col>
                   )}
                 </>
-              )}
-              {(activeLink === "main" || activeLink === "users") && (
-                <Col>
-                  <div className={`${styles.box}`}>
-                    <CompanyAdmins />
-                  </div>
-                </Col>
               )}
               {(activeLink === "main" ||
                 activeLink === "candidates" ||

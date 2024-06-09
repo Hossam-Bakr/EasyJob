@@ -30,7 +30,6 @@ import UpdateJobModal from "../PostAJob/UpdateJobModal";
 const PreviewMyJob = () => {
   const { jobId } = useParams();
   const [profilePic, setProfilePic] = useState(null);
-  const [showResponse, setShowResponse] = useState(false);
   const [confirmModalShow, setConfirmModalShow] = useState(false);
   const [showModal, setShowModal] = useState();
 
@@ -38,6 +37,7 @@ const PreviewMyJob = () => {
     title: "",
     content: "",
   });
+  const [showResponse, setShowResponse] = useState(false);
   const [successResponse, setSuccessResponse] = useState(true);
   const [formatedTime, setFormatedTime] = useState("");
   const token = useSelector((state) => state.userInfo.token);

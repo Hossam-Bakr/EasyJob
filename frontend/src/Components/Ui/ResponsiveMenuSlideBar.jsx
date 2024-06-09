@@ -14,7 +14,6 @@ import {
   faUserTie,
   faEnvelope,
   faBusinessTime,
-  faUsers
 } from "@fortawesome/free-solid-svg-icons";
 import ContactsIcon from "./ContactsIcon";
 import { Link } from "react-router-dom";
@@ -49,171 +48,179 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
       <Offcanvas.Body>
         <SearchField />
         <ul className={styles.contact_list}>
-
           {isLogin ? (
             <>
-            {role === "user" ?
-             <>
-              {/* logged and user */}
-              <Link onClick={handleClose} to={"jobs"} end="true">
-                <li className={styles.contact_list_item}>
-                  Explore{" "}
-                  <FontAwesomeIcon
-                    icon={faFire}
-                    className={styles.list_icons}
-                  />
-                </li>
-              </Link>
-              <Link onClick={handleClose} to={"companies"} end="true">
-                <li className={styles.contact_list_item}>
-                  Companies{" "}
-                  <FontAwesomeIcon
-                    icon={faBuilding}
-                    className={styles.list_icons}
-                  />
-                </li>
-              </Link>
-              <Link onClick={handleClose} to={"contact"} end="true">
-                <li className={styles.contact_list_item}>
-                  Contact Us
-                  <FontAwesomeIcon
-                    icon={faEnvelope}
-                    className={styles.list_icons}
-                  />
-                </li>
-              </Link>
-              
-             </>
-              : 
-            <>
-              {/* logged and company */}
-              <Link onClick={handleClose} to={`company-dashboard/${profileData?.CompanyId}`} end="true">
-                <li className={styles.contact_list_item}>
-                  Dashboard{" "}
-                  <FontAwesomeIcon
-                    icon={faFire}
-                    className={styles.list_icons}
-                  />
-                </li>
-              </Link>
-              <Link onClick={handleClose} to={"candidates"}>
-              <li className={styles.contact_list_item}>
-                Candidates{" "}
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faUserTie}
-                />
-              </li>
-            </Link>
-              <Link onClick={handleClose} to={`company-admins/${profileData?.CompanyId}`}>
-              <li className={styles.contact_list_item}>
-                 Users{" "}
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faUsers}
-                />
-              </li>
-            </Link>
-            <Link onClick={handleClose} to={"packages"}>
-              <li className={styles.contact_list_item}>
-                Packages{" "}
-                <FontAwesomeIcon className={styles.list_icons} icon={faCoins} />
-              </li>
-            </Link>
-            <Link onClick={handleClose} to={"job-post"}>
-              <li className={styles.contact_list_item}>
-                Post Job{" "}
-                <FontAwesomeIcon className={styles.list_icons} icon={faBusinessTime} />
-              </li>
-            </Link>
-            </>}</>
+              {role === "user" ? (
+                <>
+                  {/* logged and user */}
+                  <Link onClick={handleClose} to={"jobs"} end="true">
+                    <li className={styles.contact_list_item}>
+                      Explore{" "}
+                      <FontAwesomeIcon
+                        icon={faFire}
+                        className={styles.list_icons}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"companies"} end="true">
+                    <li className={styles.contact_list_item}>
+                      Companies{" "}
+                      <FontAwesomeIcon
+                        icon={faBuilding}
+                        className={styles.list_icons}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"contact"} end="true">
+                    <li className={styles.contact_list_item}>
+                      Contact Us
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        className={styles.list_icons}
+                      />
+                    </li>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  {/* logged and company */}
+                  <Link
+                    onClick={handleClose}
+                    to={`company-dashboard/${profileData?.CompanyId}`}
+                    end
+                  >
+                    <li className={styles.contact_list_item}>
+                      Dashboard{" "}
+                      <FontAwesomeIcon
+                        icon={faFire}
+                        className={styles.list_icons}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"candidates"}>
+                    <li className={styles.contact_list_item}>
+                      Candidates{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faUserTie}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"packages"}>
+                    <li className={styles.contact_list_item}>
+                      Packages{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faCoins}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"job-post"}>
+                    <li className={styles.contact_list_item}>
+                      Post Job{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faBusinessTime}
+                      />
+                    </li>
+                  </Link>
+                </>
+              )}
+            </>
           ) : (
-            <>{changeContent ?
-               <>
-                 {/* not logged and company */}
-                 <Link onClick={handleClose} to={"company-home"} end="true">
-                  <li className={styles.contact_list_item}>
-                    Home{" "}
-                    <FontAwesomeIcon
-                      className={styles.list_icons}
-                      icon={faHome}
-                    />
-                  </li>
-                </Link>
-                <Link onClick={handleClose} to={"about"}>
-            <li className={styles.contact_list_item}>
-              About{" "}
-              <FontAwesomeIcon
-                className={styles.list_icons}
-                icon={faCircleInfo}
-              />
-            </li>
-          </Link>
+            <>
+              {changeContent ? (
+                <>
+                  {/* not logged and company */}
+                  <Link onClick={handleClose} to={"company-home"} end="true">
+                    <li className={styles.contact_list_item}>
+                      Home{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faHome}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"about"}>
+                    <li className={styles.contact_list_item}>
+                      About{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faCircleInfo}
+                      />
+                    </li>
+                  </Link>
 
-                <Link onClick={handleClose} to={"candidates"}>
-              <li className={styles.contact_list_item}>
-                Candidates{" "}
-                <FontAwesomeIcon
-                  className={styles.list_icons}
-                  icon={faUserTie}
-                />
-              </li>
-            </Link>
-            <Link onClick={handleClose} to={"packages"}>
-              <li className={styles.contact_list_item}>
-                Packages{" "}
-                <FontAwesomeIcon className={styles.list_icons} icon={faCoins} />
-              </li>
-            </Link>
-            <Link onClick={handleClose} to={"categories"}>
-                <li className={styles.contact_list_item}>
-                  Categories{" "}
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faLayerGroup}
-                  />
-                </li>
-              </Link>
-               </> : 
-               <>
-                 {/* not logged and user */}
-                 <Link onClick={handleClose} to={"/"} end="true">
-                  <li className={styles.contact_list_item}>
-                    Home{" "}
-                    <FontAwesomeIcon
-                      className={styles.list_icons}
-                      icon={faHome}
-                    />
-                  </li>
-                </Link>
-                <Link onClick={handleClose} to={"about"}>
-            <li className={styles.contact_list_item}>
-              About{" "}
-              <FontAwesomeIcon
-                className={styles.list_icons}
-                icon={faCircleInfo}
-              />
-            </li>
-          </Link>
-          <Link onClick={handleClose} to={"jobs"}>
-                  <li className={styles.contact_list_item}>
-                    Explore{" "}
-                    <FontAwesomeIcon
-                      className={styles.list_icons}
-                      icon={faFire}
-                    />
-                  </li>
-                </Link>
-                <Link onClick={handleClose} to={"categories"}>
-                <li className={styles.contact_list_item}>
-                  Categories{" "}
-                  <FontAwesomeIcon
-                    className={styles.list_icons}
-                    icon={faLayerGroup}
-                  />
-                </li>
-              </Link>
-               </>}</>
+                  <Link onClick={handleClose} to={"candidates"}>
+                    <li className={styles.contact_list_item}>
+                      Candidates{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faUserTie}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"packages"}>
+                    <li className={styles.contact_list_item}>
+                      Packages{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faCoins}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"categories"}>
+                    <li className={styles.contact_list_item}>
+                      Categories{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faLayerGroup}
+                      />
+                    </li>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  {/* not logged and user */}
+                  <Link onClick={handleClose} to={"/"} end="true">
+                    <li className={styles.contact_list_item}>
+                      Home{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faHome}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"about"}>
+                    <li className={styles.contact_list_item}>
+                      About{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faCircleInfo}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"jobs"}>
+                    <li className={styles.contact_list_item}>
+                      Explore{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faFire}
+                      />
+                    </li>
+                  </Link>
+                  <Link onClick={handleClose} to={"categories"}>
+                    <li className={styles.contact_list_item}>
+                      Categories{" "}
+                      <FontAwesomeIcon
+                        className={styles.list_icons}
+                        icon={faLayerGroup}
+                      />
+                    </li>
+                  </Link>
+                </>
+              )}
+            </>
           )}
         </ul>
         {isLogin ? (

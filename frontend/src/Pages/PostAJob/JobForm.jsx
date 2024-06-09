@@ -26,6 +26,7 @@ const JobForm = ({
   setShowResponse,
   setResponseMessage,
   setSuccessResponse,
+  getJobIdFromPost
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [jobSkills, setJobSkills] = useState([]);
@@ -79,6 +80,7 @@ const JobForm = ({
     onSuccess: (data) => {
       if (data.status === "success") {
         console.log(data);
+        getJobIdFromPost(data.data.job.id)
         setIsSkillsError(false);
         setEditorError(false);
         setResponseMessage({
