@@ -25,6 +25,7 @@ const MainNavbar = () => {
   const changeContent = useSelector(
     (state) => state.companyNav.changeNavContent
   );
+  const profileData = useSelector((state) => state.profileInfo.data);
 
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
@@ -132,7 +133,7 @@ const MainNavbar = () => {
                       className={({ isActive }) =>
                         isActive ? styles.active : undefined
                       }
-                      to={"company-dashboard"}
+                      to={`company-dashboard/${profileData?.CompanyId}`}
                       end
                     >
                       DASHBOARD
@@ -147,17 +148,6 @@ const MainNavbar = () => {
                       end
                     >
                       CANDIDATES
-                    </NavLink>
-                  </li>
-                  <li className={`${styles.special_hidden} mx-4`}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? styles.active : undefined
-                      }
-                      to={"company-admins"}
-                      end
-                    >
-                      USERS
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>

@@ -12,16 +12,19 @@ import {
 
 const data = [
   {
+    id:"1",
     name: "jobs",
     residual: 100,
     consumer: 200,
   },
   {
+    id:"2",
     name: "unlocks",
     residual: 150,
     consumer: 400,
   },
   {
+    id:"3",
     name: "Invite",
     residual: 100,
     consumer: 200,
@@ -35,12 +38,6 @@ const Packageconsumption = () => {
         width={500}
         height={300}
         data={data}
-        margin={{
-          top: 20,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />

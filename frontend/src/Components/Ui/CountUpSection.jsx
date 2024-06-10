@@ -13,7 +13,7 @@ import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
-import { getCountUpNumbers } from "../../util/Http";
+import { getCountUpNumbers} from "../../util/Http";
 
 const CountUpSection = () => {
   const [startCounter, setStartCounter] = useState(false);

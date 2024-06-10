@@ -128,10 +128,10 @@ const WorkExperienceForm = () => {
       >
         <Form className={styles.general_info_form}>
           <div className={styles.field}>
-            <label htmlFor="title">Job title</label>
+            <label htmlFor="workExperianceTitle">Job title</label>
             <Field
               type="text"
-              id="title"
+              id="workExperianceTitle"
               name="title"
               placeholder="ex: Accountant"
             />
@@ -139,9 +139,9 @@ const WorkExperienceForm = () => {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="category">Job category</label>
+            <label htmlFor="workExperiancecategory">Job category</label>
             <Field
-              id="category"
+              id="workExperiancecategory"
               name="category"
               isMulti={false}
               component={MultiSelect}
@@ -151,10 +151,10 @@ const WorkExperienceForm = () => {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="organization">Organization</label>
+            <label htmlFor="workExperianceorganization">Organization</label>
             <Field
               type="text"
-              id="organization"
+              id="workExperianceorganization"
               name="organization"
               placeholder="ex: Microsoft"
             />
@@ -163,21 +163,21 @@ const WorkExperienceForm = () => {
 
           <div className={styles.collection}>
             <div className={styles.field}>
-              <label htmlFor="startDate">Start Date</label>
-              <Field type="date" id="startDate" name="startDate" />
+              <label htmlFor="workExperiancestartDate">Start Date</label>
+              <Field type="date" id="workExperiancestartDate" name="startDate" />
               <ErrorMessage name="startDate" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="endDate">End Date</label>
-              <Field type="date" id="endDate" name="endDate" />
+              <label htmlFor="workExperianceendDate">End Date</label>
+              <Field type="date" id="workExperianceendDate" name="endDate" />
               <ErrorMessage name="endDate" component={InputErrorMessage} />
             </div>
           </div>
           <div className={styles.field}>
-            <label htmlFor="type">Experience type</label>
+            <label htmlFor="workExperiancetype">Experience type</label>
             <Field
-              id="type"
+              id="workExperiancetype"
               name="type"
               isMulti={false}
               component={MultiSelect}
@@ -189,7 +189,7 @@ const WorkExperienceForm = () => {
             <Field
               as="textarea"
               placeholder="description"
-              id="description"
+              id="workExperiancedescription"
               name="description"
               cols="30"
               rows="7"

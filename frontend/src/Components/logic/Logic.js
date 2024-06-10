@@ -6,12 +6,6 @@ export const countryOptions = [
   { value: "KSA", label: "KSA" },
   { value: "Kuwait", label: "Kuwait" },
 ];
-export const yearsOfExpr = [
-  { value: "0", label: "fresh, 0-1 year" },
-  { value: "1-2", label: "junior, 1-2 years" },
-  { value: "3-4", label: "mid level, 3-4 years" },
-  { value: "+5", label: "senior, +5 years" },
-];
 
 export const Cities = {
   EgyptCities: [
@@ -92,6 +86,12 @@ export const Cities = {
     "Al Jahra",
   ],
 };
+
+
+export const cityOptions = Object.entries(Cities).flatMap(([country, cities]) =>
+  cities.map(city => ({ value: city, label: city }))
+);
+
 export const Areas = {
   CairoAreas: [
     "Nasr City",
@@ -1005,6 +1005,27 @@ export const cityChange = (val, setState) => {
   }
 };
 
+export const yearsOptions = [
+  { value: 0, label: "No Experience" },
+  { value: 0.5, label: "less than year" },
+  { value: 1, label: "1 year" },
+  { value: 2, label: "2 years" },
+  { value: 3, label: "3 years" },
+  { value: 4, label: "4 years" },
+  { value: 5, label: "5 years" },
+  { value: 6, label: "6 years" },
+  { value: 7, label: "7 years" },
+  { value: 8, label: "8 years" },
+  { value: 9, label: "9 years" },
+  { value: 10, label: "10 years" },
+  { value: 11, label: "11 years" },
+  { value: 12, label: "12 years" },
+  { value: 13, label: "13 years" },
+  { value: 14, label: "14 years" },
+  { value: 15, label: "15 years" },
+  { value: 16, label: "+15 years" },
+];
+
 export const totalYearsConversion = (num, setState) => {
   switch (num) {
     case 0:
@@ -1078,11 +1099,187 @@ export const experianceOptions = [
 ];
 
 export const titleOptions = [
-  //get titles from backend here
-  { value: "frontend-developer", label: "frontend developer" },
-  { value: "backend-developer", label: "backend developer" },
-  { value: "accountant", label: "accountant" },
-  { value: "fullstack-developer", label: "fullstack developer" },
+  { value: "Software Engineer", label: "Software Engineer" },
+  { value: "Data Scientist", label: "Data Scientist" },
+  { value: "UX Designer", label: "UX Designer" },
+  { value: "UI Designer", label: "UI Designer" },
+  { value: "Product Manager", label: "Product Manager" },
+  { value: "Marketing Manager", label: "Marketing Manager" },
+  { value: "Sales Representative", label: "Sales Representative" },
+  { value: "Customer Support Specialist", label: "Customer Support Specialist" },
+  { value: "Graphic Designer", label: "Graphic Designer" },
+  { value: "HR Manager", label: "HR Manager" },
+  { value: "Financial Analyst", label: "Financial Analyst" },
+  { value: "Operations Manager", label: "Operations Manager" },
+  { value: "Project Manager", label: "Project Manager" },
+  { value: "Business Analyst", label: "Business Analyst" },
+  { value: "Content Writer", label: "Content Writer" },
+  { value: "Legal Counsel", label: "Legal Counsel" },
+  { value: "Network Engineer", label: "Network Engineer" },
+  { value: "Systems Administrator", label: "Systems Administrator" },
+  { value: "Database Administrator", label: "Database Administrator" },
+  { value: "Web Developer", label: "Web Developer" },
+  { value: "Mobile App Developer", label: "Mobile App Developer" },
+  { value: "DevOps Engineer", label: "DevOps Engineer" },
+  { value: "QA Engineer", label: "QA Engineer" },
+  { value: "UI/UX Developer", label: "UI/UX Developer" },
+  { value: "Frontend Developer", label: "Frontend Developer" },
+  { value: "Backend Developer", label: "Backend Developer" },
+  { value: "Fullstack Developer", label: "Fullstack Developer" },
+  { value: "Game Developer", label: "Game Developer" },
+  { value: "Embedded Systems Engineer", label: "Embedded Systems Engineer" },
+  { value: "AI Engineer", label: "AI Engineer" },
+  { value: "Machine Learning Engineer", label: "Machine Learning Engineer" },
+  { value: "Robotics Engineer", label: "Robotics Engineer" },
+  { value: "Industrial Designer", label: "Industrial Designer" },
+  { value: "Architect", label: "Architect" },
+  { value: "Civil Engineer", label: "Civil Engineer" },
+  { value: "Electrical Engineer", label: "Electrical Engineer" },
+  { value: "Mechanical Engineer", label: "Mechanical Engineer" },
+  { value: "Chemical Engineer", label: "Chemical Engineer" },
+  { value: "Aerospace Engineer", label: "Aerospace Engineer" },
+  { value: "Biomedical Engineer", label: "Biomedical Engineer" },
+  { value: "Environmental Engineer", label: "Environmental Engineer" },
+  { value: "Petroleum Engineer", label: "Petroleum Engineer" },
+  { value: "Forensic Scientist", label: "Forensic Scientist" },
+  { value: "Medical Doctor", label: "Medical Doctor" },
+  { value: "Nurse Practitioner", label: "Nurse Practitioner" },
+  { value: "Physician Assistant", label: "Physician Assistant" },
+  { value: "Pharmacist", label: "Pharmacist" },
+  { value: "Dentist", label: "Dentist" },
+  { value: "Veterinarian", label: "Veterinarian" },
+  { value: "Psychologist", label: "Psychologist" },
+  { value: "Social Worker", label: "Social Worker" },
+  { value: "Teacher", label: "Teacher" },
+  { value: "Professor", label: "Professor" },
+  { value: "Librarian", label: "Librarian" },
+  { value: "Curator", label: "Curator" },
+  { value: "Translator", label: "Translator" },
+  { value: "Interpreter", label: "Interpreter" },
+  { value: "Flight Attendant", label: "Flight Attendant" },
+  { value: "Pilot", label: "Pilot" },
+  { value: "Air Traffic Controller", label: "Air Traffic Controller" },
+  { value: "Marine Biologist", label: "Marine Biologist" },
+  { value: "Wildlife Biologist", label: "Wildlife Biologist" },
+  { value: "Zoologist", label: "Zoologist" },
+  { value: "Botanist", label: "Botanist" },
+  { value: "Ecologist", label: "Ecologist" },
+  { value: "Conservation Scientist", label: "Conservation Scientist" },
+  { value: "Geologist", label: "Geologist" },
+  { value: "Meteorologist", label: "Meteorologist" },
+  { value: "Astronomer", label: "Astronomer" },
+  { value: "Astrophysicist", label: "Astrophysicist" },
+  { value: "Cosmologist", label: "Cosmologist" },
+  { value: "Mathematician", label: "Mathematician" },
+  { value: "Statistician", label: "Statistician" },
+  { value: "Economist", label: "Economist" },
+  { value: "Political Scientist", label: "Political Scientist" },
+  { value: "Historian", label: "Historian" },
+  { value: "Archaeologist", label: "Archaeologist" },
+  { value: "Anthropologist", label: "Anthropologist" },
+  { value: "Sociologist", label: "Sociologist" },
+  { value: "Criminologist", label: "Criminologist" },
+  { value: "Detective", label: "Detective" },
+  { value: "Private Investigator", label: "Private Investigator" },
+  { value: "Security Officer", label: "Security Officer" },
+  { value: "Firefighter", label: "Firefighter" },
+  { value: "Paramedic", label: "Paramedic" },
+  { value: "Emergency Medical Technician", label: "Emergency Medical Technician" },
+  { value: "Registered Nurse", label: "Registered Nurse" },
+  { value: "Medical Technologist", label: "Medical Technologist" },
+  { value: "Phlebotomist", label: "Phlebotomist" },
+  { value: "Radiologic Technologist", label: "Radiologic Technologist" },
+  { value: "Physical Therapist", label: "Physical Therapist" },
+  { value: "Occupational Therapist", label: "Occupational Therapist" },
+  { value: "Speech Therapist", label: "Speech Therapist" },
+  { value: "Nutritionist", label: "Nutritionist" },
+  { value: "Fitness Trainer", label: "Fitness Trainer" },
+  { value: "Yoga Instructor", label: "Yoga Instructor" },
+  { value: "Personal Chef", label: "Personal Chef" },
+  { value: "Interior Designer", label: "Interior Designer" },
+  { value: "Event Planner", label: "Event Planner" },
+  { value: "Wedding Planner", label: "Wedding Planner" },
+  { value: "Travel Agent", label: "Travel Agent" },
+  { value: "Tour Guide", label: "Tour Guide" },
+  { value: "Financial Advisor", label: "Financial Advisor" },
+  { value: "Insurance Agent", label: "Insurance Agent" },
+  { value: "Real Estate Agent", label: "Real Estate Agent" },
+  { value: "Property Manager", label: "Property Manager" },
+  { value: "Loan Officer", label: "Loan Officer" },
+  { value: "Mortgage Broker", label: "Mortgage Broker" },
+  { value: "Tax Consultant", label: "Tax Consultant" },
+  { value: "Credit Analyst", label: "Credit Analyst" },
+  { value: "Investment Banker", label: "Investment Banker" },
+  { value: "Wealth Manager", label: "Wealth Manager" },
+  { value: "Human Resources Coordinator", label: "Human Resources Coordinator" },
+  { value: "Talent Acquisition Specialist", label: "Talent Acquisition Specialist" },
+  { value: "Training Manager", label: "Training Manager" },
+  { value: "Employee Relations Manager", label: "Employee Relations Manager" },
+  { value: "Compensation Analyst", label: "Compensation Analyst" },
+  { value: "Benefits Administrator", label: "Benefits Administrator" },
+  { value: "Recruitment Consultant", label: "Recruitment Consultant" },
+  { value: "Executive Assistant", label: "Executive Assistant" },
+  { value: "Administrative Assistant", label: "Administrative Assistant" },
+  { value: "Office Manager", label: "Office Manager" },
+  { value: "Virtual Assistant", label: "Virtual Assistant" },
+  { value: "Data Entry Clerk", label: "Data Entry Clerk" },
+  { value: "Receptionist", label: "Receptionist" },
+  { value: "Customer Service Representative", label: "Customer Service Representative" },
+  { value: "Call Center Agent", label: "Call Center Agent" },
+  { value: "Technical Support Specialist", label: "Technical Support Specialist" },
+  { value: "Help Desk Technician", label: "Help Desk Technician" },
+  { value: "IT Support Specialist", label: "IT Support Specialist" },
+  { value: "Network Administrator", label: "Network Administrator" },
+  { value: "Cyber Security Analyst", label: "Cyber Security Analyst" },
+  { value: "Forensic Computer Analyst", label: "Forensic Computer Analyst" },
+  { value: "Ethical Hacker", label: "Ethical Hacker" },
+  { value: "Penetration Tester", label: "Penetration Tester" },
+  { value: "Systems Analyst", label: "Systems Analyst" },
+  { value: "IT Consultant", label: "IT Consultant" },
+  { value: "ERP Consultant", label: "ERP Consultant" },
+  { value: "SAP Consultant", label: "SAP Consultant" },
+  { value: "Quality Assurance Analyst", label: "Quality Assurance Analyst" },
+  { value: "Regulatory Affairs Specialist", label: "Regulatory Affairs Specialist" },
+  { value: "Compliance Officer", label: "Compliance Officer" },
+  { value: "Risk Manager", label: "Risk Manager" },
+  { value: "Internal Auditor", label: "Internal Auditor" },
+  { value: "External Auditor", label: "External Auditor" },
+  { value: "Financial Controller", label: "Financial Controller" },
+  { value: "Chief Financial Officer", label: "Chief Financial Officer" },
+  { value: "Chief Executive Officer", label: "Chief Executive Officer" },
+  { value: "Chief Operating Officer", label: "Chief Operating Officer" },
+  { value: "Chief Technology Officer", label: "Chief Technology Officer" },
+  { value: "Chief Marketing Officer", label: "Chief Marketing Officer" },
+  { value: "Chief Information Officer", label: "Chief Information Officer" },
+  { value: "Chief Human Resources Officer", label: "Chief Human Resources Officer" },
+  { value: "Chief Legal Officer", label: "Chief Legal Officer" },
+  { value: "Chief Strategy Officer", label: "Chief Strategy Officer" },
+  { value: "Art Director", label: "Art Director" },
+  { value: "Creative Director", label: "Creative Director" },
+  { value: "Video Editor", label: "Video Editor" },
+  { value: "Sound Engineer", label: "Sound Engineer" },
+  { value: "Music Composer", label: "Music Composer" },
+  { value: "Game Designer", label: "Game Designer" },
+  { value: "Level Designer", label: "Level Designer" },
+  { value: "Storyboard Artist", label: "Storyboard Artist" },
+  { value: "Animator", label: "Animator" },
+  { value: "VFX Artist", label: "VFX Artist" },
+  { value: "3D Modeler", label: "3D Modeler" },
+  { value: "Fashion Designer", label: "Fashion Designer" },
+  { value: "Stylist", label: "Stylist" },
+  { value: "Fashion Buyer", label: "Fashion Buyer" },
+  { value: "Textile Designer", label: "Textile Designer" },
+  { value: "Jewelry Designer", label: "Jewelry Designer" },
+  { value: "Interior Decorator", label: "Interior Decorator" },
+  { value: "Event Coordinator", label: "Event Coordinator" },
+  { value: "Meeting Planner", label: "Meeting Planner" },
+  { value: "Conference Organizer", label: "Conference Organizer" },
+  { value: "Trade Show Coordinator", label: "Trade Show Coordinator" },
+  { value: "Tourism Officer", label: "Tourism Officer" },
+  { value: "Museum Curator", label: "Museum Curator" },
+  { value: "Art Conservator", label: "Art Conservator" },
+  { value: "Gallery Manager", label: "Gallery Manager" },
+  { value: "Art Dealer", label: "Art Dealer" },
 ];
 
 //education
@@ -1784,15 +1981,43 @@ export const sizeOptions = [
   { value: "500+", label: "500+" },
 ];
 
-export const convertCategoriesIntoList = (currentCategories, setState) => {
-  if (currentCategories.length !== 0) {
-    let categoryOptions = currentCategories.map((cat) => ({
-      value: cat.name,
-      label: cat.name,
-    }));
-    setState(categoryOptions);
+export const careerLevel=[
+  { value: "student", label: "student" },
+  { value: "entry level", label: "entry level" },
+  { value: "experienced/senior", label: "experienced/senior" },
+  { value: "manager/lead", label: "manager/lead" },
+  { value: "executive", label: "executive" },
+  { value: "not specified", label: "not specified" },
+]
+
+export const convertCategoriesIntoList = (currentCategories, setState,type) => {
+  if (currentCategories?.length !== 0) {
+  if(type==="return__Id"){
+      let categoryOptions = currentCategories?.map((cat) => ({
+        value: cat.id,
+        label: cat.name,
+      }));
+      setState(categoryOptions);
+
+  }else{
+      let categoryOptions = currentCategories?.map((cat) => ({
+        value: cat.name,
+        label: cat.name,
+      }));
+      setState(categoryOptions);
+  }
   }
 };
+
+export const convertSkillsIntoList=(currentSkills,setState)=>{
+  if(currentSkills?.length>0){
+    let skillsOption = currentSkills?.map((skill) => ({
+      value: skill.id,
+      label: skill.name,
+    }));
+    setState(skillsOption);
+  }
+}
 
 //functions
 export const formatedTimeHandler = (time, setState) => {

@@ -10,6 +10,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import exam from "../../images/exam.png";
 import AOS from "aos";
+import { useSelector } from "react-redux";
 
 const JobApplicationFormModal = () => {
   const [showResponse, setShowResponse] = useState(false);
@@ -18,9 +19,9 @@ const JobApplicationFormModal = () => {
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
+  const token = useSelector((state) => state.userInfo.token);
 
   const { jobId } = useParams();
-  const token = localStorage.getItem("token");
 
   const { data } = useQuery({
     queryKey: ["jobApplicationForm"],

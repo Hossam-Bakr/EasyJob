@@ -23,7 +23,7 @@ const Pagination = ({ setPageNum,maxPageNum }) => {
 
   return (
     <div
-      className={`${styles.pages} m-auto d-flex justify-content-evenly align-items-center my-1 w-75 px-2`}
+      className={`${styles.pages} m-auto d-flex justify-content-evenly align-items-center mb-1 mt-5 w-75 px-2`}
     >
       <div
         className={`${styles.page_arrow} ${styles.arrow_left}`}
@@ -33,7 +33,7 @@ const Pagination = ({ setPageNum,maxPageNum }) => {
       </div>
       <div
         onClick={() => hanldeActivePage(1)}
-        className={`${styles.page_num} ${
+        className={`${styles.page_num} ${styles.hidden_item_on_mobile2} ${
           isActive === 1 ? styles.active_num : ""
         }`}
       >
@@ -41,7 +41,7 @@ const Pagination = ({ setPageNum,maxPageNum }) => {
       </div>
       <div
         onClick={() => hanldeActivePage(2)}
-        className={`${styles.page_num} ${
+        className={`${styles.page_num} ${styles.hidden_item_on_mobile2}  ${
           isActive === 2 ? styles.active_num : ""
         }`}
       >
@@ -49,7 +49,7 @@ const Pagination = ({ setPageNum,maxPageNum }) => {
       </div>
       <div
         onClick={() => hanldeActivePage(3)}
-        className={`${styles.page_num} ${
+        className={`${styles.page_num} ${styles.hidden_item_on_mobile} ${
           isActive === 3 ? styles.active_num : ""
         }`}
       >
@@ -57,7 +57,7 @@ const Pagination = ({ setPageNum,maxPageNum }) => {
       </div>
       <div
         onClick={() => hanldeActivePage(4)}
-        className={`${styles.page_num} ${
+        className={`${styles.page_num} ${styles.hidden_item_on_mobile} ${
           isActive === 4 ? styles.active_num : ""
         }`}
       >
@@ -65,7 +65,7 @@ const Pagination = ({ setPageNum,maxPageNum }) => {
       </div>
       <div
         onClick={() => hanldeActivePage(5)}
-        className={`${styles.page_num} ${
+        className={`${styles.page_num} ${styles.hidden_item_on_mobile} ${
           isActive === 5 ? styles.active_num : ""
         }`}
       >
@@ -73,7 +73,7 @@ const Pagination = ({ setPageNum,maxPageNum }) => {
       </div>
 
       <div
-        className={`${styles.page_arrow} ${styles.arrow_right}`}
+        className={`${styles.page_arrow}  ${styles.arrow_right}`}
         onClick={() => hanldeActivePage(isActive + 1)}
       >
         <FontAwesomeIcon icon={faArrowRight} />

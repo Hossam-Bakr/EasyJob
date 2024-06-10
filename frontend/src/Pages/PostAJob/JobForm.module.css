@@ -1,8 +1,8 @@
 .field{
     display: flex;
     flex-direction: column;
-    margin-bottom: 1.75rem;
-    width: 100%;
+    margin-bottom: 1.875rem;
+    width: 90%;
     position: relative;
 }
 .field label{
@@ -10,38 +10,33 @@
     margin-bottom: 0.3125rem;
 }
 .check_Box{
-    min-width: 120px;
-    height: 50px;
+    min-width: 6.25rem;
+    height: 3.125rem;
     background-color: #F5F6F7;
-    font-size: 15px;
+    font-size: 0.9375rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: #cececf 0.25px solid;
-    padding: 4px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-right: 10px;
+    flex-wrap: wrap;
+    border: #cececf 0.0156rem solid;
+    border-radius: 0.625rem;
+    padding: 0.25rem;
+    transition: border-color .4s;
 }
 .check_Box:hover{
     cursor: pointer;
+    border-color: var(--main_color);
+}
+.radio_input{
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-right: 0.625rem;
 }
 
-.check_Box label{
-    margin-right: 10px;
-}
 .check_Box label:hover{
     cursor: pointer;
 }
-.checkbox_group{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
 
-.disabled_faild{
-    color: var(--dark_white);
-    opacity: .7;
-}
 .collection{
     display: flex;
     justify-content: space-between;
@@ -54,7 +49,6 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    /* align-self: c; */
 }
 .SecondCollection h6{
     margin-top: 0.5rem;
@@ -62,7 +56,6 @@
     margin-right: .5rem;
 }
 .SecondCollection label{
-    /* margin-top: .85rem; */
     margin: .5rem .2rem;
     font-weight: 200;
 }
@@ -71,19 +64,8 @@
     font-weight: 700;
     color: black;
 }
-.general_info_form .SecondBox .jobDesc{
-    font-weight: bolder;
-    font-size: 18px;
-}
-.SecondBox label {
-    font-weight: 300;
-    font-size: 15px;
-}
-.founded {
-    border-radius: 5px;
-    padding: 6px 5px;
-}
-.save_btn{
+
+.save_btn,.save_btn_question,.Ediet_btn{
     background-color: var(--main_color);
     color: white;
     padding: 0.625rem 0.9375rem;
@@ -98,12 +80,98 @@
     transform: translateX(0.3125rem);
 }
 
-.thumb_icon{
-    position: absolute;
-    right:20px;
-    top: 60%;
-    color: red;
+.save_btn_question{
+    background-color: var(--darker_main_color);
+    margin-top: 40px;
 }
+.Ediet_btn{
+    background-color:var(--dark_white);
+}
+.Ediet_btn:hover{
+    background-color: var(--darker_main_color);
+    transform: translateX(-0.3125rem);
+}
+.save_btn_question:hover{
+    background-color: var(--main_color);
+    transform: translateX(0.3125rem);
+}
+.delete_btn{
+    min-width: 7.5rem;
+    font-weight: 600;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid var(--font_color);
+    color: var(--font_color);
+    opacity: .7;
+    transition: all .3s;
+
+}
+.delete_btn:hover{
+    color: red;
+    border: 0.0625rem solid red;
+    opacity: 1;
+    transform: translateX(-0.3125rem);
+}
+
+.select_group{
+    width: 100%;
+}
+.field h4{
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.select_category{
+    width: 100%;
+}
+.skill_field{
+    padding: 50px 30px ;
+    width: 100%;
+    text-align: center;
+    border: 1px dashed var(--main_color);
+    background-color: var(--vanilla);
+    margin: 20px 0;
+    border-radius: 10px;
+    position: relative;
+}
+.add_skill_btn{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--dark_white);
+    transition: all .4s;
+}
+.add_skill_btn:hover{
+    color: black;
+    scale: 1.05;
+}
+
+.red_circle,.yellow_circle,.green_circle{
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.125rem;
+    border-radius: 50%;
+}
+.red_circle{
+    background-color: red;
+}
+.yellow_circle{
+    background-color: orange;
+
+}
+.green_circle{
+    background-color: rgb(7, 176, 7);
+}
+.skill_color{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px 10px 0;
+}
+
+
 .text_area_desc{
     width: 100%;
     margin-top: 0.625rem;
@@ -115,82 +183,32 @@
     outline: none;
     border: 0.0625rem solid rgb(162, 162, 162);
 }
-.user_general_info .field{
-    margin-bottom: 30px;
+
+.location_map{
+    height: 60vh;
+    width:100%;
 }
 
-.check_field{
-    font-size: 18px;
-    padding: 0 !important;
-}
 
-.check_field input{
-    padding: 12px 25px;
-}
-.checks{
-    background-color: white;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.399);
-    padding: 20px 10px;
+
+
+/* __________________________________________________questions___________________________________________________________________ */
+
+.no_questions{
+    padding: 50px 10px 10px 10px;
     border-radius: 10px;
-}
-.select_title{
     background-color: var(--vanilla);
-    font-weight: 700;
-}
-
-.delete_btn{
-    min-width: 120px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--font_color);
-    color: var(--font_color);
-    opacity: .7;
-    transition: all .3s;
-
-}
-.delete_btn:hover{
-    color: red;
-    border: 1px solid red;
-    opacity: 1;
-    transform: translateX(-5px);
-}
-
-/* -----------------------------career--------------------------------------- */
-.career_label{
-    color: var(--dark_white);
-    font-size: 1rem;
-    font-weight: 600 !important;
-    padding: 0.625rem;
-    border-radius: 0.625rem;
-    border: 0.0625rem solid rgb(201, 201, 201);
-    color: var(--font_color);
-    min-width:12.5rem;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.163);
     text-align: center;
-    cursor: pointer;
-    transition: all .4s !important;
 }
-.career_label:hover{
-   scale: 1.05;
-}
-.select_group{
-    width: 100%;
-}
-.field h4{
-    font-size: 1.25rem;
+.no_questions span{
     font-weight: 700;
-}
-.checks_group{
-    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.263);
-    padding: 1.25rem;
-    border-radius: 0.625rem;
-    margin: 1.875rem 0;
-}
-.select_category{
-    width: 90%;
+    font-size: 20px;
+    color: black;
 }
 
-@media screen and (max-width:37.5rem) {
+
+@media screen and (max-width:600px) {
     .field h4{
         margin: 0;
         text-align: center;
@@ -198,11 +216,16 @@
 }
 
 
-@media screen and (max-width:250px) {
-    .collection{
-        flex-wrap: wrap;
+@media screen and (max-width:500px) {
+    .collection,.SecondCollection{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     } 
-    .collection div{
+    .SecondCollection div{
+        width: 100%;
+    }
+    .collection div,.collection .field{
         width: 100%;
     }
     .career_label{

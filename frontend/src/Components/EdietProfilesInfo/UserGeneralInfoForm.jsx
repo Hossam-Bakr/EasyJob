@@ -217,10 +217,10 @@ const UserGeneralInfoForm = ({ data }) => {
           >
             <div className={styles.collection}>
               <div className={styles.field}>
-                <label htmlFor="userCountry">Country</label>
+                <label htmlFor="userGeneraluserCountry">Country</label>
                 <Select
                   name="country"
-                  id="userCountry"
+                  id="userGeneraluserCountry"
                   placeholder={currentCountry}
                   isMulti={false}
                   options={countryOptions}
@@ -230,10 +230,10 @@ const UserGeneralInfoForm = ({ data }) => {
               </div>
 
               <div className={styles.field}>
-                <label htmlFor="userCity">City</label>
+                <label htmlFor="userGeneraluserCity">City</label>
                 <Select
                   name="city"
-                  id="userCity"
+                  id="userGeneraluserCity"
                   placeholder={currentCity}
                   isMulti={false}
                   options={formatedCityOptions}
@@ -245,10 +245,10 @@ const UserGeneralInfoForm = ({ data }) => {
 
             <div className={styles.collection}>
               <div className={styles.field}>
-                <label htmlFor="nationality">Nationality</label>
+                <label htmlFor="userGeneralnationality">Nationality</label>
                 <Field
                   name="nationality"
-                  id="nationality"
+                  id="userGeneralnationality"
                   isMulti={false}
                   component={MultiSelect}
                   placeholder={currentNationality}
@@ -261,10 +261,10 @@ const UserGeneralInfoForm = ({ data }) => {
               </div>
 
               <div className={styles.field}>
-                <label htmlFor="area">Area</label>
+                <label htmlFor="userGeneralarea">Area</label>
                 <Field
                   name="area"
-                  id="area"
+                  id="userGeneralarea"
                   placeholder={currentArea}
                   isMulti={false}
                   component={MultiSelect}
@@ -274,31 +274,31 @@ const UserGeneralInfoForm = ({ data }) => {
               </div>
             </div>
             <div className={styles.field}>
-              <label htmlFor="birthDate">BirthDate</label>
+              <label htmlFor="userGeneralbirthDate">BirthDate</label>
               <Field
                 type="date"
                 placeholder={currentBirthDate}
                 className={data.birthDate ? "" : styles.empty_field}
-                id="birthDate"
+                id="userGeneralbirthDate"
                 name="birthDate"
               />
               <ErrorMessage name="birthDate" component={InputErrorMessage} />
             </div>
             <div className={styles.field}>
-              <label htmlFor="tagline">TagLine</label>
+              <label htmlFor="userGeneraltagline">TagLine</label>
               <Field
                 type="text"
-                id="tagline"
+                id="userGeneraltagline"
                 name="tagline"
                 className={data.tagline ? "" : styles.empty_field}
               />
               <ErrorMessage name="phone" component={InputErrorMessage} />
             </div>
             <div className={styles.field}>
-              <label htmlFor="userPhone">Phone</label>
+              <label htmlFor="userGeneraluserPhone">Phone</label>
               <Field
                 type="tel"
-                id="userPhone"
+                id="userGeneraluserPhone"
                 name="phone"
                 className={data.phone ? "" : styles.empty_field}
               />
@@ -308,28 +308,28 @@ const UserGeneralInfoForm = ({ data }) => {
               <div
                 className={`${styles.check_field} form-check form-switch d-flex justify-content-between mb-4`}
               >
-                <label className="form-check-label" htmlFor="openToWork">
+                <label className="form-check-label" htmlFor="userGeneralopenToWork">
                   Available for immediate hiring
                 </label>
                 <Field
                   className="form-check-input"
                   type="checkbox"
                   role="switch"
-                  id="openToWork"
+                  id="userGeneralopenToWork"
                   name="openToWork"
                 />
               </div>
               <div
                 className={`${styles.check_field} form-check form-switch d-flex justify-content-between mb-4`}
               >
-                <label className="form-check-label" htmlFor="drivingLicense">
+                <label className="form-check-label" htmlFor="userGeneraldrivingLicense">
                   Do you have a driving license?
                 </label>
                 <Field
                   className="form-check-input"
                   type="checkbox"
                   role="switch"
-                  id="drivingLicense"
+                  id="userGeneraldrivingLicense"
                   name="drivingLicense"
                 />
               </div>
@@ -337,24 +337,24 @@ const UserGeneralInfoForm = ({ data }) => {
               <div className="form-check form-check-inline">
                 <Field
                   type="radio"
-                  id="male"
+                  id="userGeneralmale"
                   name="gender"
                   value="male"
                   className="form-check-input"
                 />
-                <label className="form-check-label" htmlFor="male">
+                <label className="form-check-label" htmlFor="userGeneralmale">
                   male
                 </label>
               </div>
               <div className="form-check form-check-inline">
                 <Field
                   type="radio"
-                  id="female"
+                  id="userGeneralfemale"
                   name="gender"
                   value="female"
                   className="form-check-input"
                 />
-                <label className="form-check-label" htmlFor="female">
+                <label className="form-check-label" htmlFor="userGeneralfemale">
                   female
                 </label>
               </div>
@@ -364,7 +364,7 @@ const UserGeneralInfoForm = ({ data }) => {
               <Field
                 as="textarea"
                 placeholder={currentAbout ? currentAbout : "about"}
-                id="aboutInfo"
+                id="userGeneralaboutInfo"
                 name="about"
                 cols="30"
                 rows="7"

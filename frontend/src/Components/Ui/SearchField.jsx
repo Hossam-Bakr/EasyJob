@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./SearchField.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faTruckLoading } from "@fortawesome/free-solid-svg-icons";
 
-const SearchField = () => {
+const SearchField = ({onSearch,text,isSearching}) => {
+
+  const [searchInput,setSearchInput]=useState("");
+
+  const saveSearchData=(e)=>{
+    setSearchInput(e.target.value)
+  }
+
+
   return (
-    <form className={`${styles.search_container} ms-auto`}>
-      <input type="text" id="search" placeholder="Search here.." />
+    <form  onSubmit={(e)=>onSearch(e,searchInput)} className={`${styles.search_container} ms-auto`}>
+      <input onChange={saveSearchData} type="search" placeholder={text} />
       <button type="submit" className={styles.search_icon}>
-        <FontAwesomeIcon icon={faSearch} />
+        {isSearching?<FontAwesomeIcon className="fa-spin" icon={faTruckLoading}/>:<FontAwesomeIcon title="search" icon={faSearch} />}
       </button>
     </form>
   );

@@ -197,11 +197,11 @@ const LinkForm = ({ data }) => {
         >
           <Form className={styles.general_info_form}>
             <div className={styles.field}>
-              <label htmlFor="website">Website</label>
+              <label htmlFor="linkwebsite">Website</label>
               <Field
                 type="text"
                 placeholder={currentWebsite}
-                id="website"
+                id="linkwebsite"
                 name="website"
               />
               {!data.website && (
@@ -214,11 +214,11 @@ const LinkForm = ({ data }) => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="linkedIn">linkedIn</label>
+              <label htmlFor="linklinkedIn">linkedIn</label>
               <Field
                 type="text"
                 placeholder={currentLinkedIn}
-                id="linkedIn"
+                id="linklinkedIn"
                 name="linkedIn"
               />
               {!data.linkedIn && (
@@ -232,11 +232,11 @@ const LinkForm = ({ data }) => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="facebook">facebook</label>
+              <label htmlFor="linkfacebook">facebook</label>
               <Field
                 type="text"
                 placeholder={currentFacebook}
-                id="facebook"
+                id="linkfacebook"
                 name="facebook"
               />
               {!data.facebook && (
@@ -250,11 +250,11 @@ const LinkForm = ({ data }) => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="twitter">twitter</label>
+              <label htmlFor="linktwitter">twitter</label>
               <Field
                 type="text"
                 placeholder={currentTwitter}
-                id="twitter"
+                id="linktwitter"
                 name="twitter"
               />
               {!data.twitter && (
@@ -268,13 +268,13 @@ const LinkForm = ({ data }) => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor={changedLinkone}>{changedLinkone}</label>
+              <label htmlFor="changedLink">{changedLinkone}</label>
               <Field
                 type="text"
                 placeholder={
                   role === "company" ? currentInstagram : currentGithub
                 }
-                id={changedLinkone}
+                id="changedLink"
                 name={changedLinkone}
               />
               {(role === "company" ? !data.instagram : !data.github) && (
@@ -290,11 +290,11 @@ const LinkForm = ({ data }) => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="youtube">youtube</label>
+              <label htmlFor="linkyoutube">youtube</label>
               <Field
                 type="text"
                 placeholder={currentYoutube}
-                id="youtube"
+                id="linkyoutube"
                 name="youtube"
               />
               {!data.youtube && (
@@ -307,11 +307,11 @@ const LinkForm = ({ data }) => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="behance">behance</label>
+              <label htmlFor="linkbehance">behance</label>
               <Field
                 type="text"
                 placeholder={currentBehance}
-                id="behance"
+                id="linkbehance"
                 name="behance"
               />
               {!data.behance && (
@@ -324,13 +324,13 @@ const LinkForm = ({ data }) => {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor={changedLinktwo}>{changedLinktwo}</label>
+              <label htmlFor="changedLinkTwo">{changedLinktwo}</label>
               <Field
                 type="text"
                 placeholder={
                   role === "company" ? currentVimeo : currentStackOverflow
                 }
-                id={changedLinktwo}
+                id="changedLinkTwo"
                 name={changedLinktwo}
               />
               {(role === "company" ? !data.vimeo : !data.stackOverflow) && (

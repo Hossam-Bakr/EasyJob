@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseServerUrl = "http://127.0.0.1:3000/api/v1/";
+const baseServerUrl = process.env.REACT_APP_Base_API_URl;
 
 const signFormsHandler = async ({ type, formData, method }) => {
   try {
@@ -80,7 +80,7 @@ export const getIndustries = async ({
   formData,
   method,
   pageNum,
-  industryList
+  industryList,
 }) => {
   try {
     let response = null;
@@ -99,15 +99,12 @@ export const getIndustries = async ({
           `${baseServerUrl}industries${type}${formData}`
         );
       }
-    }
-    else if(method==="industryList"){
-      response = await axios(`${baseServerUrl}industries`, {
-      });
-    }
-   else {
+    } else if (method === "industryList") {
+      response = await axios(`${baseServerUrl}industries`, {});
+    } else {
       response = await axios(`${baseServerUrl}industries`, {
         params: {
-          limit:8,
+          limit: 8,
           page: pageNum,
         },
       });
@@ -183,41 +180,138 @@ export const accountSettingHanlder = async ({
   }
 };
 
-export const getJobs = async ({ type, formData, method, pageNum }) => {
+export const getJobs = async ({
+  type,
+  formData,
+  method,
+  token,
+  pageNum,
+  searchFilter,
+  countryFilteration,
+  cityFilteration,
+  categoriesFilteration,
+  jobTypeFilteration,
+  careerLevelFilteration,
+  workPlaceFilteration,
+  minSalaryFilteration,
+  maxSalaryFilteration,
+  jobTitleFilteration,
+}) => {
+  //handle categories
   try {
+    let params = {
+      limit: 15,
+      page: pageNum,
+    };
     let response = null;
+    let paramValues = "";
+
+    if (!method) {
+      if (searchFilter) {
+        paramValues = `?keyword=${searchFilter}`;
+      }
+
+      if (jobTitleFilteration) {
+        params.title = jobTitleFilteration;
+      }
+      if (countryFilteration.length > 0) {
+        countryFilteration.forEach((myCountry) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?country=${myCountry}`);
+          } else {
+            paramValues = paramValues.concat(`&country=${myCountry}`);
+          }
+        });
+      }
+
+      if (cityFilteration.length > 0) {
+        cityFilteration.forEach((myCity) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?city=${myCity}`);
+          } else {
+            paramValues = paramValues.concat(`&city=${myCity}`);
+          }
+        });
+      }
+
+      if (jobTypeFilteration.length > 0) {
+        jobTypeFilteration.forEach((myType) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?type=${myType}`);
+          } else {
+            paramValues = paramValues.concat(`&type=${myType}`);
+          }
+        });
+      }
+
+      if (careerLevelFilteration.length > 0) {
+        careerLevelFilteration.forEach((myCareer) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?careerLevel=${myCareer}`);
+          } else {
+            paramValues = paramValues.concat(`&careerLevel=${myCareer}`);
+          }
+        });
+      }
+
+      if (workPlaceFilteration.length > 0) {
+        workPlaceFilteration.forEach((place) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?workplace=${place}`);
+          } else {
+            paramValues = paramValues.concat(`&workplace=${place}`);
+          }
+        });
+      }
+
+      if (minSalaryFilteration.length > 0) {
+        minSalaryFilteration.forEach((salary) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?salaryRangeMin__gte=${salary}`);
+          } else {
+            paramValues = paramValues.concat(`&salaryRangeMin__gte=${salary}`);
+          }
+        });
+      }
+      if (maxSalaryFilteration.length > 0) {
+        maxSalaryFilteration.forEach((salary) => {
+          if (paramValues === "") {
+            paramValues = paramValues.concat(
+              `?salaryRangeMax__lte  =${salary}`
+            );
+          } else {
+            paramValues = paramValues.concat(
+              `&salaryRangeMax__lte  =${salary}`
+            );
+          }
+        });
+      }
+    }
+
     if (type) {
       if (method === "post") {
-        response = await axios.post(`${baseServerUrl}jobs${type}`, formData);
-      } else if (method === "put") {
-        response = await axios.put(`${baseServerUrl}jobs${type}${formData}`);
+        response = await axios.post(`${baseServerUrl}jobs${type}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } else if (method === "patch") {
+        response = await axios.patch(`${baseServerUrl}jobs${type}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       } else if (method === "delete") {
         response = await axios.delete(`${baseServerUrl}jobs${type}${formData}`);
       }
     } else {
-      response = await axios(
-        `${baseServerUrl}jobs/`,
-        {
-          params: {
-            limit: 15,
-            page: pageNum,
-          },
-        }
-      );
+      response = await axios(`${baseServerUrl}jobs/${paramValues}`, {
+        params,
+      });
     }
     return response.data;
   } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getJobsDetails = async (id) => {
-  try {
-    const response = await axios(`${baseServerUrl}jobs/${id}`);
-
-    return response.data.data.job;
-  } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -244,9 +338,8 @@ export const saveJobsHandler = async ({ jobId, token }) => {
 export const getLatestJobs = async (num) => {
   try {
     const response = await axios.get(`${baseServerUrl}jobs/latest/${num}`);
-      
-    return response;
 
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -373,13 +466,53 @@ export const getCompanyCandidates = async ({ id, token, pageNum }) => {
   }
 };
 
-export const getCompanies = async (pageNum) => {
+export const getCompanies = async ({
+  pageNum,
+  indusryFilteration,
+  countryFilteration,
+  cityFilteration,
+  sizeFilteration,
+}) => {
+  console.log(sizeFilteration);
+  let params = {
+    limit: 15,
+    page: pageNum,
+  };
+  let paramValues = "";
+
+  if (indusryFilteration) {
+    params.IndustryId = indusryFilteration;
+  }
+  if (countryFilteration.length > 0) {
+    countryFilteration.forEach((myCountry) => {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?country=${myCountry}`);
+      } else {
+        paramValues = paramValues.concat(`&country=${myCountry}`);
+      }
+    });
+  }
+  if (cityFilteration.length > 0) {
+    cityFilteration.forEach((myCity) => {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?city=${myCity}`);
+      } else {
+        paramValues = paramValues.concat(`&city=${myCity}`);
+      }
+    });
+  }
+  if (sizeFilteration.length > 0) {
+    sizeFilteration.forEach((size) => {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?size=${size}`);
+      } else {
+        paramValues = paramValues.concat(`&size=${size}`);
+      }
+    });
+  }
   try {
-    const res = await axios(`${baseServerUrl}companies`, {
-      params: {
-        limit: 15,
-        page: pageNum,
-      },
+    const res = await axios(`${baseServerUrl}companies${paramValues}`, {
+      params,
     });
     return res;
   } catch (error) {
@@ -387,8 +520,7 @@ export const getCompanies = async (pageNum) => {
   }
 };
 
-export const getCompanyRelatedJobs = async ({id}) => {
-
+export const getCompanyRelatedJobs = async ({ id }) => {
   try {
     const res = await axios(`${baseServerUrl}jobs/?CompanyId=${id}`);
 
@@ -398,16 +530,29 @@ export const getCompanyRelatedJobs = async ({id}) => {
   }
 };
 
-export const getJobApplications=async({jobId,token})=>{
-  try{
-    const res=await axios.get(`${baseServerUrl}jobs/${jobId}`,{
+export const getJobApplications = async ({ jobId, token }) => {
+  try {
+    const res = await axios.get(`${baseServerUrl}jobs/${jobId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
-    return res.data
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
   }
-  catch(error){
-    console.error(error)
+};
+
+export const getJobsDetails = async ({ jobId, token }) => {
+  try {
+    const response = await axios(`${baseServerUrl}jobs/${jobId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.data.job;
+  } catch (error) {
+    console.error(error);
   }
-}
+};

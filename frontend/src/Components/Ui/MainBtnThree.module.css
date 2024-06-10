@@ -10,14 +10,19 @@
 }
 
 .white_btn{
-    color:var(--main_color) !important;
     background-color:white;
     border: 1px solid var(--main_color) !important;
 }
-
+.white_btn .btn_text{
+    color:var(--main_color) ;
+}
+.main_color_btn .btn_text{
+    color: white;
+}
 .btn_text{
     position: relative;
-    z-index:2 ;
+    z-index:5 ;
+    transition: all .4s;
 }
 .first_layer1,.second_layer1,.third_layer1,.first_layer2,.second_layer2,.third_layer2{
     position: absolute !important;
@@ -41,7 +46,7 @@
     transition: all 1s;  
 }
 .white_btn:hover{
-    color:white !important;
+    color:white;
 }
 .white_btn:hover .first_layer1{
    transform:translateX(0);
@@ -55,7 +60,7 @@
 
 /* ________________________________________main_color_btn__________________________________________ */
 .main_color_btn{
-    color:white !important;
+    color:white ;
     background-color:var(--main_color) !important;
     box-shadow: 0 0 0.1875rem var(--main_color);
 }
@@ -74,10 +79,14 @@
     background-color: rgb(255,255,255);
     transform:translateX(-101%);
     border-radius: 0.3125rem;
+    z-index: 3;
     transition: all 1s;  
 }
-.main_color_btn:hover{
-    color:var(--main_color) !important;
+.white_btn:hover .btn_text{
+    color:white;
+}
+.main_color_btn:hover .btn_text{
+    color:var(--main_color);
 }
 .main_color_btn:hover .first_layer2{
    transform:translateX(0);

@@ -10,7 +10,7 @@ import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import FloatingPopup from "./../Ui/FloatingPopup";
 import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
-import { totalYearsConversion } from "../logic/Logic";
+import { totalYearsConversion, yearsOptions } from "../logic/Logic";
 import MultiSelect from "../logic/SelectField";
 
 const YearsExperienceForm = ({ totalYearsOfExperience }) => {
@@ -101,27 +101,6 @@ const YearsExperienceForm = ({ totalYearsOfExperience }) => {
       "total years Of experience is required"
     ),
   });
-
-  const yearsOptions = [
-    { value: 0, label: "No Experience" },
-    { value: 0.5, label: "less than year" },
-    { value: 1, label: "1 year" },
-    { value: 2, label: "2 years" },
-    { value: 3, label: "3 years" },
-    { value: 4, label: "4 years" },
-    { value: 5, label: "5 years" },
-    { value: 6, label: "6 years" },
-    { value: 7, label: "7 years" },
-    { value: 8, label: "8 years" },
-    { value: 9, label: "9 years" },
-    { value: 10, label: "10 years" },
-    { value: 11, label: "11 years" },
-    { value: 12, label: "12 years" },
-    { value: 13, label: "13 years" },
-    { value: 14, label: "14 years" },
-    { value: 15, label: "15 years" },
-    { value: 16, label: "+15 years" },
-  ];
 
   return (
     <>

@@ -28,7 +28,6 @@ import Companies from "./Pages/Companies/Companies";
 import "./App.css";
 import CompanyProfile from "./Pages/Profiles/CompanyProfile";
 import CompanyInfo from "./Pages/CompanyInfo/CompanyInfo";
-import CompanyAdmins from "./Pages/CompanyAdmins/CompanyAdmins";
 import CompanyDashboard from "./Pages/Dashboards/CompanyDashboard";
 import MyTest from "./Components/Test/MyTest";
 import MainError from "./Pages/Error/MainError";
@@ -37,7 +36,7 @@ import SuperAdminDashboard from "./Pages/Dashboards/SuperAdmin/SuperAdminDashboa
 import CompanyAccountSetting from "./Pages/AccountSetting/CompanyAccountSetting";
 import UserAccountSetting from "./Pages/AccountSetting/UserAccountSetting";
 import UserInfo from "./Pages/UserInfo/UserInfo";
-import getAllCategories, { getAllIndustries } from "./Store/category-actions";
+import getAllCategories, { getAllIndustries, getAllSkills } from "./Store/category-actions";
 import { getSavedJobsHandler } from "./Store/savedJobs-actions";
 import JobDetails from "./Pages/JobDetails/JobDetails";
 import ForgetPassword from "./Pages/ForgetPassword/ForgetPassword";
@@ -46,6 +45,7 @@ import JobStagesBoard from "./Pages/JobStages/JobStagesBoard";
 import VisitCompanyProfile from "./Pages/Profiles/VisitCompanyProfile";
 import VisiteEmployeeProfile from "./Pages/Profiles/VisiteEmployeeProfile";
 import JobApplicationFormModal from "./Components/Ui/JobApplicationFormModal";
+import PreviewMyJob from "./Pages/JobDetails/PreviewMyJob";
 
 const router = createBrowserRouter([
   {
@@ -74,9 +74,9 @@ const router = createBrowserRouter([
       { path: "company-profile/:companyId", element: <CompanyProfile /> },
       { path: "companyProfile/:companyId", element: < VisitCompanyProfile/> },
       { path: "company-info", element: <CompanyInfo /> },
-      { path: "company-admins", element: <CompanyAdmins /> },
-      { path: "company-dashboard", element: <CompanyDashboard /> },
+      { path: "company-dashboard/:companyId", element: <CompanyDashboard /> },
       { path: "stages/:jobId", element: <JobStagesBoard /> },
+      { path: "preview-job/:jobId", element: <PreviewMyJob /> },
       { path: "company-account-setting", element: <CompanyAccountSetting /> },
       { path: "login", element: <Login /> },
       { path: "forget-password", element: <ForgetPassword /> },
@@ -102,14 +102,19 @@ function App() {
     }
   }, [dispatch, token, role]);
 
-  // get all categories data from database
+  // get all categories from database
   useEffect(() => {
       dispatch(getAllCategories());
   }, [dispatch]);
 
-  // get all industries data from database
+  // get all industries from database
   useEffect(() => {
       dispatch(getAllIndustries());
+  }, [dispatch]);
+
+  // get all skills from database
+  useEffect(() => {
+      dispatch(getAllSkills());
   }, [dispatch]);
 
   // get saved jobs data from database

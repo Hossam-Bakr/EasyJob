@@ -8,6 +8,10 @@
     margin-bottom: 0.625rem;
     min-height: 20.8125rem;
 }
+.job_profile{
+    min-height: 10px;
+}
+
 .job:hover{
     border: 0.0625rem solid var(--main_color);
 }
@@ -150,9 +154,10 @@
 .info_table{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     font-size: 15px;
     font-weight: 600;
+    margin-left: 30px;
 }
 
 

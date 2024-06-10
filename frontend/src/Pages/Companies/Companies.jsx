@@ -13,14 +13,34 @@ import { getCompanies } from "../../util/Http";
 import NoDataBox from "./../../Components/Ui/NoDataBox";
 import LoadingPlaceholders from "../../Components/Ui/LoadingPlaceholders";
 import Pagination from "../../Components/Ui/Pagination";
+import Select from "react-select";
+import { useSelector } from "react-redux";
+import { Cities, sizeOptions } from "../../Components/logic/Logic";
+import GoTopButton from "../../Components/Ui/GoTopButton";
 
 const Companies = () => {
-  const [gridView, setGridView] = useState(true); 
-  const [pageNum, setPageNum] = useState(1); 
+  const [gridView, setGridView] = useState(true);
+  const [pageNum, setPageNum] = useState(1);
+  const [indusryFilteration, setIndustryFilteration] = useState(null);
+  const [countryFilteration, setCountryFilteration] = useState([]);
+  const [cityFilteration, setCityFilteration] = useState([]);
+  const [sizeFilteration, setSizeFilteration] = useState([]);
 
-  let { data, isFetching,refetch } = useQuery({
+  const [industryOptions, setIndustryOptions] = useState(null);
+  const [showMoreCities, setShowMoreCities] = useState(false);
+
+  const currentIndustries = useSelector((state) => state.category.industries);
+
+  let { data, isFetching, refetch } = useQuery({
     queryKey: ["companies"],
-    queryFn:()=>getCompanies(pageNum),
+    queryFn: () =>
+      getCompanies({
+        pageNum,
+        indusryFilteration,
+        countryFilteration,
+        cityFilteration,
+        sizeFilteration
+      }),
   });
 
   const setGrid = () => {
@@ -30,190 +50,133 @@ const Companies = () => {
     setGridView(false);
   };
 
-  useEffect(()=>{
-    refetch()
-    window.scrollTo(0,0)
-  },[pageNum,refetch])
+  const filterOperations = (type, filterValue) => {
+    switch (type) {
+      case "industry":
+        if (filterValue) {
+          setIndustryFilteration(filterValue);
+        }
+        break;
+      case "country":
+        const newCountry = countryFilteration.find(
+          (country) => country === filterValue
+        );
+        if (!newCountry) {
+          const updatedList = [...countryFilteration, filterValue];
+          setCountryFilteration(updatedList);
+        } else {
+          const updatedFilterList = [...countryFilteration];
+          const newList = updatedFilterList.filter(
+            (country) => country !== newCountry
+          );
+          setCountryFilteration(newList);
+        }
+        break;
+      case "city":
+        const newCity = cityFilteration.find((city) => city === filterValue);
+        if (!newCity) {
+          const updatedList = [...cityFilteration, filterValue];
+          setCityFilteration(updatedList);
+        } else {
+          const updatedFilterList = [...cityFilteration];
+          const newList = updatedFilterList.filter((city) => city !== newCity);
+          setCityFilteration(newList);
+        }
+        break;
+      case "size":
+        const newSize = sizeFilteration.find((size) => size === filterValue);
+        if (!newSize) {
+          const updatedList = [...sizeFilteration, filterValue];
+          setSizeFilteration(updatedList);
+        } else {
+          const updatedFilterList = [...sizeFilteration];
+          const newList = updatedFilterList.filter((size) => size !== newSize);
+          setSizeFilteration(newList);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const addParamsToFilterList = (e, value, tag) => {
+    if (e !== false) {
+      const filterType = e.target.getAttribute("tag");
+      const filterValue = e.target.value;
+      switch (filterType) {
+        case "country":
+          filterOperations("country", filterValue);
+          break;
+        case "city":
+          filterOperations("city", filterValue);
+          break;
+        case "size":
+          filterOperations("size", filterValue);
+          break;
+        default:
+          break;
+      }
+    } else {
+      if (tag === "industry") {
+        filterOperations("industry", value.value);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (currentIndustries) {
+      let industryOptions = currentIndustries.map((indust) => ({
+        value: indust.id,
+        label: indust.name,
+      }));
+      setIndustryOptions(industryOptions);
+    }
+  }, [currentIndustries]);
+
+  useEffect(() => {
+    refetch();
+    window.scrollTo(0, 0);
+  }, [
+    pageNum,
+    indusryFilteration,
+    countryFilteration,
+    cityFilteration,
+    sizeFilteration,
+    refetch,
+  ]);
 
   return (
     <Container fluid className="mb-5">
       <Row>
-        <Col sm={5} md={3} className={styles.aside_container}>
+        <Col sm={6} md={4} lg={3} className={styles.aside_container}>
           <aside className={styles.job_filters}>
             <div className="d-flex align-items-center">
               <h2>Filters</h2>
             </div>
-            <Accordion alwaysOpen defaultActiveKey={["0", "1", "2", "3", "4"]}>
+            <Accordion alwaysOpen defaultActiveKey={["0"]}>
               <FilterAccordion title="Filter by Industry" eventKey="0">
-                <ul className={styles.filter_list}>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="industry_All"
-                        defaultChecked
-                      />
-                      <label htmlFor="industry_All">All</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="industry_ Frontend_Developer"
-                      />
-                      <label htmlFor="industry_ Frontend_Developer">
-                        {" "}
-                        Frontend Developer
-                      </label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="industry_Backend_Developer"
-                      />
-                      <label htmlFor="industry_Backend_Developer">
-                        Backend Developer
-                      </label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="industry_Accounting"
-                      />
-                      <label htmlFor="industry_Accounting">Accounting</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="industry_Engineering"
-                      />
-                      <label htmlFor="industry_Engineering">Engineering</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="industry_Marketing"
-                      />
-                      <label htmlFor="industry_Marketing">Marketing</label>
-                    </div>
-                  </li>
-                </ul>
-                <div className="text-end">
-                  <span className={styles.more}>show more</span>
-                </div>
+                <Select
+                  classNamePrefix="select"
+                  placeholder="Search by Industry"
+                  isSearchable={true}
+                  name="industry"
+                  options={industryOptions}
+                  onChange={(value) =>
+                    addParamsToFilterList(false, value, "industry")
+                  }
+                />
               </FilterAccordion>
-              <FilterAccordion title="Filter by Company Size" eventKey="1">
+              <FilterAccordion title="Filter by Country" eventKey="1">
                 <ul className={styles.filter_list}>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="size_All"
-                        defaultChecked
-                      />
-                      <label htmlFor="size_All">All</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="size_ 50"
-                      />
-                      <label htmlFor="size_ 50">{">"}50 employee</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="size_200"
-                      />
-                      <label htmlFor="size_200">{">"}200 employee</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="size_500"
-                      />
-                      <label htmlFor="size_500">{">"}500 employee</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="size_1000"
-                      />
-                      <label htmlFor="size_1000">{">"}1000 employee</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="size_2000"
-                      />
-                      <label htmlFor="size_2000">{">"}2000 employee</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="size_more"
-                      />
-                      <label htmlFor="size_more">{">"}5000 employee</label>
-                    </div>
-                  </li>
-                </ul>
-                <div className="text-end">
-                  <span className={styles.more}>show more</span>
-                </div>
-              </FilterAccordion>
-              <FilterAccordion title="Filter by Country" eventKey="2">
-                <ul className={styles.filter_list}>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="country_all"
-                      />
-                      <label htmlFor="country_all">All</label>
-                    </div>
-                  </li>
                   <li>
                     <div>
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
                         id="country_Egypt"
-                        defaultChecked
+                        value="Egypt"
+                        tag="country"
+                        onChange={addParamsToFilterList}
                       />
                       <label htmlFor="country_Egypt">Egypt</label>
                     </div>
@@ -223,9 +186,12 @@ const Companies = () => {
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
-                        id="country_Saudi"
+                        id="KSA"
+                        value="KSA"
+                        tag="country"
+                        onChange={addParamsToFilterList}
                       />
-                      <label htmlFor="country_Saudi">Saudi Arabia</label>
+                      <label htmlFor="KSA">KSA</label>
                     </div>
                   </li>
                   <li>
@@ -233,11 +199,12 @@ const Companies = () => {
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
-                        id="country_United_Arab_Emarates"
+                        id="UAE"
+                        value="UAE"
+                        tag="country"
+                        onChange={addParamsToFilterList}
                       />
-                      <label htmlFor="country_United_Arab_Emarates">
-                        United Arab Emarates
-                      </label>
+                      <label htmlFor="UAE">UAE</label>
                     </div>
                   </li>
                   <li>
@@ -245,31 +212,12 @@ const Companies = () => {
                       <input
                         type="checkbox"
                         className={styles.checkbox_type}
-                        id="country_America"
+                        id="Kuwait"
+                        value="Kuwait"
+                        tag="country"
+                        onChange={addParamsToFilterList}
                       />
-                      <label htmlFor="country_America">America</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="country_Canada"
-                      />
-                      <label htmlFor="country_Canada">Canada</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="country_United_Kingdom"
-                      />
-                      <label htmlFor="country_United_Kingdom">
-                        United Kingdom
-                      </label>
+                      <label htmlFor="Kuwait">Kuwait</label>
                     </div>
                   </li>
                 </ul>
@@ -277,158 +225,116 @@ const Companies = () => {
                   <span className={styles.more}>show more</span>
                 </div>
               </FilterAccordion>
-              <FilterAccordion title="Filter by City" eventKey="3">
+              <FilterAccordion title="Filter by City" eventKey="2">
                 <ul className={styles.filter_list}>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="city_all"
-                        defaultChecked
-                      />
-                      <label htmlFor="city_all">All</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="city_Cairo"
-                      />
-                      <label htmlFor="city_Cairo">Cairo</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="city_Giza"
-                      />
-                      <label htmlFor="city_Giza">Giza</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="city_Alex"
-                      />
-                      <label htmlFor="city_Alex">Alex</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="city_Tanta"
-                      />
-                      <label htmlFor="city_Tanta">Tanta</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="city_Mansoura"
-                      />
-                      <label htmlFor="city_Mansoura">Mansoura</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="city_Menoufia"
-                      />
-                      <label htmlFor="city_Menoufia">Menoufia</label>
-                    </div>
-                  </li>
+                  <>
+                    {Cities.EgyptCities.map((city) => (
+                      <li key={city} className="d-flex justify-content-between">
+                        <div>
+                          <input
+                            type="checkbox"
+                            className={styles.checkbox_type}
+                            id={`city_${city}`}
+                            value={city}
+                            tag="city"
+                            onChange={addParamsToFilterList}
+                          />
+                          <label htmlFor={`city_${city}`}>{city}</label>
+                        </div>
+                      </li>
+                    ))}
+                    {showMoreCities && (
+                      <>
+                        {Cities.UAECities.map((city) => (
+                          <li
+                            key={city}
+                            className="d-flex justify-content-between"
+                          >
+                            <div>
+                              <input
+                                type="checkbox"
+                                className={styles.checkbox_type}
+                                id={`city_${city}`}
+                                value={city}
+                                tag="city"
+                                onChange={addParamsToFilterList}
+                              />
+                              <label htmlFor={`city_${city}`}>{city}</label>
+                            </div>
+                          </li>
+                        ))}
+                        {Cities.SaudiArabiaCities.map((city) => (
+                          <li
+                            key={city}
+                            className="d-flex justify-content-between"
+                          >
+                            <div>
+                              <input
+                                type="checkbox"
+                                className={styles.checkbox_type}
+                                id={`city_${city}`}
+                                value={city}
+                                tag="city"
+                                onChange={addParamsToFilterList}
+                              />
+                              <label htmlFor={`city_${city}`}>{city}</label>
+                            </div>
+                          </li>
+                        ))}
+                        {Cities.KuwaitCities.map((city) => (
+                          <li
+                            key={city}
+                            className="d-flex justify-content-between"
+                          >
+                            <div>
+                              <input
+                                type="checkbox"
+                                className={styles.checkbox_type}
+                                id={`city_${city}`}
+                                value={city}
+                                tag="city"
+                                onChange={addParamsToFilterList}
+                              />
+                              <label htmlFor={`city_${city}`}>{city}</label>
+                            </div>
+                          </li>
+                        ))}
+                      </>
+                    )}
+                  </>
                 </ul>
                 <div className="text-end">
-                  <span className={styles.more}>show more</span>
+                  <span
+                    onClick={() => setShowMoreCities(!showMoreCities)}
+                    className={styles.more}
+                  >
+                    {showMoreCities ? "show less" : "show all"}
+                  </span>
                 </div>
               </FilterAccordion>
-              <FilterAccordion title="Filter by Area" eventKey="4">
+              <FilterAccordion title="Filter by Company Size" eventKey="3">
                 <ul className={styles.filter_list}>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="area_ All"
-                        defaultChecked
-                      />
-                      <label htmlFor="area_ All"> All</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="area_Maadi"
-                      />
-                      <label htmlFor="area_Maadi">Maadi</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="area_NasrCity"
-                      />
-                      <label htmlFor="area_NasrCity">Nasr City</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="area_NewCairo"
-                      />
-                      <label htmlFor="area_NewCairo">New Cairo</label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="area_6th_of_October"
-                      />
-                      <label htmlFor="area_6th_of_October">
-                        6th of October
-                      </label>
-                    </div>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        className={styles.checkbox_type}
-                        id="area_Giza"
-                      />
-                      <label htmlFor="area_Giza">Giza</label>
-                    </div>
-                  </li>
+                  {sizeOptions.map((size) => (
+                    <li key={size.value} className="d-flex justify-content-between">
+                      <div>
+                        <input
+                          type="checkbox"
+                          className={styles.checkbox_type}
+                          id={`size_${size.label}`}
+                          value={size.value}
+                          tag="size"
+                          onChange={addParamsToFilterList}
+                        />
+                        <label htmlFor={`size_${size.label}`}>{size.label}</label>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
-                <div className="text-end">
-                  <span className={styles.more}>show more</span>
-                </div>
               </FilterAccordion>
             </Accordion>
           </aside>
         </Col>
-        <Col sm={7} md={9}>
+        <Col sm={6} md={8} lg={9}>
           <section className={styles.job_posts}>
             <Container>
               <Row>
@@ -444,23 +350,29 @@ const Companies = () => {
                   <>
                     {data ? (
                       <>
-                      {data.data?.data?.length!==0?<>     {data.data?.data?.map((company) => {
-                          return (
-                            <CompanyPost
-                              key={company.id}
-                              CompanyProfileId={company.CompanyProfile?.id}
-                              companyId={company.id}
-                              name={company.name}
-                              industryId={company.IndustryId}
-                              desc={company.CompanyProfile?.description}
-                              logo={company.CompanyProfile?.logo}
-                              country={company.CompanyProfile?.country}
-                              city={company.CompanyProfile?.city}
-                              grid={gridView}
-                            />
-                          );
-                        })}</>:<NoDataBox  text="there is no companies for you right now, call suppport"/>}
-                   
+                        {data.data?.data?.length !== 0 ? (
+                          <>
+                            {" "}
+                            {data.data?.data?.map((company) => {
+                              return (
+                                <CompanyPost
+                                  key={company.id}
+                                  CompanyProfileId={company.CompanyProfile?.id}
+                                  companyId={company.id}
+                                  name={company.name}
+                                  industryId={company.IndustryId}
+                                  desc={company.CompanyProfile?.description}
+                                  logo={company.CompanyProfile?.logo}
+                                  country={company.CompanyProfile?.country}
+                                  city={company.CompanyProfile?.city}
+                                  grid={gridView}
+                                />
+                              );
+                            })}
+                          </>
+                        ) : (
+                          <NoDataBox text="there is no companies for you right now, call suppport" />
+                        )}
                       </>
                     ) : (
                       <NoDataBox text="there is no companies for you right now, call suppport" />
@@ -469,10 +381,14 @@ const Companies = () => {
                 )}
               </Row>
             </Container>
-           <Pagination setPageNum={setPageNum} maxPageNum={data?.data?.paginationResults?.numberOfPages}/>
+            <Pagination
+              setPageNum={setPageNum}
+              maxPageNum={data?.data?.paginationResults?.numberOfPages}
+            />
           </section>
         </Col>
       </Row>
+      <GoTopButton/>
     </Container>
   );
 };

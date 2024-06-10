@@ -56,7 +56,7 @@ const UserSkills = ({ Skills,languages }) => {
 
                 ) : (
                   <Alert variant="warning">
-                    You Didn't Add Any Skills yet !
+                    You Didn't Have Any Skills yet !
                   </Alert>
                 )}
                 <MainBtnThree

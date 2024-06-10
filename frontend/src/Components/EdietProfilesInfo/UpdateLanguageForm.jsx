@@ -140,10 +140,10 @@ const UpdateLanguageForm = ({
       >
         <Form className={styles.general_info_form}>
           <div className={styles.field}>
-            <label htmlFor="lang">Language</label>
+            <label htmlFor="updatedLang">Language</label>
             <Field
               type="text"
-              id="lang"
+              id="updatedLang"
               name="language"
               placeholder="ex: English"
             />
@@ -152,7 +152,7 @@ const UpdateLanguageForm = ({
           <div className={styles.field}>
             <Field
               type="text"
-              id="proficiency"
+              id="updatedProficiency"
               name="proficiency"
               component={MultiSelect}
               options={languageLevel}

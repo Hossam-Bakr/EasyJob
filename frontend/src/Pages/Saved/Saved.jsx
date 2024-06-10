@@ -18,7 +18,7 @@ const Saved = () => {
   const [successResponse, setSuccessResponse] = useState(true);
 
   const mySavedJobs = useSelector((state) => state.savedJobs.jobData);
-  console.log(mySavedJobs)
+  
   return (
     <>
       {mySavedJobs.length !== 0 ? (

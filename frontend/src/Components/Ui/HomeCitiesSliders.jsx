@@ -14,10 +14,22 @@ import giza from "../../images/Giza.jpg";
 import dubai from "../../images/dubai.jpg";
 import kuwait from "../../images/Kuwait.jpg";
 import ryadh from "../../images/ryadh.jpg";
+import Jeddah from "../../images/Jeddah.jpg";
 import mecca from "../../images/mecca.jpg";
 import MainButtonTwo from "./MainButtonTwo";
+import { useDispatch } from "react-redux";
+import { filterActions } from "../../Store/filter-slice";
+import { useNavigate } from "react-router-dom";
 
 const HomeCitiesSliders = () => {
+  const dispatch = useDispatch();
+  const naviagte = useNavigate();
+
+  const navigateToJobs = (val) => {
+    dispatch(filterActions.setFilterationValue({ value: val, type: "city" }));
+    naviagte("/jobs")
+  };
+
   return (
     <div className={styles.slider_contianer}>
       <Swiper
@@ -56,61 +68,99 @@ const HomeCitiesSliders = () => {
       >
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={cairo} alt="cairo" />
+            <img src={cairo} alt="Cairo" />
             <div className={styles.slider_caption}>
               <h2>Cairo</h2>
               <span>open jobs 300</span>
-              <MainButtonTwo type="arrow" text="Discover" />
+              <MainButtonTwo
+                onClick={() => navigateToJobs("Cairo")}
+                type="arrow"
+                text="Discover"
+              />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={giza} alt="giza" />
+            <img src={giza} alt="Giza" />
             <div className={styles.slider_caption}>
               <h2>Giza</h2>
               <span>open jobs 30</span>
-              <MainButtonTwo type="arrow" text="Discover" />
+              <MainButtonTwo
+                onClick={() => navigateToJobs("Giza")}
+                type="arrow"
+                text="Discover"
+              />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={alex} alt="alex" />
+            <img src={alex} alt="Alexandria" />
             <div className={styles.slider_caption}>
               <h2>Alex</h2>
               <span>open jobs 40</span>
-              <MainButtonTwo type="arrow" text="Discover" />
+              <MainButtonTwo
+                onClick={() => navigateToJobs("Alexandria")}
+                type="arrow"
+                text="Discover"
+              />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={ryadh} alt="ryadh" />
+            <img src={ryadh} alt="Riyadh" />
             <div className={styles.slider_caption}>
               <h2>Ryadh</h2>
               <span>open jobs 42</span>
-              <MainButtonTwo type="arrow" text="Discover" />
+              <MainButtonTwo
+                onClick={() => navigateToJobs("Riyadh")}
+                type="arrow"
+                text="Discover"
+              />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={mecca} alt="mecca" />
+            <img src={Jeddah} alt="Jeddah" />
+            <div className={styles.slider_caption}>
+              <h2>Jeddah</h2>
+              <span>open jobs 11</span>
+              <MainButtonTwo
+                onClick={() => navigateToJobs("Jeddah")}
+                type="arrow"
+                text="Discover"
+              />
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className={styles.slider_item}>
+          <div className={styles.slider_container_img}>
+            <img src={mecca} alt="Mecca" />
             <div className={styles.slider_caption}>
               <h2>Mecca</h2>
               <span>open jobs 2</span>
-              <MainButtonTwo type="arrow" text="Discover" />
+              <MainButtonTwo
+                onClick={() => navigateToJobs("Mecca")}
+                type="arrow"
+                text="Discover"
+              />
             </div>
           </div>
         </SwiperSlide>
         <SwiperSlide className={styles.slider_item}>
           <div className={styles.slider_container_img}>
-            <img src={dubai} alt="dubai" />
+            <img src={dubai} alt="Dubai" />
             <div className={styles.slider_caption}>
               <h2>Dubai</h2>
               <span>open jobs 20</span>
-              <MainButtonTwo type="arrow" text="Discover" />
+              <MainButtonTwo
+                onClick={() => navigateToJobs("Dubai")}
+                type="arrow"
+                text="Discover"
+              />
             </div>
           </div>
         </SwiperSlide>
@@ -120,7 +170,11 @@ const HomeCitiesSliders = () => {
             <div className={styles.slider_caption}>
               <h2>Kuwait</h2>
               <span>open jobs 10</span>
-              <MainButtonTwo type="arrow" text="Discover" />
+              <MainButtonTwo
+                onClick={() => navigateToJobs("kuwait")}
+                type="arrow"
+                text="Discover"
+              />
             </div>
           </div>
         </SwiperSlide>

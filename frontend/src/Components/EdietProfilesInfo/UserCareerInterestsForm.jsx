@@ -149,31 +149,30 @@ const UserCareerInterestsForm = ({
                   type="radio"
                   className="btn-check"
                   name="currentCareerLevel"
-                  id="currentCareerLevel1"
+                  id="careerLevelcurrentCareerLevel1"
                   value="student"
                   autoComplete="off"
                 />
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="currentCareerLevel1"
+                  htmlFor="careerLevelcurrentCareerLevel1"
                 >
                   Student
                 </label>
               </Col>
-
               <Col className="d-flex justify-content-center" sm={6} md={4}>
                 <Field
                   type="radio"
                   className="btn-check"
                   name="currentCareerLevel"
-                  id="currentCareerLevel2"
+                  id="careerLevelcurrentCareerLevel2"
                   value="entry level"
                   autoComplete="off"
                 />
 
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="currentCareerLevel2"
+                  htmlFor="careerLevelcurrentCareerLevel2"
                 >
                   Entry Level
                 </label>
@@ -183,14 +182,14 @@ const UserCareerInterestsForm = ({
                   type="radio"
                   className="btn-check"
                   name="currentCareerLevel"
-                  id="currentCareerLevel3"
+                  id="careerLevelcurrentCareerLevel3"
                   autoComplete="off"
                   value="experienced/senior"
                 />
 
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="currentCareerLevel3"
+                  htmlFor="careerLevelcurrentCareerLevel3"
                 >
                   Experienced/Senior
                 </label>
@@ -200,14 +199,14 @@ const UserCareerInterestsForm = ({
                   type="radio"
                   className="btn-check"
                   name="currentCareerLevel"
-                  id="currentCareerLevel4"
+                  id="careerLevelcurrentCareerLevel4"
                   autoComplete="off"
                   value="manager/lead"
                 />
 
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="currentCareerLevel4"
+                  htmlFor="careerLevelcurrentCareerLevel4"
                 >
                   Manager/Lead
                 </label>
@@ -217,13 +216,13 @@ const UserCareerInterestsForm = ({
                   type="radio"
                   className="btn-check"
                   name="currentCareerLevel"
-                  id="currentCareerLevel5"
+                  id="careerLevelcurrentCareerLevel5"
                   autoComplete="off"
                   value="executive"
                 />
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="currentCareerLevel5"
+                  htmlFor="careerLevelcurrentCareerLevel5"
                 >
                   Executive
                 </label>
@@ -234,13 +233,13 @@ const UserCareerInterestsForm = ({
                   type="radio"
                   className="btn-check"
                   name="currentCareerLevel"
-                  id="currentCareerLevel6"
+                  id="careerLevelcurrentCareerLevel6"
                   autoComplete="off"
                   value="not specified"
                 />
                 <label
                   className={`${styles.career_label} btn btn-outline-primary`}
-                  htmlFor="currentCareerLevel6"
+                  htmlFor="careerLevelcurrentCareerLevel6"
                 >
                   Not Specified
                 </label>
@@ -260,14 +259,14 @@ const UserCareerInterestsForm = ({
               <div className={`${styles.select_category}`}>
                 <Field
                   name="jobTypes"
-                  id="jobTypes"
+                  id="careerLeveljobTypes"
                   isMulti={true}
                   component={MultiSelect}
                   options={experianceOptions}
                 />
               </div>
 
-              <ErrorMessage name="jobTitles" component={InputErrorMessage} />
+              <ErrorMessage name="jobTypes" component={InputErrorMessage} />
             </div>
 
             <div className={styles.field}>
@@ -277,7 +276,7 @@ const UserCareerInterestsForm = ({
               <div className={`${styles.select_category}`}>
                 <Field
                   name="jobTitles"
-                  id="jobTitles"
+                  id="careerLeveljobTitles"
                   isMulti={true}
                   component={MultiSelect}
                   options={titleOptions}

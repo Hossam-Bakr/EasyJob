@@ -45,3 +45,20 @@
 .active_num h5{
     color: white;
 }
+
+
+@media screen and (max-width:427px) {
+.hidden_item_on_mobile{
+    display: none;
+}
+}
+@media screen and (max-width:290px) {
+.pages{
+    width: 100% !important;
+}
+}
+@media screen and (max-width:191px) {
+.hidden_item_on_mobile2{
+    display: none;
+}
+}

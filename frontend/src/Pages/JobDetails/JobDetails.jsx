@@ -19,16 +19,18 @@ import {
 import { formatedTimeHandler } from "../../Components/logic/Logic";
 import MainButtonTwo from "../../Components/Ui/MainButtonTwo";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
-import { Col, Container, Dropdown, Row } from "react-bootstrap";
+import { Badge, Col, Container, Dropdown, Row } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { useDispatch, useSelector } from "react-redux";
 import { getSavedJobsHandler } from "../../Store/savedJobs-actions";
 import FloatingPopup from "../../Components/Ui/FloatingPopup";
 import CustomDropDownItem from "../../Components/Ui/CustomDropDownItem";
+import SectionMainTitle from "../../Components/Ui/SectionMainTitle";
+import EasyJobLocation from "../../Components/Maps/EasyJobLocation";
 
 const JobDetails = () => {
-  const params = useParams();
+  const {jobId} = useParams();
   const [profilePic, setProfilePic] = useState(null);
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -40,16 +42,16 @@ const JobDetails = () => {
   const token = useSelector((state) => state.userInfo.token);
   const dispatch = useDispatch();
   const textRef = useRef(null);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const { data } = useQuery({
     queryKey: ["jobDetails"],
-    queryFn: () => getJobsDetails(params.jobId),
+    queryFn: () => getJobsDetails({jobId,token}),
   });
-  
+
   const saveJobPost = async () => {
     if (token) {
-      const res = await saveJobsHandler({ jobId: params.jobId, token: token });
+      const res = await saveJobsHandler({ jobId:jobId, token: token });
 
       if (res.status === "success") {
         setResponseMessage({
@@ -98,10 +100,9 @@ const JobDetails = () => {
     }
   }, [data]);
 
-  const navigateToApplicationFormPage=()=>{
-    navigate(`/job-application-form/${params.jobId}`)
-  }
-
+  const navigateToApplicationFormPage = () => {
+    navigate(`/job-application-form/${jobId}`);
+  };
 
   useEffect(() => {
     if (data) {
@@ -110,9 +111,8 @@ const JobDetails = () => {
   }, [data]);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
-
 
   return (
     <>
@@ -129,7 +129,9 @@ const JobDetails = () => {
                 <div
                   className={`${styles.name} w-100 d-flex justify-content-between align-items-center mt-1`}
                 >
-                  <Link to={`/companyProfile/${data.CompanyId}`}><h4>{data.Company.name} </h4></Link>
+                  <Link to={`/companyProfile/${data.CompanyId}`}>
+                    <h4>{data.Company.name} </h4>
+                  </Link>
                   <span> {data.openPositions} Open Position</span>
                 </div>
                 <span className="mini_word">
@@ -207,7 +209,7 @@ const JobDetails = () => {
                             />
                             <span className="mini_word">
                               <p className="m-0" ref={textRef}>
-                                http://localhost:3001/job-details/{params.jobId}
+                                http://localhost:3001/job-details/{jobId}
                               </p>
                             </span>
                           </div>
@@ -216,7 +218,10 @@ const JobDetails = () => {
                     </Dropdown>
                   </div>
                   <div className="mt-1">
-                    <MainButtonTwo onClick={navigateToApplicationFormPage} text="Apply Now" />
+                    <MainButtonTwo
+                      onClick={navigateToApplicationFormPage}
+                      text="Apply Now"
+                    />
                   </div>
                 </Col>
               </Row>
@@ -231,52 +236,92 @@ const JobDetails = () => {
                 <Tab eventKey="jobDetails" title="Job Details">
                   <section className={styles.det_section}>
                     <h2 className={styles.sec_title}>Job Description</h2>
-                    <p>{data.description}</p>
+                    <div className={styles.requirements_div}>
+                      <p>{data.description}</p>
+                    </div>
                   </section>
 
                   <section className={styles.det_section}>
                     <h2 className={styles.sec_title}>Job Requirements</h2>
-                    <p>{data.requirements}</p>
+                    <div
+                      className={styles.requirements_div}
+                      dangerouslySetInnerHTML={{ __html: data.requirements }}
+                    />
                   </section>
 
-                  <section
-                    className={`${styles.main_style} ${styles.det_section} py-5 position-relative`}
-                  >
+                  <div>
                     <h3 className={styles.sec_title}>Required Skills</h3>
-                    <Container className="my-4 ">
-                      <Row className={`${styles.candidate_skills} gy-2 w-100`}>
-                        {data.RequiredSkills.map((skill) => (
-                          <Col
-                            sm={3}
-                            lg={2}
-                            className={`${styles.skill} ${
-                              skill.minLevel === 2
-                                ? styles.orange
-                                : skill.minLevel === 3
-                                ? styles.green
-                                : styles.red
-                            } mx-2`}
-                            key={skill.id}
-                          >
-                            <span>{skill.name}</span>
-                          </Col>
-                        ))}
-                      </Row>
-                    </Container>
-                    <div className={`${styles.skill_color} d-flex`}>
-                      <div className="d-flex justify-content-center align-items-center mx-2">
-                        <div className={styles.red_circle}></div>
-                        <span className="mini_word">Entry</span>
+                    <section
+                      className={` ${styles.skills_div} ${styles.det_section} py-5 position-relative`}
+                    >
+                      <Container className="my-4">
+                        <Row
+                          className={`${styles.candidate_skills} gy-2 w-100`}
+                        >
+                          {data.RequiredSkills.map((skill) => (
+                            <Col
+                              sm={3}
+                              lg={2}
+                              title={`skill level is (${
+                                skill.minLevel === 2
+                                  ? "mid-level"
+                                  : skill.minLevel === 3
+                                  ? "expert"
+                                  : "entry-level"
+                              }) & min years of experience from (${
+                                skill.minYearsOfExperience
+                              }) years`}
+                              className={`${styles.skill} ${
+                                skill.minLevel === 2
+                                  ? styles.orange
+                                  : skill.minLevel === 3
+                                  ? styles.green
+                                  : styles.red
+                              } mx-2 position-relative`}
+                              key={skill.id}
+                            >
+                              <span>{skill.name}</span>
+                              <Badge
+                                className={`${
+                                  skill.minLevel === 2
+                                    ? "bg-warning"
+                                    : skill.minLevel === 3
+                                    ? "bg-success"
+                                    : "bg-danger"
+                                } position-absolute top-0 start-100 translate-middle badge rounded-pill`}
+                              >
+                                {skill?.minYearsOfExperience}
+                              </Badge>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Container>
+                      <div className={`${styles.skill_color} d-flex`}>
+                        <div className="d-flex justify-content-center align-items-center mx-2">
+                          <div className={styles.red_circle}></div>
+                          <span className="mini_word">Entry</span>
+                        </div>
+                        <div className="d-flex justify-content-center align-items-center mx-2">
+                          <div className={styles.yellow_circle}></div>
+                          <span className="mini_word">Medium</span>
+                        </div>
+                        <div className="d-flex justify-content-center align-items-center mx-2">
+                          <div className={styles.green_circle}></div>
+                          <span className="mini_word">Expert</span>
+                        </div>
                       </div>
-                      <div className="d-flex justify-content-center align-items-center mx-2">
-                        <div className={styles.yellow_circle}></div>
-                        <span className="mini_word">Medium</span>
-                      </div>
-                      <div className="d-flex justify-content-center align-items-center mx-2">
-                        <div className={styles.green_circle}></div>
-                        <span className="mini_word">Expert</span>
-                      </div>
-                    </div>
+                    </section>
+                  </div>
+
+                  <hr className="my-5" />
+
+                  <section className="my-5 py-5">
+                    <section className={` ${styles.ourLocation}`}>
+                      <SectionMainTitle title="Job Location on Map" />
+                      <EasyJobLocation
+                        myPosition={data.location?.coordinates}
+                      />
+                    </section>
                   </section>
                 </Tab>
                 <Tab eventKey="companyDetails" title="Company Details">

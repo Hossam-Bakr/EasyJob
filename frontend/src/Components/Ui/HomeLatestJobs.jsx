@@ -20,7 +20,7 @@ const HomeLatestJobs = () => {
   const navigateToExplore = () => {
     navigate("/jobs");
   };
-
+console.log(data)
   return (
     <>{data?   
       <section className="py-5 mb-5">
@@ -42,7 +42,7 @@ const HomeLatestJobs = () => {
                 id={job.id}
                 // name={job.Company.name}
                 jobTitle={job.title}
-                req={job.requirements}
+                desc={job.description}
                 // logo={job.Company?.CompanyProfile?.logo}
                 country={job.country}
                 city={job.city}
