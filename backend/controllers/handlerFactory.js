@@ -81,6 +81,16 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
           ),
         ],
       };
+    } else if (keyword && Model.rawAttributes.name) {
+      filter = {
+        [Op.or]: [
+          Sequelize.where(
+            Sequelize.fn("LOWER", Sequelize.col("name")),
+            "LIKE",
+            `%${keyword.toLowerCase()}%`
+          ),
+        ],
+      };
     }
 
     // exclude fields from the filter
@@ -90,6 +100,17 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
     for (const field in req.query) {
       if (Model.rawAttributes[field]) {
         filter[field] = req.query[field];
+      }
+    }
+
+    for (const key in req.query) {
+      if (key.includes("__") && Model.rawAttributes[key.split("__")[0]]) {
+        const [field, operator] = key.split("__");
+        const value = req.query[key];
+
+        if (operator && ["gt", "gte", "lt", "lte"].includes(operator)) {
+          filter[field] = { [Op[operator]]: value };
+        }
       }
     }
 

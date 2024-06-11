@@ -236,9 +236,6 @@ exports.loginSuccessWithGoogle = catchAsync(async (req, res, next) => {
   }
 });
 
-
-
-
 exports.loginFailedWithGoogle = catchAsync(async (req, res, next) => {
   return next(new ApiError("failed to login with google", 401));
 });
@@ -253,15 +250,13 @@ exports.logout = (req, res, next) => {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-      }); 
+      });
       res.redirect(
         process.env.LOGOUT_REDIRECT_URL || "http://localhost:3001/login"
-      ); 
+      );
     });
   });
 };
-
-
 
 exports.protect = catchAsync(async (req, res, next) => {
   // Getting token and check of it's there
@@ -271,14 +266,11 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookies.jwt) {
+  } else if (req.cookies?.jwt) {
     token = req.cookies.jwt;
   }
 
-  if (!token)
-    return next(
-      new ApiError("You are not logged in! Please log in to get access.", 401)
-    );
+  if (!token) return next(new ApiError("Please log in to get access.", 401));
 
   // Verification token
   const decoded = jwt.verify(token, process.env.JWT_SECRET);

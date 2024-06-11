@@ -11,6 +11,7 @@ const Answer = require("../models/answerModel");
 const Application = require("../models/applicationModel");
 const SavedJob = require("../models/savedJobModel");
 const sequelize = require("../config/database");
+const { Op } = require("sequelize");
 const factory = require("./handlerFactory");
 const { uploadMixOfAudios } = require("../utils/uploadAudio");
 const catchAsync = require("../utils/catchAsync");
@@ -52,26 +53,37 @@ const processRequiredSkills = async (requiredSkills, jobId) => {
   return skills;
 };
 
-const allJobsInclude = [
-  {
-    model: Company,
-    attributes: ["id", "name"],
-    include: {
-      model: CompanyProfile,
-      attributes: ["logo", "country", "city"],
-    },
-  },
-  {
-    model: Category,
-    attributes: ["id", "name"],
-    through: {
-      model: JobCategory,
-      attributes: [],
-    },
-  },
-];
+exports.getAllJobs = (req, res, next) => {
+  const categories = req.query?.cats ? req.query.cats.split(",") : null;
 
-exports.getAllJobs = factory.getAll(Job, allJobsInclude);
+  const allJobsInclude = [
+    {
+      model: Company,
+      attributes: ["id", "name"],
+      include: {
+        model: CompanyProfile,
+        attributes: ["logo", "country", "city"],
+      },
+    },
+    {
+      model: Category,
+      attributes: ["id", "name"],
+      ...(categories && {
+        where: {
+          name: {
+            [Op.in]: categories,
+          },
+        },
+      }),
+      through: {
+        model: JobCategory,
+        attributes: [],
+      },
+    },
+  ];
+
+  factory.getAll(Job, allJobsInclude)(req, res, next);
+};
 
 exports.getJob = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.id, {
