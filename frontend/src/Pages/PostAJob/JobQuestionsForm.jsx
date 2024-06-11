@@ -45,7 +45,6 @@ const JobQuestionsForm = ({
       })
       setShowResponse(true)
       setSuccessResponse(false)
-      console.log("bl7")
     }
     else{
       let updatedQuestions = [...questions, newQuestion];

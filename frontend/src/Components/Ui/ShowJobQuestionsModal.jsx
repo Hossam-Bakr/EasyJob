@@ -6,6 +6,7 @@ import { getSpecificJob } from "../../util/Http";
 import QuestionBox from "./QuestionBox";
 import MainBtnThree from "./MainBtnThree";
 import FloatingPopup from "./FloatingPopup";
+import { useNavigate } from "react-router-dom";
 
 
 const ShowJobQuestionsModal = ({ onHide, show, jobId, token }) => {
@@ -16,6 +17,7 @@ const ShowJobQuestionsModal = ({ onHide, show, jobId, token }) => {
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
+  const navigate=useNavigate();
 
   const { data, refetch } = useQuery({
     queryKey: ["getSpeceficJob"],
@@ -24,6 +26,11 @@ const ShowJobQuestionsModal = ({ onHide, show, jobId, token }) => {
   //data.data.job.Questions
   console.log(data);
 
+
+  const navigateToAddJobQuestions=()=>{
+    navigate(`/job-questions/${jobId}`)
+  }
+  
   return (
     <Modal
       onHide={onHide}
@@ -62,7 +69,7 @@ const ShowJobQuestionsModal = ({ onHide, show, jobId, token }) => {
                   <span>You Didn't Add Questions to this Job yet!</span>
                 </div>
                 {/* //handle that */}
-                <MainBtnThree text="Add Questions" />
+                <MainBtnThree onClick={navigateToAddJobQuestions} text="Add Questions" />
               </div>
             )
           ) : (
