@@ -13,39 +13,60 @@ exports.uploadCompanyMedia = uploadMixOfImages([
   { name: "coverPhoto", maxCount: 1 },
 ]);
 
-const allCompaniesInclude = {
-  model: CompanyProfile,
-  attributes: [
-    "id",
-    "logo",
-    "coverPhoto",
-    "description",
-    "country",
-    "city",
-    "size",
-  ],
-  include: [
-    {
-      model: Category,
-      attributes: ["id", "name"],
-      through: { attributes: [] },
-      as: "specializations",
-    },
-  ],
-  where: {
+exports.getAllCompanies = (req, res, next) => {
+  const countries = req.query?.countries
+    ? req.query.countries.split(",")
+    : null;
+  const cities = req.query?.cities ? req.query.cities.split(",") : null;
+  const specializations = req.query?.spec ? req.query.spec.split(",") : null;
+
+  const whereClause = {
     [Op.and]: [
       { country: { [Op.not]: null } },
       { city: { [Op.not]: null } },
       { description: { [Op.not]: null } },
     ],
-  },
-};
+  };
 
-exports.getAllCompanies = factory.getAll(
-  Company,
-  allCompaniesInclude,
-  "id,name,email,phone,IndustryId"
-);
+  if (countries) {
+    whereClause[Op.and].push({ country: { [Op.in]: countries } });
+  }
+
+  if (cities) {
+    whereClause[Op.and].push({ city: { [Op.in]: cities } });
+  }
+
+  const allCompaniesInclude = {
+    model: CompanyProfile,
+    attributes: [
+      "id",
+      "logo",
+      "coverPhoto",
+      "description",
+      "country",
+      "city",
+      "size",
+    ],
+    include: [
+      {
+        model: Category,
+        attributes: ["id", "name"],
+        through: { attributes: [] },
+        as: "specializations",
+        ...(specializations && {
+          where: { name: { [Op.in]: specializations } },
+        }),
+      },
+    ],
+    where: whereClause,
+  };
+
+  factory.getAll(
+    Company,
+    allCompaniesInclude,
+    "id,name,email,phone,IndustryId"
+  )(req, res, next);
+};
 
 const companyProfileInclude = {
   include: [
