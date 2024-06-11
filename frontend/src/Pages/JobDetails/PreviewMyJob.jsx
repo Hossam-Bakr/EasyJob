@@ -14,6 +14,7 @@ import {
   faCopy,
   faEdit,
   faMapLocationDot,
+  faQuestion,
   faShare,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
@@ -27,11 +28,14 @@ import SectionMainTitle from "../../Components/Ui/SectionMainTitle";
 import EasyJobLocation from "../../Components/Maps/EasyJobLocation";
 import ConfirmModal from "../../Components/Ui/ConfirmModal";
 import UpdateJobModal from "../PostAJob/UpdateJobModal";
+import ShowJobQuestionsModal from "../../Components/Ui/ShowJobQuestionsModal";
 const PreviewMyJob = () => {
   const { jobId } = useParams();
   const [profilePic, setProfilePic] = useState(null);
   const [confirmModalShow, setConfirmModalShow] = useState(false);
-  const [showModal, setShowModal] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [updateQuestionsShowModal, setUpdateQuestionsShowModal] =
+    useState(false);
 
   const [responseMessage, setResponseMessage] = useState({
     title: "",
@@ -162,56 +166,68 @@ const PreviewMyJob = () => {
                   </ul>
                 </Col>
                 <Col md={6} className="d-flex flex-column align-items-end">
-                  <div className="d-flex justify-content-center align-items-start">
-                    <div
-                      className={styles.bookmark_icon}
-                      title="ediet job"
-                      onClick={() => setShowModal(true)}
-                    >
-                      <FontAwesomeIcon icon={faEdit} />
-                    </div>
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        as={CustomDropDownItem}
-                        id="dropdown-custom-components"
+                  <div className="text-center">
+                    <div className="d-flex justify-content-center align-items-start">
+                      <div
+                        className={styles.bookmark_icon}
+                        title="ediet job"
+                        onClick={() => setShowModal(true)}
                       >
-                        <div className={styles.bookmark_icon} title="share job">
-                          <FontAwesomeIcon icon={faShare} />
-                        </div>
-                      </Dropdown.Toggle>
-
-                      <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleCopy}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </div>
+                      <div
+                        className={styles.bookmark_icon}
+                        title="ediet questions"
+                        onClick={() => setUpdateQuestionsShowModal(true)}
+                      >
+                        <FontAwesomeIcon icon={faQuestion} />
+                      </div>
+                      <Dropdown>
+                        <Dropdown.Toggle
+                          as={CustomDropDownItem}
+                          id="dropdown-custom-components"
+                        >
                           <div
-                            className="d-flex align-items-center"
-                            title="copy url"
+                            className={styles.bookmark_icon}
+                            title="share job"
                           >
-                            <FontAwesomeIcon
-                              icon={faCopy}
-                              className="special_main_color me-1"
-                            />
-                            <span className="mini_word">
-                              <p className="m-0" ref={textRef}>
-                                http://localhost:3001/preview-job/{jobId}
-                              </p>
-                            </span>
+                            <FontAwesomeIcon icon={faShare} />
                           </div>
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <div
-                      className={`${styles.bookmark_icon} bg-danger text-white`}
-                      title="delete job"
-                      onClick={() => setConfirmModalShow(true)}
-                    >
-                      <FontAwesomeIcon icon={faTrashCan} />
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                          <Dropdown.Item onClick={handleCopy}>
+                            <div
+                              className="d-flex align-items-center"
+                              title="copy url"
+                            >
+                              <FontAwesomeIcon
+                                icon={faCopy}
+                                className="special_main_color me-1"
+                              />
+                              <span className="mini_word">
+                                <p className="m-0" ref={textRef}>
+                                  http://localhost:3001/job-details/{jobId}
+                                </p>
+                              </span>
+                            </div>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <div
+                        className={`${styles.bookmark_icon} bg-danger text-white`}
+                        title="delete job"
+                        onClick={() => setConfirmModalShow(true)}
+                      >
+                        <FontAwesomeIcon icon={faTrashCan} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-1">
-                    <MainButtonTwo
-                      onClick={navigateToJobStages}
-                      text="Control Stages"
-                    />
+                    <div className="mt-1">
+                      <MainButtonTwo
+                        onClick={navigateToJobStages}
+                        text="Control Stages"
+                      />
+                    </div>
                   </div>
                 </Col>
               </Row>
@@ -333,6 +349,12 @@ const PreviewMyJob = () => {
             setResponseMessage={setResponseMessage}
             setSuccessResponse={setSuccessResponse}
             refetch={refetch}
+          />
+          <ShowJobQuestionsModal
+            onHide={() => setUpdateQuestionsShowModal(false)}
+            show={updateQuestionsShowModal}
+            jobId={jobId}
+            token={token}
           />
         </>
       ) : (

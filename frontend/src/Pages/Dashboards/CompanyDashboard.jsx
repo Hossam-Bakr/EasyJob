@@ -11,7 +11,6 @@ import {
   faIdCardClip,
   faPhoneVolume,
   faUserTie,
-  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -142,13 +141,6 @@ const CompanyDashboard = () => {
             >
               <FontAwesomeIcon icon={faBriefcase} />
               <h6>jobs</h6>
-            </li>
-            <li
-              className={activeLink === "users" ? styles.active_link : ""}
-              onClick={() => setActiveLink("users")}
-            >
-              <FontAwesomeIcon icon={faUsers} />
-              <h6>users</h6>
             </li>
             <li
               className={activeLink === "candidates" ? styles.active_link : ""}

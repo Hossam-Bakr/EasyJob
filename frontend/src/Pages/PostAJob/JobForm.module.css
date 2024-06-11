@@ -85,14 +85,20 @@
     margin-top: 40px;
 }
 .Ediet_btn{
-    background-color:var(--dark_white);
+    background-color: transparent;
+    border: 1px solid var(--darker_main_color);
+    margin-top: 40px;
+    color: var(--darker_main_color);
 }
 .Ediet_btn:hover{
     background-color: var(--darker_main_color);
     transform: translateX(-0.3125rem);
+    color: white;
 }
 .save_btn_question:hover{
-    background-color: var(--main_color);
+    background-color: transparent;
+    border: 1px solid var(--darker_main_color);
+    color: var(--darker_main_color);
     transform: translateX(0.3125rem);
 }
 .delete_btn{
@@ -189,19 +195,47 @@
     width:100%;
 }
 
-
-
-
 /* __________________________________________________questions___________________________________________________________________ */
 
-.no_questions{
+.questions{
     padding: 50px 10px 10px 10px;
     border-radius: 10px;
-    background-color: var(--vanilla);
+    background-color: var(--sky);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.163);
     text-align: center;
+    position: relative;
 }
-.no_questions span{
+.questions_controller{
+    padding: 10px;
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.232);
+    border-radius:5px;
+}
+.add_question_icon,.remove_questions{
+    font-size:25px;
+    margin-inline: 10px;
+    color: var(--darker_main_color);
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.add_question_icon:hover{
+    scale: 1.1;
+    color: black;
+    transform: rotate(90deg);
+}
+.remove_questions:hover{
+    scale: 1.1;
+    transform: rotate(10deg);
+    color: red;
+}
+.questions span{
     font-weight: 700;
     font-size: 20px;
     color: black;

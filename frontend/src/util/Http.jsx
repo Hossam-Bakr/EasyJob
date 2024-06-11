@@ -556,3 +556,33 @@ export const getJobsDetails = async ({ jobId, token }) => {
     console.error(error);
   }
 };
+
+export const updateJobQuestion = async ({ jobId,questionId, token,formData }) => {
+  try {
+    const response = await axios.put(`${baseServerUrl}jobs/${jobId}/questions/${questionId}`,formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getSpecificJob=async({jobId,token})=>{
+  try {
+    const response = await axios(`${baseServerUrl}jobs/${jobId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+

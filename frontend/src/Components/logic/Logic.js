@@ -1088,7 +1088,6 @@ export const totalYearsConversion = (num, setState) => {
   }
 };
 
-//experience & career
 export const experianceOptions = [
   { value: "full-time", label: "full-time" },
   { value: "part-time", label: "part-time" },
@@ -1282,7 +1281,6 @@ export const titleOptions = [
   { value: "Art Dealer", label: "Art Dealer" },
 ];
 
-//education
 export const degreeLevelOptions = [
   { value: "high school", label: "High School" },
   { value: "bachelor's degree", label: "Bachelor's Degree" },
@@ -1965,6 +1963,12 @@ export const fieldsOfStudy = [
   { value: "wildlife management", label: "Wildlife Management" },
 ];
 
+export const jobQuestionType = [
+  { value: "yes/no", label: "yes/no Answer " },
+  { value: "text", label: "Text Answer" },
+  { value: "voice", label: "Voice Record Answer" },
+];
+
 export const languageLevel = [
   { value: "beginner", label: "beginner" },
   { value: "intermediate", label: "intermediate" },
@@ -1972,7 +1976,6 @@ export const languageLevel = [
   { value: "native", label: "native" },
 ];
 
-//company
 export const sizeOptions = [
   { value: "1-10", label: "1-10" },
   { value: "11-50", label: "11-50" },
@@ -2019,7 +2022,7 @@ export const convertSkillsIntoList=(currentSkills,setState)=>{
   }
 }
 
-//functions
+
 export const formatedTimeHandler = (time, setState) => {
   const currentTimestamp = new Date();
   const givenTimestamp = new Date(time);

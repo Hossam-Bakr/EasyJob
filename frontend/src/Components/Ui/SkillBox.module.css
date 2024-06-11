@@ -10,9 +10,9 @@
 }
 .skill{
     background-color: var(--vanilla);
-    padding: 5px 10px;
-    border-radius: 5px;
-    min-width: 80px;
+    padding: 0.3125rem 0.625rem;
+    border-radius: 0.3125rem;
+    min-width: 5rem;
     text-align: center;
     position: relative;
 }
@@ -35,11 +35,11 @@
 /* ------------------------------------------skill job post----------------------------------------------- */
 .post_skill{
     background-color: var(--main_color);
-    padding:10px;
-    border-radius: 5px;
-    min-width: 80px;
+    padding:0.625rem;
+    border-radius: 0.3125rem;
+    min-width: 5rem;
     text-align: center;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.208);
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.208);
     cursor: pointer;
     position: relative;
 }
@@ -55,7 +55,7 @@
     transform: translateY(-50%);
     color: var(--vanilla);
     opacity: 0;
-    font-size: 18px;
+    font-size: 1.125rem;
     transition: all .3s;
 }
 .trash:hover{
@@ -64,4 +64,25 @@
 }
 .post_skill:hover .trash{
     opacity: 1;
+}
+
+.question_control_box{
+    position: absolute;
+    right: 0.625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.control_btn{
+    padding: 0.625rem;
+    border-radius: 0.5rem;
+    background-color: var(--darker_main_color);
+    color: white;
+    cursor: pointer;
+    transition: all .4s;
+}
+.control_btn:hover{
+ scale: 1.05;
 }

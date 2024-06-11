@@ -24,7 +24,7 @@
     color: white;
 }
 .penColorGray span{
-    color: white;
+    color: white !important;
 }
 .ediet_pen_icon{
     color: var(--main_color);
