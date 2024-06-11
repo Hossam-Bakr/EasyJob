@@ -246,35 +246,13 @@ exports.getLatestJob = catchAsync(async (req, res) => {
 });
 
 exports.getJobsForMap = catchAsync(async (req, res) => {
-  let filter = {};
-
-  if (req.query.workplace) filter.workplace = req.query.workplace;
-  if (req.query.careerLevel) filter.careerLevel = req.query.careerLevel;
-  if (req.query.type) filter.type = req.query.type;
-
   const jobs = await Job.findAll({
-    where: filter,
     attributes: [
       "id",
       "title",
-      "description",
-      "requirements",
-      "workplace",
-      "careerLevel",
-      "minExperience",
-      "type",
-      "openPositions",
-      "CompanyId",
       [sequelize.fn("ST_X", sequelize.col("location")), "latitude"],
       [sequelize.fn("ST_Y", sequelize.col("location")), "longitude"],
       "createdAt",
-    ],
-    include: [
-      {
-        model: Category,
-        attributes: ["id", "name"],
-        through: { attributes: [] },
-      },
     ],
   });
 
