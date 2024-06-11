@@ -46,6 +46,7 @@ import VisitCompanyProfile from "./Pages/Profiles/VisitCompanyProfile";
 import VisiteEmployeeProfile from "./Pages/Profiles/VisiteEmployeeProfile";
 import JobApplicationFormModal from "./Components/Ui/JobApplicationFormModal";
 import PreviewMyJob from "./Pages/JobDetails/PreviewMyJob";
+import AddJobQuestions from "./Pages/PostAJob/AddJobQuestions";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
       { path: "job-post", element: <PostAJob /> },
       { path: "jobs", element: <Posts /> },
       { path: "job-details/:jobId", element: <JobDetails /> },
+      { path: "job-questions/:jobId", element: <AddJobQuestions /> },
       { path: "candidates", element: <Candidates /> },
       { path: "about", element: <About /> },
       { path: "categories", element: <Categories /> },

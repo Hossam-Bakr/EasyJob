@@ -13,7 +13,7 @@ function PostAJob() {
   });
   const [successResponse, setSuccessResponse] = useState(true);
   const [showQuestions, setShowQuestions] = useState(false);
-  const [jobPostId, setJobPostId] = useState([]);
+  const [jobPostId, setJobPostId] = useState(null);
 
   useEffect(() => {
     AOS.init();
@@ -52,7 +52,6 @@ function PostAJob() {
           />
         </div>
       )}
-
       {showQuestions && (
         <div
           data-aos="zoom-in-up"
