@@ -81,6 +81,16 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
           ),
         ],
       };
+    } else if (keyword && Model.rawAttributes.name) {
+      filter = {
+        [Op.or]: [
+          Sequelize.where(
+            Sequelize.fn("LOWER", Sequelize.col("name")),
+            "LIKE",
+            `%${keyword.toLowerCase()}%`
+          ),
+        ],
+      };
     }
 
     // exclude fields from the filter
