@@ -14,20 +14,20 @@ const data = [
   {
     id:"1",
     name: "jobs",
-    residual: 100,
-    consumer: 200,
+    residual: 3,
+    consumer: 12,
   },
   {
     id:"2",
     name: "unlocks",
-    residual: 150,
+    residual: 200,
     consumer: 400,
   },
   {
     id:"3",
     name: "Invite",
-    residual: 100,
-    consumer: 200,
+    residual: 20,
+    consumer: 180,
   },
 ];
 

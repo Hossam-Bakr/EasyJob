@@ -14,6 +14,11 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { companyActions } from "../../Store/companyNav-slice";
 import { useDispatch } from "react-redux";
+import {
+  goldenPackagePerMonth,
+  platinumPackagePerMonth,
+  silverPackagePerMonth,
+} from "../../Components/logic/Logic";
 
 const CompanyPricing = () => {
   const dispatch = useDispatch();
@@ -62,66 +67,15 @@ const CompanyPricing = () => {
                 </div>
                 <div className={styles.features}>
                   <ul>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Post 9 jobs ads
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      100 invitiation
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Unlimited search in Easy job database
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      300 Unlocks
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Connecting with 150 candidates of our choice
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Performing filtering on candidates
-                    </li>
-                    <li>
-                      <FontAwesomeIcon className={styles.list_icon} icon={faSquareArrowUpRight}/>
-                      <del>Display your brand logo</del>
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Two Admins
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Silver Support
-                    </li>
+                    {silverPackagePerMonth.map((feature) => (
+                      <li>
+                        <FontAwesomeIcon
+                          className={styles.list_icon}
+                          icon={faSquareArrowUpRight}
+                        />
+                        {feature}
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
@@ -151,69 +105,15 @@ const CompanyPricing = () => {
                 </div>{" "}
                 <div className={styles.features}>
                   <ul>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Post 15 jobs ads
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      200 invitiation
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Unlimited search in Easy job database
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      600 Unlocks
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Connecting with 300 candidates of our choice
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Performing filtering on candidates
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Display your brand on our main pages
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      five Admins
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Golden Support
-                    </li>
+                    {goldenPackagePerMonth.map((feature) => (
+                      <li>
+                        <FontAwesomeIcon
+                          className={styles.list_icon}
+                          icon={faSquareArrowUpRight}
+                        />
+                        {feature}
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
@@ -237,69 +137,15 @@ const CompanyPricing = () => {
                 </div>
                 <div className={styles.features}>
                   <ul>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Post 60 jobs ads
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      300 invitiation
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Unlimited search in Easy job database
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      900 Unlocks
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Connecting with 900 candidates of our choice
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Performing filtering on candidates
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Display your brand on top of our main pages
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Unlimited Admins
-                    </li>
-                    <li>
-                      <FontAwesomeIcon
-                        className={styles.list_icon}
-                        icon={faSquareArrowUpRight}
-                      />
-                      Premium support
-                    </li>
+                    {platinumPackagePerMonth.map((feature) => (
+                      <li>
+                        <FontAwesomeIcon
+                          className={styles.list_icon}
+                          icon={faSquareArrowUpRight}
+                        />
+                        {feature}
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
@@ -371,7 +217,10 @@ const CompanyPricing = () => {
                       Performing filtering on candidates
                     </li>
                     <li>
-                      <FontAwesomeIcon className={styles.list_icon} icon={faSquareArrowUpRight}/>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       <del>Display your brand logo</del>
                     </li>
                     <li>
@@ -638,7 +487,10 @@ const CompanyPricing = () => {
                       Performing filtering on candidates
                     </li>
                     <li>
-                      <FontAwesomeIcon className={styles.list_icon} icon={faSquareArrowUpRight}/>
+                      <FontAwesomeIcon
+                        className={styles.list_icon}
+                        icon={faSquareArrowUpRight}
+                      />
                       <del>Display your brand logo</del>
                     </li>
                     <li>

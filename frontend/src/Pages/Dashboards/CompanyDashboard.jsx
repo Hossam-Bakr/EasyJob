@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./CompanyDashboard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowRight,
   faArrowUp,
   faBriefcase,
   faCrown,
@@ -17,7 +18,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import huwawei from "../../images/logo/huwawei.webp";
 import Packageconsumption from "../../Components/charts/Packageconsumption";
-import AdminsInvitations from "./../../Components/charts/AdminsInvitations";
 import TotalApplications from "../../Components/charts/TotalApplications";
 import ListedEmployees from "./../../Components/Ui/ListedEmployees";
 import CompanyAccountSetting from "./../AccountSetting/CompanyAccountSetting";
@@ -28,7 +28,7 @@ import { getCompanyRelatedJobs } from "../../util/Http";
 import { useParams } from "react-router-dom";
 import NoDataBox from "../../Components/Ui/NoDataBox";
 import FloatingPopup from "../../Components/Ui/FloatingPopup";
-
+import { goldenPackagePerMonth } from "../../Components/logic/Logic";
 
 const myEmployees = [
   {
@@ -94,7 +94,6 @@ const myEmployees = [
 ];
 
 const CompanyDashboard = () => {
-
   const [activeLink, setActiveLink] = useState("main");
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -102,14 +101,12 @@ const CompanyDashboard = () => {
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
-  const {companyId:id} = useParams();
+  const { companyId: id } = useParams();
 
-
-  const { data: relatedJobs,refetch} = useQuery({
+  const { data: relatedJobs, refetch } = useQuery({
     queryKey: ["relatedJobs"],
-    queryFn: () => getCompanyRelatedJobs({id}),
+    queryFn: () => getCompanyRelatedJobs({ id }),
   });
-
 
   return (
     <>
@@ -177,7 +174,7 @@ const CompanyDashboard = () => {
           <Container className="my-5">
             <Row className="gy-5">
               {activeLink === "main" && (
-                <Col md={5}>
+                <Col md={8}>
                   <div className={`${styles.box} ${styles.plan}`}>
                     <div className="d-flex justify-content-between">
                       <h6>
@@ -191,9 +188,21 @@ const CompanyDashboard = () => {
                           7 days left
                         </span>
                       </h6>
-                      <span className={styles.price}>$5000/month</span>
+                      <span className={styles.price}>$2500/month</span>
                     </div>
-
+                    <div>
+                      <ul>
+                        {goldenPackagePerMonth.map((feature) => (
+                          <li className="my-1">
+                            <FontAwesomeIcon
+                              className="me-2 text-warning"
+                              icon={faArrowRight}
+                            />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                     <div className={styles.plan_btns}>
                       <button className={styles.upgrade_btn} title="upgrade">
                         <FontAwesomeIcon icon={faArrowUp} />
@@ -203,26 +212,7 @@ const CompanyDashboard = () => {
                   </div>
                 </Col>
               )}
-              {(activeLink === "main" ||
-                activeLink === "invitations" ||
-                activeLink === "analysis") && (
-                <Col md={7}>
-                  <div className={`${styles.box} ${styles.admins_invitations}`}>
-                    <AdminsInvitations />
-                  </div>
-                </Col>
-              )}
-              {(activeLink === "main" ||
-                activeLink === "jobs" ||
-                activeLink === "candidates" ||
-                activeLink === "analysis") && (
-                <Col md={8}>
-                  <div className={`${styles.box} ${styles.applications}`}>
-                    <TotalApplications />
-                  </div>
-                </Col>
-              )}
-
+              
               {(activeLink === "main" ||
                 activeLink === "candidates" ||
                 activeLink === "analysis") && (
@@ -232,6 +222,17 @@ const CompanyDashboard = () => {
                   </div>
                 </Col>
               )}
+              {(activeLink === "main" ||
+                activeLink === "jobs" ||
+                activeLink === "candidates" ||
+                activeLink === "analysis") && (
+                <Col md={12}>
+                  <div className={`${styles.box} ${styles.applications}`}>
+                    <TotalApplications />
+                  </div>
+                </Col>
+              )}
+
               {(activeLink === "main" || activeLink === "candidates") && (
                 <Col md={12}>
                   <div className={`${styles.box}`}>

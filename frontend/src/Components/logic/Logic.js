@@ -2113,3 +2113,37 @@ export const getUserLocation = (setCurrentLocation) => {
     console.error("Geolocation is not supported by this browser.");
   }
 };
+
+
+
+export const platinumPackagePerMonth=[
+  "Post 60 jobs",
+  "300 invitiation",
+  "Unlimited search in Easy job database",
+  "900 Unlocks",
+  "Connecting with 900 candidates of our choice",
+  " Performing filtering on candidates",
+  "Display your brand on top of our main pages",
+  "Platinum Support",
+  ]
+
+export const goldenPackagePerMonth=[
+"Post 15 jobs",
+"200 invitiation",
+"Unlimited search in Easy job database",
+"600 Unlocks",
+"Connecting with 300 candidates of our choice",
+" Performing filtering on candidates",
+"Display your brand on our main pages",
+"Golden Support",
+]
+export const silverPackagePerMonth=[
+"Post 9 jobs",
+"100 invitiation",
+"Unlimited search in Easy job database",
+"300 Unlocks",
+"Connecting with 150 candidates of our choice",
+"Performing filtering on candidates",
+"Display your brand logo",
+"Silver Support",
+]
