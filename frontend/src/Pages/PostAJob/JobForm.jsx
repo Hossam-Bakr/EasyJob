@@ -5,6 +5,7 @@ import {
   cityOptions,
   convertCategoriesIntoList,
   countryOptions,
+  getUserLocation,
   yearsOptions,
 } from "./../../Components/logic/Logic";
 import { useEffect, useRef, useState } from "react";
@@ -52,23 +53,7 @@ const JobForm = ({
   };
 
   useEffect(() => {
-    const getUserLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setCurrentLocation([latitude, longitude]);
-          },
-          (error) => {
-            console.error("Error getting user location:", error);
-          }
-        );
-      } else {
-        console.error("Geolocation is not supported by this browser.");
-      }
-    };
-
-    getUserLocation();
+    getUserLocation(setCurrentLocation);
   }, []);
 
   useEffect(() => {
@@ -153,8 +138,6 @@ const JobForm = ({
         coordinates: [positionLat, positionLng],
       },
     };
-
-    console.log(updatedValues);
     mutate({
       type: "/",
       method: "post",

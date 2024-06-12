@@ -44,7 +44,6 @@ const Posts = () => {
   const categories = useSelector((state) => state.category.categories);
   const outSideFilteration = useSelector((state) => state.filter.data);
 
-
   const setGrid = () => {
     setGridView(true);
   };
@@ -94,188 +93,160 @@ const Posts = () => {
     jobTypeFilteration,
     careerLevelFilteration,
     workPlaceFilteration,
-    minSalaryFilteration,
-    maxSalaryFilteration,
     jobTitleFilteration,
     refetch,
   ]);
 
+  useEffect(() => {
+    refetch();
+  }, [minSalaryFilteration, maxSalaryFilteration, refetch]);
 
-  useEffect(()=>{
-    if(outSideFilteration.value!==null){
+  useEffect(() => {
+    if (outSideFilteration.value !== null) {
       switch (outSideFilteration.type) {
         case "city":
-          setCityFilteration([outSideFilteration.value])
+          setCityFilteration([outSideFilteration.value]);
           break;
-      
+
         default:
           break;
       }
     }
-  },[outSideFilteration])
+  }, [outSideFilteration]);
 
-  const filterOperations = (type, filterValue) => {
-    switch (type) {
-      case "title":
-        if (filterValue) {
-          setmJobTitleFilteration(filterValue);
-        }
-        break;
-      case "country":
-        const newCountry = countryFilteration.find(
-          (country) => country === filterValue
-        );
-        if (!newCountry) {
-          const updatedList = [...countryFilteration, filterValue];
-          setCountryFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...countryFilteration];
-          const newList = updatedFilterList.filter(
-            (country) => country !== newCountry
-          );
-          setCountryFilteration(newList);
-        }
-        break;
-      case "city":
-        const newCity = cityFilteration.find((city) => city === filterValue);
-        if (!newCity) {
-          const updatedList = [...cityFilteration, filterValue];
-          setCityFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...cityFilteration];
-          const newList = updatedFilterList.filter((city) => city !== newCity);
-          setCityFilteration(newList);
-        }
-        break;
-      case "category":
-        const newCategory = categoriesFilteration.find(
-          (category) => category === filterValue
-        );
-        if (!newCategory) {
-          const updatedList = [...categoriesFilteration, filterValue];
-          setCategoriesFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...categoriesFilteration];
-          const newList = updatedFilterList.filter(
-            (category) => category !== newCategory
-          );
-          setCategoriesFilteration(newList);
-        }
-        break;
-      case "type":
-        const newType = jobTypeFilteration.find((type) => type === filterValue);
-        if (!newType) {
-          const updatedList = [...jobTypeFilteration, filterValue];
-          setJobTypeFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...jobTypeFilteration];
-          const newList = updatedFilterList.filter((type) => type !== newType);
-          setJobTypeFilteration(newList);
-        }
-        break;
-      case "careerLevel":
-        const newCareer = careerLevelFilteration.find(
-          (career) => career === filterValue
-        );
-        if (!newCareer) {
-          const updatedList = [...careerLevelFilteration, filterValue];
-          setCareerLevelFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...careerLevelFilteration];
-          const newList = updatedFilterList.filter(
-            (career) => career !== newCareer
-          );
-          setCareerLevelFilteration(newList);
-        }
-        break;
-      case "minSalary":
-        const newMinSalary = minSalaryFilteration.find(
-          (salary) => salary === filterValue
-        );
-        if (!newMinSalary) {
-          const updatedList = [...minSalaryFilteration, filterValue];
-          setMinSalaryFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...minSalaryFilteration];
-          const newList = updatedFilterList.filter(
-            (salary) => salary !== newMinSalary
-          );
-          setMinSalaryFilteration(newList);
-        }
-        break;
-      case "maxSalary":
-        const newMaxSalary = maxSalaryFilteration.find(
-          (salary) => salary === filterValue
-        );
-        if (!newMaxSalary) {
-          const updatedList = [...maxSalaryFilteration, filterValue];
-          setmMaxSalaryFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...maxSalaryFilteration];
-          const newList = updatedFilterList.filter(
-            (salary) => salary !== newMaxSalary
-          );
-          setmMaxSalaryFilteration(newList);
-        }
-        break;
-      case "workplace":
-        const newPlace = workPlaceFilteration.find(
-          (place) => place === filterValue
-        );
-        if (!newPlace) {
-          const updatedList = [...workPlaceFilteration, filterValue];
-          setWorkPlaceFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...workPlaceFilteration];
-          const newList = updatedFilterList.filter(
-            (place) => place !== newPlace
-          );
-          setWorkPlaceFilteration(newList);
-        }
-        break;
-      default:
-        break;
-    }
-  };
-
-  const addParamsToFilterList = (e, titleValue, titleTag) => {
+  const filterOperations = (e, titleValue) => {
     if (e !== false) {
       const filterType = e.target.getAttribute("tag");
       const filterValue = e.target.value;
       switch (filterType) {
         case "country":
-          filterOperations("country", filterValue);
+          const newCountry = countryFilteration.find(
+            (country) => country === filterValue
+          );
+          if (!newCountry) {
+            const updatedList = [...countryFilteration, filterValue];
+            setCountryFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...countryFilteration];
+            const newList = updatedFilterList.filter(
+              (country) => country !== newCountry
+            );
+            setCountryFilteration(newList);
+          }
           break;
+
         case "city":
-          filterOperations("city", filterValue);
+          const newCity = cityFilteration.find((city) => city === filterValue);
+          if (!newCity) {
+            const updatedList = [...cityFilteration, filterValue];
+            setCityFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...cityFilteration];
+            const newList = updatedFilterList.filter(
+              (city) => city !== newCity
+            );
+            setCityFilteration(newList);
+          }
           break;
         case "category":
-          filterOperations("category", filterValue);
+          const newCategory = categoriesFilteration.find(
+            (category) => category === filterValue
+          );
+          if (!newCategory) {
+            const updatedList = [...categoriesFilteration, filterValue];
+            setCategoriesFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...categoriesFilteration];
+            const newList = updatedFilterList.filter(
+              (category) => category !== newCategory
+            );
+            setCategoriesFilteration(newList);
+          }
           break;
         case "type":
-          filterOperations("type", filterValue);
+          const newType = jobTypeFilteration.find(
+            (type) => type === filterValue
+          );
+          if (!newType) {
+            const updatedList = [...jobTypeFilteration, filterValue];
+            setJobTypeFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...jobTypeFilteration];
+            const newList = updatedFilterList.filter(
+              (type) => type !== newType
+            );
+            setJobTypeFilteration(newList);
+          }
           break;
         case "careerLevel":
-          filterOperations("careerLevel", filterValue);
+          const newCareer = careerLevelFilteration.find(
+            (career) => career === filterValue
+          );
+          if (!newCareer) {
+            const updatedList = [...careerLevelFilteration, filterValue];
+            setCareerLevelFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...careerLevelFilteration];
+            const newList = updatedFilterList.filter(
+              (career) => career !== newCareer
+            );
+            setCareerLevelFilteration(newList);
+          }
           break;
         case "minsalary":
           if (filterValue >= 0) {
-            filterOperations("minsalary", filterValue);
+            const newMinSalary = minSalaryFilteration.find(
+              (salary) => salary === filterValue
+            );
+            if (!newMinSalary) {
+              const updatedList = [...minSalaryFilteration, filterValue];
+              setMinSalaryFilteration(updatedList);
+            } else {
+              const updatedFilterList = [...minSalaryFilteration];
+              const newList = updatedFilterList.filter(
+                (salary) => salary !== newMinSalary
+              );
+              setMinSalaryFilteration(newList);
+            }
           }
           break;
         case "maxSalary":
           if (filterValue > 0) {
-            filterOperations("maxSalary", filterValue);
+            const newMaxSalary = maxSalaryFilteration.find(
+              (salary) => salary === filterValue
+            );
+            if (!newMaxSalary) {
+              const updatedList = [...maxSalaryFilteration, filterValue];
+              setmMaxSalaryFilteration(updatedList);
+            } else {
+              const updatedFilterList = [...maxSalaryFilteration];
+              const newList = updatedFilterList.filter(
+                (salary) => salary !== newMaxSalary
+              );
+              setmMaxSalaryFilteration(newList);
+            }
           }
           break;
         case "workplace":
-          filterOperations("workplace", filterValue);
+          const newPlace = workPlaceFilteration.find(
+            (place) => place === filterValue
+          );
+          if (!newPlace) {
+            const updatedList = [...workPlaceFilteration, filterValue];
+            setWorkPlaceFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...workPlaceFilteration];
+            const newList = updatedFilterList.filter(
+              (place) => place !== newPlace
+            );
+            setWorkPlaceFilteration(newList);
+          }
           break;
         default:
           break;
       }
     } else {
-      if (titleTag === "title") filterOperations("title", titleValue.value);
+      setmJobTitleFilteration(titleValue.value);
     }
   };
 
@@ -289,6 +260,9 @@ const Posts = () => {
     setmMaxSalaryFilteration([]);
     setWorkPlaceFilteration([]);
     setmJobTitleFilteration("");
+    setSearchFilter("");
+    document.getElementById("maxSalary").value = "";
+    document.getElementById("minSalary").value = "";
   };
 
   const onSearch = (e, searchInput) => {
@@ -319,7 +293,7 @@ const Posts = () => {
                       name="jobTitle"
                       options={titleOptions}
                       onChange={(value) =>
-                        addParamsToFilterList(false, value, "title")
+                        filterOperations(false, value, "title")
                       }
                     />
                   </FilterAccordion>
@@ -333,7 +307,7 @@ const Posts = () => {
                             id="country_Egypt"
                             value="Egypt"
                             tag="country"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                             checked={countryFilteration.includes("Egypt")}
                           />
                           <label htmlFor="country_Egypt">Egypt</label>
@@ -347,7 +321,7 @@ const Posts = () => {
                             id="KSA"
                             value="KSA"
                             tag="country"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                             checked={countryFilteration.includes("KSA")}
                           />
                           <label htmlFor="KSA">KSA</label>
@@ -361,7 +335,7 @@ const Posts = () => {
                             id="UAE"
                             value="UAE"
                             tag="country"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                             checked={countryFilteration.includes("UAE")}
                           />
                           <label htmlFor="UAE">UAE</label>
@@ -375,7 +349,7 @@ const Posts = () => {
                             id="Kuwait"
                             value="Kuwait"
                             tag="country"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                             checked={countryFilteration.includes("Kuwait")}
                           />
                           <label htmlFor="Kuwait">Kuwait</label>
@@ -398,7 +372,7 @@ const Posts = () => {
                                 id={`city_${city}`}
                                 value={city}
                                 tag="city"
-                                onChange={addParamsToFilterList}
+                                onChange={filterOperations}
                                 checked={cityFilteration.includes(city)}
                               />
                               <label htmlFor={`city_${city}`}>{city}</label>
@@ -419,7 +393,7 @@ const Posts = () => {
                                     id={`city_${city}`}
                                     value={city}
                                     tag="city"
-                                    onChange={addParamsToFilterList}
+                                    onChange={filterOperations}
                                     checked={cityFilteration.includes(city)}
                                   />
                                   <label htmlFor={`city_${city}`}>{city}</label>
@@ -438,7 +412,7 @@ const Posts = () => {
                                     id={`city_${city}`}
                                     value={city}
                                     tag="city"
-                                    onChange={addParamsToFilterList}
+                                    onChange={filterOperations}
                                     checked={cityFilteration.includes(city)}
                                   />
                                   <label htmlFor={`city_${city}`}>{city}</label>
@@ -457,7 +431,7 @@ const Posts = () => {
                                     id={`city_${city}`}
                                     value={city}
                                     tag="city"
-                                    onChange={addParamsToFilterList}
+                                    onChange={filterOperations}
                                     checked={cityFilteration.includes(city)}
                                   />
                                   <label htmlFor={`city_${city}`}>{city}</label>
@@ -492,8 +466,10 @@ const Posts = () => {
                                 id={`category_${category.name}`}
                                 value={category.id}
                                 tag="category"
-                                onChange={addParamsToFilterList}
-                                checked={categoriesFilteration.includes(category.id)}
+                                onChange={filterOperations}
+                                checked={categoriesFilteration.includes(
+                                  category.id
+                                )}
                               />
                               <label htmlFor={`category_${category.name}`}>
                                 {category.name}
@@ -518,7 +494,7 @@ const Posts = () => {
                               id={`type_${type.label}`}
                               value={type.value}
                               tag="type"
-                              onChange={addParamsToFilterList}
+                              onChange={filterOperations}
                               checked={jobTypeFilteration.includes(type.value)}
                             />
                             <label htmlFor={`type_${type.label}`}>
@@ -543,8 +519,10 @@ const Posts = () => {
                               id={`careerLevel_${career.label}`}
                               value={career.value}
                               tag="careerLevel"
-                              onChange={addParamsToFilterList}
-                              checked={careerLevelFilteration.includes(career.value)}
+                              onChange={filterOperations}
+                              checked={careerLevelFilteration.includes(
+                                career.value
+                              )}
                             />
                             <label htmlFor={`careerLevel_${career.label}`}>
                               {career.label}
@@ -567,7 +545,7 @@ const Posts = () => {
                             id="workplace_office"
                             value="office"
                             tag="workplace"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                             checked={workPlaceFilteration.includes("office")}
                           />
                           <label htmlFor="workplace_office">On Site</label>
@@ -581,7 +559,7 @@ const Posts = () => {
                             id="workplace_remote"
                             value="remote"
                             tag="workplace"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                             checked={workPlaceFilteration.includes("remote")}
                           />
                           <label htmlFor="workplace_remote">Remotely</label>
@@ -595,7 +573,7 @@ const Posts = () => {
                             id="workplace_hybrid"
                             value="hybrid"
                             tag="workplace"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                             checked={workPlaceFilteration.includes("hybrid")}
                           />
                           <label htmlFor="workplace_hybrid">Hybrid</label>
@@ -612,7 +590,7 @@ const Posts = () => {
                         type="number"
                         placeholder="Min salary"
                         tag="minSalary"
-                        onChange={addParamsToFilterList}
+                        onInput={filterOperations}
                       />
                     </div>
                     <div>
@@ -623,12 +601,15 @@ const Posts = () => {
                         type="number"
                         placeholder="Max salary"
                         tag="maxSalary"
-                        onChange={addParamsToFilterList}
+                        onInput={filterOperations}
                       />
                     </div>
                   </FilterAccordion>
                   <div className="mt-3 text-center">
-                    <MainButton onClick={clearALLFilterations} text="Reset Filteration"/>
+                    <MainButton
+                      onClick={clearALLFilterations}
+                      text="Reset Filteration"
+                    />
                   </div>
                 </Accordion>
               </aside>
@@ -641,12 +622,17 @@ const Posts = () => {
                       <h2>Explore Jobs</h2>
                       <SearchField
                         onSearch={onSearch}
-                        text="search Job title"
+                        text="search title, description"
                         isSearching={isSearching}
                       />
                     </div>
 
-                    <GridButtons setGrid={setGrid} setList={setList} />
+                    <GridButtons
+                      isJobs={true}
+                      gridView={gridView}
+                      setGrid={setGrid}
+                      setList={setList}
+                    />
                     {isFetching ? (
                       <>
                         <LoadingPlaceholders page="jobs" />

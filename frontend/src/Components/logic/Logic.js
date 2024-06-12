@@ -2022,7 +2022,6 @@ export const convertSkillsIntoList=(currentSkills,setState)=>{
   }
 }
 
-
 export const formatedTimeHandler = (time, setState) => {
   const currentTimestamp = new Date();
   const givenTimestamp = new Date(time);
@@ -2046,7 +2045,7 @@ export const formatedTimeHandler = (time, setState) => {
       days = days - 30;
       months++;
     }
-    setState(months + "month" + (months > 1 ? "s" : "") + " ago");
+    setState(months + " month" + (months > 1 ? "s" : "") + " ago");
   } else if (days > 0) {
     while (hours > 24) {
       hours = hours - 24;
@@ -2098,3 +2097,19 @@ export function calculateAge(birthdate,setState) {
   
   setState(age);
 }
+
+export const getUserLocation = (setCurrentLocation) => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCurrentLocation([latitude, longitude]);
+      },
+      (error) => {
+        console.error("Error getting user location:", error);
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
+};

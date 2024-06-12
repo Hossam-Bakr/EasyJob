@@ -17,6 +17,7 @@ import Select from "react-select";
 import { useSelector } from "react-redux";
 import { Cities, sizeOptions } from "../../Components/logic/Logic";
 import GoTopButton from "../../Components/Ui/GoTopButton";
+import MainButton from "../../Components/Ui/MainButton";
 
 const Companies = () => {
   const [gridView, setGridView] = useState(true);
@@ -29,17 +30,21 @@ const Companies = () => {
   const [industryOptions, setIndustryOptions] = useState(null);
   const [showMoreCities, setShowMoreCities] = useState(false);
 
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchFilter, setSearchFilter] = useState("");
+
   const currentIndustries = useSelector((state) => state.category.industries);
 
   let { data, isFetching, refetch } = useQuery({
     queryKey: ["companies"],
     queryFn: () =>
       getCompanies({
+        searchFilter,
         pageNum,
         indusryFilteration,
         countryFilteration,
         cityFilteration,
-        sizeFilteration
+        sizeFilteration,
       }),
   });
 
@@ -50,77 +55,75 @@ const Companies = () => {
     setGridView(false);
   };
 
-  const filterOperations = (type, filterValue) => {
-    switch (type) {
-      case "industry":
-        if (filterValue) {
-          setIndustryFilteration(filterValue);
-        }
-        break;
-      case "country":
-        const newCountry = countryFilteration.find(
-          (country) => country === filterValue
-        );
-        if (!newCountry) {
-          const updatedList = [...countryFilteration, filterValue];
-          setCountryFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...countryFilteration];
-          const newList = updatedFilterList.filter(
-            (country) => country !== newCountry
-          );
-          setCountryFilteration(newList);
-        }
-        break;
-      case "city":
-        const newCity = cityFilteration.find((city) => city === filterValue);
-        if (!newCity) {
-          const updatedList = [...cityFilteration, filterValue];
-          setCityFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...cityFilteration];
-          const newList = updatedFilterList.filter((city) => city !== newCity);
-          setCityFilteration(newList);
-        }
-        break;
-      case "size":
-        const newSize = sizeFilteration.find((size) => size === filterValue);
-        if (!newSize) {
-          const updatedList = [...sizeFilteration, filterValue];
-          setSizeFilteration(updatedList);
-        } else {
-          const updatedFilterList = [...sizeFilteration];
-          const newList = updatedFilterList.filter((size) => size !== newSize);
-          setSizeFilteration(newList);
-        }
-        break;
-      default:
-        break;
-    }
-  };
-
-  const addParamsToFilterList = (e, value, tag) => {
+  const filterOperations = (e, value, tag) => {
     if (e !== false) {
       const filterType = e.target.getAttribute("tag");
       const filterValue = e.target.value;
       switch (filterType) {
         case "country":
-          filterOperations("country", filterValue);
+          const newCountry = countryFilteration.find(
+            (country) => country === filterValue
+          );
+          if (!newCountry) {
+            const updatedList = [...countryFilteration, filterValue];
+            setCountryFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...countryFilteration];
+            const newList = updatedFilterList.filter(
+              (country) => country !== newCountry
+            );
+            setCountryFilteration(newList);
+          };
           break;
         case "city":
-          filterOperations("city", filterValue);
+          const newCity = cityFilteration.find((city) => city === filterValue);
+          if (!newCity) {
+            const updatedList = [...cityFilteration, filterValue];
+            setCityFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...cityFilteration];
+            const newList = updatedFilterList.filter((city) => city !== newCity);
+            setCityFilteration(newList);
+          }
           break;
         case "size":
-          filterOperations("size", filterValue);
+          const newSize = sizeFilteration.find((size) => size === filterValue);
+          if (!newSize) {
+            const updatedList = [...sizeFilteration, filterValue];
+            setSizeFilteration(updatedList);
+          } else {
+            const updatedFilterList = [...sizeFilteration];
+            const newList = updatedFilterList.filter((size) => size !== newSize);
+            setSizeFilteration(newList);
+          }
           break;
         default:
           break;
       }
     } else {
       if (tag === "industry") {
-        filterOperations("industry", value.value);
+        setIndustryFilteration(value.value);
       }
     }
+
+  };
+
+  const clearALLFilterations = () => {
+    setIndustryFilteration(null);
+    setCountryFilteration([]);
+    setCityFilteration([]);
+    setSizeFilteration([]);
+    setSearchFilter("")
+  };
+
+  const onSearch = (e, searchInput) => {
+    e.preventDefault();
+    setIsSearching(true);
+    if (searchInput) {
+      clearALLFilterations();
+      setSearchFilter(searchInput);
+    }
+    setIsSearching(false);
   };
 
   useEffect(() => {
@@ -137,6 +140,7 @@ const Companies = () => {
     refetch();
     window.scrollTo(0, 0);
   }, [
+    searchFilter,
     pageNum,
     indusryFilteration,
     countryFilteration,
@@ -162,7 +166,7 @@ const Companies = () => {
                   name="industry"
                   options={industryOptions}
                   onChange={(value) =>
-                    addParamsToFilterList(false, value, "industry")
+                    filterOperations(false, value, "industry")
                   }
                 />
               </FilterAccordion>
@@ -176,7 +180,7 @@ const Companies = () => {
                         id="country_Egypt"
                         value="Egypt"
                         tag="country"
-                        onChange={addParamsToFilterList}
+                        onChange={filterOperations}
                       />
                       <label htmlFor="country_Egypt">Egypt</label>
                     </div>
@@ -189,7 +193,7 @@ const Companies = () => {
                         id="KSA"
                         value="KSA"
                         tag="country"
-                        onChange={addParamsToFilterList}
+                        onChange={filterOperations}
                       />
                       <label htmlFor="KSA">KSA</label>
                     </div>
@@ -202,7 +206,7 @@ const Companies = () => {
                         id="UAE"
                         value="UAE"
                         tag="country"
-                        onChange={addParamsToFilterList}
+                        onChange={filterOperations}
                       />
                       <label htmlFor="UAE">UAE</label>
                     </div>
@@ -215,7 +219,7 @@ const Companies = () => {
                         id="Kuwait"
                         value="Kuwait"
                         tag="country"
-                        onChange={addParamsToFilterList}
+                        onChange={filterOperations}
                       />
                       <label htmlFor="Kuwait">Kuwait</label>
                     </div>
@@ -237,7 +241,7 @@ const Companies = () => {
                             id={`city_${city}`}
                             value={city}
                             tag="city"
-                            onChange={addParamsToFilterList}
+                            onChange={filterOperations}
                           />
                           <label htmlFor={`city_${city}`}>{city}</label>
                         </div>
@@ -257,7 +261,7 @@ const Companies = () => {
                                 id={`city_${city}`}
                                 value={city}
                                 tag="city"
-                                onChange={addParamsToFilterList}
+                                onChange={filterOperations}
                               />
                               <label htmlFor={`city_${city}`}>{city}</label>
                             </div>
@@ -275,7 +279,7 @@ const Companies = () => {
                                 id={`city_${city}`}
                                 value={city}
                                 tag="city"
-                                onChange={addParamsToFilterList}
+                                onChange={filterOperations}
                               />
                               <label htmlFor={`city_${city}`}>{city}</label>
                             </div>
@@ -293,7 +297,7 @@ const Companies = () => {
                                 id={`city_${city}`}
                                 value={city}
                                 tag="city"
-                                onChange={addParamsToFilterList}
+                                onChange={filterOperations}
                               />
                               <label htmlFor={`city_${city}`}>{city}</label>
                             </div>
@@ -315,7 +319,10 @@ const Companies = () => {
               <FilterAccordion title="Filter by Company Size" eventKey="3">
                 <ul className={styles.filter_list}>
                   {sizeOptions.map((size) => (
-                    <li key={size.value} className="d-flex justify-content-between">
+                    <li
+                      key={size.value}
+                      className="d-flex justify-content-between"
+                    >
                       <div>
                         <input
                           type="checkbox"
@@ -323,14 +330,22 @@ const Companies = () => {
                           id={`size_${size.label}`}
                           value={size.value}
                           tag="size"
-                          onChange={addParamsToFilterList}
+                          onChange={filterOperations}
                         />
-                        <label htmlFor={`size_${size.label}`}>{size.label}</label>
+                        <label htmlFor={`size_${size.label}`}>
+                          {size.label}
+                        </label>
                       </div>
                     </li>
                   ))}
                 </ul>
               </FilterAccordion>
+              <div className="mt-3 text-center">
+                <MainButton
+                  onClick={clearALLFilterations}
+                  text="Reset Filteration"
+                />
+              </div>
             </Accordion>
           </aside>
         </Col>
@@ -340,7 +355,11 @@ const Companies = () => {
               <Row>
                 <div className="d-flex justify-content-center align-items-center my-3 flex-wrap">
                   <h2>Companies</h2>
-                  <SearchField />
+                  <SearchField
+                    onSearch={onSearch}
+                    text="search name, Info"
+                    isSearching={isSearching}
+                  />
                 </div>
 
                 <GridButtons setGrid={setGrid} setList={setList} />
@@ -388,7 +407,7 @@ const Companies = () => {
           </section>
         </Col>
       </Row>
-      <GoTopButton/>
+      <GoTopButton />
     </Container>
   );
 };
