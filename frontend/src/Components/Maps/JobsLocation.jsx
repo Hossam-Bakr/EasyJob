@@ -64,6 +64,7 @@ const JobsLocation = ({ jobs, myPosition }) => {
         {jobs &&
           jobs.map((job) => (
             <Marker
+              key={job.id}
               position={[job.latitude, job.longitude]}
               icon={jobIcon}
               eventHandlers={{

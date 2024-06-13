@@ -14,7 +14,7 @@ const JobsOnMapModal = ({ show, onHide }) => {
     queryKey: ["companies"],
     queryFn: getJobOnMap,
   });
-  console.log(data);
+
 
   useEffect(() => {
     getUserLocation(setCurrentLocation);

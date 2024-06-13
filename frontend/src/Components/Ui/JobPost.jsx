@@ -33,6 +33,7 @@ const JobPost = ({
   workplace,
   time,
   maxSalary,
+  minSalary,
   hideSalary,
   grid,
   profile,
@@ -225,7 +226,7 @@ const JobPost = ({
                       ""
                     ) : (
                       <h6>
-                        ${maxSalary}
+                        ${minSalary}-{maxSalary}
                         <span className={styles.salary_per_h}>/M</span>
                       </h6>
                     )}

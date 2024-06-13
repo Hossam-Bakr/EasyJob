@@ -2107,10 +2107,12 @@ export const getUserLocation = (setCurrentLocation) => {
       },
       (error) => {
         console.error("Error getting user location:", error);
+        alert("please open your location to continue !")
       }
     );
   } else {
     console.error("Geolocation is not supported by this browser.");
+    alert("sorry Geolocation is not supported by this browser!")
   }
 };
 
@@ -2137,6 +2139,7 @@ export const goldenPackagePerMonth=[
 "Display your brand on our main pages",
 "Golden Support",
 ]
+
 export const silverPackagePerMonth=[
 "Post 9 jobs",
 "100 invitiation",

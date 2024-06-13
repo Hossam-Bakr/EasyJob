@@ -33,12 +33,12 @@ const Posts = () => {
   const [searchFilter, setSearchFilter] = useState("");
   const [countryFilteration, setCountryFilteration] = useState([]);
   const [cityFilteration, setCityFilteration] = useState([]);
-  const [categoriesFilteration, setCategoriesFilteration] = useState([]);
+  const [categoriesFilteration, setCategoriesFilteration] = useState("");
   const [jobTypeFilteration, setJobTypeFilteration] = useState([]);
   const [careerLevelFilteration, setCareerLevelFilteration] = useState([]);
   const [workPlaceFilteration, setWorkPlaceFilteration] = useState([]);
-  const [minSalaryFilteration, setMinSalaryFilteration] = useState([]);
-  const [maxSalaryFilteration, setmMaxSalaryFilteration] = useState([]);
+  const [minSalaryFilteration, setMinSalaryFilteration] = useState(0);
+  const [maxSalaryFilteration, setmMaxSalaryFilteration] = useState(0);
   const [jobTitleFilteration, setmJobTitleFilteration] = useState("");
   const [showMoreCities, setShowMoreCities] = useState(false);
   const categories = useSelector((state) => state.category.categories);
@@ -148,21 +148,28 @@ const Posts = () => {
             setCityFilteration(newList);
           }
           break;
+
         case "category":
-          const newCategory = categoriesFilteration.find(
-            (category) => category === filterValue
-          );
+          const newCategory = categoriesFilteration.includes(filterValue);
           if (!newCategory) {
-            const updatedList = [...categoriesFilteration, filterValue];
-            setCategoriesFilteration(updatedList);
+            let updatedString = "";
+            let myCatFilter = categoriesFilteration;
+            if (myCatFilter === "") {
+              updatedString = `${filterValue}`;
+            } else {
+              updatedString = myCatFilter.concat(`,${filterValue}`);
+            }
+            setCategoriesFilteration(updatedString);
           } else {
-            const updatedFilterList = [...categoriesFilteration];
-            const newList = updatedFilterList.filter(
-              (category) => category !== newCategory
-            );
-            setCategoriesFilteration(newList);
+            let myCatFilter = categoriesFilteration;
+            const updatedFilterString = myCatFilter;
+            let newString = updatedFilterString
+            .replace(new RegExp(`(^|,)${filterValue}(,|$)`), '$1$2')
+            .replace(/^,|,$/g, '');
+            setCategoriesFilteration(newString);
           }
           break;
+
         case "type":
           const newType = jobTypeFilteration.find(
             (type) => type === filterValue
@@ -193,40 +200,25 @@ const Posts = () => {
             setCareerLevelFilteration(newList);
           }
           break;
-        case "minsalary":
+
+        case "minSalary":
           if (filterValue >= 0) {
-            const newMinSalary = minSalaryFilteration.find(
-              (salary) => salary === filterValue
-            );
-            if (!newMinSalary) {
-              const updatedList = [...minSalaryFilteration, filterValue];
-              setMinSalaryFilteration(updatedList);
+              setMinSalaryFilteration(filterValue);
             } else {
-              const updatedFilterList = [...minSalaryFilteration];
-              const newList = updatedFilterList.filter(
-                (salary) => salary !== newMinSalary
-              );
-              setMinSalaryFilteration(newList);
+              const updatedFilterList = minSalaryFilteration;
+              setMinSalaryFilteration(updatedFilterList);
             }
-          }
           break;
+
         case "maxSalary":
-          if (filterValue > 0) {
-            const newMaxSalary = maxSalaryFilteration.find(
-              (salary) => salary === filterValue
-            );
-            if (!newMaxSalary) {
-              const updatedList = [...maxSalaryFilteration, filterValue];
-              setmMaxSalaryFilteration(updatedList);
-            } else {
-              const updatedFilterList = [...maxSalaryFilteration];
-              const newList = updatedFilterList.filter(
-                (salary) => salary !== newMaxSalary
-              );
-              setmMaxSalaryFilteration(newList);
-            }
+          if (filterValue >= 0) {
+            setmMaxSalaryFilteration(filterValue);
+          } else {
+            const updatedFilterList = maxSalaryFilteration;
+            setmMaxSalaryFilteration(updatedFilterList);
           }
           break;
+
         case "workplace":
           const newPlace = workPlaceFilteration.find(
             (place) => place === filterValue
@@ -253,16 +245,16 @@ const Posts = () => {
   const clearALLFilterations = () => {
     setCountryFilteration([]);
     setCityFilteration([]);
-    setCategoriesFilteration([]);
+    setCategoriesFilteration("");
     setJobTypeFilteration([]);
     setCareerLevelFilteration([]);
-    setMinSalaryFilteration([]);
-    setmMaxSalaryFilteration([]);
+    setMinSalaryFilteration(0);
+    setmMaxSalaryFilteration(0);
     setWorkPlaceFilteration([]);
     setmJobTitleFilteration("");
     setSearchFilter("");
-    document.getElementById("maxSalary").value = "";
-    document.getElementById("minSalary").value = "";
+    document.getElementById("maxSalary").value = 0;
+    document.getElementById("minSalary").value = 0;
   };
 
   const onSearch = (e, searchInput) => {
@@ -464,11 +456,11 @@ const Posts = () => {
                                 type="checkbox"
                                 className={styles.checkbox_type}
                                 id={`category_${category.name}`}
-                                value={category.id}
+                                value={category.name}
                                 tag="category"
                                 onChange={filterOperations}
                                 checked={categoriesFilteration.includes(
-                                  category.id
+                                  category.name
                                 )}
                               />
                               <label htmlFor={`category_${category.name}`}>
@@ -590,7 +582,7 @@ const Posts = () => {
                         type="number"
                         placeholder="Min salary"
                         tag="minSalary"
-                        onInput={filterOperations}
+                        onChange={filterOperations}
                       />
                     </div>
                     <div>
@@ -601,7 +593,7 @@ const Posts = () => {
                         type="number"
                         placeholder="Max salary"
                         tag="maxSalary"
-                        onInput={filterOperations}
+                        onChange={filterOperations}
                       />
                     </div>
                   </FilterAccordion>
@@ -658,8 +650,8 @@ const Posts = () => {
                                       workplace={job.workplace}
                                       part={job.part}
                                       time={job.createdAt}
-                                      maxSalary={job.salaryRangeMin}
-                                      // minSalary={job.salaryRangeMax}
+                                      maxSalary={job.salaryRangeMax}
+                                      minSalary={job.salaryRangeMin}
                                       hideSalary={job.hideSalary}
                                       grid={gridView}
                                     />

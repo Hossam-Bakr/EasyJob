@@ -98,9 +98,10 @@
 }
 .job_footer h6{
     margin: 0;
-    font-size: 1.25rem;
-    color: var(--main_color);
-    font-weight: 6  00;
+    font-size:18px;
+    font-family:'Times New Roman', Times, serif;
+    color: var(--darker_main_color);
+    font-weight: 700;
 }
 .salary_per_h{
     color: var(--dark_white);

@@ -197,7 +197,7 @@ export const getJobs = async ({
   maxSalaryFilteration,
   jobTitleFilteration,
 }) => {
-  //handle categories
+  
   try {
     let params = {
       limit: 15,
@@ -264,27 +264,38 @@ export const getJobs = async ({
         });
       }
 
-      if (minSalaryFilteration.length > 0) {
-        minSalaryFilteration.forEach((salary) => {
+      if (categoriesFilteration!=="") { 
           if (paramValues === "") {
-            paramValues = paramValues.concat(`?salaryRangeMin__gte=${salary}`);
+            paramValues = paramValues.concat(`?cats=${categoriesFilteration}`);
           } else {
-            paramValues = paramValues.concat(`&salaryRangeMin__gte=${salary}`);
+            paramValues = paramValues.concat(`&cats=${categoriesFilteration}`);
           }
-        });
+       
       }
-      if (maxSalaryFilteration.length > 0) {
-        maxSalaryFilteration.forEach((salary) => {
+      
+      if (minSalaryFilteration.length !=="") {
+        console.log("minSalary"+minSalaryFilteration)
+        let myMinSalary=Number(minSalaryFilteration)
+          if (paramValues === "") {
+            paramValues = paramValues.concat(`?salaryRangeMin__gte=${myMinSalary}`);
+          } else {
+            paramValues = paramValues.concat(`&salaryRangeMin__gte=${myMinSalary}`);
+          }
+      }
+
+      if (maxSalaryFilteration.length !=="") {
+        console.log("maxSalary"+maxSalaryFilteration)
+        let myMaxSalary=Number(maxSalaryFilteration);
+
           if (paramValues === "") {
             paramValues = paramValues.concat(
-              `?salaryRangeMax__lte  =${salary}`
+              `?salaryRangeMax__lte  =${myMaxSalary}`
             );
           } else {
             paramValues = paramValues.concat(
-              `&salaryRangeMax__lte  =${salary}`
+              `&salaryRangeMax__lte  =${myMaxSalary}`
             );
           }
-        });
       }
     }
 
