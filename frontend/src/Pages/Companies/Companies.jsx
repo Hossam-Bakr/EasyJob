@@ -23,8 +23,8 @@ const Companies = () => {
   const [gridView, setGridView] = useState(true);
   const [pageNum, setPageNum] = useState(1);
   const [indusryFilteration, setIndustryFilteration] = useState(null);
-  const [countryFilteration, setCountryFilteration] = useState([]);
-  const [cityFilteration, setCityFilteration] = useState([]);
+  const [countryFilteration, setCountryFilteration] = useState("");
+  const [cityFilteration, setCityFilteration] = useState("");
   const [sizeFilteration, setSizeFilteration] = useState([]);
 
   const [industryOptions, setIndustryOptions] = useState(null);
@@ -36,7 +36,7 @@ const Companies = () => {
   const currentIndustries = useSelector((state) => state.category.industries);
 
   let { data, isFetching, refetch } = useQuery({
-    queryKey: ["companies"],
+    queryKey: ["getCompanies"],
     queryFn: () =>
       getCompanies({
         searchFilter,
@@ -59,43 +59,49 @@ const Companies = () => {
     if (e !== false) {
       const filterType = e.target.getAttribute("tag");
       const filterValue = e.target.value;
+
       switch (filterType) {
         case "country":
-          const newCountry = countryFilteration.find(
-            (country) => country === filterValue
-          );
-          if (!newCountry) {
-            const updatedList = [...countryFilteration, filterValue];
-            setCountryFilteration(updatedList);
+
+        const isNewCountry = countryFilteration.includes(filterValue);
+        if (!isNewCountry) {
+          let updatedString = "";
+          let myCountryFilter = countryFilteration;
+          if (myCountryFilter === "") {
+            updatedString = `${filterValue}`;
           } else {
-            const updatedFilterList = [...countryFilteration];
-            const newList = updatedFilterList.filter(
-              (country) => country !== newCountry
-            );
-            setCountryFilteration(newList);
+            updatedString = myCountryFilter.concat(`,${filterValue}`);
+          }
+          setCountryFilteration(updatedString);
+        } else {
+          let myCountryFilter = countryFilteration;
+          const updatedFilterString = myCountryFilter;
+          let newString = updatedFilterString
+          .replace(new RegExp(`(^|,)${filterValue}(,|$)`), '$1$2')
+          .replace(/^,|,$/g, '');
+          setCountryFilteration(newString);
           };
+
           break;
         case "city":
-          const newCity = cityFilteration.find((city) => city === filterValue);
-          if (!newCity) {
-            const updatedList = [...cityFilteration, filterValue];
-            setCityFilteration(updatedList);
+          const isNewCity = cityFilteration.includes(filterValue);
+          if (!isNewCity) {
+            let updatedString = "";
+            let myCityFilter = cityFilteration;
+            if (myCityFilter === "") {
+              updatedString = `${filterValue}`;
+            } else {
+              updatedString = myCityFilter.concat(`,${filterValue}`);
+            }
+            setCityFilteration(updatedString);
           } else {
-            const updatedFilterList = [...cityFilteration];
-            const newList = updatedFilterList.filter((city) => city !== newCity);
-            setCityFilteration(newList);
-          }
-          break;
-        case "size":
-          const newSize = sizeFilteration.find((size) => size === filterValue);
-          if (!newSize) {
-            const updatedList = [...sizeFilteration, filterValue];
-            setSizeFilteration(updatedList);
-          } else {
-            const updatedFilterList = [...sizeFilteration];
-            const newList = updatedFilterList.filter((size) => size !== newSize);
-            setSizeFilteration(newList);
-          }
+            let myCityFilter = cityFilteration;
+            const updatedFilterString = myCityFilter;
+            let newString = updatedFilterString
+            .replace(new RegExp(`(^|,)${filterValue}(,|$)`), '$1$2')
+            .replace(/^,|,$/g, '');
+            setCityFilteration(newString);
+            };
           break;
         default:
           break;
@@ -110,8 +116,8 @@ const Companies = () => {
 
   const clearALLFilterations = () => {
     setIndustryFilteration(null);
-    setCountryFilteration([]);
-    setCityFilteration([]);
+    setCountryFilteration("");
+    setCityFilteration("");
     setSizeFilteration([]);
     setSearchFilter("")
   };
@@ -369,10 +375,10 @@ const Companies = () => {
                   <>
                     {data ? (
                       <>
-                        {data.data?.data?.length !== 0 ? (
+                        {data.data?.length !== 0 ? (
                           <>
                             {" "}
-                            {data.data?.data?.map((company) => {
+                            {data.data?.map((company) => {
                               return (
                                 <CompanyPost
                                   key={company.id}
@@ -402,7 +408,7 @@ const Companies = () => {
             </Container>
             <Pagination
               setPageNum={setPageNum}
-              maxPageNum={data?.data?.paginationResults?.numberOfPages}
+              maxPageNum={data?.paginationResults?.numberOfPages}
             />
           </section>
         </Col>

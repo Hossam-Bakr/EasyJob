@@ -633,9 +633,9 @@ const Posts = () => {
                       <>
                         {data ? (
                           <>
-                            {data.data?.length !== 0 ? (
+                            {data?.data?.length !== 0 ? (
                               <>
-                                {data.data?.map((job) => {
+                                {data?.data?.map((job) => {
                                   return (
                                     <JobPost
                                       key={job.id}

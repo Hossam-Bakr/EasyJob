@@ -273,8 +273,7 @@ export const getJobs = async ({
        
       }
       
-      if (minSalaryFilteration.length !=="") {
-        console.log("minSalary"+minSalaryFilteration)
+      if (minSalaryFilteration.length >0) {
         let myMinSalary=Number(minSalaryFilteration)
           if (paramValues === "") {
             paramValues = paramValues.concat(`?salaryRangeMin__gte=${myMinSalary}`);
@@ -283,8 +282,7 @@ export const getJobs = async ({
           }
       }
 
-      if (maxSalaryFilteration.length !=="") {
-        console.log("maxSalary"+maxSalaryFilteration)
+      if (maxSalaryFilteration.length >0) {
         let myMaxSalary=Number(maxSalaryFilteration);
 
           if (paramValues === "") {
@@ -326,6 +324,7 @@ export const getJobs = async ({
   }
 };
 
+
 export const getCompanies = async ({
   searchFilter,
   pageNum,
@@ -334,7 +333,6 @@ export const getCompanies = async ({
   cityFilteration,
   sizeFilteration,
 }) => {
-  console.log(sizeFilteration);
   let params = {
     limit: 15,
     page: pageNum,
@@ -348,24 +346,25 @@ export const getCompanies = async ({
   if (indusryFilteration) {
     params.IndustryId = indusryFilteration;
   }
-  if (countryFilteration.length > 0) {
-    countryFilteration.forEach((myCountry) => {
+
+    if (countryFilteration!=="") { 
       if (paramValues === "") {
-        paramValues = paramValues.concat(`?country=${myCountry}`);
+        paramValues = paramValues.concat(`?countries=${countryFilteration}`);
       } else {
-        paramValues = paramValues.concat(`&country=${myCountry}`);
+        paramValues = paramValues.concat(`&countries=${countryFilteration}`);
       }
-    });
+   
   }
-  if (cityFilteration.length > 0) {
-    cityFilteration.forEach((myCity) => {
+
+    if (cityFilteration!=="") { 
       if (paramValues === "") {
-        paramValues = paramValues.concat(`?city=${myCity}`);
+        paramValues = paramValues.concat(`?cities=${cityFilteration}`);
       } else {
-        paramValues = paramValues.concat(`&city=${myCity}`);
+        paramValues = paramValues.concat(`&cities=${cityFilteration}`);
       }
-    });
+   
   }
+
   if (sizeFilteration.length > 0) {
     sizeFilteration.forEach((size) => {
       if (paramValues === "") {
@@ -379,7 +378,7 @@ export const getCompanies = async ({
     const res = await axios(`${baseServerUrl}companies${paramValues}`, {
       params,
     });
-    return res;
+    return res.data;
   } catch (error) {
     console.log(error);
   }
