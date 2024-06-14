@@ -484,3 +484,19 @@ VALUES
 INSERT INTO JobCategories (createdAt, updatedAt, JobId, CategoryId) VALUES (NOW(), NOW(), 1, 1);
 
 
+INSERT INTO users (firstName, lastName, email, password, role, createdAt, updatedAt)
+VALUES 
+('John', 'Doe', 'johndoe@example.com', 'password', 'user', NOW(), NOW()),
+('Jane', 'Doe', 'janedoe@example.com', 'password', 'user', NOW(), NOW()),
+('Mark', 'Smith', 'marksmith@example.com', 'password', 'user', NOW(), NOW()),
+('Anna', 'Johnson', 'annajohnson@example.com', 'password', 'user', NOW(), NOW()),
+('Tom', 'Brown', 'tombrown@example.com', 'password', 'user', NOW(), NOW());
+
+
+INSERT INTO userProfiles (avatar, coverPhoto, tagline, birthDate, phone, gender, nationality, drivingLicense, about, openToWork, country, city, area, currentCareerLevel, jobTypes, jobTitles, jobCategories, totalYearsOfExperience, educationLevel, languages,workplace, linkedIn, twitter, facebook, github, stackOverflow, behance, youtube, website, other, UserId, createdAt, updatedAt)
+VALUES 
+(NULL, NULL, 'Experienced Backend Developer', '1990-01-01', '1234567890', 'male', 'Egyptian', 1, 'Skilled in Java and Spring', 1, 'Egypt', 'Cairo', 'Heliopolis', 'experienced/senior', '["full-time"]', '["Backend Developer"]', '["Application Development"]', 5, "bachelor's degree", '["English"]'  , "remote", 'linkedin.com/in/johndoe', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NOW(), NOW()),
+(NULL, NULL, 'Frontend Developer with React Experience', '1992-03-12', '0987654321', 'female', 'Egyptian', 0, 'Proficient in React and Redux', 1, 'Egypt', 'Alexandria', 'Sidi Gaber', 'entry level', '["part-time"]', '["Frontend Developer"]', '["Web Development"]', 2, "bachelor's degree", '["English", "French"]', "on-site", NULL, 'twitter.com/janedoe', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NOW(), NOW()),
+(NULL, NULL, 'Full Stack Developer', '1985-06-23', '1112223333', 'male', 'Egyptian', 1, 'Expert in Node.js and React', 1, 'Egypt', 'Cairo', 'Maadi', 'manager/lead', '["full-time", "freelance/project"]', '["Full Stack Developer"]', '["Application Development", "Web Development"]', 10, "master's degree", '["English", "Arabic"]',"hybrid", NULL, NULL, 'facebook.com/fullstackdev', 'github.com/fullstackdev', 'stackoverflow.com/users/fullstackdev', NULL, NULL, 'fullstackdev.com', NULL, 3, NOW(), NOW()),
+(NULL, NULL, 'Data Scientist', '1995-12-01', '2223334444', 'female', 'Egyptian', 1, 'Specialized in Python and Machine Learning', 1, 'Egypt', 'Giza', 'Dokki', 'experienced/senior', '["full-time"]', '["Data Scientist"]', '["Data Science", "Machine Learning"]', 4, "master's degree", '["English"]',"hybrid", 'linkedin.com/in/datascientist', NULL, NULL, NULL, NULL, 'behance.net/datascientist', NULL, NULL, NULL, 4, NOW(), NOW()),
+(NULL, NULL, 'DevOps Engineer', '1988-07-15', '3334445555', 'male', 'Egyptian', 1, 'Experienced in AWS and Docker', 1, 'Egypt', 'Cairo', 'Nasr City', 'experienced/senior', '["full-time"]', '["DevOps Engineer"]', '["DevOps"]', 6, "bachelor's degree", '["English"]', "hybrid",'linkedin.com/in/devopsengineer', NULL, NULL, 'github.com/devopsengineer', NULL, NULL, NULL, 'devopsengineer.com', NULL, 5, NOW(), NOW());
