@@ -624,6 +624,10 @@ exports.addUserSkill = catchAsync(async (req, res, next) => {
     data: { userSkill },
   });
 });
+
+
+
+
 exports.getAllUserSkills = catchAsync(async (req, res, next) => {
   const userProfile = await findUserProfile(req.user.id);
   const userSkills = userProfile.Skills.map((skill) => ({
