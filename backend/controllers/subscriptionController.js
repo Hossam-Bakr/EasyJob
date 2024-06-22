@@ -177,3 +177,34 @@ exports.webhookCheckout = catchAsync(async (req, res) => {
 
   res.status(200).send("Webhook received");
 });
+
+// Subscription checks
+
+exports.checkAllowedJobPosts = catchAsync(async (req, res, next) => {
+  if (!req.company.stripeSubscriptionId) {
+    return res.status(400).json({
+      status: "fail",
+      message: "You need to create a subscription first",
+    });
+  }
+
+  const subscription = await stripe.subscriptions.retrieve(
+    req.company.stripeSubscriptionId
+  );
+
+  const product = await stripe.products.retrieve(
+    subscription.items.data[0].price.product
+  );
+
+  console.log("Job posts used: ", req.company.jobPostsUsed);
+  console.log("Allowed job posts: ", product.metadata.allowedJobPosts);
+
+  if (product.metadata.allowedJobPosts <= req.company.jobPostsUsed) {
+    return res.status(400).json({
+      status: "fail",
+      message: "You have reached the limit of job posts",
+    });
+  }
+
+  next();
+});
