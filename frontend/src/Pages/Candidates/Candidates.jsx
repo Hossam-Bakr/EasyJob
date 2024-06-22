@@ -68,7 +68,6 @@ const Candidates = () => {
     window.scrollTo(0, 0);
   }, [pageNum, refetch]);
 
-
   return (
     <>
       <Container fluid className="mb-5">
@@ -586,7 +585,11 @@ const Candidates = () => {
                     <SearchField />
                   </div>
 
-                  <GridButtons setGrid={setGrid} setList={setList} />
+                  <GridButtons
+                    gridView={gridView}
+                    setGrid={setGrid}
+                    setList={setList}
+                  />
                   <>
                     {isFetching ? (
                       <LoadingPlaceholders page="jobs" />
@@ -606,12 +609,21 @@ const Candidates = () => {
                                       desc={candidate.userProfile?.about}
                                       city={candidate.userProfile?.city}
                                       country={candidate.userProfile?.country}
-                                      openToWork={candidate.userProfile?.openToWork}
+                                      openToWork={
+                                        candidate.userProfile?.openToWork
+                                      }
                                       tagline={candidate.userProfile?.tagline}
-                                      jobTitles={candidate.userProfile?.jobTitles}
+                                      jobTitles={
+                                        candidate.userProfile?.jobTitles
+                                      }
                                       jobTypes={candidate.userProfile?.jobTypes}
-                                      birthDate={candidate.userProfile?.birthDate}
-                                      currentCareerLevel={candidate.userProfile?.currentCareerLevel}
+                                      birthDate={
+                                        candidate.userProfile?.birthDate
+                                      }
+                                      currentCareerLevel={
+                                        candidate.userProfile
+                                          ?.currentCareerLevel
+                                      }
                                       // department={candidate.department}
                                       // degree={candidate.degree}
 

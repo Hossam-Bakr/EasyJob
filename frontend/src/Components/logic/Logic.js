@@ -2022,7 +2022,6 @@ export const convertSkillsIntoList=(currentSkills,setState)=>{
   }
 }
 
-
 export const formatedTimeHandler = (time, setState) => {
   const currentTimestamp = new Date();
   const givenTimestamp = new Date(time);
@@ -2046,7 +2045,7 @@ export const formatedTimeHandler = (time, setState) => {
       days = days - 30;
       months++;
     }
-    setState(months + "month" + (months > 1 ? "s" : "") + " ago");
+    setState(months + " month" + (months > 1 ? "s" : "") + " ago");
   } else if (days > 0) {
     while (hours > 24) {
       hours = hours - 24;
@@ -2098,3 +2097,56 @@ export function calculateAge(birthdate,setState) {
   
   setState(age);
 }
+
+export const getUserLocation = (setCurrentLocation) => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCurrentLocation([latitude, longitude]);
+      },
+      (error) => {
+        console.error("Error getting user location:", error);
+        alert("please open your location to continue !")
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+    alert("sorry Geolocation is not supported by this browser!")
+  }
+};
+
+
+
+export const platinumPackagePerMonth=[
+  "Post 60 jobs",
+  "300 invitiation",
+  "Unlimited search in Easy job database",
+  "900 Unlocks",
+  "Connecting with 900 candidates of our choice",
+  " Performing filtering on candidates",
+  "Display your brand on top of our main pages",
+  "Platinum Support",
+  ]
+
+export const goldenPackagePerMonth=[
+"Post 15 jobs",
+"200 invitiation",
+"Unlimited search in Easy job database",
+"600 Unlocks",
+"Connecting with 300 candidates of our choice",
+" Performing filtering on candidates",
+"Display your brand on our main pages",
+"Golden Support",
+]
+
+export const silverPackagePerMonth=[
+"Post 9 jobs",
+"100 invitiation",
+"Unlimited search in Easy job database",
+"300 Unlocks",
+"Connecting with 150 candidates of our choice",
+"Performing filtering on candidates",
+"Display your brand logo",
+"Silver Support",
+]

@@ -87,6 +87,15 @@ const UserProfile = sequelize.define("UserProfile", {
     type: DataTypes.JSON,
     defaultValue: [],
   },
+  workplace: {
+    type: DataTypes.ENUM(
+      "remote",
+      "on-site",
+      "hybrid"
+    ),
+    defaultValue: "on-site"
+  },
+
 
   // online presence
   linkedIn: DataTypes.STRING,

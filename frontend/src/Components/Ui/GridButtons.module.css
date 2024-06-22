@@ -6,6 +6,7 @@
     align-items: center;
  }
  .veiw_controllers svg{
+   color: var(--darker_main_color);
     margin-inline: 20px;
     font-size: 30px;
     opacity: .5;
@@ -15,4 +16,11 @@
  .veiw_controllers svg:hover{
     opacity:1;
     scale: 1.1;
+    transform: rotate(360deg);
+ }
+ .active_icon{
+   opacity: 1 !important;
+ }
+ .location_icon{
+   color:red
  }

@@ -5,7 +5,7 @@ const ApiError = require("../utils/ApiError");
 
 exports.findUserProfile = async (userId) => {
   const userProfile = await UserProfile.findOne({
-    where: { userId },
+    where: { UserId: userId }, // Ensure correct column name 'UserId'
     include: [
       {
         model: Skill,
@@ -31,8 +31,12 @@ exports.updateOrCreateSkill = async (skillId, newName) => {
       await skill.update({ name: newName });
     }
   } else {
-    // Create new skill logic
-    skill = await Skill.create({ name: newName });
+    // Check if the skill already exists
+    skill = await Skill.findOne({ where: { name: newName } });
+    if (!skill) {
+      // Create new skill logic
+      skill = await Skill.create({ name: newName });
+    }
   }
   return skill;
 };

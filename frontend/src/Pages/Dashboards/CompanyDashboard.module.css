@@ -11,30 +11,28 @@
 .container{
     min-height: 100vh;
     width: 100vw;
-    margin-top: 10px;
+    margin-top: 0.625rem;
     position: relative;
 }
 .box{
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.249);
-    padding: 10px;
-    min-height: 200px;
+    border-radius: 0.625rem;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.249);
+    padding: 0.625rem;
+    min-height: 12.5rem;
 }
 .consumption{
-    height:100%;
+    height:31.25rem;
 }
-.admins_invitations{
-    height: 240px;
-}
+
 .plan{
     background-color: #006CFF;
     color: white;
-    padding: 20px;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 240px;
+    height: 100%;
 }
 .price{
     color: rgb(237, 235, 235);
@@ -44,7 +42,7 @@
     font-weight: 600;
 }
 .plan_title span{
-    font-size: 14px;
+    font-size: 0.875rem;
     color: rgb(221, 221, 221);
 }
 .crown{
@@ -52,7 +50,7 @@
 }
 .plan_date{
     color: rgb(221, 221, 221) !important;
-    margin-left: 30px;
+    margin-left: 1.875rem;
 }
 .plan_btns{
     display: flex;
@@ -60,9 +58,9 @@
 }
 .recharge_btn{
     background-color: white;
-    padding: 8px 10px;
-    border-radius: 5px;
-    font-size: 14px;
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.3125rem;
+    font-size: 0.875rem;
     color: #006CFF;
     font-weight: 700;
     transition: scale .4s;
@@ -72,24 +70,24 @@
 }
 .upgrade_btn{
     background-color: rgba(255, 255, 255, 0.415);
-    padding-inline: 12px;
-    border-radius: 5px;
+    padding-inline: 0.75rem;
+    border-radius: 0.3125rem;
     transition: all .4s;
 }
 .upgrade_btn:hover{
     background-color: white;
-    transform: translateY(-5px);
+    transform: translateY(-0.3125rem);
     color: var(--main_color);
 }
 .sideBar{
     position: fixed;
-    left: 10px;
+    left: 0.625rem;
     top: 52%;
     transform: translateY(-50%);
-    border-radius: 10px;
-    padding: 10px 2px;
+    border-radius: 0.625rem;
+    padding: 0.625rem 0.125rem;
     background-color: white;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.347);
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.347);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -103,12 +101,12 @@
     justify-content: center;
 }
 .company_header img{
-    width: 50px;
-    margin-right: 10px;
-    border-radius: 10px;
+    width: 3.125rem;
+    margin-right: 0.625rem;
+    border-radius: 0.625rem;
 }
 .company_header h3{
-    font-size:20px;
+    font-size:1.25rem;
     font-weight: 700;
     width: 0;
     overflow: hidden;
@@ -119,26 +117,27 @@
     padding: 0;
 }
 .sideBar ul li{
-    margin: 10px 5px;
-    font-size: 17px;
+    margin: 0.625rem 0.3125rem;
+    font-size: 1.0625rem;
     cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
     display: flex;
     justify-content: center;
+    align-items: center;
     transition: all .6s;
 }
 .sideBar ul li:hover{
     background-color: var(--vanilla);
 }
 .sideBar ul li svg{
-    margin-right: 10px;
-    font-size: 20px;
+    margin-right: 0.625rem;
+    font-size: 1.25rem;
     color: var(--light);
 }
 
 .sideBar ul li h6{
-    font-size: 16px;
+    font-size: 1rem;
     width: 0;
     overflow: hidden;
     opacity: 0;
@@ -146,20 +145,20 @@
 }
 
 .sideBar:hover ul li h6{
-    width:100px;
+    width:6.25rem;
     opacity: 1;
 }
 .sideBar:hover .company_header h3{
-    width:100px;
+    width:6.25rem;
     opacity: 1;
 }
 .sideBar:hover{
-    padding: 10px 20px; 
+    padding: 0.625rem 1.25rem; 
 }
 .employee_table{
     width: 100%;
         background-color: var(--vanilla);
-        padding: 50px;
+        padding: 3.125rem;
 }
 .table_header{
     background-color: #E0E6ED;
@@ -168,8 +167,8 @@
 }
 .employee_table th{
     text-align: center;
-    width: 200px;
-    padding: 5px;
+    width: 12.5rem;
+    padding: 0.3125rem;
 }
 
 .active_link svg{
@@ -177,4 +176,40 @@
 }
 .sideBar:hover .active_link{
     background-color: var(--vanilla);
+}
+
+@media screen and (max-width:670px) {
+    .sideBar{
+     position: unset;
+     margin-top: 20px;
+     flex-direction: row;
+     transform: translateY(0);
+    }
+    .sideBar ul{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
+    .sideBar:hover ul li h6,.sideBar:hover .company_header h3{
+        display: none;
+    }
+    .sideBar ul li:hover{
+        background-color:transparent;
+        scale: 1.1;
+    }
+    .sideBar:hover .active_link{
+        background-color: transparent;
+    }
+}
+
+@media screen and (max-width:440px) {
+    .company_header{
+        display: none;
+    }
+}
+@media screen and (max-width:385px) {
+    .sideBar ul{
+        flex-wrap: wrap;
+    }
 }
