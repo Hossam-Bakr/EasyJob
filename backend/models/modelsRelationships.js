@@ -4,7 +4,6 @@ const Skill = require("./skillModel");
 const Job = require("./jobModel");
 const Application = require("./applicationModel");
 const NotificationPreference = require("./notificationPreferenceModel");
-const PricingPlan = require("./pricingPlanModel");
 const Interview = require("./interviewModel");
 const UserProfile = require("./userProfileModel");
 const CompanyProfile = require("./companyProfileModel");
@@ -103,9 +102,6 @@ const defineDBRelationships = () => {
   });
 
   // 1:1
-
-  PricingPlan.hasOne(Company);
-  Company.belongsTo(PricingPlan);
 
   User.hasOne(UserProfile, cascadeOptions);
   UserProfile.belongsTo(User);
