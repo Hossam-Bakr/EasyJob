@@ -37,12 +37,24 @@ const Company = sequelize.define(
       defaultValue: "company",
     },
 
+    passwordResetCode: DataTypes.STRING,
+    passwordResetExpire: DataTypes.DATE,
+    passwordResetVerified: DataTypes.BOOLEAN,
 
-    passwordResetCode : DataTypes.STRING , 
-    passwordResetExpire : DataTypes.DATE , 
-    passwordResetVerified : DataTypes.BOOLEAN , 
-
-
+    stripeCustomerId: DataTypes.STRING,
+    stripeSubscriptionId: DataTypes.STRING,
+    jobPostsUsed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    unlocksUsed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    invitationsUsed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     hooks: {
