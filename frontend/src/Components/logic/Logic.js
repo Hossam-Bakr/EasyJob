@@ -88,9 +88,10 @@ export const Cities = {
 };
 
 
-export const cityOptions = Object.entries(Cities).flatMap(([country, cities]) =>
+export const listOfCities = Object.entries(Cities).flatMap(([country, cities]) =>
   cities.map(city => ({ value: city, label: city }))
 );
+export const cityOptions=listOfCities.sort();
 
 export const Areas = {
   CairoAreas: [
@@ -779,6 +780,11 @@ export const Areas = {
   ],
 };
 
+const listOfAreas = Object.entries(Areas).flatMap(([city, areas]) =>
+  areas.map(area => (area))
+);
+export const AreasOptions=listOfAreas.sort()
+
 export const countryChange = (val, setState) => {
   switch (val) {
     case "Egypt":
@@ -1097,9 +1103,46 @@ export const experianceOptions = [
   { value: "student-activity", label: "student-activity" },
 ];
 
+export const languagesOptions = [
+  { value: "Arabic", label: "Arabic" },
+  { value: "English", label: "English" },
+  { value: "Spanish", label: "Spanish" },
+  { value: "French", label: "French" },
+  { value: "German", label: "German" },
+  { value: "Chinese", label: "Chinese" },
+  { value: "Japanese", label: "Japanese" },
+  { value: "Russian", label: "Russian" },
+  { value: "Portuguese", label: "Portuguese" },
+  { value: "Hindi", label: "Hindi" },
+  { value: "Bengali", label: "Bengali" },
+  { value: "Korean", label: "Korean" },
+  { value: "Italian", label: "Italian" },
+  { value: "Turkish", label: "Turkish" },
+  { value: "Vietnamese", label: "Vietnamese" },
+  { value: "Polish", label: "Polish" },
+  { value: "Dutch", label: "Dutch" },
+  { value: "Greek", label: "Greek" },
+  { value: "Czech", label: "Czech" },
+  { value: "Swedish", label: "Swedish" },
+  { value: "Hungarian", label: "Hungarian" },
+  { value: "Hebrew", label: "Hebrew" },
+  { value: "Norwegian", label: "Norwegian" },
+  { value: "Finnish", label: "Finnish" },
+  { value: "Danish", label: "Danish" },
+  { value: "Romanian", label: "Romanian" },
+  { value: "Thai", label: "Thai" },
+  { value: "Indonesian", label: "Indonesian" },
+  { value: "Ukrainian", label: "Ukrainian" },
+  { value: "Malay", label: "Malay" },
+  { value: "Filipino", label: "Filipino" },
+  { value: "Persian", label: "Persian" },
+];
+
 export const titleOptions = [
   { value: "Software Engineer", label: "Software Engineer" },
   { value: "Data Scientist", label: "Data Scientist" },
+  { value: "Digital Marketing", label: "Digital Marketing" },
+  { value: "UI/UX Designer", label: "UI/UX Designer" },
   { value: "UX Designer", label: "UX Designer" },
   { value: "UI Designer", label: "UI Designer" },
   { value: "Product Manager", label: "Product Manager" },
@@ -1223,6 +1266,7 @@ export const titleOptions = [
   { value: "Virtual Assistant", label: "Virtual Assistant" },
   { value: "Data Entry Clerk", label: "Data Entry Clerk" },
   { value: "Receptionist", label: "Receptionist" },
+  { value: "Angular Developer", label: "Angular Developer" },
   { value: "Customer Service Representative", label: "Customer Service Representative" },
   { value: "Call Center Agent", label: "Call Center Agent" },
   { value: "Technical Support Specialist", label: "Technical Support Specialist" },
@@ -1279,6 +1323,8 @@ export const titleOptions = [
   { value: "Art Conservator", label: "Art Conservator" },
   { value: "Gallery Manager", label: "Gallery Manager" },
   { value: "Art Dealer", label: "Art Dealer" },
+  { value: "Telecommunications Engineering", label: "Telecommunications Engineering" },
+  { value: "Account Management", label: "Account Management" },
 ];
 
 export const degreeLevelOptions = [
@@ -2012,14 +2058,25 @@ export const convertCategoriesIntoList = (currentCategories, setState,type) => {
   }
 };
 
-export const convertSkillsIntoList=(currentSkills,setState)=>{
-  if(currentSkills?.length>0){
-    let skillsOption = currentSkills?.map((skill) => ({
-      value: skill.id,
-      label: skill.name,
-    }));
-    setState(skillsOption);
+export const convertSkillsIntoList=(currentSkills,setState,type)=>{
+  if(type==="name"){
+    if(currentSkills?.length>0){
+      let skillsOption = currentSkills?.map((skill) => ({
+        value: skill.name,
+        label: skill.name,
+      }));
+      setState(skillsOption);
+    }
+  }else{
+    if(currentSkills?.length>0){
+      let skillsOption = currentSkills?.map((skill) => ({
+        value: skill.id,
+        label: skill.name,
+      }));
+      setState(skillsOption);
+    }
   }
+ 
 }
 
 export const formatedTimeHandler = (time, setState) => {

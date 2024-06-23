@@ -5,6 +5,7 @@ import {
   cityOptions,
   convertCategoriesIntoList,
   countryOptions,
+  titleOptions,
   yearsOptions,
 } from "./../../Components/logic/Logic";
 import { useEffect, useRef, useState } from "react";
@@ -285,10 +286,11 @@ const UpdateJobPostForm = ({
           <div className={styles.field}>
             <label htmlFor="postJobTitle">Job Title</label>
             <Field
-              type="text"
               id="postJobTitle"
               name="title"
-              placeholder="Ex : Accountant"
+              isClearable={true}
+              component={MultiSelect}
+              options={titleOptions}
             />
             <ErrorMessage name="title" component={InputErrorMessage} />
           </div>
@@ -581,7 +583,7 @@ const UpdateJobPostForm = ({
                 </div>
 
                 <span>
-                  <span className="text-success">$</span>/Per Month
+                  <span>EGP</span>/Per Month
                 </span>
               </div>
             </div>

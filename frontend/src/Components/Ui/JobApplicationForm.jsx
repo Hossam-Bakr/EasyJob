@@ -30,7 +30,7 @@ const JobApplicationForm = ({
   const addAudioElement = (blob, id) => {
     const url = URL.createObjectURL(blob);
     setRecord(url);
-    const file = new File([blob], `recorder.mp3`, { type: "audio/mp3" });
+    const file = new File([blob], `recorder.webm`, { type: "audio/webm" });
     let newVoice = { id, file };
     let existVoice = voicesAnswers.find((voice) => voice.id === id);
     if (existVoice) {
@@ -55,9 +55,17 @@ const JobApplicationForm = ({
     setVoiceQuestions(voice);
   };
 
+  const clearDataOnLeave=()=>{
+    setNoVoiceQuestions([])
+    setVoiceQuestions([])
+  }
+
   useEffect(() => {
     seperateQuestions();
-  }, []);
+    return()=>{
+      clearDataOnLeave();
+    }
+  }, [questions]);
 
   const saveData = (e) => {
     let inputElement = e.target;
@@ -96,6 +104,7 @@ const JobApplicationForm = ({
           {
             headers: {
               Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data'
             },
           }
         );
@@ -268,7 +277,7 @@ const JobApplicationForm = ({
                         echoCancellation: true,
                       }}
                       downloadOnSavePress={false}
-                      downloadFileExtension="mp3"
+                      downloadFileExtension="webm"
                     />
                   </div>
 
@@ -313,23 +322,3 @@ const JobApplicationForm = ({
 
 export default JobApplicationForm;
 
-// const {
-//   startRecording,
-//   // stopRecording,
-//   // togglePauseResume,
-//   // recordingBlob,
-//   // isRecording,
-//   // isPaused,
-//   // recordingTime,
-//   // mediaRecorder
-// } = useAudioRecorder();
-
-// {/* <button
-//   ref={myClaerButtonRef}
-//   className={styles.clear_btn}
-//   type="reset"
-// >
-//   Clear
-// </button> */}
-
-// const myClaerButtonRef = useRef(null);

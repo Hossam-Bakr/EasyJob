@@ -120,7 +120,7 @@ const CompanyRegisterForm = () => {
           <ErrorMessage name="phone" component={InputErrorMessage} />
         </div>
 
-        <div className={`${styles.select_industry} mb-4`}>
+        <div className={`${styles.select_industry} mb-4 position-relative`}>
           <Field
             name="industryId"
             placeholder="industry"

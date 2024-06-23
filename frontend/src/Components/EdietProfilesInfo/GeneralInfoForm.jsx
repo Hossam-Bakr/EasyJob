@@ -12,7 +12,7 @@ import Loading from "../Ui/Loading";
 import FloatingPopup from "../Ui/FloatingPopup";
 import fetchProfileData from "../../Store/profileInfo-actions";
 import MultiSelect from "../logic/SelectField";
-import { countryChange, countryOptions, sizeOptions } from "../logic/Logic";
+import { countryChange, countryOptions, sizeOptions,getUserLocation } from "../logic/Logic";
 import Select from "react-select";
 import CompanyLocation from "../Maps/CompanyLocation";
 
@@ -51,6 +51,10 @@ const GeneralInfoForm = ({ data }) => {
       setCurrentLocation(data.location?.coordinates);
     }
   }, [data]);
+
+    useEffect(() => {
+      getUserLocation(setCurrentLocation)
+    }, []);
 
   const handleCountryChange = (e) => {
     let val = e.value;

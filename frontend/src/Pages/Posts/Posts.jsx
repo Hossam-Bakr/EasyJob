@@ -25,6 +25,7 @@ import {
 import GoTopButton from "../../Components/Ui/GoTopButton";
 import Select from "react-select";
 import MainButton from "../../Components/Ui/MainButton";
+import FloatingPopup from "../../Components/Ui/FloatingPopup";
 
 const Posts = () => {
   const [gridView, setGridView] = useState(true);
@@ -43,6 +44,13 @@ const Posts = () => {
   const [showMoreCities, setShowMoreCities] = useState(false);
   const categories = useSelector((state) => state.category.categories);
   const outSideFilteration = useSelector((state) => state.filter.data);
+
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
 
   const setGrid = () => {
     setGridView(true);
@@ -164,8 +172,8 @@ const Posts = () => {
             let myCatFilter = categoriesFilteration;
             const updatedFilterString = myCatFilter;
             let newString = updatedFilterString
-            .replace(new RegExp(`(^|,)${filterValue}(,|$)`), '$1$2')
-            .replace(/^,|,$/g, '');
+              .replace(new RegExp(`(^|,)${filterValue}(,|$)`), "$1$2")
+              .replace(/^,|,$/g, "");
             setCategoriesFilteration(newString);
           }
           break;
@@ -203,11 +211,11 @@ const Posts = () => {
 
         case "minSalary":
           if (filterValue >= 0) {
-              setMinSalaryFilteration(filterValue);
-            } else {
-              const updatedFilterList = minSalaryFilteration;
-              setMinSalaryFilteration(updatedFilterList);
-            }
+            setMinSalaryFilteration(filterValue);
+          } else {
+            const updatedFilterList = minSalaryFilteration;
+            setMinSalaryFilteration(updatedFilterList);
+          }
           break;
 
         case "maxSalary":
@@ -654,6 +662,10 @@ const Posts = () => {
                                       minSalary={job.salaryRangeMin}
                                       hideSalary={job.hideSalary}
                                       grid={gridView}
+                                      setShowResponse={setShowResponse}
+                                      setResponseMessage={setResponseMessage}
+                                      setSuccessResponse={setSuccessResponse}
+                                      refetch={refetch}
                                     />
                                   );
                                 })}
@@ -679,6 +691,12 @@ const Posts = () => {
           <GoTopButton />
         </Container>
       )}
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </>
   );
 };

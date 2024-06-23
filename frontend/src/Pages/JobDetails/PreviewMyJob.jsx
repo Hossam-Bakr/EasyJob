@@ -118,6 +118,7 @@ const PreviewMyJob = () => {
                 </span>
               </div>
             </div>
+
             <div className={styles.general_info}>
               <Row className="w-100 gy-2">
                 <Col md={6}>

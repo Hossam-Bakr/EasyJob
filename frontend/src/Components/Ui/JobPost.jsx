@@ -67,6 +67,7 @@ const JobPost = ({
   const saveJobPost = async () => {
     if (token && isLogin) {
       const res = await saveJobsHandler({ jobId: id, token: token });
+      console.log(res)
       if (res.status === "success") {
         setResponseMessage({
           title: "Saved Successfully",
@@ -226,8 +227,8 @@ const JobPost = ({
                       ""
                     ) : (
                       <h6>
-                        ${minSalary}-{maxSalary}
-                        <span className={styles.salary_per_h}>/M</span>
+                        {minSalary}-{maxSalary}
+                        <span className={`${styles.salary_per_h} mini_word`}>(EGP/M)</span>
                       </h6>
                     )}
                     <div className="text-end w-100">

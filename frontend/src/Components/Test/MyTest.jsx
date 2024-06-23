@@ -5,7 +5,8 @@ import React, { useState } from 'react';
 import { AudioRecorder } from 'react-audio-voice-recorder';
 
 
-
+// delete creatable skills at post job 
+//handle ammar changes on ediet user skills 
 const MyTest = () => {
 
 const [record,setRecord]=useState(null)

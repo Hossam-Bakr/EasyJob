@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./EdietInfoForm.module.css";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorMessage, Form, Formik, Field } from "formik";
@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import fetchProfileData from "./../../Store/profileInfo-actions";
 import { Col, Row } from "react-bootstrap";
 import FloatingPopup from "../Ui/FloatingPopup";
+import MultiSelect from "../logic/SelectField";
+import { convertSkillsIntoList } from "../logic/Logic";
 
 const UserSkillsForm = () => {
 
@@ -20,12 +22,20 @@ const UserSkillsForm = () => {
     content: "",
   });
   const [successResponse, setSuccessResponse] = useState(true);
+  const [mySkills, setMySkills] = useState([]);
 
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
+  const currentSkills = useSelector((state) => state.category.skills);
 
+
+  useEffect(() => {
+    convertSkillsIntoList(currentSkills, setMySkills,"name");
+  }, [currentSkills]);
+
+console.log(currentSkills)
   const { mutate, isPending } = useMutation({
     mutationFn: getUserSkills,
     onSuccess: (data) => {
@@ -102,10 +112,11 @@ const UserSkillsForm = () => {
           <div className={styles.field}>
             <label htmlFor="skillName">Skill Name</label>
             <Field
-              type="text"
               id="skillName"
               name="skillName"
-              placeholder="ex: Digital Marketing"
+              isClearable={true}
+              component={MultiSelect}
+              options={mySkills}
             />
             <ErrorMessage name="skillName" component={InputErrorMessage} />
           </div>

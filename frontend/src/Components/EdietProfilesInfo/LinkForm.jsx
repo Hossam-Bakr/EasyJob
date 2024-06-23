@@ -158,7 +158,7 @@ const LinkForm = ({ data }) => {
   const instagramRegex =
     /^(?:https?:\/\/)?(?:www\.)?instagram\.com\/(?:\w+\/)*([\w\-.]+)(?:\/)?$/;
   const twitterRegex =
-    /^(?:https?:\/\/)?(?:www\.)?twitter\.com\/(?:\w+\/)*([\w\-.]+)(?:\/)?$/;
+    /^(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:\w+\/)*([\w\-.]+)(?:\/)?$/;
   const linkedinRegex =
     /^(?:https?:\/\/)?(?:www\.)?linkedin\.com\/(?:in\/|company\/)?([\w\-.]+)(?:\/)?$/;
   const youtubeRegex =
