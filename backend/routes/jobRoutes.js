@@ -61,7 +61,6 @@ router.post(
   "/:jobId/apply",
   authController.protect,
   authController.restrictTo("user"),
-  jobController.uploadVoiceAnswers,
   applyForJobValidator,
   jobController.applyForJob
 );
