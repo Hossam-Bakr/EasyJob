@@ -90,12 +90,16 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
         };
       }
       if (filter.language) {
+        const languageArray = Array.isArray(filter.language) ? filter.language : [filter.language];
+        const languageQueries = languageArray.map(lang => 
+          sequelize.where(
+            sequelize.fn('JSON_CONTAINS', sequelize.col('languages'), `{"language": "${lang}"}`), 1
+          )
+        );
+
         whereConditions = {
           ...whereConditions,
-          languages: sequelize.where(
-            sequelize.fn('JSON_CONTAINS', sequelize.col('languages'), `"${filter.language}"`),
-            1
-          )
+          [Op.and]: languageQueries
         };
       }
       if (filter.jobType) {
@@ -109,12 +113,6 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
         whereConditions = {
           ...whereConditions,
           [Op.and]: jobTypeQueries
-        };
-      }
-      if (filter.workplace) {
-        whereConditions = {
-          ...whereConditions,
-          workplace: filter.workplace
         };
       }
       if (filter.minExperience) {
