@@ -13,14 +13,7 @@ const SavedJob = require("../models/savedJobModel");
 const sequelize = require("../config/database");
 const { Op } = require("sequelize");
 const factory = require("./handlerFactory");
-const { uploadMixOfAudios } = require("../utils/uploadAudio");
 const catchAsync = require("../utils/catchAsync");
-
-const fieldsArr = new Array(+process.env.VOICE_ANSWERS_COUNT)
-  .fill(0)
-  .map((_, i) => ({ name: `voiceAnswer${i}`, maxCount: 1 }));
-
-exports.uploadVoiceAnswers = uploadMixOfAudios(fieldsArr);
 
 const processRequiredSkills = async (requiredSkills, jobId) => {
   const newSkills = requiredSkills
@@ -393,13 +386,9 @@ exports.applyForJob = catchAsync(async (req, res, next) => {
   });
 
   if (
-    jobQuestions.length !==
-      (req.body.answers?.length || 0) + (req.body.voices?.length || 0) ||
-    !jobQuestions.every(
-      (question) =>
-        req.body.answers?.some(
-          (answer) => +answer.QuestionId === question.id
-        ) || req.body.voices?.some((voice) => +voice.QuestionId === question.id)
+    jobQuestions.length !== (req.body.answers?.length || 0) ||
+    !jobQuestions.every((question) =>
+      req.body.answers.some((answer) => +answer.QuestionId === question.id)
     )
   ) {
     return res.status(400).json({
@@ -413,21 +402,9 @@ exports.applyForJob = catchAsync(async (req, res, next) => {
     JobId: job.id,
   });
 
-  if (req.body.answers) {
-    await Promise.all(
-      req.body.answers.map((answer) => application.createAnswer(answer))
-    );
-  }
-
-  if (req.body.voices && req.files) {
-    await Promise.all(
-      req.body.voices.map((voice) => {
-        voice.voiceAnswer =
-          req.files[`voiceAnswer${voice.voiceAnswer}`][0].buffer;
-        application.createAnswer(voice);
-      })
-    );
-  }
+  await Promise.all(
+    req.body.answers.map((answer) => application.createAnswer(answer))
+  );
 
   res.status(201).json({
     status: "success",
