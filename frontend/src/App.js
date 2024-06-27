@@ -100,7 +100,9 @@ function App() {
   // get profile data from database
   useEffect(() => {
     if (role && token) {
-      dispatch(fetchProfileData(token, role));
+      if(role!=="admin"){
+        dispatch(fetchProfileData(token, role));
+      }
     }
   }, [dispatch, token, role]);
 

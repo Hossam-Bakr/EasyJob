@@ -7,12 +7,18 @@
     display: flex;
     flex-direction: column;
 }
+.skill_field{
+ height: 60vh;
+ overflow-y: auto; 
+}
 .search_table{
     width: 100%;
     text-align: center;
 }
+
 .search_tr td{ 
     padding: 10px;
+    background-color: var(--vanilla) !important;
 }
 .emp_management{
     min-height: 60vh;
@@ -78,6 +84,9 @@
     justify-content: center;
     align-items: center;
 }
+.skill_btn{
+    width: 15.625rem;
+}
 @media screen and (max-width:1130px) {
     .emp_form div{
        margin-inline:0 !important;
@@ -103,6 +112,11 @@
         flex-direction: column;
     }
 }
+@media screen and (max-width:350px) {
+    .skill_btn{
+        width: 100%;
+    }
+}
 @media screen and (max-width:268px) {
     .emp_btn,.emp_btn_deActivate,.emp_btn_delete{
         margin-top: 1.5625rem;
@@ -110,4 +124,5 @@
     .emp_form{
         padding: 0.125rem;
     }
+
 }

@@ -21,7 +21,7 @@ import Loading from "../../../Components/Ui/Loading";
 import Table from "react-bootstrap/Table";
 import SendMessageToEmployee from "./SendMessageToEmployee";
 
-const EmployeeManagementForm = ({
+const CompanyManagementForm = ({
   setShowResponse,
   setResponseMessage,
   setSuccessResponse,
@@ -121,7 +121,6 @@ const EmployeeManagementForm = ({
       type: "addUser",
       method: "post",
       formData: values,
-      //   token: companyToken,
     });
   };
 
@@ -138,7 +137,7 @@ const EmployeeManagementForm = ({
 
   return (
     <Container className={styles.emp_management}>
-      <div className={styles.search_field}>
+      {/* <div className={styles.search_field}>
         <div className="ms-auto mb-5">
           <SearchEmployees
             setShowResponse={setShowResponse}
@@ -216,7 +215,6 @@ const EmployeeManagementForm = ({
                     name="firstName"
                     placeholder="First Name"
                     className="form-control"
-
                   />
                   <ErrorMessage
                     name="firstName"
@@ -232,7 +230,6 @@ const EmployeeManagementForm = ({
                     name="lastName"
                     placeholder="last Name"
                     className="form-control"
-
                   />
                   <ErrorMessage name="lastName" component={InputErrorMessage} />
                 </div>
@@ -244,7 +241,6 @@ const EmployeeManagementForm = ({
                   name="email"
                   placeholder="Email"
                   className="form-control"
-
                 />
                 <ErrorMessage name="email" component={InputErrorMessage} />
                 {isEmailError && (
@@ -258,7 +254,6 @@ const EmployeeManagementForm = ({
                   name="password"
                   placeholder="Password"
                   className="form-control"
-
                 />
                 <ErrorMessage name="password" component={InputErrorMessage} />
               </div>
@@ -271,7 +266,6 @@ const EmployeeManagementForm = ({
                   placeholder="role"
                   value="user"
                   className="form-control"
-
                 />
                 <ErrorMessage name="role" component={InputErrorMessage} />
               </div>
@@ -356,9 +350,9 @@ const EmployeeManagementForm = ({
           setResponseMessage={setResponseMessage}
           setSuccessResponse={setSuccessResponse}
         />
-      </div>
+      </div> */}
     </Container>
   );
 };
 
-export default EmployeeManagementForm;
+export default CompanyManagementForm;

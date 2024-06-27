@@ -48,7 +48,7 @@ const SearchEmployees = ({
     <>
       <SearchField
         onSearch={onSearch}
-        text="search user by name"
+        text="search user by name, email"
       />
     </>
   );

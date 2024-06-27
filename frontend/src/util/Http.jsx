@@ -199,7 +199,7 @@ export const getCompanyCandidates = async ({
     let response = null;
     let paramValues = "";
 
-    if (jobTitleFilteration!=="") {
+    if (jobTitleFilteration !== "") {
       if (paramValues === "") {
         paramValues = paramValues.concat(
           `?filter[jobTitle]=${jobTitleFilteration}`
@@ -211,7 +211,7 @@ export const getCompanyCandidates = async ({
       }
     }
 
-    if (minYearsOfExpFilteration!=="") {
+    if (minYearsOfExpFilteration !== "") {
       if (paramValues === "") {
         paramValues = paramValues.concat(
           `?filter[minExperience]=${minYearsOfExpFilteration}`
@@ -255,9 +255,13 @@ export const getCompanyCandidates = async ({
 
     if (categoriesFilteration !== "") {
       if (paramValues === "") {
-        paramValues = paramValues.concat(`?filter[jobCategories]=${categoriesFilteration}`);
+        paramValues = paramValues.concat(
+          `?filter[jobCategories]=${categoriesFilteration}`
+        );
       } else {
-        paramValues = paramValues.concat(`&filter[jobCategories]=${categoriesFilteration}`);
+        paramValues = paramValues.concat(
+          `&filter[jobCategories]=${categoriesFilteration}`
+        );
       }
     }
 
@@ -291,14 +295,12 @@ export const getCompanyCandidates = async ({
       });
     }
 
-
     if (isOpenToWork) {
       if (paramValues === "") {
         paramValues = paramValues.concat(`?filter[openToWork]=true`);
       } else {
         paramValues = paramValues.concat(`&filter[openToWork]=true`);
       }
-
     }
 
     if (hasDrivingLicense) {
@@ -307,10 +309,7 @@ export const getCompanyCandidates = async ({
       } else {
         paramValues = paramValues.concat(`&filter[drivingLicense]=true`);
       }
-
     }
-
- 
 
     response = await axios(
       `${baseServerUrl}companies/${id}/candidates${paramValues}`,
@@ -747,43 +746,129 @@ export const getJobOnMap = async () => {
   }
 };
 
-export const sendContactUs=async({formData})=>
-  {
-    try {
-      const response = await axios.post(`${baseServerUrl}contact/`,formData);
-      return response.data;
-    } catch (error) {
-      console.log(error);
+export const sendContactUs = async ({ formData }) => {
+  try {
+    const response = await axios.post(`${baseServerUrl}contact/`, formData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const usersManageMent = async ({ formData, method, type }) => {
+  console.log("type", type);
+  try {
+    let response;
+    if (method === "post") {
+      response = await axios.post(
+        `${baseServerUrl}userManagement/${type}`,
+        formData
+      );
+    } else if (method === "delete") {
+      response = await axios.delete(`${baseServerUrl}userManagement/${type}`);
+    } else if (method === "patch") {
+      response = await axios.patch(`${baseServerUrl}userManagement/${type}`);
+    } else if (method === "get") {
+      response = await axios(`${baseServerUrl}userManagement/${type}`);
+    } else if (method === "changeEmail") {
+      response = await axios.patch(
+        `${baseServerUrl}userManagement/${type}`,
+        formData
+      );
+    }
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (error.response?.data?.error?.errors) {
+      if (
+        error.response?.data?.error?.errors[0]?.message ===
+        "email must be unique"
+      ) {
+        return "email is already exist";
+      }
+    }
+    if (error.response?.data?.message === "No user found with that ID") {
+      return "No user found with that ID";
     }
   }
+};
 
-
-  export const usersManageMent=async({formData,method,type})=>{
-    try {
-      let response;
-      if(method==="post"){
-        response = await axios.post(`${baseServerUrl}userManagement/${type}`,formData);
-      }else if(method==="delete"){
-        response = await axios.delete(`${baseServerUrl}userManagement/${type}`);
-      }else if(method==="patch"){
-        response = await axios.patch(`${baseServerUrl}userManagement/${type}`);
-      }else if(method==="get"){
-        response = await axios(`${baseServerUrl}userManagement/${type}`);
+export const companiesManageMent = async ({ formData, method, type }) => {
+  try {
+    let response;
+    if (method === "post") {
+      response = await axios.post(
+        `${baseServerUrl}companyManagement/${type}`,
+        formData
+      );
+    } else if (method === "delete") {
+      response = await axios.delete(
+        `${baseServerUrl}companyManagement/${type}`
+      );
+    } else if (method === "patch") {
+      response = await axios.patch(`${baseServerUrl}companyManagement/${type}`);
+    } else if (method === "get") {
+      response = await axios(`${baseServerUrl}companyManagement/${type}`);
+    } else if (method === "changeEmail") {
+      response = await axios.patch(
+        `${baseServerUrl}companyManagement/${type}`,
+        formData
+      );
+    }
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (error.response?.data?.error?.errors) {
+      if (
+        error.response?.data?.error?.errors[0]?.message ===
+        "email must be unique"
+      ) {
+        return "email is already exist";
       }
-      else if(method==="changeEmail"){
-        response = await axios.patch(`${baseServerUrl}userManagement/${type}`,formData);
-      }
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      if(error.response?.data?.error?.errors){
-        if(error.response?.data?.error?.errors[0]?.message==="email must be unique"){
-          return "email is already exist"
-        }
-      }
-       if(error.response?.data?.message==="No user found with that ID"){
-        return "No user found with that ID"
-      }
-
+    }
+    if (error.response?.data?.message === "No user found with that ID") {
+      return "No user found with that ID";
     }
   }
+};
+
+export const skillsManagement = async ({ formData, method, type, token }) => {
+  
+  try {
+    let response;
+    if (method === "post") {
+      response = await axios.post(`${baseServerUrl}skills/${type}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else if (method === "delete") {
+      response = await axios.delete(`${baseServerUrl}skills/${type}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else if (method === "patch") {
+      response = await axios.patch(`${baseServerUrl}skills/${type}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (error.response?.data?.error?.errors) {
+      if (
+        error.response?.data?.error?.errors[0]?.message ===
+        "name must be unique"
+      ) {
+        return "name must be unique";
+      }
+    }
+
+    if (error.response?.data?.message === "No document found with that ID") {
+      return "No document found with that ID";
+    }
+  }
+};
