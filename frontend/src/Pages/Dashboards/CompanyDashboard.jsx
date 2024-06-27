@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CompanyDashboard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faArrowUp,
-  faBriefcase,
   faCrown,
   faEnvelopeOpenText,
   faGear,
@@ -16,19 +15,13 @@ import {
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import huwawei from "../../images/logo/huwawei.webp";
 import Packageconsumption from "../../Components/charts/Packageconsumption";
 import TotalApplications from "../../Components/charts/TotalApplications";
 import ListedEmployees from "./../../Components/Ui/ListedEmployees";
 import CompanyAccountSetting from "./../AccountSetting/CompanyAccountSetting";
 import ContactUs from "./../ContactUs/ContactUs";
-import CurrentJobs from "../../Components/Ui/CurrentJobs";
-import { useQuery } from "@tanstack/react-query";
-import { getCompanyRelatedJobs } from "../../util/Http";
-import { useParams } from "react-router-dom";
-import NoDataBox from "../../Components/Ui/NoDataBox";
-import FloatingPopup from "../../Components/Ui/FloatingPopup";
 import { goldenPackagePerMonth } from "../../Components/logic/Logic";
+import { useSelector } from "react-redux";
 
 const myEmployees = [
   {
@@ -94,28 +87,36 @@ const myEmployees = [
 ];
 
 const CompanyDashboard = () => {
-  const [activeLink, setActiveLink] = useState("main");
-  const [showResponse, setShowResponse] = useState(false);
-  const [responseMessage, setResponseMessage] = useState({
-    title: "",
-    content: "",
-  });
-  const [successResponse, setSuccessResponse] = useState(true);
-  const { companyId: id } = useParams();
 
-  const { data: relatedJobs, refetch } = useQuery({
-    queryKey: ["relatedJobs"],
-    queryFn: () => getCompanyRelatedJobs({ id }),
-  });
+  const [activeLink, setActiveLink] = useState("main");
+  const companyProfileData = useSelector((state) => state.profileInfo.data);
+  const [profileLogo, setProfileLogo] = useState(null);
+
+  // const { companyId: id } = useParams();
+
+  // const { data: relatedJobs} = useQuery({
+  //   queryKey: ["relatedJobs"],
+  //   queryFn: () => getCompanyRelatedJobs({ id }),
+  // });
+
+
+
+  useEffect(() => {
+    if (companyProfileData?.logo) {
+      const logoURL = `http://127.0.0.1:3000/companies/${companyProfileData.logo}`;
+      setProfileLogo(logoURL);
+    }
+  }, [companyProfileData]);
 
   return (
     <>
       <div className={styles.profile_layer}></div>
       <Container className={styles.container}>
+
         <div className={styles.sideBar}>
           <div className={styles.company_header}>
-            <img src={huwawei} alt="company Logo" />
-            <h3>Huwawei</h3>
+            <img src={profileLogo} alt="company Logo" />
+            <h3>{companyProfileData.Company?.name}</h3>
           </div>
           <ul>
             <li
@@ -131,13 +132,6 @@ const CompanyDashboard = () => {
             >
               <FontAwesomeIcon icon={faIdCardClip} />
               <h6>Analysis</h6>
-            </li>
-            <li
-              className={activeLink === "jobs" ? styles.active_link : ""}
-              onClick={() => setActiveLink("jobs")}
-            >
-              <FontAwesomeIcon icon={faBriefcase} />
-              <h6>jobs</h6>
             </li>
             <li
               className={activeLink === "candidates" ? styles.active_link : ""}
@@ -170,6 +164,7 @@ const CompanyDashboard = () => {
           </ul>
         </div>
 
+
         <div className={styles.dashboard_body}>
           <Container className="my-5">
             <Row className="gy-5">
@@ -193,7 +188,7 @@ const CompanyDashboard = () => {
                     <div>
                       <ul>
                         {goldenPackagePerMonth.map((feature) => (
-                          <li className="my-1">
+                          <li key={feature} className="my-1">
                             <FontAwesomeIcon
                               className="me-2 text-warning"
                               icon={faArrowRight}
@@ -266,52 +261,6 @@ const CompanyDashboard = () => {
                   </div>
                 </Col>
               )}
-              {(activeLink === "main" || activeLink === "jobs") && (
-                <>
-                  {relatedJobs && (
-                    <Col md={12}>
-                      <div className={`${styles.box}`}>
-                        <h5 className="fw-bold mt-3">Current Jobs</h5>
-                        {relatedJobs.data?.length > 0 ? (
-                          <table className={`${styles.employee_table} my-4`}>
-                            <thead>
-                              <tr className={styles.table_header}>
-                                <th>title</th>
-                                <th>Location</th>
-                                <th>controls</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <>
-                                {relatedJobs.data?.map((job) => {
-                                  return (
-                                    <tr key={job.id}>
-                                      <CurrentJobs
-                                        key={job.id}
-                                        jobId={job.id}
-                                        job={job}
-                                        setShowResponse={setShowResponse}
-                                        setResponseMessage={setResponseMessage}
-                                        setSuccessResponse={setSuccessResponse}
-                                        refetch={refetch}
-                                      />
-                                    </tr>
-                                  );
-                                })}
-                              </>
-                            </tbody>
-                          </table>
-                        ) : (
-                          <NoDataBox
-                            className="m-auto"
-                            text="you don't have any current jobs yet if there is problem you can call support team"
-                          />
-                        )}
-                      </div>
-                    </Col>
-                  )}
-                </>
-              )}
               {(activeLink === "main" ||
                 activeLink === "candidates" ||
                 activeLink === "invitations") && (
@@ -363,12 +312,6 @@ const CompanyDashboard = () => {
           </Container>
         </div>
       </Container>
-      <FloatingPopup
-        showResponse={showResponse}
-        setShowResponse={setShowResponse}
-        message={responseMessage}
-        success={successResponse}
-      />
     </>
   );
 };

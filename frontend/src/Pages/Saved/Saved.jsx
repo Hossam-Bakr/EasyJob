@@ -35,7 +35,7 @@ const Saved = () => {
                       key={job.SavedJob.id}
                       name={job.Company.name}
                       jobTitle={job.title}
-                      req={job.requirements}
+                      desc={job.description}
                       type={job.type}
                       workplace={job.workplace}
                       time={job.SavedJob.createdAt}

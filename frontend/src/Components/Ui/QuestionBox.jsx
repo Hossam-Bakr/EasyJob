@@ -40,7 +40,7 @@ const QuestionBox = ({
           )}
         </div>
 
-        <span>
+        <span className="text-dark">
           {questionText} <span className="mini_word">({type})</span>
         </span>
       </div>

@@ -75,13 +75,7 @@ export const updateFormHandler = async ({
   }
 };
 
-export const getIndustries = async ({
-  type,
-  formData,
-  method,
-  pageNum,
-  industryList,
-}) => {
+export const getIndustries = async ({ type, formData, method, pageNum }) => {
   try {
     let response = null;
     if (type) {
@@ -180,6 +174,159 @@ export const accountSettingHanlder = async ({
   }
 };
 
+export const getCompanyCandidates = async ({
+  id,
+  token,
+  pageNum,
+  jobTitleFilteration,
+  countryFilteration,
+  cityFilteration,
+  areaFilteration,
+  categoriesFilteration,
+  jobTypeFilteration,
+  languageFilteration,
+  careerLevelFilteration,
+  hasDrivingLicense,
+  isOpenToWork,
+  minYearsOfExpFilteration,
+}) => {
+  //don't forget categories
+  try {
+    let params = {
+      limit: 15,
+      page: pageNum,
+    };
+    let response = null;
+    let paramValues = "";
+
+    if (jobTitleFilteration!=="") {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(
+          `?filter[jobTitle]=${jobTitleFilteration}`
+        );
+      } else {
+        paramValues = paramValues.concat(
+          `&filter[jobTitle]=${jobTitleFilteration}`
+        );
+      }
+    }
+
+    if (minYearsOfExpFilteration!=="") {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(
+          `?filter[minExperience]=${minYearsOfExpFilteration}`
+        );
+      } else {
+        paramValues = paramValues.concat(
+          `&filter[minExperience]=${minYearsOfExpFilteration}`
+        );
+      }
+    }
+
+    if (countryFilteration.length > 0) {
+      countryFilteration.forEach((myCountry) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?filter[country]=${myCountry}`);
+        } else {
+          paramValues = paramValues.concat(`&filter[country]=${myCountry}`);
+        }
+      });
+    }
+
+    if (cityFilteration.length > 0) {
+      cityFilteration.forEach((myCity) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?filter[city]=${myCity}`);
+        } else {
+          paramValues = paramValues.concat(`&filter[city]=${myCity}`);
+        }
+      });
+    }
+
+    if (areaFilteration.length > 0) {
+      areaFilteration.forEach((myArea) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?filter[area]=${myArea}`);
+        } else {
+          paramValues = paramValues.concat(`&filter[area]=${myArea}`);
+        }
+      });
+    }
+
+    if (categoriesFilteration !== "") {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?filter[jobCategories]=${categoriesFilteration}`);
+      } else {
+        paramValues = paramValues.concat(`&filter[jobCategories]=${categoriesFilteration}`);
+      }
+    }
+
+    if (jobTypeFilteration.length > 0) {
+      jobTypeFilteration.forEach((myType) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?filter[jobType]=${myType}`);
+        } else {
+          paramValues = paramValues.concat(`&filter[jobType]=${myType}`);
+        }
+      });
+    }
+
+    if (languageFilteration.length > 0) {
+      languageFilteration.forEach((myLang) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?filter[language]=${myLang.value}`);
+        } else {
+          paramValues = paramValues.concat(`&filter[language]=${myLang.value}`);
+        }
+      });
+    }
+
+    if (careerLevelFilteration.length > 0) {
+      careerLevelFilteration.forEach((myCareer) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?filter[careerLevel]=${myCareer}`);
+        } else {
+          paramValues = paramValues.concat(`&filter[careerLevel]=${myCareer}`);
+        }
+      });
+    }
+
+
+    if (isOpenToWork) {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?filter[openToWork]=true`);
+      } else {
+        paramValues = paramValues.concat(`&filter[openToWork]=true`);
+      }
+
+    }
+
+    if (hasDrivingLicense) {
+      if (paramValues === "") {
+        paramValues = paramValues.concat(`?filter[drivingLicense]=true`);
+      } else {
+        paramValues = paramValues.concat(`&filter[drivingLicense]=true`);
+      }
+
+    }
+
+ 
+
+    response = await axios(
+      `${baseServerUrl}companies/${id}/candidates${paramValues}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getJobs = async ({
   type,
   formData,
@@ -197,7 +344,6 @@ export const getJobs = async ({
   maxSalaryFilteration,
   jobTitleFilteration,
 }) => {
-  
   try {
     let params = {
       limit: 15,
@@ -264,36 +410,39 @@ export const getJobs = async ({
         });
       }
 
-      if (categoriesFilteration!=="") { 
-          if (paramValues === "") {
-            paramValues = paramValues.concat(`?cats=${categoriesFilteration}`);
-          } else {
-            paramValues = paramValues.concat(`&cats=${categoriesFilteration}`);
-          }
-       
-      }
-      
-      if (minSalaryFilteration.length >0) {
-        let myMinSalary=Number(minSalaryFilteration)
-          if (paramValues === "") {
-            paramValues = paramValues.concat(`?salaryRangeMin__gte=${myMinSalary}`);
-          } else {
-            paramValues = paramValues.concat(`&salaryRangeMin__gte=${myMinSalary}`);
-          }
+      if (categoriesFilteration !== "") {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?cats=${categoriesFilteration}`);
+        } else {
+          paramValues = paramValues.concat(`&cats=${categoriesFilteration}`);
+        }
       }
 
-      if (maxSalaryFilteration.length >0) {
-        let myMaxSalary=Number(maxSalaryFilteration);
+      if (minSalaryFilteration.length > 0) {
+        let myMinSalary = Number(minSalaryFilteration);
+        if (paramValues === "") {
+          paramValues = paramValues.concat(
+            `?salaryRangeMin__gte=${myMinSalary}`
+          );
+        } else {
+          paramValues = paramValues.concat(
+            `&salaryRangeMin__gte=${myMinSalary}`
+          );
+        }
+      }
 
-          if (paramValues === "") {
-            paramValues = paramValues.concat(
-              `?salaryRangeMax__lte  =${myMaxSalary}`
-            );
-          } else {
-            paramValues = paramValues.concat(
-              `&salaryRangeMax__lte  =${myMaxSalary}`
-            );
-          }
+      if (maxSalaryFilteration.length > 0) {
+        let myMaxSalary = Number(maxSalaryFilteration);
+
+        if (paramValues === "") {
+          paramValues = paramValues.concat(
+            `?salaryRangeMax__lte=${myMaxSalary}`
+          );
+        } else {
+          paramValues = paramValues.concat(
+            `&salaryRangeMax__lte=${myMaxSalary}`
+          );
+        }
       }
     }
 
@@ -324,7 +473,6 @@ export const getJobs = async ({
   }
 };
 
-
 export const getCompanies = async ({
   searchFilter,
   pageNum,
@@ -347,22 +495,20 @@ export const getCompanies = async ({
     params.IndustryId = indusryFilteration;
   }
 
-    if (countryFilteration!=="") { 
-      if (paramValues === "") {
-        paramValues = paramValues.concat(`?countries=${countryFilteration}`);
-      } else {
-        paramValues = paramValues.concat(`&countries=${countryFilteration}`);
-      }
-   
+  if (countryFilteration !== "") {
+    if (paramValues === "") {
+      paramValues = paramValues.concat(`?countries=${countryFilteration}`);
+    } else {
+      paramValues = paramValues.concat(`&countries=${countryFilteration}`);
+    }
   }
 
-    if (cityFilteration!=="") { 
-      if (paramValues === "") {
-        paramValues = paramValues.concat(`?cities=${cityFilteration}`);
-      } else {
-        paramValues = paramValues.concat(`&cities=${cityFilteration}`);
-      }
-   
+  if (cityFilteration !== "") {
+    if (paramValues === "") {
+      paramValues = paramValues.concat(`?cities=${cityFilteration}`);
+    } else {
+      paramValues = paramValues.concat(`&cities=${cityFilteration}`);
+    }
   }
 
   if (sizeFilteration.length > 0) {
@@ -518,23 +664,6 @@ export const languageHandler = async ({ formData, method, id, token }) => {
   }
 };
 
-export const getCompanyCandidates = async ({ id, token, pageNum }) => {
-  try {
-    const response = await axios(`${baseServerUrl}companies/${id}/candidates`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        limit: 15,
-        page: pageNum,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const getCompanyRelatedJobs = async ({ id }) => {
   try {
     const res = await axios(`${baseServerUrl}jobs/?CompanyId=${id}`);
@@ -617,3 +746,44 @@ export const getJobOnMap = async () => {
     console.log(error);
   }
 };
+
+export const sendContactUs=async({formData})=>
+  {
+    try {
+      const response = await axios.post(`${baseServerUrl}contact/`,formData);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  export const usersManageMent=async({formData,method,type})=>{
+    try {
+      let response;
+      if(method==="post"){
+        response = await axios.post(`${baseServerUrl}userManagement/${type}`,formData);
+      }else if(method==="delete"){
+        response = await axios.delete(`${baseServerUrl}userManagement/${type}`);
+      }else if(method==="patch"){
+        response = await axios.patch(`${baseServerUrl}userManagement/${type}`);
+      }else if(method==="get"){
+        response = await axios(`${baseServerUrl}userManagement/${type}`);
+      }
+      else if(method==="changeEmail"){
+        response = await axios.patch(`${baseServerUrl}userManagement/${type}`,formData);
+      }
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      if(error.response?.data?.error?.errors){
+        if(error.response?.data?.error?.errors[0]?.message==="email must be unique"){
+          return "email is already exist"
+        }
+      }
+       if(error.response?.data?.message==="No user found with that ID"){
+        return "No user found with that ID"
+      }
+
+    }
+  }

@@ -17,7 +17,7 @@ const VisiteEmployeeProfile = () => {
     const params=useParams();
     const role="user";
     const dispatch = useDispatch();
-console.log(visitProfileData)
+
 
     useEffect(() => {
       window.scrollTo(0, 0);

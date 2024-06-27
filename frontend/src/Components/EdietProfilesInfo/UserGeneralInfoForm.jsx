@@ -292,7 +292,7 @@ const UserGeneralInfoForm = ({ data }) => {
                 name="tagline"
                 className={data.tagline ? "" : styles.empty_field}
               />
-              <ErrorMessage name="phone" component={InputErrorMessage} />
+              <ErrorMessage name="tagline" component={InputErrorMessage} />
             </div>
             <div className={styles.field}>
               <label htmlFor="userGeneraluserPhone">Phone</label>

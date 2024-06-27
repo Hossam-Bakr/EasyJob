@@ -72,8 +72,8 @@ defineDBRelationships();
 const PORT = process.env.PORT || 3000;
 
 sequelize
-  // .sync()
-  .sync({ alter: true })
+  .sync()
+  // .sync({ force: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`App running on port ${PORT}`);

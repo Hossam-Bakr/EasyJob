@@ -24,7 +24,12 @@
 .category_container{
     padding-inline: 50px;
 }
-
+.countUp{
+    background-color: var(--vanilla);
+    margin: 3.125rem 0;
+    padding: 1.25rem 0.625rem;
+    border-radius: 5px;
+}
 
 @media screen and (max-width:384px) {
     .category_container{
