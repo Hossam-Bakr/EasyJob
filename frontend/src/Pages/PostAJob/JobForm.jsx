@@ -64,6 +64,7 @@ const JobForm = ({
   const { mutate, isPending } = useMutation({
     mutationFn: getJobs,
     onSuccess: (data) => {
+      console.log(data)
       if (data.status === "success") {
         console.log(data);
         getJobIdFromPost(data.data.job.id)

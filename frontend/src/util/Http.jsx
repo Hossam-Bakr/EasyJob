@@ -746,3 +746,13 @@ export const getJobOnMap = async () => {
     console.log(error);
   }
 };
+
+export const sendContactUs=async({formData})=>
+  {
+    try {
+      const response = await axios.post(`${baseServerUrl}contact/`,formData);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
