@@ -638,7 +638,7 @@ const Posts = () => {
                         <LoadingPlaceholders page="jobs" />
                       </>
                     ) : (
-                      <>
+                      <>z
                         {data ? (
                           <>
                             {data?.data?.length !== 0 ? (

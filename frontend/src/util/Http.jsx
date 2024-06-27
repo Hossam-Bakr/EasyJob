@@ -756,3 +756,34 @@ export const sendContactUs=async({formData})=>
       console.log(error);
     }
   }
+
+
+  export const usersManageMent=async({formData,method,type})=>{
+    try {
+      let response;
+      if(method==="post"){
+        response = await axios.post(`${baseServerUrl}userManagement/${type}`,formData);
+      }else if(method==="delete"){
+        response = await axios.delete(`${baseServerUrl}userManagement/${type}`);
+      }else if(method==="patch"){
+        response = await axios.patch(`${baseServerUrl}userManagement/${type}`);
+      }else if(method==="get"){
+        response = await axios(`${baseServerUrl}userManagement/${type}`);
+      }
+      else if(method==="changeEmail"){
+        response = await axios.patch(`${baseServerUrl}userManagement/${type}`,formData);
+      }
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      if(error.response?.data?.error?.errors){
+        if(error.response?.data?.error?.errors[0]?.message==="email must be unique"){
+          return "email is already exist"
+        }
+      }
+       if(error.response?.data?.message==="No user found with that ID"){
+        return "No user found with that ID"
+      }
+
+    }
+  }
