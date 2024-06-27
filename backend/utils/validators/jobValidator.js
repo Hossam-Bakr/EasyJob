@@ -441,52 +441,19 @@ exports.applyForJobValidator = [
     .trim(),
 
   check("answers")
-    .optional()
-    .isArray()
-    .withMessage("Answers must be an array")
+    .notEmpty()
+    .isArray({ min: 1 })
+    .withMessage("Answers must be an array of at least 1 answer object")
     .custom((value) => {
       if (!value.every((answer) => typeof answer === "object")) {
         return Promise.reject("Answers must be an array of objects");
       }
 
-      if (
-        value.some(
-          (answer) =>
-            !answer.QuestionId || (!answer.textAnswer && !answer.yesNoAnswer)
-        )
-      ) {
+      if (value.some((answer) => !answer.QuestionId || !answer.answer)) {
         return Promise.reject(
-          "Please provide QuestionId and (answerText | yesNoAnswer) for each answer"
+          "Please provide QuestionId and answer for each answer object"
         );
       }
-
-      return true;
-    }),
-
-  check("voices")
-    .optional()
-    .isArray()
-    .withMessage("Voices must be an array")
-    .custom((value) => {
-      if (!value.every((voice) => typeof voice === "object")) {
-        return Promise.reject("Voices must be an array of objects");
-      }
-
-      if (value.some((voice) => !voice.QuestionId || !voice.voiceAnswer)) {
-        return Promise.reject(
-          "Please provide QuestionId and voiceAnswer for each voice"
-        );
-      }
-
-      // if (
-      //   value.some(
-      //     (voice) => +voice.voiceAnswer >= +process.env.VOICE_ANSWERS_COUNT
-      //   )
-      // ) {
-      //   return Promise.reject(
-      //     `voiceAnswer must be less than ${process.env.VOICE_ANSWERS_COUNT}`
-      //   );
-      // }
 
       return true;
     }),

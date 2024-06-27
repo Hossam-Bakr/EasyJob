@@ -431,10 +431,10 @@ INSERT INTO Categories (name, createdAt, updatedAt, IndustryId) VALUES
 
 
 
-INSERT INTO Companies (id, name, email, password, phone, role, passwordResetCode, passwordResetExpire, passwordResetVerified, createdAt, updatedAt, deletedAt, IndustryId, PricingPlanId)
-VALUES (1, 'easyJob', 'bakr.hossam.255@gmail.com', '$2a$12$nQGTG7Dh3jeEDbLsUqvzmuGElbwZJWQmo.IM0MwaN4qjD/0esR68G', '0123456789', 'company', null, null, null, '2024-02-29 11:31:37', '2024-02-29 11:31:37', null, 1, null)
+INSERT INTO Companies (id, name, email, password, phone, role, passwordResetCode, passwordResetExpire, passwordResetVerified, createdAt, updatedAt, deletedAt, IndustryId)
+VALUES (1, 'easyJob', 'bakr.hossam.255@gmail.com', '$2a$12$nQGTG7Dh3jeEDbLsUqvzmuGElbwZJWQmo.IM0MwaN4qjD/0esR68G', '0123456789', 'company', null, null, null, '2024-02-29 11:31:37', '2024-02-29 11:31:37', null, 1)
 ON DUPLICATE KEY UPDATE
-name = VALUES(name), email = VALUES(email), password = VALUES(password), phone = VALUES(phone), role = VALUES(role), passwordResetCode = VALUES(passwordResetCode), passwordResetExpire = VALUES(passwordResetExpire), passwordResetVerified = VALUES(passwordResetVerified), createdAt = VALUES(createdAt), updatedAt = VALUES(updatedAt), deletedAt = VALUES(deletedAt), IndustryId = VALUES(IndustryId), PricingPlanId = VALUES(PricingPlanId);
+name = VALUES(name), email = VALUES(email), password = VALUES(password), phone = VALUES(phone), role = VALUES(role), passwordResetCode = VALUES(passwordResetCode), passwordResetExpire = VALUES(passwordResetExpire), passwordResetVerified = VALUES(passwordResetVerified), createdAt = VALUES(createdAt), updatedAt = VALUES(updatedAt), deletedAt = VALUES(deletedAt), IndustryId = VALUES(IndustryId);
 
 -- Inserting a job into the 'Jobs' table with specific details for an IT & Software Development position
 INSERT INTO Jobs 

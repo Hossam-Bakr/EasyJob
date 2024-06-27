@@ -64,6 +64,7 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
     if (req.params.industryId) filter = { industryId: req.params.industryId };
 
     let { page = 1, limit = 100, sort, fields, keyword } = req.query;
+    page = parseInt(page);
     limit = parseInt(limit);
 
     if (keyword && Model.rawAttributes.title) {
@@ -93,7 +94,7 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
       };
     }
 
-    // exclude fields from the filter
+    // Exclude fields from the filter
     const excludedFields = ["page", "limit", "sort", "fields", "keyword"];
     excludedFields.forEach((el) => delete req.query[el]);
 
@@ -114,26 +115,27 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
       }
     }
 
+    let sortArray = [];
     if (sort) {
-      sort
+      sortArray = sort
         .split(",")
         .map((item) =>
-          item[0] === "-" ? [item.slice(1), "ASC"] : [item, "DESC"]
+          item.startsWith("-") ? [item.slice(1), "DESC"] : [item, "ASC"]
         );
     }
 
-    if (overrideFields) fields = overrideFields;
+    const attributes = fields ? fields.split(",") : undefined;
 
     const docs = await Model.findAll({
       where: filter,
-      order: sort,
-      attributes: fields ? fields.split(",") : undefined,
+      order: sortArray,
+      attributes,
       limit,
       offset: (page - 1) * limit,
       include,
     });
 
-    const documentsCount = await Model.count();
+    const documentsCount = await Model.count({ where: filter });
 
     res.status(200).json({
       status: "success",

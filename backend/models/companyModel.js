@@ -36,13 +36,27 @@ const Company = sequelize.define(
       values: ["company"],
       defaultValue: "company",
     },
-
-
-    passwordResetCode : DataTypes.STRING , 
-    passwordResetExpire : DataTypes.DATE , 
-    passwordResetVerified : DataTypes.BOOLEAN , 
-
-
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    passwordResetCode: DataTypes.STRING,
+    passwordResetExpire: DataTypes.DATE,
+    passwordResetVerified: DataTypes.BOOLEAN,
+    stripeCustomerId: DataTypes.STRING,
+    stripeSubscriptionId: DataTypes.STRING,
+    jobPostsUsed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    unlocksUsed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    invitationsUsed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     hooks: {
@@ -56,7 +70,7 @@ const Company = sequelize.define(
   }
 );
 
-// instance methods
+// Instance methods
 Company.prototype.correctPassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };

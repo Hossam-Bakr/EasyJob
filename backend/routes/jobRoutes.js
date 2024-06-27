@@ -3,6 +3,7 @@ const router = express.Router();
 
 const authController = require("../controllers/authController");
 const jobController = require("../controllers/jobController");
+const subscriptionController = require("../controllers/subscriptionController");
 const {
   createJobValidator,
   updateJobValidator,
@@ -22,6 +23,7 @@ router
   .post(
     authController.protect,
     authController.restrictTo("company"),
+    subscriptionController.checkAllowedJobPosts,
     createJobValidator,
     jobController.createJob
   );
@@ -59,7 +61,6 @@ router.post(
   "/:jobId/apply",
   authController.protect,
   authController.restrictTo("user"),
-  jobController.uploadVoiceAnswers,
   applyForJobValidator,
   jobController.applyForJob
 );

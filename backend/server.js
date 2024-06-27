@@ -31,7 +31,14 @@ app.use(passport.session());
 app.use(cors());
 app.options("*", cors());
 
-app.use(express.json());
+// app.use(express.json());
+app.use((req, res, next) => {
+  if (req.originalUrl === "/api/v1/subscriptions/webhook") {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
 app.use(express.static(path.join(__dirname, "uploads")));
 
 if (process.env.NODE_ENV === "development") {
@@ -65,8 +72,8 @@ defineDBRelationships();
 const PORT = process.env.PORT || 3000;
 
 sequelize
-  .sync()
-  // .sync({ force: true })
+  // .sync()
+  .sync({ alter: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`App running on port ${PORT}`);
