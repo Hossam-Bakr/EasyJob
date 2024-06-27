@@ -24,7 +24,7 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     return next(new ApiError('No user found with that ID', 404));
   }
   await user.destroy();
-  res.status(204).json({
+  res.status(200).json({
     status: 'success',
     data: null,
   });
