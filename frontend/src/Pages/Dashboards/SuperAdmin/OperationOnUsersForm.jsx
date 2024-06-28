@@ -13,7 +13,7 @@ const OperationOnUsersForm = ({
 }) => {
   const [operationType, setOperationType] = useState("");
   const [isUserIdExist, setIsUserIdExist] = useState(true);
-//handle respone after hossam 
+
   const { mutate } = useMutation({
     mutationFn: usersManageMent,
     onSuccess: (data) => {
@@ -82,32 +82,33 @@ const OperationOnUsersForm = ({
   });
 
   const initialValues = {
-    userId: "",
+    userId:"",
   };
 
   const validationSchema = object({
     userId: number()
-      .min(1, "user Id must be more than zero")
+      .min(0, "user Id must be more than zero")
       .required("user Id is required"),
   });
 
   const onSubmit = (values) => {
     console.log(values);
+    let userID=values.userId
     if (operationType === "delete") {
       mutate({
-        type: `deleteUser/${values.userId}`,
+        type: `deleteUser/${userID}`,
         method: "delete",
         formData: "",
       });
     } else if (operationType === "activate") {
       mutate({
-        type: `deactivateUser/${values}`,
+        type: `deactivateUser/${userID}`,
         method: "patch",
         formData: "",
       });
     } else if (operationType === "deActivate") {
       mutate({
-        type: `activateUser/${values}`,
+        type: `activateUser/${userID}`,
         method: "patch",
         formData: "",
       });
@@ -128,6 +129,8 @@ const OperationOnUsersForm = ({
               id="super_user_id_operations"
               name="userId"
               placeholder="user ID"
+              className="form-control"
+
             />
             <ErrorMessage name="userId" component={InputErrorMessage} />
             {!isUserIdExist && (

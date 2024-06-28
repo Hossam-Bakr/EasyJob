@@ -6,6 +6,8 @@ import { Container, Tabs } from "react-bootstrap";
 import CountUpSection from "../../../Components/Ui/CountUpSection";
 import FloatingPopup from "../../../Components/Ui/FloatingPopup";
 import EmployeeManagementForm from "./EmployeeManagementForm";
+import CompanyManagementForm from "./CompanyManagementForm";
+import SkillsForm from "./SkillsForm";
 
 const SuperAdminDashboard = () => {
   const [showResponse, setShowResponse] = useState(false);
@@ -37,7 +39,11 @@ const SuperAdminDashboard = () => {
             />
           </Tab>
           <Tab eventKey="comanies" title="Comanies">
-            Comanies management
+            <CompanyManagementForm
+               setShowResponse={setShowResponse}
+               setResponseMessage={setResponseMessage}
+               setSuccessResponse={setSuccessResponse}
+            />
           </Tab>
           <Tab eventKey="industry" title="Industries & Categories">
             <div className={styles.category_container}>
@@ -45,7 +51,11 @@ const SuperAdminDashboard = () => {
             </div>
           </Tab>
           <Tab eventKey="skill" title="Skills">
-            Skills
+            <SkillsForm
+              setShowResponse={setShowResponse}
+              setResponseMessage={setResponseMessage}
+              setSuccessResponse={setSuccessResponse}
+            />
           </Tab>
         </Tabs>
 
