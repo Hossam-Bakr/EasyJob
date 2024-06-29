@@ -447,12 +447,6 @@ exports.getJobApplications = catchAsync(async (req, res) => {
 
   const applications = await Application.findAll({
     where: filter,
-    include: [
-      {
-        model: User,
-        attributes: ["id", "firstName", "lastName"],
-      },
-    ],
   });
 
   res.status(200).json({
