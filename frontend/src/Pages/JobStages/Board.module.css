@@ -83,20 +83,25 @@
     background-color: yellow;
 }
 
-.refuse_icon{
+.refuse_icon,.eye_controllers{
     font-size: 1.25rem;
-    margin-right: 1.25rem;
     color: red;
     transition: transform .4s;
+    cursor:auto;
+    margin-inline: 10px;
 
+}
+.eye_controllers{
+    color: var(--dark_white);
 }
 .accept_icon{
     font-size: 1.5625rem;
-    margin-left: 1.25rem;
     color: var(--main_color);
     transition: transform .4s;
+    cursor:auto;
+    margin-inline: 10px;
 }
-.refuse_icon:hover,.accept_icon:hover{
+.refuse_icon:hover,.accept_icon:hover,.eye_controllers:hover{
 transform: scale(1.1);
 }
 

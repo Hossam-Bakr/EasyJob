@@ -25,7 +25,7 @@ const JobApplicationFormModal = () => {
 
   const { data } = useQuery({
     queryKey: ["jobApplicationForm"],
-    queryFn: () => getJobApplications({ jobId, token }),
+    queryFn: () => getJobApplications({ jobId, token,type:"apply" }),
   });
 
   useEffect(() => {

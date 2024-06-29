@@ -75,7 +75,7 @@ const JobApplicationForm = ({
     console.log(myAnswers)
     try {
       const res = await axios.post(
-        `http://127.0.0.1:3000/api/v1/jobs/${jobId}/apply`,
+        `${process.env.REACT_APP_Base_API_URl}jobs/${jobId}/apply`,
         { answers: myAnswers },
         {
           headers: {
