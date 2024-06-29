@@ -41,12 +41,15 @@ const User = sequelize.define(
       type: DataTypes.ENUM("user", "admin"),
       defaultValue: "user",
     },
-
-    passwordResetCode : DataTypes.STRING , 
-    passwordResetExpire : DataTypes.DATE , 
-    passwordResetVerified : DataTypes.BOOLEAN , 
-
-    googleId :  DataTypes.STRING 
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+    },
+    passwordResetCode: DataTypes.STRING,
+    passwordResetExpire: DataTypes.DATE,
+    passwordResetVerified: DataTypes.BOOLEAN,
+    googleId: DataTypes.STRING
   },
   {
     hooks: {

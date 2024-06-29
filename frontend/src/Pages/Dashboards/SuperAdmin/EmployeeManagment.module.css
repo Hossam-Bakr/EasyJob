@@ -1,0 +1,128 @@
+.search_field{
+    min-height: 50vh;
+    box-shadow: 0 0 0.1875rem rgba(0, 0, 0, 0.262);
+    border-radius: 0.625rem;
+    padding: 1.875rem 1.25rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.skill_field{
+ height: 60vh;
+ overflow-y: auto; 
+}
+.search_table{
+    width: 100%;
+    text-align: center;
+}
+
+.search_tr td{ 
+    padding: 10px;
+    background-color: var(--vanilla) !important;
+}
+.emp_management{
+    min-height: 60vh;
+}
+.emp_form{
+    padding:0.9375rem 1.25rem;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+.emp_form label{
+    text-align: start;
+    margin-bottom: 0.1875rem;
+}
+.emp_btn,.emp_btn_delete,.emp_btn_deActivate{
+    width: 80%;
+    background-color: var(--darker_main_color);
+    color: white;
+    padding: 0.625rem 0.9375rem;
+    border-radius: 0.9375rem;
+    margin: 0.625rem 0;
+    transition:all .3s;
+}
+.emp_btn_delete{
+    background-color: red;
+
+}
+.emp_btn_deActivate{
+    opacity: .6;
+}
+
+.emp_btn:hover,.emp_btn_deActivate:hover,.emp_btn_delete:hover{
+    scale: 1.05;
+    opacity: 1;
+}
+.sign_company_p{
+    display: none;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+.lname, .fname{
+    width: 50%;
+}
+
+.img_side,.searching_img{
+    width: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searching_img{
+    margin: auto;
+}
+.emp_btn_div{
+    text-align: end;
+    width: 100%;
+}
+.emp_btn_div button{
+    width: 18.75rem;
+}
+.button_group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.skill_btn{
+    width: 15.625rem;
+}
+@media screen and (max-width:1130px) {
+    .emp_form div{
+       margin-inline:0 !important;
+    }
+    .name_faild{
+        flex-wrap: wrap;
+    }
+    .lname, .fname{
+        width: 100% !important;
+    }
+    .fname{
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .img_side{
+        display: none;
+    }
+}
+@media screen and (max-width:650px) {
+    .button_group{
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:350px) {
+    .skill_btn{
+        width: 100%;
+    }
+}
+@media screen and (max-width:268px) {
+    .emp_btn,.emp_btn_deActivate,.emp_btn_delete{
+        margin-top: 1.5625rem;
+    }
+    .emp_form{
+        padding: 0.125rem;
+    }
+
+}

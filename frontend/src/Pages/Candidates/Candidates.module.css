@@ -2,15 +2,24 @@
     background-color: var(--vanilla);
     border-radius: 0.625rem;
     padding: 0.625rem;
-    min-height: 350vh;
+    padding-top: 1.875rem;
+    height: 280vh;
+    overflow-y: scroll;
 }
-
+.filter_icon{
+    font-size: 1.25rem;
+    margin-right: 0.625rem;
+    color: var(--main_color);
+    padding-bottom: 0.3125rem;
+}
 .filter_list{
     padding-inline: 0;
     font-weight: 600;
 }
 .checkbox_type{
     margin-right: 0.625rem;
+    width: 20px;
+    height: 20px;
 }
 .more{
     color: var(--dark_white);
@@ -19,6 +28,16 @@
 }
 .filter_list li{
     margin-bottom: 0.5rem;
+    border-top: 1px solid rgb(197, 197, 197);
+}
+.filter_list li:first-child{
+    margin-bottom: 0.5rem;
+    border: none;
+}
+.filter_list li div{
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }
 .filter_list li label, .more{
     cursor: pointer;
@@ -29,7 +48,18 @@
 .filter_list li:hover label{
     color: var(--main_color);
 }
+.default{
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
 
+    padding: 10px;
+    border-radius: 10px;
+    transition: all .4s;
+}
+.default:hover{
+    background-color: var(--vanilla);
+}
 .more:hover{
     color: var(--main_color);
 }
@@ -43,7 +73,10 @@
     font-size: 0.625rem;
     font-weight: 700;
 }
-
+.salay_input{
+    width: 100%;
+    margin: 10px auto; 
+}
 
 /* _______________________________________________________________________ */
 

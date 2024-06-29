@@ -24,7 +24,7 @@ const JobItem = ({
   logo,
   name,
   jobTitle,
-  req,
+  desc,
   country,
   city,
   workplace,
@@ -86,6 +86,10 @@ const JobItem = ({
       navigate(`/job-details/${jobId}`)
   };
 
+  const navigateToApplicationFormPage = () => {
+    navigate(`/job-application-form/${jobId}`);
+  };
+
   return (
     <>
     <Col xl={12} className={styles.job_container}>
@@ -140,7 +144,7 @@ const JobItem = ({
             </div>
           </div>
           <h4>{jobTitle}</h4>
-          <p>{req}</p>
+          <p>{desc}</p>
           <div
             className={`${styles.info} d-flex justify-content-evenly align-items-center`}
           >
@@ -156,7 +160,7 @@ const JobItem = ({
           </div>
           <div className="text-end w-100">
             {formatType === "saved" ? (
-              <ApplyBtn formatType="white" text="Apply Now" />
+              <ApplyBtn onClick={navigateToApplicationFormPage} formatType="white" text="Apply Now" />
             ) : (
               <ApplyBtn formatType="white" text="Cancel Request" />
             )}

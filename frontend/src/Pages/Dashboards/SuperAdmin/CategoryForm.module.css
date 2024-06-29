@@ -1,31 +1,25 @@
 .input_faild{
     display: flex;
     flex-direction: column;
-    margin: 20px 0;
+    margin: 1.25rem 0;
     position: relative;
 }
 .input_faild label{
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 1.125rem;
 }
 .submit_btn{
-    background-color: var(--main_color);
-    padding: 10px;
+    background-color: var(--darker_main_color);
+    padding: 0.625rem;
     color: white;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     transition: all .5s;
+    min-width: 9.375rem;
 }
 .submit_btn:hover{
-    transform: translateX(5px);
-    background-color: var(--darker_main_color);
-    color: white;
-}
-.delete_btn{
-    background-color: rgb(224, 1, 1) ;
-}
-.update_btn{
-    background-color: var(--golden);
+    transform: translateX(0.3125rem);
+    background-color: var(--main_color);
     color: white;
 }
 

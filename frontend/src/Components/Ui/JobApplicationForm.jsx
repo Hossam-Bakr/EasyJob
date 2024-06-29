@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./JobApplicationForm.module.css";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
-import { AudioRecorder } from "react-audio-voice-recorder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYinYang } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MainButton from "./MainButton";
+import UploadVoiceRecord from "../UploadVoice/UploadVoiceRecord";
 
 const JobApplicationForm = ({
   questions,
@@ -18,28 +18,12 @@ const JobApplicationForm = ({
 }) => {
   const { jobId } = useParams();
   const [record, setRecord] = useState(null);
-  const [formValues, setFormValues] = useState(new FormData());
-  const [voicesAnswers, setVoicesAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [noVoiceQuestions, setNoVoiceQuestions] = useState([]);
   const [voiceQuestions, setVoiceQuestions] = useState([]);
-
+  const [myAnswers, setMyAnswers] = useState([]);
   const token = useSelector((state) => state.userInfo.token);
   const navigate = useNavigate();
-
-  const addAudioElement = (blob, id) => {
-    const url = URL.createObjectURL(blob);
-    setRecord(url);
-    const file = new File([blob], `recorder.mp3`, { type: "audio/mp3" });
-    let newVoice = { id, file };
-    let existVoice = voicesAnswers.find((voice) => voice.id === id);
-    if (existVoice) {
-      voicesAnswers[existVoice] = newVoice;
-    } else {
-      let updatedVoiceAnswers = [...voicesAnswers, newVoice];
-      setVoicesAnswers(updatedVoiceAnswers);
-    }
-  };
 
   const seperateQuestions = () => {
     const noVoice = [];
@@ -55,98 +39,88 @@ const JobApplicationForm = ({
     setVoiceQuestions(voice);
   };
 
+  const clearDataOnLeave = () => {
+    setNoVoiceQuestions([]);
+    setVoiceQuestions([]);
+  };
+
   useEffect(() => {
     seperateQuestions();
-  }, []);
+    return () => {
+      clearDataOnLeave();
+    };
+  }, [questions]);
 
-  const saveData = (e) => {
+  const saveNoVoiceData = (e) => {
     let inputElement = e.target;
     const qnumber = inputElement.getAttribute("data-qnumber");
-    const question = inputElement.getAttribute("data-question");
     const value = inputElement.value;
-    const newName = inputElement.name;
 
-    formValues.append(`${question}`, qnumber);
-    formValues.append(`${newName}`, value);
+    setMyAnswers((prevAnswers) => [
+      ...prevAnswers.filter(answer => answer.QuestionId !== qnumber),
+      { QuestionId: `${qnumber}`, answer: `${value}` },
+    ]);
+  };
+
+  const saveVoiceDataLink = (myLink, id, myRecord) => {
+ 
+    const filteredAnswers=myAnswers.filter((answer) => Number(answer.QuestionId) !== id)
+    setMyAnswers([...filteredAnswers,{ QuestionId: `${id}`, answer: myLink }],
+    );
   };
 
   const handleSubmittedForm = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    if (voicesAnswers.length > 0) {
-      console.log("myAnswers", voicesAnswers);
-      voicesAnswers.map((voice, index) => {
-        formValues.append(`voiceAnswer${index + 1}`, voice.file);
-        formValues.append(`voices[${index}][voiceAnswer]`, `${index + 1}`);
-        formValues.append(`voices[${index}][QuestionId]`, `${voice.id}`);
-        return null;
-      });
-    }
-
-    if (formValues && token) {
-      const formDataObject = {};
-      for (const [key, value] of formValues.entries()) {
-        formDataObject[key] = value;
+    console.log(myAnswers)
+    try {
+      const res = await axios.post(
+        `http://127.0.0.1:3000/api/v1/jobs/${jobId}/apply`,
+        { answers: myAnswers },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("response", res);
+      if (res.status === 201) {
+        setResponseMessage({
+          title: "Sent Successfully",
+          content: "Your answers have been sent successfully",
+        });
+        setSuccessResponse(true);
+        setShowResponse(true);
+        navigate("/jobs");
+      } else {
+        setResponseMessage({
+          title: "Request Failed",
+          content: "Your answers failed to be sent, please try again",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
       }
-      console.log(formDataObject);
-      try {
-        const res = await axios.post(
-          `http://127.0.0.1:3000/api/v1/jobs/${jobId}/apply`,
-          formValues,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log("response", res);
-        if (res.statusText === "Created") {
-          setResponseMessage({
-            title: "Sent Successfully",
-            content: "your Answers have been sent successfully",
-          });
-          setSuccessResponse(true);
-          setShowResponse(true);
-          navigate("/jobs");
-        } else {
-          setResponseMessage({
-            title: "Request Faild",
-            content: "your Answers faild to be sent please try again",
-          });
-          setSuccessResponse(false);
-          setShowResponse(true);
-        }
-      } catch (error) {
-        if (
-          error.response.data.message ===
-          "You have already applied for this job"
-        ) {
-          setResponseMessage({
-            title: "Already Applied",
-            content: "You have already applied for this job",
-          });
-          setSuccessResponse(false);
-          setShowResponse(true);
-        }
-        if (
-          error.response.data.message === "You must answer all the questions"
-        ) {
-          setResponseMessage({
-            title: "Answer All Questions",
-            content: "You Must Answer All the Questions",
-          });
-          setSuccessResponse(false);
-          setShowResponse(true);
-        }
-        console.log("error", error);
+    } catch (error) {
+      if (error.response.data.message === "You have already applied for this job") {
+        setResponseMessage({
+          title: "Already Applied",
+          content: "You have already applied for this job",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
       }
+      if (error.response.data.message === "You must answer all the questions") {
+        setResponseMessage({
+          title: "Answer All Questions",
+          content: "You must answer all the questions",
+        });
+        setSuccessResponse(false);
+        setShowResponse(true);
+      }
+      console.log("error", error);
     }
-
     setIsLoading(false);
-    setVoicesAnswers([]);
-    setFormValues(new FormData());
-    // setRecord(null);
-    // myClaerButtonRef.current.click();
   };
 
   return (
@@ -156,8 +130,6 @@ const JobApplicationForm = ({
           <>
             {noVoiceQuestions.map((question, index) =>
               question.type === "text" ? (
-                //text question
-
                 <div
                   className={`${styles.input_field} ${styles.checks_group}`}
                   key={question.id}
@@ -170,16 +142,12 @@ const JobApplicationForm = ({
                   </label>
                   <input
                     type="text"
-                    name={`answers[${index}][textAnswer]`}
-                    data-question={`answers[${index}][QuestionId]`}
                     data-qnumber={question.id}
-                    onChange={saveData}
+                    onChange={saveNoVoiceData}
                     id={`textQuestion${index}`}
                   />
                 </div>
               ) : (
-                //yes/no question
-
                 <div
                   className={`${styles.input_field} ${styles.checks_group}`}
                   key={question.id}
@@ -202,11 +170,9 @@ const JobApplicationForm = ({
                             type="radio"
                             className="btn-check"
                             id={`answerYes${index}`}
-                            name={`answers[${index}][yesNoAnswer]`}
-                            data-question={`answers[${index}][QuestionId]`}
                             data-qnumber={question.id}
                             value={true}
-                            onChange={saveData}
+                            onChange={saveNoVoiceData}
                             autoComplete="off"
                           />
                           <label
@@ -227,14 +193,11 @@ const JobApplicationForm = ({
                             type="radio"
                             className="btn-check"
                             id={`answerNo${index}`}
-                            name={`answers[${index}][yesNoAnswer]`}
-                            data-question={`answers[${index}][QuestionId]`}
                             data-qnumber={question.id}
-                            onChange={saveData}
+                            onChange={saveNoVoiceData}
                             value={false}
                             autoComplete="off"
                           />
-
                           <label
                             className={`${styles.yesNoLabel} btn btn-outline-primary`}
                             htmlFor={`answerNo${index}`}
@@ -259,16 +222,12 @@ const JobApplicationForm = ({
                     {question.questionText}
                   </label>
                   <div className={styles.record_field}>
-                    <AudioRecorder
-                      onRecordingComplete={(blob) =>
-                        addAudioElement(blob, question.id)
-                      }
-                      audioTrackConstraints={{
-                        noiseSuppression: true,
-                        echoCancellation: true,
-                      }}
-                      downloadOnSavePress={false}
-                      downloadFileExtension="mp3"
+                    <UploadVoiceRecord
+                      question={question}
+                      saveVoiceDataLink={saveVoiceDataLink}
+                      setResponseMessage={setResponseMessage}
+                      setSuccessResponse={setSuccessResponse}
+                      setShowResponse={setShowResponse}
                     />
                   </div>
 
@@ -300,10 +259,10 @@ const JobApplicationForm = ({
       ) : (
         <div className="px-5">
           <h4 className={`${styles.no_ques} alert alert-primary`}>
-            There is no questions for this job
+            There are no questions for this job
           </h4>
           <div className="text-center">
-            <MainButton text="submit" />
+            <MainButton text="Submit" />
           </div>
         </div>
       )}
@@ -312,24 +271,3 @@ const JobApplicationForm = ({
 };
 
 export default JobApplicationForm;
-
-// const {
-//   startRecording,
-//   // stopRecording,
-//   // togglePauseResume,
-//   // recordingBlob,
-//   // isRecording,
-//   // isPaused,
-//   // recordingTime,
-//   // mediaRecorder
-// } = useAudioRecorder();
-
-// {/* <button
-//   ref={myClaerButtonRef}
-//   className={styles.clear_btn}
-//   type="reset"
-// >
-//   Clear
-// </button> */}
-
-// const myClaerButtonRef = useRef(null);

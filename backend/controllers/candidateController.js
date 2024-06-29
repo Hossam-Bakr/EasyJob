@@ -90,27 +90,29 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
         };
       }
       if (filter.language) {
+        const languageArray = Array.isArray(filter.language) ? filter.language : [filter.language];
+        const languageQueries = languageArray.map(lang => 
+          sequelize.where(
+            sequelize.fn('JSON_CONTAINS', sequelize.col('languages'), `{"language": "${lang}"}`), 1
+          )
+        );
+
         whereConditions = {
           ...whereConditions,
-          languages: sequelize.where(
-            sequelize.fn('JSON_CONTAINS', sequelize.col('languages'), `"${filter.language}"`),
-            1
-          )
+          [Op.and]: languageQueries
         };
       }
       if (filter.jobType) {
-        whereConditions = {
-          ...whereConditions,
-          jobTypes: sequelize.where(
-            sequelize.fn('JSON_CONTAINS', sequelize.col('jobTypes'), `"${filter.jobType}"`),
-            1
+        const jobTypeArray = Array.isArray(filter.jobType) ? filter.jobType : [filter.jobType];
+        const jobTypeQueries = jobTypeArray.map(type => 
+          sequelize.where(
+            sequelize.fn('JSON_CONTAINS', sequelize.col('jobTypes'), `"${type}"`), 1
           )
-        };
-      }
-      if (filter.workplace) {
+        );
+
         whereConditions = {
           ...whereConditions,
-          workplace: filter.workplace
+          [Op.and]: jobTypeQueries
         };
       }
       if (filter.minExperience) {
@@ -151,8 +153,9 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
           drivingLicense: filter.drivingLicense === 'true'
         };
       }
+
       if (filter.jobCategories) {
-        const jobCategoriesArray = filter.jobCategories.split(',');
+        const jobCategoriesArray = Array.isArray(filter.jobCategories) ? filter.jobCategories : [filter.jobCategories];
         const jobCategoriesQueries = jobCategoriesArray.map(name => 
           sequelize.where(
             sequelize.fn('JSON_CONTAINS', sequelize.col('jobCategories'), `"${name}"`), 1
@@ -165,8 +168,6 @@ exports.getCandidatesByCompanyCategories = async (req, res) => {
         };
       }
     }
-
-
 
     const userProfiles = await UserProfile.findAll({
       include: [{

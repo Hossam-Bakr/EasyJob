@@ -17,6 +17,7 @@
     "aos": "^2.3.4",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
+    "firebase": "^10.12.2",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
     "leaflet": "^1.9.4",

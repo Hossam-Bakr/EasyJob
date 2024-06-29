@@ -32,6 +32,7 @@ const LoginForm = () => {
     onSuccess: (response) => {
       let res = response.data;
       if (res.status === "success") {
+        console.log("res",res)
         if (res.data.user) {
           if (res.data.user.role === "user") {
             setIsEmailError(false);
@@ -45,8 +46,20 @@ const LoginForm = () => {
             dispatch(saveRoleState("user"));
             dispatch(saveTokenState(res.token));
             navigate("/jobs");
+          } else if(res.data.user.role==="admin"){
+            setIsEmailError(false);
+            setIsPasswordError(false);
+            dispatch(userActions.setUserInfo(res.data.user));
+            dispatch(userActions.setIsLogin(true));
+            dispatch(userActions.setRole("admin"));
+            dispatch(userActions.setToken(res.token));
+            dispatch(saveUserInfoIntoLocalStorag(res.data.user));
+            dispatch(saveIsLoginState(true));
+            dispatch(saveRoleState("admin"));
+            dispatch(saveTokenState(res.token));
+            navigate("/super");
           }
-        } else if (res.data.company) {
+        }else if (res.data.company) {
           if (res.data.company) {
             if (res.data.company.role === "company") {
               setIsEmailError(false);
