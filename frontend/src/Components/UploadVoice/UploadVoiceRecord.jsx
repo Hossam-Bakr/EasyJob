@@ -3,86 +3,114 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { AudioRecorder } from "react-audio-voice-recorder";
 import { storage, auth } from "../../firebaseConfig";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-const UploadVoiceRecord = ({ question, saveVoiceDataLink }) => {
-    const [record, setRecord] = useState(null);
-    const [voicesAnswers, setVoicesAnswers] = useState([]);
-    const [user, setUser] = useState(null);
+const UploadVoiceRecord = ({
+  question,
+  saveVoiceDataLink,
+  setResponseMessage,
+  setSuccessResponse,
+  setShowResponse,
+}) => {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-            } else {
-                signInAnonymously(auth)
-                    .then((userCredential) => {
-                        setUser(userCredential.user);
-                    })
-                    .catch((error) => {
-                        console.error("Error signing in anonymously:", error);
-                    });
-            }
-        });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        signInAnonymously(auth)
+          .then((userCredential) => {
+            setUser(userCredential.user);
+          })
+          .catch((error) => {
+            setResponseMessage({
+              title: "Request Failed",
+              content: "Error signing in anonymously",
+            });
+            setSuccessResponse(false);
+            setShowResponse(true);
+            console.error("Error signing in anonymously:", error);
+          });
+      }
+    });
 
-        return () => unsubscribe();
-    }, []);
+    return () => unsubscribe();
+  }, []);
 
-    const addAudioElement = (blob, id) => {
-        if (!user) {
-            console.error("User is not authenticated");
-            return;
-        }
+  const addAudioElement = (blob, id) => {
+    if (!user) {
+      console.error("User is not authenticated");
+      setResponseMessage({
+        title: "Request Failed",
+        content: "User is not authenticated",
+      });
+      setSuccessResponse(false);
+      setShowResponse(true);
+      return;
+    }
 
-        const url = URL.createObjectURL(blob);
-        setRecord(url);
-        const file = new File([blob], `recorder.webm`, { type: "audio/webm" });
-        let newVoice = { id, file };
-        let existVoice = voicesAnswers.find((voice) => voice.id === id);
+    setIsLoading(true);
 
-        if (existVoice) {
-            voicesAnswers[existVoice] = newVoice;
-        } else {
-            let updatedVoiceAnswers = [...voicesAnswers, newVoice];
-            setVoicesAnswers(updatedVoiceAnswers);
-        }
+    const url = URL.createObjectURL(blob);
+    const file = new File([blob], `recorder_${Date.now()}.webm`, {
+      type: "audio/webm",
+    });
 
-        // Upload file to Firebase Storage
-        const storageRef = ref(storage, `voice/${file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+    const storageRef = ref(storage, `voice/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-            },
-            (error) => {
-                console.error(error);
-            },
-            () => {
-                // Get the download URL and pass it to saveVoiceDataLink
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
-                    saveVoiceDataLink(downloadURL, question.id, record);
-                }).catch((error) => {
-                    console.error("Error getting download URL:", error);
-                });
-            }
-        );
-    };
-
-    return (
-        <>
-            <AudioRecorder
-                onRecordingComplete={(blob) => addAudioElement(blob, question.id)}
-                audioTrackConstraints={{
-                    noiseSuppression: true,
-                    echoCancellation: true,
-                }}
-                downloadOnSavePress={false}
-                downloadFileExtension="webm"
-            />
-        </>
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      (error) => {
+        console.error(error);
+        setIsLoading(false);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            saveVoiceDataLink(downloadURL, question.id, url);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error("Error getting download URL:", error);
+            setResponseMessage({
+              title: "Request Failed",
+              content: "Error getting download Voice",
+            });
+            setSuccessResponse(false);
+            setShowResponse(true);
+            setIsLoading(false);
+          });
+      }
     );
+  };
+
+  return (
+    <>
+      {isLoading ? (
+        <FontAwesomeIcon className="fa-spin fa-3x special_main_color" icon={faSpinner}/>
+      ) : (
+        <AudioRecorder
+          onRecordingComplete={(blob) => addAudioElement(blob, question.id)}
+          audioTrackConstraints={{
+            noiseSuppression: true,
+            echoCancellation: true,
+          }}
+          downloadOnSavePress={false}
+          downloadFileExtension="webm"
+        />
+      )}
+    </>
+  );
 };
 
 export default UploadVoiceRecord;
