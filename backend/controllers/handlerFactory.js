@@ -66,7 +66,11 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
     let { page = 1, limit = 100, sort, fields, keyword } = req.query;
     limit = parseInt(limit);
 
-    if (keyword && Model.rawAttributes.title) {
+    if (
+      keyword &&
+      Model.rawAttributes.title &&
+      Model.rawAttributes.description
+    ) {
       filter = {
         [Op.or]: [
           Sequelize.where(
@@ -76,6 +80,11 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
           ),
           Sequelize.where(
             Sequelize.fn("LOWER", Sequelize.col("description")),
+            "LIKE",
+            `%${keyword.toLowerCase()}%`
+          ),
+          Sequelize.where(
+            Sequelize.fn("LOWER", Sequelize.col("keywords")),
             "LIKE",
             `%${keyword.toLowerCase()}%`
           ),
