@@ -258,8 +258,8 @@ const EmployeeManagementForm = ({
                   name="password"
                   placeholder="Password"
                   className="form-control"
-
-                />
+                  autoComplete="Password"
+                  />
                 <ErrorMessage name="password" component={InputErrorMessage} />
               </div>
               <div className="d-flex flex-column mb-5 position-relative">

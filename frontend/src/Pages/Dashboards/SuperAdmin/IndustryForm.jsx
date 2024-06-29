@@ -1,37 +1,33 @@
 import React from "react";
 import SectionMainTitle from "./../../../Components/Ui/SectionMainTitle";
-import CreateCategory from "./CreateCategory";
-import UpdateCategory from "./UpdateCategory";
-import DeleteCategory from "./DeleteCategory";
-
-const CategoryForm = ({
+import CreateIndustry from "./CreateIndustry";
+import UpdateIndustry from "./UpdateIndustry";
+import DeleteIndustry from "./DeleteIndustry";
+const IndustryForm = ({
   setShowResponse,
   setResponseMessage,
   setSuccessResponse,
 }) => {
-
-
-
   return (
     <>
-      <SectionMainTitle title="Control All Categories" />
-      <CreateCategory
+      <SectionMainTitle title="Control All Industries" />
+      <CreateIndustry
            setShowResponse={setShowResponse}
            setResponseMessage={setResponseMessage}
            setSuccessResponse={setSuccessResponse}
       />
-      <UpdateCategory
+      <UpdateIndustry
          setShowResponse={setShowResponse}
          setResponseMessage={setResponseMessage}
          setSuccessResponse={setSuccessResponse}
       />
-      <DeleteCategory
+      <DeleteIndustry
          setShowResponse={setShowResponse}
          setResponseMessage={setResponseMessage}
          setSuccessResponse={setSuccessResponse}
       />
     </>
-  );
-};
+  )
+}
 
-export default CategoryForm;
+export default IndustryForm

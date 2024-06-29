@@ -122,6 +122,12 @@ const Posts = () => {
     }
   }, [outSideFilteration]);
 
+  useEffect(()=>{
+    if(role==="admin"){
+      navigate("/super")
+    }
+  },[role,navigate])
+
   const filterOperations = (e, titleValue) => {
     if (e !== false) {
       const filterType = e.target.getAttribute("tag");
@@ -638,7 +644,7 @@ const Posts = () => {
                         <LoadingPlaceholders page="jobs" />
                       </>
                     ) : (
-                      <>z
+                      <>
                         {data ? (
                           <>
                             {data?.data?.length !== 0 ? (

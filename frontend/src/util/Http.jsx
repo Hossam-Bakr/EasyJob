@@ -75,22 +75,37 @@ export const updateFormHandler = async ({
   }
 };
 
-export const getIndustries = async ({ type, formData, method, pageNum }) => {
+export const getIndustries = async ({ type, formData, method, pageNum,token }) => {
   try {
     let response = null;
     if (type) {
       if (method === "post") {
         response = await axios.post(
           `${baseServerUrl}industries${type}`,
-          formData
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
       } else if (method === "put") {
         response = await axios.put(
-          `${baseServerUrl}industries${type}${formData}`
+          `${baseServerUrl}industries${type}`,formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
       } else if (method === "delete") {
         response = await axios.delete(
-          `${baseServerUrl}industries${type}${formData}`
+          `${baseServerUrl}industries${type}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
       }
     } else if (method === "industryList") {
@@ -108,26 +123,39 @@ export const getIndustries = async ({ type, formData, method, pageNum }) => {
     console.error(error);
   }
 };
-export const getCategories = async ({ type, formData, method }) => {
+
+export const getCategories = async ({ type, formData, method, token }) => {
   try {
-    let response = null;
+    let response;
     if (type) {
       if (method === "post") {
         response = await axios.post(
           `${baseServerUrl}categories${type}`,
-          formData
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
       } else if (method === "put") {
         response = await axios.put(
-          `${baseServerUrl}categories${type}${formData}`
+          `${baseServerUrl}categories${type}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
       } else if (method === "delete") {
-        response = await axios.delete(
-          `${baseServerUrl}categories${type}${formData}`
-        );
+        response = await axios.delete(`${baseServerUrl}categories${type}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       }
     } else {
-      console.log("hey");
       response = await axios(`${baseServerUrl}categories?limit=400`);
     }
     console.log(response);
@@ -826,14 +854,13 @@ export const companiesManageMent = async ({ formData, method, type }) => {
         return "email is already exist";
       }
     }
-    if (error.response?.data?.message === "No user found with that ID") {
-      return "No user found with that ID";
+    if (error.response?.data?.message === "No company found with that ID") {
+      return "No company found with that ID";
     }
   }
 };
 
 export const skillsManagement = async ({ formData, method, type, token }) => {
-  
   try {
     let response;
     if (method === "post") {

@@ -20,6 +20,7 @@ import LoadingTwo from "./../../Components/Ui/LoadingTwo";
 import { AreasOptions, Cities, careerLevel, experianceOptions, languagesOptions, titleOptions, yearsOptions } from "../../Components/logic/Logic";
 import Select from "react-select";
 import MainButton from "../../Components/Ui/MainButton";
+import { useNavigate } from "react-router-dom";
 
 const Candidates = () => {
 
@@ -44,6 +45,7 @@ const Candidates = () => {
 
   const companyData = JSON.parse(localStorage.getItem("userData"));
   const token = JSON.parse(localStorage.getItem("token"));
+  const role = useSelector((state) => state.userInfo.role);
 
   const { data, isFetching, refetch } = useQuery({
     queryKey: ["candidates"],
@@ -77,6 +79,7 @@ const Candidates = () => {
 
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const navigate=useNavigate();
 
   useEffect(() => {
     if (!isLogin) {
@@ -96,7 +99,12 @@ const Candidates = () => {
       };
     }
   }, [dispatch, isLogin]);
-
+  
+  useEffect(()=>{
+    if(role==="admin"){
+      navigate("/super")
+    }
+  },[role,navigate])
 
 
   const filterOperations = (e, selectValue,selectType) => {

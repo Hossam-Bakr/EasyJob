@@ -8,6 +8,7 @@ import FloatingPopup from "../../../Components/Ui/FloatingPopup";
 import EmployeeManagementForm from "./EmployeeManagementForm";
 import CompanyManagementForm from "./CompanyManagementForm";
 import SkillsForm from "./SkillsForm";
+import IndustryForm from "./IndustryForm";
 
 const SuperAdminDashboard = () => {
   const [showResponse, setShowResponse] = useState(false);
@@ -47,7 +48,19 @@ const SuperAdminDashboard = () => {
           </Tab>
           <Tab eventKey="industry" title="Industries & Categories">
             <div className={styles.category_container}>
-              <CategoryForm />
+              <IndustryForm
+                 setShowResponse={setShowResponse}
+                 setResponseMessage={setResponseMessage}
+                 setSuccessResponse={setSuccessResponse}
+              />
+            </div>
+            <hr className="my-5"/>
+            <div className={styles.category_container}>
+              <CategoryForm
+                 setShowResponse={setShowResponse}
+                 setResponseMessage={setResponseMessage}
+                 setSuccessResponse={setSuccessResponse}
+              />
             </div>
           </Tab>
           <Tab eventKey="skill" title="Skills">

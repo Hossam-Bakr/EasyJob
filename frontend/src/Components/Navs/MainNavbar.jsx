@@ -54,6 +54,8 @@ const MainNavbar = () => {
     return () => window.removeEventListener("scroll", isScrolled);
   }, [prevScrollY]);
 
+  
+
   return (
     <>
       <motion.nav
