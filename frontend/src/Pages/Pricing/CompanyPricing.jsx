@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,16 +13,40 @@ import MainBtnThree from "../../Components/Ui/MainBtnThree";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { companyActions } from "../../Store/companyNav-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   goldenPackagePerMonth,
   platinumPackagePerMonth,
   silverPackagePerMonth,
 } from "../../Components/logic/Logic";
+import LoginAlertModal from "../../Components/Ui/LoginAlertModal";
+import { useQuery } from "@tanstack/react-query";
+import { getPackages } from "../../util/Http";
+import axios from "axios";
+import FloatingPopup from "../../Components/Ui/FloatingPopup";
 
 const CompanyPricing = () => {
+
+  const [modalShow, setModalShow] = useState(false);
+
   const dispatch = useDispatch();
-  const isLogin=localStorage.getItem("isLogin");
+  const isLogin=JSON.parse(localStorage.getItem("isLogin"));
+  const token = useSelector((state) => state.userInfo.token);
+  const profileData = useSelector((state) => state.profileInfo.data);
+
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
+
+  const { data } = useQuery({
+    queryKey: ["getPackages"],
+    queryFn: () =>getPackages({method:"get",token:token}),
+  });
+
+  console.log(data)
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -43,11 +67,51 @@ const CompanyPricing = () => {
   }, [dispatch]);
 
 
-  const subscribtionHandler=()=>{
+  const subscribtionHandler=async(type)=>{
     if(isLogin){
-
+      let priceId
+        if(type==="platenium"){
+          const filterdPlatinum=data?.data?.filter((plan)=>plan.name==="Platinum package");
+          priceId=filterdPlatinum[0].priceId
+        }else if(type==="golden"){
+          const filterdGolden=data?.data?.filter((plan)=>plan.name==="Golden package");
+          priceId=filterdGolden[0].priceId
+        }else{
+          const filterdSilver=data?.data?.filter((plan)=>plan.name==="Silver package");
+          priceId=filterdSilver[0].priceId
+        }
+        let formData={
+          priceId: priceId,
+          successUrl: `http://127.0.0.1:3001/company-dashboard/${profileData?.CompanyId}`,
+          cancelUrl: "http://127.0.0.1:3001/packages"
+        }
+        if(priceId){
+          let response = await axios.post(`${process.env.REACT_APP_Base_API_URl}subscriptions`,formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log("my price link",response.data)
+          if(response.data.status==="success"){
+            setResponseMessage({
+              title: "Session is Ready",
+              content: "your Pricing Session Ready for you",
+            });
+            setSuccessResponse(true);
+            setShowResponse(true);
+            const newWindow = window.open(response.data?.data?.sessionUrl, '_blank', 'noopener,noreferrer');
+            if (newWindow) newWindow.opener = null;
+          }else{
+            setResponseMessage({
+              title: "Request Faild",
+              content: "Request Faild please try again later",
+            });
+            setSuccessResponse(false);
+            setShowResponse(true);
+          }
+        }
     }else{
-      
+      setModalShow(true)
     }
   }
 
@@ -89,7 +153,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree type="white" text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("silver")} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -127,7 +191,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("golden")} text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -159,7 +223,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("platenium")} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -250,7 +314,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("silver")} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -343,7 +407,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("golden")} text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -430,7 +494,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("platenium")} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -520,7 +584,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("silver")} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -612,7 +676,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("golden")} text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -698,13 +762,20 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
+                  <MainBtnThree onClick={()=>subscribtionHandler("platenium")} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
           </Row>
         </Tab>
       </Tabs>
+      <LoginAlertModal show={modalShow} onHide={() => setModalShow(false)} />
+      <FloatingPopup
+        showResponse={showResponse}
+        setShowResponse={setShowResponse}
+        message={responseMessage}
+        success={successResponse}
+      />
     </Container>
   );
 };

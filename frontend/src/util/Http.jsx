@@ -961,3 +961,27 @@ export const scheduleInterview = async ({ token, formData, method }) => {
     console.error(error);
   }
 };
+
+export const getPackages = async ({ token, formData, method }) => {
+  try {
+    let response;
+    if (method === "get") {
+      response = await axios.get(`${baseServerUrl}plans`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      response = await axios.post(`${baseServerUrl}interviews`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
