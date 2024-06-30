@@ -1,86 +1,116 @@
 // EmployeeCard.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styles from "./Board.module.css";
-import p1 from "../../images/p1.jpeg";
-import p2 from "../../images/p2.jpeg";
-import p3 from "../../images/p3.jpeg";
-import p4 from "../../images/p4.jpg";
-import p5 from "../../images/p5.jpeg";
-import p6 from "../../images/p7.jpeg";
-import noAvatar from "../../images/noAvatarMale.jpg";
-import p8 from "../../images/people3.jpeg";
-import p9 from "../../images/people4.jpeg";
-import p10 from "../../images/people1.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPersonCircleCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faPersonCircleCheck,
+  faQuestion,
+  faUserXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import noAvatarMale from "../../images/noAvatarMale.jpg";
+import { Link } from "react-router-dom";
+import ShowQuestionAnswersModal from "../../Components/Ui/ShowQuestionAnswersModal";
+import { useQuery } from "@tanstack/react-query";
+import { getUserProfile } from "../../util/Http";
+import LoadingTwo from "../../Components/Ui/LoadingTwo";
 
+const EmployeeCard = ({ emp, index, token }) => {
+  const [profilePic, setProfilePic] = useState(null);
+  const [modalShow, setModalShow] = useState(false);
 
+  const { data } = useQuery({
+    queryKey: ["getSpeceficJobApplicaton", emp.userId],
+    queryFn: () => getUserProfile({ userId: emp.userId, token }),
+  });
 
+  useEffect(() => {
+    if (data) {
+      if (data?.data?.userProfile?.avatar) {
+        const profileAvatar = `http://127.0.0.1:3000/users/${data?.data?.userProfile?.avatar}`;
+        setProfilePic(profileAvatar);
+      } else {
+        setProfilePic(null);
+      }
+    }
+  }, [data]);
 
-const EmployeeCard = ({ emp, index }) => {
-
-let avatar=noAvatar;
-
-switch (emp.avatar) {
-  case "p1":
-    avatar=p1;
-    break;
-  case "p2":
-    avatar=p2;
-    break;
-  case "p3":
-    avatar=p3;
-    break;
-  case "p4":
-    avatar=p4;
-    break;
-  case "p5":
-    avatar=p5;
-    break;
-  case "p6":
-    avatar=p6;
-    break;
-  case "p8":
-    avatar=p8;
-    break;
-  case "p9":
-    avatar=p9;
-    break;
-  case "p10":
-    avatar=p10;
-    break;
-
-  default:
-  avatar=noAvatar
-    break;
-}
   return (
-    <Draggable draggableId={emp.id} index={index}>
-      {(provided, snapshot) => (
-        <div
-          className={styles.card_container}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          <div className={styles.card_content}>
-            {/* <span className={styles.emp_id}>{emp.id}</span> */}
-            <div className={styles.emp_pic}>
-              <img src={avatar} alt="p1" />
+    <>
+      {data ? (
+        <Draggable draggableId={emp.userId} index={index}>
+          {(provided, snapshot) => (
+            <div
+              className={styles.card_container}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+            >
+              <div className={styles.card_content}>
+                <div className={styles.emp_pic}>
+                  <img
+                    src={profilePic ? profilePic : noAvatarMale}
+                    alt="userAvatar"
+                  />
+                </div>
+                <div className={styles.caption}>
+                  <h5>
+                    {data.data?.user?.firstName} {data.data?.user?.lastName}
+                  </h5>
+                  {data.data?.userProfile?.tagline ? (
+                    <span className="mini_word">
+                      {data.data?.userProfile?.tagline}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="d-flex justify-content-between align-items-center ms-auto">
+                  <Link to={`/userProfile/${emp.userId}`} target="_blank">
+                    <FontAwesomeIcon
+                      className={styles.eye_controllers}
+                      title="show profile"
+                      icon={faEye}
+                    />
+                  </Link>
+
+                  <FontAwesomeIcon
+                    className={styles.eye_controllers}
+                    title="Question Answer"
+                    icon={faQuestion}
+                    onClick={() => setModalShow(true)}
+                  />
+                  <FontAwesomeIcon
+                    className={styles.refuse_icon}
+                    title="Cancel employee"
+                    icon={faUserXmark}
+                  />
+                  <FontAwesomeIcon
+                    className={styles.accept_icon}
+                    title="move to interview"
+                    icon={faPersonCircleCheck}
+                  />
+                </div>
+              </div>
             </div>
-            <div className={styles.caption}>
-              <h5>{emp.name}</h5>
-              <span className="mini_word">{emp.title}</span>
-            </div>
-            <div className="d-flex justify-content-between align-items-center ms-auto">
-              <FontAwesomeIcon className={styles.refuse_icon} title="refuse employee" icon={faUserXmark} />
-              <FontAwesomeIcon className={styles.accept_icon} title="move to interview" icon={faPersonCircleCheck} />
-            </div>
-          </div>
-        </div>
+          )}
+        </Draggable>
+      ) : (
+        <LoadingTwo />
       )}
-    </Draggable>
+      {modalShow ? (
+        <ShowQuestionAnswersModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          jobId={emp.jobId}
+          appId={emp.appId}
+          token={token}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

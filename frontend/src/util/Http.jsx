@@ -75,7 +75,13 @@ export const updateFormHandler = async ({
   }
 };
 
-export const getIndustries = async ({ type, formData, method, pageNum,token }) => {
+export const getIndustries = async ({
+  type,
+  formData,
+  method,
+  pageNum,
+  token,
+}) => {
   try {
     let response = null;
     if (type) {
@@ -91,7 +97,8 @@ export const getIndustries = async ({ type, formData, method, pageNum,token }) =
         );
       } else if (method === "put") {
         response = await axios.put(
-          `${baseServerUrl}industries${type}`,formData,
+          `${baseServerUrl}industries${type}`,
+          formData,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -99,14 +106,11 @@ export const getIndustries = async ({ type, formData, method, pageNum,token }) =
           }
         );
       } else if (method === "delete") {
-        response = await axios.delete(
-          `${baseServerUrl}industries${type}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        response = await axios.delete(`${baseServerUrl}industries${type}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       }
     } else if (method === "industryList") {
       response = await axios(`${baseServerUrl}industries`, {});
@@ -701,13 +705,32 @@ export const getCompanyRelatedJobs = async ({ id }) => {
   }
 };
 
-export const getJobApplications = async ({ jobId, token }) => {
+export const getJobApplications = async ({ jobId, token,appId,type}) => {
+
   try {
-    const res = await axios.get(`${baseServerUrl}jobs/${jobId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    let res;
+    if(type==="apply"){
+      res = await axios.get(`${baseServerUrl}jobs/${jobId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }else if(appId!==undefined){
+      console.log("token",token)
+      res = await axios.get(`${baseServerUrl}jobs/${jobId}/applications/${appId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }else{
+      res = await axios.get(`${baseServerUrl}jobs/${jobId}/applications`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    console.log(res);
     return res.data;
   } catch (error) {
     console.error(error);
@@ -899,3 +922,17 @@ export const skillsManagement = async ({ formData, method, type, token }) => {
     }
   }
 };
+
+export const getUserProfile = async ({ token, userId }) => {
+  try {
+    let response = await axios.get(`${baseServerUrl}users/profile/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+};
+
