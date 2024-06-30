@@ -31,7 +31,7 @@ const Candidates = () => {
   const [countryFilteration, setCountryFilteration] = useState([]);
   const [cityFilteration, setCityFilteration] = useState([]);
   const [areaFilteration, setAreaFilteration] = useState([]);
-  const [categoriesFilteration, setCategoriesFilteration] = useState("");
+  const [categoriesFilteration, setCategoriesFilteration] = useState([]);
   const [jobTypeFilteration, setJobTypeFilteration] = useState([]);
   const [languageFilteration, setLanguageFilteration] = useState([]);
   const [careerLevelFilteration, setCareerLevelFilteration] = useState([]);
@@ -128,19 +128,22 @@ const Candidates = () => {
           }
           break;
 
-        case "city":
-          const newCity = cityFilteration.find((city) => city === filterValue);
-          if (!newCity) {
-            const updatedList = [...cityFilteration, filterValue];
-            setCityFilteration(updatedList);
-          } else {
-            const updatedFilterList = [...cityFilteration];
-            const newList = updatedFilterList.filter(
-              (city) => city !== newCity
-            );
-            setCityFilteration(newList);
-          }
-          break;
+          
+          case "city":
+            const newCity = cityFilteration.find((city) => city === filterValue);
+            if (!newCity) {
+              const updatedList = [...cityFilteration, filterValue];
+              setCityFilteration(updatedList);
+            } else {
+              const updatedFilterList = [...cityFilteration];
+              const newList = updatedFilterList.filter(
+                (city) => city !== newCity
+              );
+              setCityFilteration(newList);
+            }
+            break;
+
+ 
 
         case "area":
           const newArea = areaFilteration.find((area) => area === filterValue);
@@ -156,26 +159,41 @@ const Candidates = () => {
           }
           break;
 
-        case "category":
-          const newCategory = categoriesFilteration.includes(filterValue);
-          if (!newCategory) {
-            let updatedString = "";
-            let myCatFilter = categoriesFilteration;
-            if (myCatFilter === "") {
-              updatedString = `${filterValue}`;
+
+          case "category":
+            const newCat = categoriesFilteration.find((cat) => cat === filterValue);
+            if (!newCat) {
+              const updatedList = [...categoriesFilteration, filterValue];
+              setCategoriesFilteration(updatedList);
             } else {
-              updatedString = myCatFilter.concat(`,${filterValue}`);
+              const updatedFilterList = [...categoriesFilteration];
+              const newList = updatedFilterList.filter(
+                (cat) => cat !== newCat
+              );
+              setCategoriesFilteration(newList);
             }
-            setCategoriesFilteration(updatedString);
-          } else {
-            let myCatFilter = categoriesFilteration;
-            const updatedFilterString = myCatFilter;
-            let newString = updatedFilterString
-              .replace(new RegExp(`(^|,)${filterValue}(,|$)`), "$1$2")
-              .replace(/^,|,$/g, "");
-            setCategoriesFilteration(newString);
-          }
-          break;
+            break;
+            
+          // case "category":
+          //   const newCategory = categoriesFilteration.includes(filterValue);
+          //   if (!newCategory) {
+          //     let updatedString = "";
+          //     let myCatFilter = categoriesFilteration;
+          //     if (myCatFilter === "") {
+          //       updatedString = `${filterValue}`;
+          //     } else {
+          //       updatedString = myCatFilter.concat(`,${filterValue}`);
+          //     }
+          //     setCategoriesFilteration(updatedString);
+          //   } else {
+          //     let myCatFilter = categoriesFilteration;
+          //     const updatedFilterString = myCatFilter;
+          //     let newString = updatedFilterString
+          //       .replace(new RegExp(`(^|,)${filterValue}(,|$)`), "$1$2")
+          //       .replace(/^,|,$/g, "");
+          //     setCategoriesFilteration(newString);
+          //   }
+          //   break;
 
         case "type":
           const newType = jobTypeFilteration.find(
@@ -228,7 +246,7 @@ const Candidates = () => {
     setCountryFilteration([]);
     setCityFilteration([]);
     setAreaFilteration([]);
-    setCategoriesFilteration("");
+    setCategoriesFilteration([]);
     setJobTypeFilteration([]);
     setCareerLevelFilteration([]);
     setJobTitleFilteration("");

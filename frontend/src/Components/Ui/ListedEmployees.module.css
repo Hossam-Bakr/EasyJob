@@ -39,20 +39,7 @@
 .table_btn{
     text-align: center;
 }
-.table_btn button{
-    background-color: var(--main_color);
-    padding: 2px 5px;
-    border-radius: 5px;
-    color: white;
-    width: 50%;
-    border: 1px solid transparent;
-    transition: all .5s;
-}
-.table_btn button:hover{
-    color: var(--main_color);
-    background-color: white;
-    border: 1px solid var(--main_color);
-}
+
 .photo_container_table{
     width: 50px;
     border-radius: 10%;
@@ -68,7 +55,10 @@
     font-size: 15px;
     font-weight: 600;
 }
-
+.accepted_employee_controllers{
+    font-size: 23px;
+    margin-inline: 10px;
+}
 
 @media screen and (max-width:768px) {
     .photo_container{

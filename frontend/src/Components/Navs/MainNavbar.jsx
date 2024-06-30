@@ -180,7 +180,7 @@ const MainNavbar = () => {
             <>
               {changeContent ? (
                 <>
-                  {/* not logged logged and company */}
+                  {/* not logged and company */}
                   <li className={`${styles.special_hidden} mx-4`}>
                     <NavLink
                       className={({ isActive }) =>
@@ -190,16 +190,6 @@ const MainNavbar = () => {
                       end
                     >
                       HOME
-                    </NavLink>
-                  </li>
-                  <li className={`${styles.special_hidden} mx-4`}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive ? styles.active : undefined
-                      }
-                      to={"candidates"}
-                    >
-                      CANDIDATES
                     </NavLink>
                   </li>
                   <li className={`${styles.special_hidden} mx-4`}>

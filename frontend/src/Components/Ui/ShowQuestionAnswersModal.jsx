@@ -3,19 +3,24 @@ import styles from "./UpdateWorkExperienceModal.module.css";
 import Modal from "react-bootstrap/Modal";
 import { useQuery } from "@tanstack/react-query";
 import { getJobApplications } from "../../util/Http";
+import NoDataBox from "../../Components/Ui/NoDataBox";
 
-const ShowQuestionAnswersModal = ({ onHide, show,appId, jobId }) => {
-    
-    const token = JSON.parse(localStorage.getItem("token"));
+const ShowQuestionAnswersModal = ({ onHide, show, appId, jobId }) => {
+  const token = JSON.parse(localStorage.getItem("token"));
 
-    const { data } = useQuery({
-      queryKey: ["getSpeceficJobApplicaton",appId],
-      queryFn: () => getJobApplications({ jobId, token,appId }),
-    });
-    //data.data.job.Questions
-    console.log(data);
-  
+  const { data } = useQuery({
+    queryKey: ["getSpeceficJobApplicaton", appId],
+    queryFn: () => getJobApplications({ jobId, token, appId }),
+  });
 
+  const isValidUrl = (string) => {
+    try {
+      new URL(string);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
 
   return (
     <Modal
@@ -32,10 +37,46 @@ const ShowQuestionAnswersModal = ({ onHide, show,appId, jobId }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={styles.modal_body}>
-        appid:{appId} questionId {jobId}
+        <h4 className="special_main_color">Your Questions</h4>
+        {data ? (
+          data.data?.job?.Questions?.map((question) => (
+            <div className={styles.question} key={question.id}>
+              <h6>
+                {question.questionText}(
+                <span className="mini_word">{question.type}</span>)
+              </h6>
+            </div>
+          ))
+        ) : (
+          <NoDataBox
+            text="no data found if there is any problem call support"
+            path="/contact"
+          />
+        )}
+        <hr/>
+
+        <h4 className="special_main_color">Answers</h4>
+        {data ? (
+          data.data?.application?.Answers?.map((answers) => (
+            <div className={styles.question} key={answers.id}>
+              <h6>
+                {isValidUrl(answers.answer) ? (
+                  <audio controls src={answers.answer}></audio>
+                ) : (
+                  answers.answer
+                )}
+              </h6>
+            </div>
+          ))
+        ) : (
+          <NoDataBox
+            text="no data found if there is any problem call support"
+            path="/contact"
+          />
+        )}
       </Modal.Body>
     </Modal>
-  )
-}
+  );
+};
 
-export default ShowQuestionAnswersModal
+export default ShowQuestionAnswersModal;

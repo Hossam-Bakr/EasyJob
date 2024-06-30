@@ -157,8 +157,8 @@
 }
 .employee_table{
     width: 100%;
-        background-color: var(--vanilla);
-        padding: 3.125rem;
+    background-color: white;
+    padding: 3.125rem;
 }
 .table_header{
     background-color: #E0E6ED;
@@ -167,7 +167,6 @@
 }
 .employee_table th{
     text-align: center;
-    width: 12.5rem;
     padding: 0.3125rem;
 }
 

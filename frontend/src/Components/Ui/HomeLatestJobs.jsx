@@ -40,16 +40,13 @@ console.log(data)
               <JobPost
                 key={job.id}
                 id={job.id}
-                // name={job.Company.name}
                 jobTitle={job.title}
                 desc={job.description}
-                // logo={job.Company?.CompanyProfile?.logo}
                 country={job.country}
                 city={job.city}
                 time={job.createdAt}
                 workplace={job.workplace}
                 type={job.type}
-                //   salaryRangeMax={job.salaryRangeMax}
                 grid={true}
               />
             ))}

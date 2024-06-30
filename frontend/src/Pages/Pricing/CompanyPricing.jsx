@@ -22,6 +22,7 @@ import {
 
 const CompanyPricing = () => {
   const dispatch = useDispatch();
+  const isLogin=localStorage.getItem("isLogin");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,6 +41,15 @@ const CompanyPricing = () => {
       );
     };
   }, [dispatch]);
+
+
+  const subscribtionHandler=()=>{
+    if(isLogin){
+
+    }else{
+      
+    }
+  }
 
   return (
     <Container fluid="xl" className="my-5">
@@ -68,7 +78,7 @@ const CompanyPricing = () => {
                 <div className={styles.features}>
                   <ul>
                     {silverPackagePerMonth.map((feature) => (
-                      <li>
+                      <li key={feature}>
                         <FontAwesomeIcon
                           className={styles.list_icon}
                           icon={faSquareArrowUpRight}
@@ -106,7 +116,7 @@ const CompanyPricing = () => {
                 <div className={styles.features}>
                   <ul>
                     {goldenPackagePerMonth.map((feature) => (
-                      <li>
+                      <li key={feature}>
                         <FontAwesomeIcon
                           className={styles.list_icon}
                           icon={faSquareArrowUpRight}
@@ -117,7 +127,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -138,7 +148,7 @@ const CompanyPricing = () => {
                 <div className={styles.features}>
                   <ul>
                     {platinumPackagePerMonth.map((feature) => (
-                      <li>
+                      <li key={feature}>
                         <FontAwesomeIcon
                           className={styles.list_icon}
                           icon={faSquareArrowUpRight}
@@ -149,7 +159,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree type="white" text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -240,7 +250,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree type="white" text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -333,7 +343,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -420,7 +430,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree type="white" text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -510,7 +520,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree type="white" text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -602,7 +612,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} text="Order Package" />
                 </div>
               </div>
             </Col>
@@ -688,7 +698,7 @@ const CompanyPricing = () => {
                   </ul>
                 </div>
                 <div className="text-center pt-4 pb-2">
-                  <MainBtnThree type="white" text="Order Package" />
+                  <MainBtnThree onClick={subscribtionHandler} type="white" text="Order Package" />
                 </div>
               </div>
             </Col>

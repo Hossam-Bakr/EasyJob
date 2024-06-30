@@ -1,93 +1,117 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ListedEmployees.module.css";
-
-import p1 from "../../images/p1.jpeg";
-import p2 from "../../images/p2.jpeg";
-import p3 from "../../images/p3.jpeg";
-import p4 from "../../images/p4.jpg";
-import p5 from "../../images/p5.jpeg";
-import p6 from "../../images/p6.jpeg";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import MainBtnThree from "./MainBtnThree";
 import noAvatar from "../../images/noAvatarMale.jpg";
+import { useQuery } from "@tanstack/react-query";
+import { getUserProfile } from "../../util/Http";
+import { Link } from "react-router-dom";
+import InterviewModal from "./InterviewModal";
+import FloatingPopup from "./FloatingPopup";
 
-const ListedEmployees = ({ pic, name, title, country, city, type,state,grid }) => {
-  let employeePic = noAvatar;
+const ListedEmployees = ({ UserId, id, type, interview }) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [profilePic, setProfilePic] = useState(null);
+  const [modalShow, setModalShow] = useState(false);
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
 
-  switch (pic) {
-    case "p1":
-      employeePic = p1;
-      break;
-    case "p2":
-      employeePic = p2;
-      break;
-    case "p3":
-      employeePic = p3;
-      break;
-    case "p4":
-      employeePic = p4;
-      break;
-    case "p5":
-      employeePic = p5;
-      break;
-    case "p6":
-      employeePic = p6;
-      break;
-    default:
-      employeePic=noAvatar
-      break;
-  }
+  const { data } = useQuery({
+    queryKey: ["getSpeceficJobApplicatonDashboard", UserId],
+    queryFn: () => getUserProfile({ userId: UserId, token }),
+  });
+
+  console.log(data);
+
+  useEffect(() => {
+    if (data) {
+      if (data?.data?.userProfile?.avatar) {
+        const profileAvatar = `http://127.0.0.1:3000/users/${data?.data?.userProfile?.avatar}`;
+        setProfilePic(profileAvatar);
+      } else {
+        setProfilePic(null);
+      }
+    }
+  }, [data]);
 
   return (
     <>
-      {grid === "table" ? (
-        <>
-          <td className={`${styles.info_table} ${styles.table_cell}`}>
+      <td className={`${styles.info_table} ${styles.table_cell}`}>
+        {type === "interview" ? (
+          <>
+          <div className={styles.photo_container_table}>
+              <img
+                src={profilePic ? profilePic : noAvatar}
+                alt="employee Pic"
+              />
+            </div>
+            {interview.User?.firstName} {interview.User?.lastName}
+          </>
+        ) : (
+          <>
+            {" "}
             <div className={styles.photo_container_table}>
-              <img src={employeePic} alt="employee Pic" />
+              <img
+                src={profilePic ? profilePic : noAvatar}
+                alt="employee Pic"
+              />
             </div>
-            {name}
-          </td>
-          <td className={` ${styles.table_cell}`}>{title}</td>
-          <td className={` ${styles.table_cell} ${styles.type}`}><span>{type?type:state}</span></td>
-          <td className={` ${styles.table_btn}`}>
-            <button>show</button>
-          </td>
-        </>
-      ) : (
-        <Row className="w-100">
-          <Col sm={8}>
-            <div className={styles.employee}>
-              <div className={styles.photo_container}>
-                  <img src={employeePic} alt="employee Pic" />
-              </div>
-              <div className={styles.employee_content}>
-                <h3>{name}</h3>
-                <h4>{title}</h4>
-                <span className="mini_word">
-                  <FontAwesomeIcon
-                    className="special_main_color"
-                    icon={faLocationDot}
-                  />{" "}
-                  {city}, {country}
-                </span>
-              </div>
-            </div>
-          </Col>
-          <Col
-            sm={4}
-            className="d-flex align-items-center justify-content-center"
-          >
-            <div className={styles.show_profile_btn}>
-              <MainBtnThree text="Show" />
-            </div>
-          </Col>
-        </Row>
-      )}
+            {data?.data?.user?.firstName} {data?.data?.user?.lastName}
+          </>
+        )}
+      </td>
+      <td className={` ${styles.table_cell}`}>
+        {type === "interview" ? (
+          <span>
+            {interview.interviewDate} <span className="mini_word">({interview.interviewTime})</span>
+          </span>
+        ) : data?.data?.userProfile?.tagline ? (
+          data?.data?.userProfile?.tagline
+        ) : (
+          <span>No Title</span>
+        )}
+      </td>
+      <td>
+        {type === "interview" ? (
+          interview.Job.title
+        ) : (
+          <div className="d-flex justify-content-center align-items-center">
+            <Link
+              to={`/userProfile/${UserId}`}
+              className={styles.accepted_employee_controllers}
+              target="_blank"
+            >
+              <button className="btn btn-outline-secondary px-4">view</button>
+            </Link>
+            <button
+              onClick={() => setModalShow(true)}
+              className="btn btn-primary"
+            >
+              Interview
+            </button>
+          </div>
+        )}
+      </td>
+      <td>
+        {modalShow && (
+          <InterviewModal
+            appId={id}
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            setShowResponse={setShowResponse}
+            setResponseMessage={setResponseMessage}
+            setSuccessResponse={setSuccessResponse}
+          />
+        )}
+        <FloatingPopup
+          showResponse={showResponse}
+          setShowResponse={setShowResponse}
+          message={responseMessage}
+          success={successResponse}
+        />
+      </td>
     </>
   );
 };
