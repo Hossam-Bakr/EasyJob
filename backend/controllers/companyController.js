@@ -13,18 +13,12 @@ exports.uploadCompanyMedia = uploadMixOfImages([
   { name: "coverPhoto", maxCount: 1 },
 ]);
 
-
-
-
-
-
-// -------------========= this function return empty data ====== ---------------- need to fix 
 exports.getAllCompanies = catchAsync(async (req, res, next) => {
   const countries = req.query?.countries
-    ? req.query.countries.split(',')
+    ? req.query.countries.split(",")
     : null;
-  const cities = req.query?.cities ? req.query.cities.split(',') : null;
-  const specializations = req.query?.spec ? req.query.spec.split(',') : null;
+  const cities = req.query?.cities ? req.query.cities.split(",") : null;
+  const specializations = req.query?.spec ? req.query.spec.split(",") : null;
 
   const whereClause = {
     [Op.and]: [
@@ -45,20 +39,20 @@ exports.getAllCompanies = catchAsync(async (req, res, next) => {
   const allCompaniesInclude = {
     model: CompanyProfile,
     attributes: [
-      'id',
-      'logo',
-      'coverPhoto',
-      'description',
-      'country',
-      'city',
-      'size',
+      "id",
+      "logo",
+      "coverPhoto",
+      "description",
+      "country",
+      "city",
+      "size",
     ],
     include: [
       {
         model: Category,
-        attributes: ['id', 'name'],
+        attributes: ["id", "name"],
         through: { attributes: [] },
-        as: 'specializations',
+        as: "specializations",
         ...(specializations && {
           where: { name: { [Op.in]: specializations } },
         }),
@@ -70,11 +64,9 @@ exports.getAllCompanies = catchAsync(async (req, res, next) => {
   factory.getAll(
     Company,
     allCompaniesInclude,
-    'id,name,email,phone,IndustryId'
+    "id,name,email,phone,IndustryId"
   )(req, res, next);
 });
-
-
 
 const companyProfileInclude = {
   include: [
@@ -92,6 +84,12 @@ const companyProfileInclude = {
 };
 
 exports.getCompanyProfile = catchAsync(async (req, res) => {
+  companyProfileInclude.include[0].attributes.push(
+    "jobPostsUsed",
+    "unlocksUsed",
+    "invitationsUsed"
+  );
+
   const companyProfile = await req.company.getCompanyProfile(
     companyProfileInclude
   );
