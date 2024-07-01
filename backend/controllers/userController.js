@@ -56,10 +56,7 @@ exports.getUserProfileById = catchAsync(async (req, res) => {
   const user = await User.findByPk(req.params.id);
 
   if (!user) {
-    return res.status(404).json({
-      status: "fail",
-      message: "User not found",
-    });
+    return next(new ApiError("User not found", 404));
   }
 
   const userProfile = await user.getUserProfile({
@@ -94,17 +91,11 @@ exports.updateUserProfileMedia = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
 
   if (!userProfile.avatar && !req.files.avatar) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Please upload an avatar",
-    });
+    return next(new ApiError("Please upload an avatar", 400));
   }
 
   if (!userProfile.coverPhoto && !req.files.coverPhoto) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Please upload a cover photo",
-    });
+    return next(new ApiError("Please upload a cover photo", 400));
   }
 
   if (req.files.avatar) {
@@ -179,10 +170,7 @@ exports.updateUserInfo = catchAsync(async (req, res) => {
 
   for (const field of requiredFields) {
     if (!req.body[field] && !userProfile[field]) {
-      return res.status(400).json({
-        status: "fail",
-        message: `Please provide ${field}`,
-      });
+      return next(new ApiError(`Please provide ${field}`, 400));
     }
   }
 
@@ -212,10 +200,7 @@ exports.updateUserCareerInterests = catchAsync(async (req, res) => {
 
   for (const field of expectedFields) {
     if (!req.body[field] && !userProfile[field]) {
-      return res.status(400).json({
-        status: "fail",
-        message: `Please provide ${field}`,
-      });
+      return next(new ApiError(`Please provide ${field}`, 400));
     }
   }
 
@@ -239,10 +224,7 @@ exports.updateTotalExperience = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
 
   if (!req.body.totalYearsOfExperience) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Please provide total years of experience",
-    });
+    return next(new ApiError("Please provide total years of experience", 400));
   }
 
   userProfile.totalYearsOfExperience = +req.body.totalYearsOfExperience;
@@ -281,10 +263,7 @@ exports.updateExperience = catchAsync(async (req, res) => {
   });
 
   if (experiences.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Experience not found",
-    });
+    return next(new ApiError("Experience not found", 404));
   }
 
   await experiences[0].update(req.body);
@@ -305,10 +284,7 @@ exports.deleteExperience = catchAsync(async (req, res) => {
   });
 
   if (experiences.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Experience not found",
-    });
+    return next(new ApiError("Experience not found", 404));
   }
 
   await experiences[0].destroy();
@@ -325,10 +301,7 @@ exports.updateEducationLevel = catchAsync(async (req, res) => {
   const userProfile = await req.user.getUserProfile();
 
   if (!req.body.educationLevel) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Please provide education level",
-    });
+    return next(new ApiError("Please provide education level", 400));
   }
 
   userProfile.educationLevel = req.body.educationLevel;
@@ -367,10 +340,7 @@ exports.updateEducation = catchAsync(async (req, res) => {
   });
 
   if (educations.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Education not found",
-    });
+    return next(new ApiError("Education not found", 404));
   }
 
   await educations[0].update(req.body);
@@ -391,10 +361,7 @@ exports.deleteEducation = catchAsync(async (req, res) => {
   });
 
   if (educations.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Education not found",
-    });
+    return next(new ApiError("Education not found", 404));
   }
 
   await educations[0].destroy();
@@ -431,10 +398,7 @@ exports.updateCertification = catchAsync(async (req, res) => {
   });
 
   if (certifications.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Certification not found",
-    });
+    return next(new ApiError("Certification not found", 404));
   }
 
   await certifications[0].update(req.body);
@@ -455,10 +419,7 @@ exports.deleteCertification = catchAsync(async (req, res) => {
   });
 
   if (certifications.length === 0) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Certification not found",
-    });
+    return next(new ApiError("Certification not found", 404));
   }
 
   await certifications[0].destroy();
@@ -473,10 +434,7 @@ exports.deleteCertification = catchAsync(async (req, res) => {
 
 exports.addLanguage = catchAsync(async (req, res) => {
   if (!req.body.language || !req.body.proficiency) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Please provide language and proficiency",
-    });
+    return next(new ApiError("Please provide language and proficiency", 400));
   }
 
   const userProfile = await req.user.getUserProfile();
@@ -599,12 +557,12 @@ exports.changePassword = catchAsync(async (req, res) => {
 
 exports.deleteUserAccount = catchAsync(async (req, res) => {
   if (!req.user) {
-    throw new Error("User not found");
+    return next(new ApiError("User not found", 404));
   }
   const deleted = await req.user.destroy();
   if (deleted) {
     return res
-      .status(401)
+      .status(204)
       .json({ status: "success", message: "User account deactivated" });
   }
 });
@@ -624,9 +582,6 @@ exports.addUserSkill = catchAsync(async (req, res, next) => {
     data: { userSkill },
   });
 });
-
-
-
 
 exports.getAllUserSkills = catchAsync(async (req, res, next) => {
   const userProfile = await findUserProfile(req.user.id);

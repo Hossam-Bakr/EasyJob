@@ -14,6 +14,7 @@ const sequelize = require("../config/database");
 const { Op } = require("sequelize");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
 
 const processRequiredSkills = async (requiredSkills, jobId) => {
   const newSkills = requiredSkills
@@ -113,10 +114,7 @@ exports.getJob = catchAsync(async (req, res) => {
   });
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   const jobData = job.toJSON();
@@ -140,10 +138,7 @@ exports.getJob = catchAsync(async (req, res) => {
 
 exports.createJob = catchAsync(async (req, res) => {
   if (!req.body.categoriesId || req.body.categoriesId.length < 1) {
-    return res.status(400).json({
-      success: false,
-      message: "You must specify at least one category.",
-    });
+    return next(new ApiError("You must specify at least one category.", 400));
   }
 
   const job = await req.company.createJob(req.body);
@@ -167,17 +162,11 @@ exports.updateJob = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.id);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to update this job",
-    });
+    return next(new ApiError("You are not authorized to update this job", 401));
   }
 
   await job.update(req.body);
@@ -205,17 +194,11 @@ exports.deleteJob = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.id);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to delete this job",
-    });
+    return next(new ApiError("You are not authorized to delete this job", 401));
   }
 
   await job.destroy();
@@ -265,17 +248,11 @@ exports.addJobQuestions = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to update this job",
-    });
+    return next(new ApiError("You are not authorized to update this job", 401));
   }
 
   const questions = await Promise.all(
@@ -294,26 +271,17 @@ exports.updateJobQuestion = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to update this job",
-    });
+    return next(new ApiError("You are not authorized to update this job", 401));
   }
 
   const question = await Question.findByPk(req.params.id);
 
   if (!question) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No question found with that ID",
-    });
+    return next(new ApiError("No question found with that ID", 404));
   }
 
   const updatedQuestion = await question.update(req.body);
@@ -330,26 +298,17 @@ exports.deleteJobQuestion = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to update this job",
-    });
+    return next(new ApiError("You are not authorized to update this job", 401));
   }
 
   const question = await Question.findByPk(req.params.id);
 
   if (!question) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No question found with that ID",
-    });
+    return next(new ApiError("No question found with that ID", 404));
   }
 
   await question.destroy();
@@ -366,10 +325,7 @@ exports.applyForJob = catchAsync(async (req, res, next) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   const applicationExists = await Application.findOne({
@@ -377,10 +333,7 @@ exports.applyForJob = catchAsync(async (req, res, next) => {
   });
 
   if (applicationExists) {
-    return res.status(409).json({
-      status: "fail",
-      message: "You have already applied for this job",
-    });
+    return next(new ApiError("You have already applied for this job", 409));
   }
 
   const jobQuestions = await Question.findAll({
@@ -393,10 +346,7 @@ exports.applyForJob = catchAsync(async (req, res, next) => {
       req.body.answers.some((answer) => +answer.QuestionId === question.id)
     )
   ) {
-    return res.status(400).json({
-      status: "fail",
-      message: "You must answer all the questions",
-    });
+    return next(new ApiError("You must answer all the questions", 400));
   }
 
   const application = await Application.create({
@@ -426,17 +376,16 @@ exports.getJobApplications = catchAsync(async (req, res) => {
   });
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to view this job's applications",
-    });
+    return next(
+      new ApiError(
+        "You are not authorized to view this job's applications",
+        401
+      )
+    );
   }
 
   let filter = { JobId: job.id };
@@ -470,17 +419,16 @@ exports.getJobApplication = catchAsync(async (req, res) => {
   });
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to view this job's applications",
-    });
+    return next(
+      new ApiError(
+        "You are not authorized to view this job's applications",
+        401
+      )
+    );
   }
 
   const application = await Application.findByPk(req.params.id, {
@@ -492,10 +440,7 @@ exports.getJobApplication = catchAsync(async (req, res) => {
   });
 
   if (!application) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No application found with that ID",
-    });
+    return next(new ApiError("No application found with that ID", 404));
   }
 
   const user = await User.findByPk(application.UserId, {
@@ -516,33 +461,31 @@ exports.updateApplicationStatus = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to view this job's applications",
-    });
+    return next(
+      new ApiError(
+        "You are not authorized to view this job's applications",
+        401
+      )
+    );
   }
 
   const application = await Application.findByPk(req.params.id);
 
   if (!application) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No application found with that ID",
-    });
+    return next(new ApiError("No application found with that ID", 404));
   }
 
   if (application.status === "Closed" || application.status === "Accepted") {
-    return res.status(400).json({
-      status: "fail",
-      message: `You can't change the status of an application that is already ${application.status}`,
-    });
+    return next(
+      new ApiError(
+        `You can't change the status of an application that is already ${application.status}`,
+        400
+      )
+    );
   }
 
   await application.update({ status: req.body.status });
@@ -559,26 +502,22 @@ exports.changeApplicationStage = catchAsync(async (req, res) => {
   const job = await Job.findByPk(req.params.jobId);
 
   if (!job) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No job found with that ID",
-    });
+    return next(new ApiError("No job found with that ID", 404));
   }
 
   if (job.CompanyId !== req.company.id) {
-    return res.status(401).json({
-      status: "fail",
-      message: "You are not authorized to view this job's applications",
-    });
+    return next(
+      new ApiError(
+        "You are not authorized to view this job's applications",
+        401
+      )
+    );
   }
 
   const application = await Application.findByPk(req.params.id);
 
   if (!application) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No application found with that ID",
-    });
+    return next(new ApiError("No application found with that ID", 404));
   }
 
   await application.update({ stage: req.body.stage });
@@ -600,10 +539,7 @@ exports.saveJob = catchAsync(async (req, res, next) => {
   });
 
   if (existingSavedJob) {
-    return res.status(409).json({
-      status: "fail",
-      message: "Job already saved",
-    });
+    return next(new ApiError("Job already saved", 409));
   }
 
   const savedJob = await SavedJob.create({ UserId: userId, JobId: jobId });
@@ -636,10 +572,7 @@ exports.getAllSavedJobs = catchAsync(async (req, res, next) => {
   });
 
   if (!userWithSavedJobs) {
-    return res.status(404).json({
-      status: "fail",
-      message: "User not found",
-    });
+    return next(new ApiError("User not found", 404));
   }
 
   const jobs = userWithSavedJobs.Jobs;
@@ -663,10 +596,7 @@ exports.deleteSavedJob = catchAsync(async (req, res, next) => {
   });
 
   if (!savedJob) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No saved job found with that ID for the current user",
-    });
+    return next(new ApiError("No saved job found with that ID", 404));
   }
 
   await savedJob.destroy();

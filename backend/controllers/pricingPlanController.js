@@ -1,5 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
 
 exports.getAllPlans = catchAsync(async (req, res) => {
   const plans = await stripe.products.list();

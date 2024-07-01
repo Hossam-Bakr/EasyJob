@@ -1,13 +1,11 @@
 const Company = require("../models/companyModel");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
 
 exports.getSubscription = catchAsync(async (req, res) => {
   if (!req.company.stripeSubscriptionId) {
-    return res.status(400).json({
-      status: "fail",
-      message: "You need to create a subscription first",
-    });
+    return next(new ApiError("You need to create a subscription first", 400));
   }
 
   const subscription = await stripe.subscriptions.retrieve(
@@ -97,10 +95,7 @@ exports.createSubscription = catchAsync(async (req, res) => {
 
 exports.updateSubscription = catchAsync(async (req, res) => {
   if (!req.company.stripeCustomerId || !req.company.stripeSubscriptionId) {
-    return res.status(400).json({
-      status: "fail",
-      message: "You need to create a subscription first",
-    });
+    return next(new ApiError("You need to create a subscription first", 400));
   }
 
   const session = await stripe.billingPortal.sessions.create({
@@ -117,7 +112,7 @@ exports.updateSubscription = catchAsync(async (req, res) => {
 exports.webhookCheckout = catchAsync(async (req, res) => {
   let event = req.body;
 
-  console.log("🎉🎈 Webhook received 🎉🎈");
+  // console.log("🎉🎈 Webhook received 🎉🎈");
 
   const signature = req.headers["stripe-signature"];
   try {
@@ -136,7 +131,7 @@ exports.webhookCheckout = catchAsync(async (req, res) => {
 
   switch (event.type) {
     case "customer.subscription.created":
-      console.log("customer.subscription.created event 🎉🎈");
+      // console.log("customer.subscription.created event 🎉🎈");
       subscription = event.data.object;
       company = await Company.findOne({
         where: { stripeCustomerId: subscription.customer },
@@ -152,7 +147,7 @@ exports.webhookCheckout = catchAsync(async (req, res) => {
       break;
 
     case "customer.subscription.deleted":
-      console.log("customer.subscription.deleted event 🎉🎈");
+      // console.log("customer.subscription.deleted event 🎉🎈");
       subscription = event.data.object;
       company = await Company.findOne({
         where: { stripeCustomerId: subscription.customer },
@@ -182,10 +177,7 @@ exports.webhookCheckout = catchAsync(async (req, res) => {
 
 exports.checkAllowedJobPosts = catchAsync(async (req, res, next) => {
   if (!req.company.stripeSubscriptionId) {
-    return res.status(400).json({
-      status: "fail",
-      message: "You need to create a subscription first",
-    });
+    return next(new ApiError("You need to create a subscription first", 400));
   }
 
   const subscription = await stripe.subscriptions.retrieve(
@@ -200,10 +192,7 @@ exports.checkAllowedJobPosts = catchAsync(async (req, res, next) => {
   console.log("Allowed job posts: ", product.metadata.allowedJobPosts);
 
   if (product.metadata.allowedJobPosts <= req.company.jobPostsUsed) {
-    return res.status(400).json({
-      status: "fail",
-      message: "You have reached the limit of job posts",
-    });
+    return next(new ApiError("You have reached the limit of job posts", 400));
   }
 
   next();
