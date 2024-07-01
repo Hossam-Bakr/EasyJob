@@ -67,40 +67,25 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
     page = parseInt(page);
     limit = parseInt(limit);
 
-    if (
-      keyword &&
-      Model.rawAttributes.title &&
-      Model.rawAttributes.description
-    ) {
-      filter = {
-        [Op.or]: [
-          Sequelize.where(
-            Sequelize.fn("LOWER", Sequelize.col("title")),
-            "LIKE",
-            `%${keyword.toLowerCase()}%`
+    if (keyword) {
+      const searchableAttributes = [
+        "title",
+        "description",
+        "keywords",
+        "name",
+      ].filter((attr) => Model.rawAttributes[attr]);
+
+      if (searchableAttributes.length) {
+        filter = {
+          [Op.or]: searchableAttributes.map((attr) =>
+            Sequelize.where(
+              Sequelize.fn("LOWER", Sequelize.col(attr)),
+              "LIKE",
+              `%${keyword.toLowerCase()}%`
+            )
           ),
-          Sequelize.where(
-            Sequelize.fn("LOWER", Sequelize.col("description")),
-            "LIKE",
-            `%${keyword.toLowerCase()}%`
-          ),
-          Sequelize.where(
-            Sequelize.fn("LOWER", Sequelize.col("keywords")),
-            "LIKE",
-            `%${keyword.toLowerCase()}%`
-          ),
-        ],
-      };
-    } else if (keyword && Model.rawAttributes.name) {
-      filter = {
-        [Op.or]: [
-          Sequelize.where(
-            Sequelize.fn("LOWER", Sequelize.col("name")),
-            "LIKE",
-            `%${keyword.toLowerCase()}%`
-          ),
-        ],
-      };
+        };
+      }
     }
 
     // Exclude fields from the filter
