@@ -153,6 +153,8 @@ exports.createJob = catchAsync(async (req, res) => {
   const skills = await processRequiredSkills(req.body.requiredSkills, job.id);
   await RequiredSkill.bulkCreate(skills);
 
+  await req.company.update({ jobPostsUsed: req.company.jobPostsUsed + 1 });
+
   res.status(201).json({
     status: "success",
     data: {

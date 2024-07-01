@@ -23,7 +23,7 @@ router
   .post(
     authController.protect,
     authController.restrictTo("company"),
-    // subscriptionController.checkAllowedJobPosts,
+    subscriptionController.checkAllowedJobPosts,
     createJobValidator,
     jobController.createJob
   );
