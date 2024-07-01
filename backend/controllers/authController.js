@@ -19,14 +19,19 @@ exports.userSignup = catchAsync(async (req, res, next) => {
     password: req.body.password,
   });
 
-  await newUser.createUserProfile();
-
   const token = generateJWT(newUser.email);
 
   newUser.password = undefined;
 
+  // Create the user profile asynchronously
+  setImmediate(() => {
+    newUser.createUserProfile().catch((error) => {
+      console.error("Error creating user profile:", error);
+    });
+  });
+
   res.status(201).json({
-    status: httpStatusText.SUCCESS,
+    status: "success",
     token,
     data: {
       user: newUser,
@@ -43,14 +48,19 @@ exports.companySignup = catchAsync(async (req, res, next) => {
     IndustryId: req.body.industryId,
   });
 
-  const companyProfile = await newCompany.createCompanyProfile();
-
   const token = generateJWT(newCompany.email);
 
   newCompany.password = undefined;
 
+  // Create the company profile asynchronously
+  setImmediate(() => {
+    newCompany.createCompanyProfile().catch((error) => {
+      console.error("Error creating company profile:", error);
+    });
+  });
+
   res.status(201).send({
-    status: httpStatusText.SUCCESS,
+    status: "success",
     token,
     data: {
       company: newCompany,
@@ -65,61 +75,48 @@ exports.Login = catchAsync(async (req, res, next) => {
     return next(new ApiError("Please provide email and password", 400));
   }
 
-  const user = await User.findOne({ where: { email } });
-  const company = await Company.findOne({ where: { email } });
+  const [user, company] = await Promise.all([
+    User.findOne({ where: { email } }),
+    Company.findOne({ where: { email } }),
+  ]);
 
   if (!user && !company) {
     return next(new ApiError("User not found", 404));
   }
 
-  if (user) {
-    const isPasswordCorrect = await user.correctPassword(password);
+  const account = user || company;
+  const isPasswordCorrect = await account.correctPassword(password);
 
-    if (!isPasswordCorrect) {
-      return next(new ApiError("Incorrect email or password", 401));
-    }
-
-    const token = generateJWT(user.email);
-
-    res.status(200).json({
-      status: "success",
-      token,
-      data: {
-        user: {
-          ...user.toJSON(),
-          password: undefined,
-        },
-      },
-    });
-  } else if (company) {
-    const isPasswordCorrect = await company.correctPassword(password);
-
-    if (!isPasswordCorrect) {
-      return next(new ApiError("Incorrect email or password", 401));
-    }
-    const token = generateJWT(company.email);
-
-    res.status(200).json({
-      status: "success",
-      token,
-      data: {
-        company: {
-          ...company.toJSON(),
-          password: undefined,
-        },
-      },
-    });
+  if (!isPasswordCorrect) {
+    return next(new ApiError("Incorrect email or password", 401));
   }
+
+  const token = generateJWT(account.email);
+
+  res.status(200).json({
+    status: "success",
+    token,
+    data: {
+      [user ? "user" : "company"]: {
+        ...account.toJSON(),
+        password: undefined,
+      },
+    },
+  });
 });
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
-  const user = await User.findOne({ where: { email: req.body.email } });
-  const company = await Company.findOne({ where: { email: req.body.email } });
+  const { email } = req.body;
 
-  entity = user ? user : company;
+  const [user, company] = await Promise.all([
+    User.findOne({ where: { email } }),
+    Company.findOne({ where: { email } }),
+  ]);
 
-  if (!user && !company) {
-    return next(new ApiError("account with this email not found", 404));
+  const entity = user || company;
+
+  if (!entity) {
+    return next(new ApiError("Account with this email not found", 404));
   }
 
   const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
@@ -140,12 +137,15 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   );
 
   try {
-    await sendEmail(entity, "Password Reset Code (valid for 15 min)", message);
+    await sendEmail(
+      entity.email,
+      "Password Reset Code (valid for 15 min)",
+      message
+    );
   } catch (err) {
     entity.passwordResetCode = undefined;
     entity.passwordResetExpire = undefined;
     entity.passwordResetVerified = false;
-
     await entity.save();
 
     return next(
@@ -158,7 +158,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message: `You have got a reset code, check your email to reset password`,
+    message:
+      "You have received a reset code, check your email to reset your password",
   });
 });
 
