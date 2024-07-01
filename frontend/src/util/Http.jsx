@@ -285,16 +285,15 @@ export const getCompanyCandidates = async ({
       });
     }
 
-    if (categoriesFilteration !== "") {
-      if (paramValues === "") {
-        paramValues = paramValues.concat(
-          `?filter[jobCategories]=${categoriesFilteration}`
-        );
-      } else {
-        paramValues = paramValues.concat(
-          `&filter[jobCategories]=${categoriesFilteration}`
-        );
-      }
+    if (categoriesFilteration.length > 0) {
+      console.log("catfil",categoriesFilteration)
+      categoriesFilteration.forEach((cat) => {
+        if (paramValues === "") {
+          paramValues = paramValues.concat(`?filter[jobCategories]=${cat}`);
+        } else {
+          paramValues = paramValues.concat(`&filter[jobCategories]=${cat}`);
+        }
+      });
     }
 
     if (jobTypeFilteration.length > 0) {
@@ -306,7 +305,7 @@ export const getCompanyCandidates = async ({
         }
       });
     }
-
+    console.log(paramValues)
     if (languageFilteration.length > 0) {
       languageFilteration.forEach((myLang) => {
         if (paramValues === "") {
@@ -442,6 +441,8 @@ export const getJobs = async ({
       }
 
       if (categoriesFilteration !== "") {
+        console.log("catfil",categoriesFilteration)
+
         if (paramValues === "") {
           paramValues = paramValues.concat(`?cats=${categoriesFilteration}`);
         } else {
@@ -705,24 +706,26 @@ export const getCompanyRelatedJobs = async ({ id }) => {
   }
 };
 
-export const getJobApplications = async ({ jobId, token,appId,type}) => {
-
+export const getJobApplications = async ({ jobId, token, appId, type }) => {
   try {
     let res;
-    if(type==="apply"){
+    if (type === "apply") {
       res = await axios.get(`${baseServerUrl}jobs/${jobId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-    }else if(appId!==undefined){
-      console.log("token",token)
-      res = await axios.get(`${baseServerUrl}jobs/${jobId}/applications/${appId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }else{
+    } else if (appId !== undefined) {
+      console.log("token", token);
+      res = await axios.get(
+        `${baseServerUrl}jobs/${jobId}/applications/${appId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } else {
       res = await axios.get(`${baseServerUrl}jobs/${jobId}/applications`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -930,9 +933,55 @@ export const getUserProfile = async ({ token, userId }) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data
+    return response.data;
   } catch (error) {
-    console.error(error)
+    console.error(error);
+  }
+};
+
+export const scheduleInterview = async ({ token, formData, method }) => {
+  try {
+    let response;
+    if (method === "get") {
+      response = await axios.get(`${baseServerUrl}interviews`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      response = await axios.post(`${baseServerUrl}interviews`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getPackages = async ({ token, formData, method }) => {
+  try {
+    let response;
+    if (method === "get") {
+      response = await axios.get(`${baseServerUrl}plans`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      response = await axios.post(`${baseServerUrl}interviews`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
 };
 

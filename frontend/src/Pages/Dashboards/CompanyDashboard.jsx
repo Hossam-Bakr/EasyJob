@@ -22,69 +22,10 @@ import CompanyAccountSetting from "./../AccountSetting/CompanyAccountSetting";
 import ContactUs from "./../ContactUs/ContactUs";
 import { goldenPackagePerMonth } from "../../Components/logic/Logic";
 import { useSelector } from "react-redux";
-
-const myEmployees = [
-  {
-    id: "e1",
-    name: "Omar Nasr",
-    title: "Software Engineering Team Leader",
-    country: "Egypt",
-    city: "Cairo",
-    photo: "p1",
-    type: "full-time",
-    state: "pending",
-  },
-  {
-    id: "e2",
-    name: "Atef Alaa Eldin",
-    title: "Frontend Developer Angular",
-    country: "Egypt",
-    city: "Cairo",
-    photo: "p2",
-    type: "part-time",
-    state: "rejected",
-  },
-  {
-    id: "e3",
-    name: "Sameh GadAllah",
-    title: "Accounting",
-    country: "Egypt",
-    city: "Cairo",
-    photo: "p3",
-    type: "full-time",
-    state: "pending",
-  },
-  {
-    id: "e4",
-    name: "Ramdan Kareem",
-    title: "Unit Tester| Mern Stack",
-    country: "Egypt",
-    city: "Cairo",
-    photo: "p4",
-    type: "full-time",
-    state: "accepted",
-  },
-  {
-    id: "e5",
-    name: "Mohsen Ali",
-    title: "sales & marketing director",
-    country: "Egypt",
-    city: "Cairo",
-    photo: "p5",
-    type: "freelance",
-    state: "pending",
-  },
-  {
-    id: "e6",
-    name: "Mohand Mostafa",
-    title: "Assistant Floor @Huwawei",
-    country: "Egypt",
-    city: "Cairo",
-    photo: "p6",
-    type: "part-time",
-    state: "pending",
-  },
-];
+import noAvatar from "../../images/noLogo.jpg";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { getJobApplications, scheduleInterview } from "../../util/Http";
 
 const CompanyDashboard = () => {
 
@@ -92,14 +33,22 @@ const CompanyDashboard = () => {
   const companyProfileData = useSelector((state) => state.profileInfo.data);
   const [profileLogo, setProfileLogo] = useState(null);
 
-  // const { companyId: id } = useParams();
-
-  // const { data: relatedJobs} = useQuery({
-  //   queryKey: ["relatedJobs"],
-  //   queryFn: () => getCompanyRelatedJobs({ id }),
-  // });
+  const {companyId}=useParams();
+  const token = JSON.parse(localStorage.getItem("token"));
 
 
+  const { data:jobApp } = useQuery({
+    queryKey: ["jobApplicationsDashboard"],
+    queryFn: () => getJobApplications({ jobId: companyId, token: token }),
+  });
+
+  const { data:interviews } = useQuery({
+    queryKey: ["interviews"],
+    queryFn: () => scheduleInterview({token: token,method:"get" }),
+  });
+
+
+console.log("jobDat",interviews)
 
   useEffect(() => {
     if (companyProfileData?.logo) {
@@ -115,8 +64,8 @@ const CompanyDashboard = () => {
 
         <div className={styles.sideBar}>
           <div className={styles.company_header}>
-            <img src={profileLogo} alt="company Logo" />
-            <h3>{companyProfileData.Company?.name}</h3>
+            <img src={profileLogo?profileLogo:noAvatar} alt="company Logo" />
+            <h3>{companyProfileData?.Company?.name}</h3>
           </div>
           <ul>
             <li
@@ -141,11 +90,11 @@ const CompanyDashboard = () => {
               <h6>candidates</h6>
             </li>
             <li
-              className={activeLink === "invitations" ? styles.active_link : ""}
-              onClick={() => setActiveLink("invitations")}
+              className={activeLink === "Interview" ? styles.active_link : ""}
+              onClick={() => setActiveLink("Interview")}
             >
               <FontAwesomeIcon icon={faEnvelopeOpenText} />
-              <h6>Invitations</h6>
+              <h6>Interview</h6>
             </li>
             <li
               className={activeLink === "setting" ? styles.active_link : ""}
@@ -235,25 +184,21 @@ const CompanyDashboard = () => {
                     <table className={`${styles.employee_table} my-4`}>
                       <thead>
                         <tr className={styles.table_header}>
-                          <th>employee</th>
+                          <th>Employee</th>
                           <th>title</th>
-                          <th>type</th>
-                          <th>show</th>
+                          <th>View</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {myEmployees.map((employee) => {
+                        {jobApp?.data?.applications?.map((employee) => {
                           return (
-                            <tr key={employee.id}>
-                              <ListedEmployees
-                                id={employee.id}
-                                pic={employee.photo}
-                                name={employee.name}
-                                title={employee.title}
-                                type={employee.type}
-                                grid="table"
-                              />
-                            </tr>
+                            employee.status==="Accepted"&&<tr key={employee.id}>
+                            <ListedEmployees
+                              id={employee.id}
+                              UserId={employee.UserId}
+                              // JobId={employee.JobId}
+                            />
+                          </tr>
                           );
                         })}
                       </tbody>
@@ -261,34 +206,30 @@ const CompanyDashboard = () => {
                   </div>
                 </Col>
               )}
-              {(activeLink === "main" ||
-                activeLink === "candidates" ||
-                activeLink === "invitations") && (
+
+              {(activeLink === "main" || activeLink === "candidates" || activeLink === "Interview") && (
                 <Col md={12}>
                   <div className={`${styles.box}`}>
-                    <h5 className="fw-bold mt-3">Track Invitations</h5>
+                    <h5 className="fw-bold mt-3">Interview Schedule</h5>
                     <table className={`${styles.employee_table} my-4`}>
                       <thead>
                         <tr className={styles.table_header}>
-                          <th>employee</th>
-                          <th>title</th>
-                          <th>State</th>
-                          <th>show</th>
+                          <th>Employee</th>
+                          <th>Date</th>
+                          <th>Job</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {myEmployees.map((employee) => {
+                        {interviews?.data?.map((interview) => {
                           return (
-                            <tr key={employee.id}>
-                              <ListedEmployees
-                                id={employee.id}
-                                pic={employee.photo}
-                                name={employee.name}
-                                title={employee.title}
-                                state={employee.state}
-                                grid="table"
-                              />
-                            </tr>
+                            <tr key={interview.id}>
+                            <ListedEmployees
+                              id={interview.id}
+                              interview={interview}
+                              type="interview"
+                              UserId={interview.UserId}
+                            />
+                          </tr>
                           );
                         })}
                       </tbody>
@@ -296,6 +237,7 @@ const CompanyDashboard = () => {
                   </div>
                 </Col>
               )}
+
               {activeLink === "setting" && (
                 <Col md={12}>
                   <div className={styles.box}>

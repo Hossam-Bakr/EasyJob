@@ -12,6 +12,7 @@ const UploadVoiceRecord = ({
   setResponseMessage,
   setSuccessResponse,
   setShowResponse,
+  setRecord
 }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -79,6 +80,7 @@ const UploadVoiceRecord = ({
             console.log("File available at", downloadURL);
             saveVoiceDataLink(downloadURL, question.id, url);
             setIsLoading(false);
+            setRecord(url)
           })
           .catch((error) => {
             console.error("Error getting download URL:", error);

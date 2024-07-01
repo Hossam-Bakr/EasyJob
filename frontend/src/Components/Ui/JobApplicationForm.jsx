@@ -228,6 +228,7 @@ const JobApplicationForm = ({
                       setResponseMessage={setResponseMessage}
                       setSuccessResponse={setSuccessResponse}
                       setShowResponse={setShowResponse}
+                      setRecord={setRecord}
                     />
                   </div>
 

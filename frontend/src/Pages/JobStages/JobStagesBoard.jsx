@@ -8,141 +8,70 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getJobApplications } from "../../util/Http";
 import Loading from "../../Components/Ui/Loading";
-
-//   {
-//     name: "Sami Galal",
-//     id: "1",
-//     title: "Software Engineer",
-//     avatar: "p1",
-//   },
-//   {
-//     name: "Yousef Tarek",
-//     id: "2",
-//     title: "UI Designer",
-//     avatar: "p2",
-//   },
-//   {
-//     name: "Ahmed Sabry",
-//     id: "3",
-//     title: "Project Manager",
-//     avatar: "p3",
-//   },
-
-//   {
-//     name: "Mina Fawzy",
-//     id: "5",
-//     title: "Accountant",
-//     avatar: "p5",
-//   },
-//   {
-//     name: "Kareem Said",
-//     id: "6",
-//     title: "Sales Representative",
-//     avatar: "p6",
-//   },
-//   {
-//     name: "Mostafa Wael",
-//     id: "7",
-//     title: "HR Manager",
-//     avatar: "p4",
-//   },
-//   {
-//     name: "Wael Ali",
-//     id: "4",
-//     title: " Marketing Manager",
-//     avatar: "noAvatar",
-//   },
-// ];
-// const employees2 = [
-//   {
-//     name: "Mido Gaber",
-//     id: "8",
-//     title: "Frontend Developer",
-//     avatar: "p8",
-//   },
-//   {
-//     name: "Nasr Eldin",
-//     id: "9",
-//     title: "UX Designer",
-//     avatar: "p9",
-//   },
-//   {
-//     name: "Menna Abdo",
-//     id: "10",
-//     title: "Project Lead",
-//     avatar: "noAvatar",
-//   },
-//   {
-//     name: "Nadia Taha",
-//     id: "11",
-//     title: "Marketing Head",
-//     avatar: "p10",
-//   },
-//   {
-//     name: "Hassan Ibrahim",
-//     id: "12",
-//     title: "Accounts Manager",
-//     avatar: "noAvatar",
-//   },
-//   {
-//     name: "Susan Khaled",
-//     id: "14",
-//     title: "HR Head",
-//     avatar: "noAvatar",
-//   },
-// ];
+import FloatingPopup from "../../Components/Ui/FloatingPopup";
+import MainBtnThree from "../../Components/Ui/MainBtnThree";
+import axios from "axios";
 
 const JobStagesBoard = () => {
   const [screeningStage, setScreeningStage] = useState([]);
   const [assessmentStage, setAssessmentStage] = useState([]);
   const [reviewedStage, setReviewedStage] = useState([]);
+  const [columns, setColumns] = useState({});
+  const [showResponse, setShowResponse] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    title: "",
+    content: "",
+  });
+  const [successResponse, setSuccessResponse] = useState(true);
 
   const token = JSON.parse(localStorage.getItem("token"));
   const { jobId } = useParams();
 
-  const { data, isPending } = useQuery({
+  const { data, isPending, refetch } = useQuery({
     queryKey: ["jobApplications"],
     queryFn: () => getJobApplications({ jobId: jobId, token: token }),
   });
 
   useEffect(() => {
     if (data) {
-      data?.data?.applications?.forEach((app) => {
+      const filteredEmployee = data?.data?.applications?.filter(
+        (emp) => emp.status === "Pending"
+      );
+      const screening = [];
+      const assessment = [];
+      const reviewed = [];
+
+      filteredEmployee.forEach((app) => {
         const userIdString = app.UserId.toString();
         const appIdString = app.id.toString();
         const jobIdString = app.JobId.toString();
 
+        const employee = {
+          userId: userIdString,
+          appId: appIdString,
+          jobId: jobIdString,
+        };
+
         if (app.stage === "Submitted") {
-          setScreeningStage((prev) => [
-            ...prev,
-            { userId: userIdString, appId: appIdString, jobId: jobIdString },
-          ]);
+          screening.push(employee);
         } else if (app.stage === "Reviewed") {
-          setAssessmentStage((prev) => [
-            ...prev,
-            { userId: userIdString, appId: appIdString, jobId: jobIdString },
-          ]);
-        } else {
-          setReviewedStage((prev) => [
-            ...prev,
-            { userId: userIdString, appId: appIdString, jobId: jobIdString },
-          ]);
+          assessment.push(employee);
+        } else if (app.stage === "Marked") {
+          reviewed.push(employee);
         }
       });
+
+      setScreeningStage(screening);
+      setAssessmentStage(assessment);
+      setReviewedStage(reviewed);
     }
   }, [data]);
 
-  const [columns, setColumns] = useState({
-    1: screeningStage,
-    2: assessmentStage,
-    3: reviewedStage,
-  });
-
   useEffect(() => {
     setColumns({
-      1: screeningStage,
-      2: assessmentStage,
-      3: reviewedStage,
+      "1": screeningStage,
+      "2": assessmentStage,
+      "3": reviewedStage,
     });
   }, [screeningStage, assessmentStage, reviewedStage]);
 
@@ -151,48 +80,139 @@ const JobStagesBoard = () => {
 
     if (!destination || source.droppableId === destination.droppableId) return;
 
-    const sourceColumn = columns[source.droppableId];
-    const destinationColumn = columns[destination.droppableId];
+    const sourceColumnId = source.droppableId;
+    const destinationColumnId = destination.droppableId;
+
+    const sourceColumn = columns[sourceColumnId];
+    const destinationColumn = columns[destinationColumnId];
     const [draggedItem] = sourceColumn.filter(
-      (item) => item.id === draggableId
+      (item) => item.userId === draggableId
     );
 
-    setColumns((prevColumns) => {
-      const updatedColumns = { ...prevColumns };
-      updatedColumns[source.droppableId] = sourceColumn.filter(
-        (item) => item.id !== draggableId
-      );
-      updatedColumns[destination.droppableId] = [
-        ...destinationColumn,
-        draggedItem,
-      ];
-      return updatedColumns;
-    });
+    const updatedColumns = { ...columns };
+    updatedColumns[sourceColumnId] = sourceColumn.filter(
+      (item) => item.userId !== draggableId
+    );
+    updatedColumns[destinationColumnId] = [...destinationColumn, draggedItem];
+
+    setColumns(updatedColumns);
+
+    // Update the stages
+    setScreeningStage(updatedColumns["1"]);
+    setAssessmentStage(updatedColumns["2"]);
+    setReviewedStage(updatedColumns["3"]);
+  };
+
+  const clearStages = () => {
+    setScreeningStage([]);
+    setAssessmentStage([]);
+    setReviewedStage([]);
+  };
+
+  const saveStageData = async () => {
+    const stages = [
+      { stage: "Submitted", employees: screeningStage },
+      { stage: "Reviewed", employees: assessmentStage },
+      { stage: "Marked", employees: reviewedStage },
+    ];
+
+    for (const { stage, employees } of stages) {
+      for (const employee of employees) {
+        try {
+          const response = await axios.patch(
+            `${process.env.REACT_APP_Base_API_URl}jobs/${employee.jobId}/applications/${employee.appId}/stage`,
+            { stage: stage },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.data.status === "success") {
+            setResponseMessage({
+              title: `Saved Successfully`,
+              content: `Employee has been Saved Successfully`,
+            });
+            setSuccessResponse(true);
+          } else {
+            setResponseMessage({
+              title: "Request Failed",
+              content: `Employee failed to be Saved, please try again`,
+            });
+            setSuccessResponse(false);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          setResponseMessage({
+            title: "Request Failed",
+            content: `Employee failed to be Saved, please try again`,
+          });
+          setSuccessResponse(false);
+        }
+        setShowResponse(true);
+        clearStages();
+        refetch();
+      }
+    }
   };
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      {isPending ? (
-        <Loading />
-      ) : (
-        <Container fluid>
-          <Row className={styles.board_container}>
-            <StageColumn
-              title={"Screening"}
-              employees={columns["1"]}
-              token={token}
-              id={"1"}
-            />
-            <StageColumn
-              title={"Assessment"}
-              employees={columns["2"]}
-              id={"2"}
-            />
-            <StageColumn title={"Reviewed"} employees={columns["3"]} id={"3"} />
-          </Row>
-        </Container>
+    <>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        {isPending ? (
+          <Loading />
+        ) : (
+          <Container fluid>
+            <Row className={styles.board_container}>
+              <StageColumn
+                title={"Screening"}
+                employees={columns["1"]}
+                token={token}
+                id={"1"}
+                setShowResponse={setShowResponse}
+                setResponseMessage={setResponseMessage}
+                setSuccessResponse={setSuccessResponse}
+                refetch={refetch}
+                clearStages={clearStages}
+              />
+              <StageColumn
+                title={"Assessment"}
+                employees={columns["2"]}
+                token={token}
+                id={"2"}
+                setShowResponse={setShowResponse}
+                setResponseMessage={setResponseMessage}
+                setSuccessResponse={setSuccessResponse}
+                refetch={refetch}
+                clearStages={clearStages}
+              />
+              <StageColumn
+                title={"Reviewed"}
+                employees={columns["3"]}
+                id={"3"}
+                token={token}
+                setShowResponse={setShowResponse}
+                setResponseMessage={setResponseMessage}
+                setSuccessResponse={setSuccessResponse}
+                refetch={refetch}
+                clearStages={clearStages}
+              />
+            </Row>
+            <div className="text-end  mt-2 mb-3">
+              <MainBtnThree onClick={saveStageData} text="Save Changes" />
+            </div>
+          </Container>
+        )}
+      </DragDropContext>
+      {showResponse && (
+        <FloatingPopup
+          showResponse={showResponse}
+          setShowResponse={setShowResponse}
+          message={responseMessage}
+          success={successResponse}
+        />
       )}
-    </DragDropContext>
+    </>
   );
 };
 

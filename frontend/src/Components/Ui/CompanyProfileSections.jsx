@@ -16,62 +16,11 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styles from "./CompanyProfileSections.module.css";
-import ListedEmployees from "./ListedEmployees";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { edietActions } from "../../Store/defaultEdietPage-slice";
 import NoDataBox from "./NoDataBox";
 import CompanyRelatedJobs from "./CompanyRelatedJobs";
-
-
-
-
-const myEmployees = [
-  {
-    id: "e1",
-    name: "Omar Nasr",
-    title: "Software Engineering Team Leader",
-    country: "Egypt",
-    city: "Cairo",
-  },
-  {
-    id: "e2",
-    name: "Atef Alaa Eldin",
-    title: "Frontend Developer Angular",
-    country: "Egypt",
-    city: "Cairo",
-  },
-  {
-    id: "e3",
-    name: "Sameh GadAllah",
-    title: "Accounting",
-    country: "Egypt",
-    city: "Cairo",
-    type: "part-time",
-    workplace: "on site",
-  },
-  {
-    id: "e4",
-    name: "Ramdan Kareem",
-    title: "Unit Tester| Mern Stack",
-    country: "Egypt",
-    city: "Cairo",
-  },
-  {
-    id: "e5",
-    name: "Mohsen Ali",
-    title: "sales & marketing director",
-    country: "Egypt",
-    city: "Cairo",
-  },
-  {
-    id: "e6",
-    name: "Mohand Mostafa",
-    title: "Assistant Floor @Huwawei",
-    country: "Egypt",
-    city: "Cairo",
-  },
-];
 
 const CompanyProfileSections = ({
   id,
@@ -242,27 +191,6 @@ const CompanyProfileSections = ({
 
       <Tab eventKey="jobs" title="Jobs">
           <CompanyRelatedJobs id={id} isMyProfile={isMyProfile}/>
-      </Tab>
-
-      <Tab eventKey="employees" title="Employees">
-        <div className={`${styles.main_style} ${styles.employees_section}`}>
-          <h3 className={styles.sec_title}> Employees Working on Huwawei</h3>
-          <ul className={`${styles.employee_ul} mt-4`}>
-            {myEmployees.map((employee) => {
-              return (
-                <li className="my-5 py-4" key={employee.id}>
-                  <ListedEmployees
-                    pic={employee.photo}
-                    name={employee.name}
-                    title={employee.title}
-                    country={employee.country}
-                    city={employee.city}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
       </Tab>
     </Tabs>
   );
