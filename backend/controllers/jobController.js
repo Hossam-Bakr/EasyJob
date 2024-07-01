@@ -15,6 +15,8 @@ const { Op } = require("sequelize");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
+const sendEmail = require("../utils/sendEmail");
+const createStyledEmailMessage = require("../utils/createStyledEmailMessage");
 
 const processRequiredSkills = async (requiredSkills, jobId) => {
   const newSkills = requiredSkills
@@ -521,6 +523,23 @@ exports.changeApplicationStage = catchAsync(async (req, res) => {
   }
 
   await application.update({ stage: req.body.stage });
+
+  // Send email to user
+  const user = await User.findByPk(application.UserId);
+
+  const subject = "Application Stage Update";
+  const message = `Your application for the job "${
+    job.title
+  }" has been moved to the ${
+    req.body.stage === "Submitted"
+      ? "1st stage (Submitted)"
+      : req.body.stage === "Reviewed"
+      ? "2nd stage (Reviewed)"
+      : "3rd stage (Marked)"
+  }.`;
+
+  const htmlMessage = createStyledEmailMessage(subject, message);
+  await sendEmail(user.email, subject, htmlMessage);
 
   res.status(200).json({
     status: "success",
