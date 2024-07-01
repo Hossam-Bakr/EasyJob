@@ -120,16 +120,18 @@ exports.getAll = (Model, include = null, overrideFields = null) =>
 
     const attributes = fields ? fields.split(",") : undefined;
 
-    const docs = await Model.findAll({
-      where: filter,
-      order: sortArray,
-      attributes,
-      limit,
-      offset: (page - 1) * limit,
-      include,
-    });
-
-    const documentsCount = await Model.count({ where: filter });
+    // Fetch data and count simultaneously
+    const [docs, documentsCount] = await Promise.all([
+      Model.findAll({
+        where: filter,
+        order: sortArray,
+        attributes,
+        limit,
+        offset: (page - 1) * limit,
+        include,
+      }),
+      Model.count({ where: filter }),
+    ]);
 
     res.status(200).json({
       status: "success",
