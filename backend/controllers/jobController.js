@@ -500,53 +500,71 @@ exports.updateApplicationStatus = catchAsync(async (req, res) => {
   });
 });
 
-exports.changeApplicationStage = catchAsync(async (req, res) => {
-  const job = await Job.findByPk(req.params.jobId);
+exports.changeApplicationStage = catchAsync(async (req, res, next) => {
+  // Use a transaction to ensure atomicity
+  const transaction = await sequelize.transaction();
+  try {
+    const { jobId, id: applicationId } = req.params;
+    const { stage } = req.body;
 
-  if (!job) {
-    return next(new ApiError("No job found with that ID", 404));
+    // Batch query for job and application
+    const [job, application] = await Promise.all([
+      Job.findByPk(jobId, { transaction }),
+      Application.findByPk(applicationId, { transaction }),
+    ]);
+
+    if (!job) {
+      await transaction.rollback();
+      return next(new ApiError("No job found with that ID", 404));
+    }
+
+    if (job.CompanyId !== req.company.id) {
+      await transaction.rollback();
+      return next(
+        new ApiError(
+          "You are not authorized to view this job's applications",
+          401
+        )
+      );
+    }
+
+    if (!application) {
+      await transaction.rollback();
+      return next(new ApiError("No application found with that ID", 404));
+    }
+
+    await application.update({ stage }, { transaction });
+
+    // Get user details
+    const user = await User.findByPk(application.UserId, { transaction });
+
+    // Commit the transaction
+    await transaction.commit();
+
+    // Send email asynchronously
+    const subject = "Application Stage Update";
+    const message = `Your application for the job "${
+      job.title
+    }" has been moved to the ${
+      stage === "Submitted"
+        ? "1st stage (Submitted)"
+        : stage === "Reviewed"
+        ? "2nd stage (Reviewed)"
+        : "3rd stage (Marked)"
+    }.`;
+    const htmlMessage = createStyledEmailMessage(subject, message);
+    sendEmail(user.email, subject, htmlMessage); // Don't await this
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        application,
+      },
+    });
+  } catch (error) {
+    await transaction.rollback();
+    return next(new ApiError(error.message, 500));
   }
-
-  if (job.CompanyId !== req.company.id) {
-    return next(
-      new ApiError(
-        "You are not authorized to view this job's applications",
-        401
-      )
-    );
-  }
-
-  const application = await Application.findByPk(req.params.id);
-
-  if (!application) {
-    return next(new ApiError("No application found with that ID", 404));
-  }
-
-  await application.update({ stage: req.body.stage });
-
-  // Send email to user
-  const user = await User.findByPk(application.UserId);
-
-  const subject = "Application Stage Update";
-  const message = `Your application for the job "${
-    job.title
-  }" has been moved to the ${
-    req.body.stage === "Submitted"
-      ? "1st stage (Submitted)"
-      : req.body.stage === "Reviewed"
-      ? "2nd stage (Reviewed)"
-      : "3rd stage (Marked)"
-  }.`;
-
-  const htmlMessage = createStyledEmailMessage(subject, message);
-  await sendEmail(user.email, subject, htmlMessage);
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      application,
-    },
-  });
 });
 
 exports.saveJob = catchAsync(async (req, res, next) => {
