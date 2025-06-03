@@ -5,13 +5,13 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: var(--main_font);
 }
 
 body{
   scroll-behavior: smooth !important;
   background-color: var(--main_bg_color) !important;
   overflow-x: hidden;
-  font-family: var(--main_font);
 }
 
 :root{

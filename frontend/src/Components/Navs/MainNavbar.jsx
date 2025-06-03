@@ -30,8 +30,7 @@ const MainNavbar = () => {
   const onClose = () => setShow(false);
   const onShow = () => setShow(true);
 
-  const hideResponsiveMenu = () => setOpenResMenu(false);
-  const openResponsiveMenu = () => setOpenResMenu(true);
+
   const nav_type = isCompanyHome ? "fixed-top" : "sticky-top";
   const nav_logo = isScrollZero && isCompanyHome ? darkLogo : logo;
   const nav_color = isScrollZero && isCompanyHome && styles.nav_white;
@@ -317,14 +316,13 @@ const MainNavbar = () => {
             <span className={styles.full_line}></span>
             <span className={`${styles.half_line} ms-auto`}></span>
           </div>
-
-          <div onClick={openResponsiveMenu} className={styles.list}>
+          <div onClick={() => setOpenResMenu(true)} className={styles.list}>
             <FontAwesomeIcon className={styles.bars_icon} icon={faBars} />
           </div>
         </div>
       </motion.nav>
       <SideBar onClose={onClose} show={show} />
-      <ResponsiveMenuSlideBar onClose={hideResponsiveMenu} show={openResMenu} />
+      <ResponsiveMenuSlideBar onClose={() => setOpenResMenu(false)} show={openResMenu} />
     </>
   );
 };

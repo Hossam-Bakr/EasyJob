@@ -1,5 +1,4 @@
 import React from 'react';
-
 import styles from "./Footer.module.css";
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';

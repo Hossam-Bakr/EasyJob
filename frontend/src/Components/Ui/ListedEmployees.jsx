@@ -23,8 +23,6 @@ const ListedEmployees = ({ UserId, id, type, interview }) => {
     queryFn: () => getUserProfile({ userId: UserId, token }),
   });
 
-  console.log(data);
-
   useEffect(() => {
     if (data) {
       if (data?.data?.userProfile?.avatar) {

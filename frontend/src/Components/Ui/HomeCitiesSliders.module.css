@@ -5,10 +5,12 @@
 }
 .slider_contnet{
     padding-bottom: 50px;
+    width: 100%;
 }
 .slider_container_img{
     position: relative;
-
+    display: flex;
+    justify-content: center;
 }
 .slider_item{
     height: 500px;

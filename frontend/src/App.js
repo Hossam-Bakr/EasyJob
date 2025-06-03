@@ -47,6 +47,7 @@ import VisiteEmployeeProfile from "./Pages/Profiles/VisiteEmployeeProfile";
 import JobApplicationFormModal from "./Components/Ui/JobApplicationFormModal";
 import PreviewMyJob from "./Pages/JobDetails/PreviewMyJob";
 import AddJobQuestions from "./Pages/PostAJob/AddJobQuestions";
+import PaymentSuccessful from "./Components/Ui/PaymentSuccessful";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
       { path: "company-register", element: <CompanyRegister /> },
       { path: "test", element: <MyTest /> },
       { path: "super", element: <SuperAdminDashboard /> },
+      { path: "PaymentSuccessful", element: <PaymentSuccessful /> },
       { path: "*", element: <NotFound /> },
     ],
   },

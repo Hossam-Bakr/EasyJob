@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './InputErrorMessage.module.css';
 import { motion } from 'framer-motion';
 

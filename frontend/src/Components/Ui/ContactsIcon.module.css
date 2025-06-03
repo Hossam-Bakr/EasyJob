@@ -3,8 +3,6 @@
 .icons_div_one{
     font-size: 1.5625rem;
 }
-
-
 .social_icon_type_one,.social_icon_type_two{
     cursor: pointer;
     transition: color .5s;

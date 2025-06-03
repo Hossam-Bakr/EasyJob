@@ -27,7 +27,7 @@ const HomeCitiesSliders = () => {
 
   const navigateToJobs = (val) => {
     dispatch(filterActions.setFilterationValue({ value: val, type: "city" }));
-    naviagte("/jobs")
+    naviagte("/jobs");
   };
 
   return (

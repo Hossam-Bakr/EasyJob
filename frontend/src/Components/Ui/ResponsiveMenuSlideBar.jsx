@@ -28,14 +28,12 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
   );
   const profileData = useSelector((state) => state.profileInfo.data);
 
-  const handleClose = () => {
-    onClose();
-  };
 
+  
   return (
     <Offcanvas
       show={show}
-      onHide={handleClose}
+      onHide={onClose}
       placement="end"
       className={styles.side_bar}
     >
@@ -53,7 +51,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               {role === "user" ? (
                 <>
                   {/* logged and user */}
-                  <Link onClick={handleClose} to={"jobs"} end="true">
+                  <Link onClick={onClose} to={"jobs"} end="true">
                     <li className={styles.contact_list_item}>
                       Explore{" "}
                       <FontAwesomeIcon
@@ -62,7 +60,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"companies"} end="true">
+                  <Link onClick={onClose} to={"companies"} end="true">
                     <li className={styles.contact_list_item}>
                       Companies{" "}
                       <FontAwesomeIcon
@@ -71,7 +69,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"contact"} end="true">
+                  <Link onClick={onClose} to={"contact"} end="true">
                     <li className={styles.contact_list_item}>
                       Contact Us
                       <FontAwesomeIcon
@@ -85,9 +83,9 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                 <>
                   {/* logged and company */}
                   <Link
-                    onClick={handleClose}
+                    onClick={onClose}
                     to={`company-dashboard/${profileData?.CompanyId}`}
-                    end
+                    end="true"
                   >
                     <li className={styles.contact_list_item}>
                       Dashboard{" "}
@@ -97,7 +95,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"candidates"}>
+                  <Link onClick={onClose} to={"candidates"}>
                     <li className={styles.contact_list_item}>
                       Candidates{" "}
                       <FontAwesomeIcon
@@ -106,7 +104,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"packages"}>
+                  <Link onClick={onClose} to={"packages"}>
                     <li className={styles.contact_list_item}>
                       Packages{" "}
                       <FontAwesomeIcon
@@ -115,7 +113,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"job-post"}>
+                  <Link onClick={onClose} to={"job-post"}>
                     <li className={styles.contact_list_item}>
                       Post Job{" "}
                       <FontAwesomeIcon
@@ -132,7 +130,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               {changeContent ? (
                 <>
                   {/* not logged and company */}
-                  <Link onClick={handleClose} to={"company-home"} end="true">
+                  <Link onClick={onClose} to={"company-home"} end="true">
                     <li className={styles.contact_list_item}>
                       Home{" "}
                       <FontAwesomeIcon
@@ -141,7 +139,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"about"}>
+                  <Link onClick={onClose} to={"about"}>
                     <li className={styles.contact_list_item}>
                       About{" "}
                       <FontAwesomeIcon
@@ -151,7 +149,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                     </li>
                   </Link>
 
-                  <Link onClick={handleClose} to={"candidates"}>
+                  <Link onClick={onClose} to={"candidates"}>
                     <li className={styles.contact_list_item}>
                       Candidates{" "}
                       <FontAwesomeIcon
@@ -160,7 +158,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"packages"}>
+                  <Link onClick={onClose} to={"packages"}>
                     <li className={styles.contact_list_item}>
                       Packages{" "}
                       <FontAwesomeIcon
@@ -169,7 +167,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"categories"}>
+                  <Link onClick={onClose} to={"categories"}>
                     <li className={styles.contact_list_item}>
                       Categories{" "}
                       <FontAwesomeIcon
@@ -182,7 +180,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
               ) : (
                 <>
                   {/* not logged and user */}
-                  <Link onClick={handleClose} to={"/"} end="true">
+                  <Link onClick={onClose} to={"/"} end="true">
                     <li className={styles.contact_list_item}>
                       Home{" "}
                       <FontAwesomeIcon
@@ -191,7 +189,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"about"}>
+                  <Link onClick={onClose} to={"about"}>
                     <li className={styles.contact_list_item}>
                       About{" "}
                       <FontAwesomeIcon
@@ -200,7 +198,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"jobs"}>
+                  <Link onClick={onClose} to={"jobs"}>
                     <li className={styles.contact_list_item}>
                       Explore{" "}
                       <FontAwesomeIcon
@@ -209,7 +207,7 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
                       />
                     </li>
                   </Link>
-                  <Link onClick={handleClose} to={"categories"}>
+                  <Link onClick={onClose} to={"categories"}>
                     <li className={styles.contact_list_item}>
                       Categories{" "}
                       <FontAwesomeIcon
@@ -229,15 +227,15 @@ const ResponsiveMenuSlideBar = ({ onClose, show }) => {
           <div
             className={`${styles.side_bar_signing_btns} my-5 d-flex align-items-center justify-content-evenly`}
           >
-            <Link to={"login"} onClick={handleClose} className="mx-2">
+            <Link to={"login"} onClick={onClose} className="mx-2">
               <MainButton text="Login" />
             </Link>
             {changeContent ? (
-              <Link to={"/"} onClick={handleClose} className="mx-2">
+              <Link to={"/"} onClick={onClose} className="mx-2">
                 <MainButton type="white" text="Employee" />
               </Link>
             ) : (
-              <Link to={"company-home"} onClick={handleClose} className="mx-2">
+              <Link to={"company-home"} onClick={onClose} className="mx-2">
                 <MainButton type="white" text="Company" />
               </Link>
             )}

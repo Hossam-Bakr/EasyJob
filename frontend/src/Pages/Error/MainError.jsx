@@ -15,12 +15,11 @@ const MainError = () => {
       </span>
       <div className=" mb-5 mt-3 text-center">
         <MainButton
-            onClick={() => navigate(-1)}
-            className="special_main_color"
-                text={"Reload Page"}
-            />
+          onClick={() => navigate(-1)}
+          className="special_main_color"
+          text={"Reload Page"}
+        />
       </div>
-
     </div>
   );
 };

@@ -19,107 +19,107 @@ import saveUserInfoIntoLocalStorag, {
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 const LoginForm = () => {
-  const [isEmailError, setIsEmailError] = useState(false);
-  const [isPasswordError, setIsPasswordError] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [isUser, setIsUser] = useState(true);
+    const [isEmailError, setIsEmailError] = useState(false);
+    const [isPasswordError, setIsPasswordError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [isUser, setIsUser] = useState(true);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: signFormsHandler,
-    onSuccess: (response) => {
-      let res = response.data;
-      if (res.status === "success") {
-        console.log("res",res)
-        if (res.data.user) {
-          if (res.data.user.role === "user") {
-            setIsEmailError(false);
-            setIsPasswordError(false);
-            dispatch(userActions.setUserInfo(res.data.user));
-            dispatch(userActions.setIsLogin(true));
-            dispatch(userActions.setRole("user"));
-            dispatch(userActions.setToken(res.token));
-            dispatch(saveUserInfoIntoLocalStorag(res.data.user));
-            dispatch(saveIsLoginState(true));
-            dispatch(saveRoleState("user"));
-            dispatch(saveTokenState(res.token));
-            navigate("/jobs");
-          } else if(res.data.user.role==="admin"){
-            setIsEmailError(false);
-            setIsPasswordError(false);
-            dispatch(userActions.setUserInfo(res.data.user));
-            dispatch(userActions.setIsLogin(true));
-            dispatch(userActions.setRole("admin"));
-            dispatch(userActions.setToken(res.token));
-            dispatch(saveUserInfoIntoLocalStorag(res.data.user));
-            dispatch(saveIsLoginState(true));
-            dispatch(saveRoleState("admin"));
-            dispatch(saveTokenState(res.token));
-            navigate("/super");
-          }
-        }else if (res.data.company) {
-          if (res.data.company) {
-            if (res.data.company.role === "company") {
+    const { mutate, isPending } = useMutation({
+      mutationFn: signFormsHandler,
+      onSuccess: (response) => {
+        let res = response.data;
+        if (res.status === "success") {
+          console.log("res",res)
+          if (res.data.user) {
+            if (res.data.user.role === "user") {
               setIsEmailError(false);
               setIsPasswordError(false);
-              dispatch(userActions.setUserInfo(res.data.company));
+              dispatch(userActions.setUserInfo(res.data.user));
               dispatch(userActions.setIsLogin(true));
-              dispatch(userActions.setRole("company"));
+              dispatch(userActions.setRole("user"));
               dispatch(userActions.setToken(res.token));
-              dispatch(saveUserInfoIntoLocalStorag(res.data.company));
+              dispatch(saveUserInfoIntoLocalStorag(res.data.user));
               dispatch(saveIsLoginState(true));
-              dispatch(saveRoleState("company"));
+              dispatch(saveRoleState("user"));
               dispatch(saveTokenState(res.token));
-              navigate("/candidates");
+              navigate("/jobs");
+            } else if(res.data.user.role==="admin"){
+              setIsEmailError(false);
+              setIsPasswordError(false);
+              dispatch(userActions.setUserInfo(res.data.user));
+              dispatch(userActions.setIsLogin(true));
+              dispatch(userActions.setRole("admin"));
+              dispatch(userActions.setToken(res.token));
+              dispatch(saveUserInfoIntoLocalStorag(res.data.user));
+              dispatch(saveIsLoginState(true));
+              dispatch(saveRoleState("admin"));
+              dispatch(saveTokenState(res.token));
+              navigate("/super");
+            }
+          }else if (res.data.company) {
+            if (res.data.company) {
+              if (res.data.company.role === "company") {
+                setIsEmailError(false);
+                setIsPasswordError(false);
+                dispatch(userActions.setUserInfo(res.data.company));
+                dispatch(userActions.setIsLogin(true));
+                dispatch(userActions.setRole("company"));
+                dispatch(userActions.setToken(res.token));
+                dispatch(saveUserInfoIntoLocalStorag(res.data.company));
+                dispatch(saveIsLoginState(true));
+                dispatch(saveRoleState("company"));
+                dispatch(saveTokenState(res.token));
+                navigate("/candidates");
+              }
             }
           }
+        } else {
+          console.log(res);
+          alert("sorry something went wrong please try again later!");
         }
-      } else {
-        console.log(res);
-        alert("sorry something went wrong please try again later!");
-      }
-    },
-    onError: (error) => {
-      console.log(error);
-      if (error.status === 404) {
-        setIsEmailError(true);
-        setIsPasswordError(false);
-      } else if (error.status === 401) {
-        setIsEmailError(false);
-        setIsPasswordError(true);
-      } else {
+      },
+      onError: (error) => {
         console.log(error);
-        alert("sorry something went wrong please try again later!");
-      }
-    },
-  });
+        if (error.status === 404) {
+          setIsEmailError(true);
+          setIsPasswordError(false);
+        } else if (error.status === 401) {
+          setIsEmailError(false);
+          setIsPasswordError(true);
+        } else {
+          console.log(error);
+          alert("sorry something went wrong please try again later!");
+        }
+      },
+    });
 
-  const initialValues = {
-    email: "",
-    password: "",
-  };
-  const onSubmit = (values) => {
-    mutate({ type: "login", formData: values });
-  };
-  const validationSchema = object({
-    email: string().email("Email not valid").required("Email is required"),
-    password: string()
-      .min(5, "Min 5 characters")
-      .required("Password is required")
-      .matches(/[A-Z]+/, "Must contain at least one uppercase character")
-      .matches(/[a-z]+/, "Must contain at least one lowercase character")
-      .matches(/[0-9]+/, "Must contain at least one number"),
-  });
+    const initialValues = {
+      email: "",
+      password: "",
+    };
+    const onSubmit = (values) => {
+      mutate({ type: "login", formData: values });
+    };
+    const validationSchema = object({
+      email: string().email("Email not valid").required("Email is required"),
+      password: string()
+        .min(5, "Min 5 characters")
+        .required("Password is required")
+        .matches(/[A-Z]+/, "Must contain at least one uppercase character")
+        .matches(/[a-z]+/, "Must contain at least one lowercase character")
+        .matches(/[0-9]+/, "Must contain at least one number"),
+    });
 
-  const toggleShowPassword = () => {
-    setShowPassword((showPassword) => !showPassword);
-  };
+    const toggleShowPassword = () => {
+      setShowPassword((showPassword) => !showPassword);
+    };
 
 
-  const eyeShape = showPassword ? faEye : faEyeSlash;
-  const passwordType = showPassword ? "text" : "password";
+    const eyeShape = showPassword ? faEye : faEyeSlash;
+    const passwordType = showPassword ? "text" : "password";
 
   return (
     <>

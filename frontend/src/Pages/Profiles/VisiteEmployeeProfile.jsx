@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileHeader from "../../Components/Header/ProfileHeader";
 import Container from "react-bootstrap/Container";
 import styles from "./UserProfile.module.css";
@@ -26,12 +26,12 @@ const VisiteEmployeeProfile = () => {
 
     useEffect(() => {
       if (visitProfileData?.userProfile?.coverPhoto) {
-        const coverPhotoURL = `http://127.0.0.1:3000/users/${visitProfileData.userProfile?.coverPhoto}`;
+        const coverPhotoURL = `http://127.0.0.1:3000/users/${visitProfileData?.userProfile?.coverPhoto}`;
         setProfileCover(coverPhotoURL);
       }
   
       if (visitProfileData?.userProfile?.avatar) {
-        const avatarURL = `http://127.0.0.1:3000/users/${visitProfileData.userProfile?.avatar}`;
+        const avatarURL = `http://127.0.0.1:3000/users/${visitProfileData?.userProfile?.avatar}`;
         setProfileAvatar(avatarURL);
       }
     }, [visitProfileData]);

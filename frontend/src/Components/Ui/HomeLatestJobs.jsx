@@ -20,45 +20,48 @@ const HomeLatestJobs = () => {
   const navigateToExplore = () => {
     navigate("/jobs");
   };
-console.log(data)
-  return (
-    <>{data?   
-      <section className="py-5 mb-5">
-      <SectionMainTitle title="Latest Jobs" />
-    <Container fluid="lg" className="pb-5">
-    {isFetching ? (
-      <>
-        <Row className="gy-2">
-          <LoadingPlaceholders page="latestJobs"/>
-        </Row>
-      </>
-    ) : (
-      <>
-        <Row className="gy-2">
-          {data &&
-            data.data?.latestJobs.map((job) => (
-              <JobPost
-                key={job.id}
-                id={job.id}
-                jobTitle={job.title}
-                desc={job.description}
-                country={job.country}
-                city={job.city}
-                time={job.createdAt}
-                workplace={job.workplace}
-                type={job.type}
-                grid={true}
-              />
-            ))}
-        </Row>
-      </>
-    )}
 
-    <div className="text-center">
-      <MainButton onClick={navigateToExplore} text="View All Listing" />
-    </div>
-  </Container>    </section>:null}</>
- 
+  return (
+    <>
+      {data ? (
+        <section className="py-5 mb-5">
+          <SectionMainTitle title="Latest Jobs" />
+          <Container fluid="lg" className="pb-5">
+            {isFetching ? (
+              <>
+                <Row className="gy-2">
+                  <LoadingPlaceholders page="latestJobs" />
+                </Row>
+              </>
+            ) : (
+              <>
+                <Row className="gy-2">
+                  {data &&
+                    data.data?.latestJobs.map((job) => (
+                      <JobPost
+                        key={job.id}
+                        id={job.id}
+                        jobTitle={job.title}
+                        desc={job.description}
+                        country={job.country}
+                        city={job.city}
+                        time={job.createdAt}
+                        workplace={job.workplace}
+                        type={job.type}
+                        grid={true}
+                      />
+                    ))}
+                </Row>
+              </>
+            )}
+
+            <div className="text-center">
+              <MainButton onClick={navigateToExplore} text="View All Listing" />
+            </div>
+          </Container>{" "}
+        </section>
+      ) : null}
+    </>
   );
 };
 

@@ -17,7 +17,7 @@ function PostAJob() {
 
   useEffect(() => {
     AOS.init();
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
   const getJobIdFromPost = (jobId) => {
@@ -25,47 +25,56 @@ function PostAJob() {
     setShowQuestions(true);
   };
 
+  // const { data: subscription,isPending } = useQuery({
+  //   queryKey: ["getSubscriptions"],
+  //   queryFn: () => getSubscriptions({ token: token }),
+  // });
+
   return (
     <div className={styles.main_container}>
-      <div className={styles.headerBox}>
-        {showQuestions ? (
-          <h1 className={styles.mainHeader}>
-            <span className={styles.title_number_two}>2</span> Add Some <span>Questions.</span>
-          </h1>
-        ) : (
-          <h1 className={styles.mainHeader}>
-            <span className={styles.title_number_one}>1</span> Post New <span>Job.</span>
-          </h1>
-        )}
-      </div>
-      {!showQuestions && (
-        <div
-          data-aos="zoom-in-up"
-          data-aos-duration="800"
-          className={styles.FormContainer}
-        >
-          <JobForm
-            setShowResponse={setShowResponse}
-            setResponseMessage={setResponseMessage}
-            setSuccessResponse={setSuccessResponse}
-            getJobIdFromPost={getJobIdFromPost}
-          />
-        </div>
-      )}
-      {showQuestions && (
-        <div
-          data-aos="zoom-in-up"
-          data-aos-duration="800"
-          className={styles.FormContainer}
-        >
-          <JobQuestionsForm
-            setShowResponse={setShowResponse}
-            setResponseMessage={setResponseMessage}
-            setSuccessResponse={setSuccessResponse}
-            jobId={jobPostId}
-          />
-        </div>
-      )}
+        <>
+          <div className={styles.headerBox}>
+            {showQuestions ? (
+              <h1 className={styles.mainHeader}>
+                <span className={styles.title_number_two}>2</span> Add Some{" "}
+                <span>Questions.</span>
+              </h1>
+            ) : (
+              <h1 className={styles.mainHeader}>
+                <span className={styles.title_number_one}>1</span> Post New{" "}
+                <span>Job.</span>
+              </h1>
+            )}
+          </div>
+          {!showQuestions && (
+            <div
+              data-aos="zoom-in-up"
+              data-aos-duration="800"
+              className={styles.FormContainer}
+            >
+              <JobForm
+                setShowResponse={setShowResponse}
+                setResponseMessage={setResponseMessage}
+                setSuccessResponse={setSuccessResponse}
+                getJobIdFromPost={getJobIdFromPost}
+              />
+            </div>
+          )}
+          {showQuestions && (
+            <div
+              data-aos="zoom-in-up"
+              data-aos-duration="800"
+              className={styles.FormContainer}
+            >
+              <JobQuestionsForm
+                setShowResponse={setShowResponse}
+                setResponseMessage={setResponseMessage}
+                setSuccessResponse={setSuccessResponse}
+                jobId={jobPostId}
+              />
+            </div>
+          )}
+        </>
 
       <FloatingPopup
         showResponse={showResponse}

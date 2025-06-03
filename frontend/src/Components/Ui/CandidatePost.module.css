@@ -137,6 +137,25 @@
    padding-top: 0.625rem;
 }
 
+
+.container_payment{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.img_side_payment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+}
+.img_side_payment img{
+    width: 100%;
+}
+
 @media screen and (max-width:900px) {
     .info{
         flex-wrap: wrap;

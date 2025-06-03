@@ -169,7 +169,6 @@ const CountUpSection = () => {
             </Row>
           </div>
         </ScrollTrigger>
-
     </>
   );
 };

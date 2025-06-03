@@ -5,7 +5,6 @@ const signFormsHandler = async ({ type, formData, method }) => {
   try {
     let response = null;
     if (method === "put") {
-      console.log("hi");
       response = await axios.put(
         `${baseServerUrl}auth/resetPassword`,
         formData
@@ -978,6 +977,21 @@ export const getPackages = async ({ token, formData, method }) => {
         },
       });
     }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getSubscriptions = async ({ token }) => {
+  try {
+   
+     const response = await axios.get(`${baseServerUrl}subscriptions`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
     return response.data;
   } catch (error) {

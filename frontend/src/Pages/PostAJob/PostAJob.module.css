@@ -41,6 +41,13 @@
 .title_number_one{
     padding: 5px 18px;
 }
+
+
+.payment_img{
+    width: 18.75rem;
+    margin: auto;
+}
+
 @media screen and (max-width:1100px) {
     .main_container .FormContainer{
         width: 90%;

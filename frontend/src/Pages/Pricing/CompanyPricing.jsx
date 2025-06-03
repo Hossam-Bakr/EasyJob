@@ -32,7 +32,6 @@ const CompanyPricing = () => {
   const dispatch = useDispatch();
   const isLogin=JSON.parse(localStorage.getItem("isLogin"));
   const token = useSelector((state) => state.userInfo.token);
-  const profileData = useSelector((state) => state.profileInfo.data);
 
   const [showResponse, setShowResponse] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -82,7 +81,7 @@ const CompanyPricing = () => {
         }
         let formData={
           priceId: priceId,
-          successUrl: `http://127.0.0.1:3001/company-dashboard/${profileData?.CompanyId}`,
+          successUrl: `http://127.0.0.1:3001/PaymentSuccessful`,
           cancelUrl: "http://127.0.0.1:3001/packages"
         }
         if(priceId){
