@@ -7,6 +7,7 @@ const Category = require("../models/categoryModel");
 const factory = require("./handlerFactory");
 const { uploadMixOfImages } = require("../utils/uploadImage");
 const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
 
 exports.uploadCompanyMedia = uploadMixOfImages([
   { name: "logo", maxCount: 1 },
@@ -106,10 +107,7 @@ exports.getCompanyProfileById = catchAsync(async (req, res) => {
   const company = await Company.findByPk(req.params.id);
 
   if (!company) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Company not found",
-    });
+    return next(new ApiError("Company not found", 404));
   }
 
   const companyProfile = await company.getCompanyProfile(companyProfileInclude);
@@ -126,17 +124,11 @@ exports.updateCompanyMedia = catchAsync(async (req, res) => {
   const companyProfile = await req.company.getCompanyProfile();
 
   if (!companyProfile.logo && !req.files.logo) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Please upload a logo",
-    });
+    return next(new ApiError("Please upload a logo", 400));
   }
 
   if (!companyProfile.coverPhoto && !req.files.coverPhoto) {
-    return res.status(400).json({
-      status: "fail",
-      message: "Please upload a cover photo",
-    });
+    return next(new ApiError("Please upload a cover photo", 400));
   }
 
   if (req.files.logo) {

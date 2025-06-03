@@ -4,6 +4,7 @@ const Interview = require("../models/interviewModel");
 const User = require("../models/userModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
 
 const interviewInclude = [
   {
@@ -25,10 +26,7 @@ exports.getInterview = catchAsync(async (req, res) => {
   });
 
   if (!interview.length) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Interview not found",
-    });
+    return next(new ApiError("Interview not found", 404));
   }
 
   res.status(200).json({
@@ -43,10 +41,7 @@ exports.scheduleInterview = catchAsync(async (req, res) => {
   const application = await Application.findByPk(req.body.applicationId);
 
   if (!application) {
-    return res.status(404).json({
-      status: "fail",
-      message: "No application found with that ID",
-    });
+    return next(new ApiError("No application found with that ID", 404));
   }
 
   req.body.JobId = application.JobId;
@@ -70,10 +65,7 @@ exports.updateInterview = catchAsync(async (req, res) => {
   });
 
   if (!interview.length) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Interview not found",
-    });
+    return next(new ApiError("Interview not found", 404));
   }
 
   await interview[0].update(req.body);
